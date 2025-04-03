@@ -53,15 +53,7 @@
             "driver": "MySQL",
             "name": "localhost",
             "database": "lostcity",
-            "username": "root"
-        },
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "database": "mysql://lostcity:@localhost:3306/lostcity",
-            "name": "localhost",
-            "group": "lostcity"
-        },
+            "username": "lostcity",
         {
             "mysqlOptions": {
                 "authProtocol": "default",
