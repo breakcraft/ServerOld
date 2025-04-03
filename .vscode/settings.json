@@ -42,6 +42,7 @@
         ]
     },
     "sqltools.connections": [
+        // MySQL Connection using the "lostcity" user
         {
             "mysqlOptions": {
                 "authProtocol": "default",
@@ -51,23 +52,38 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "localhost",
+            "name": "Lostcity MySQL Connection",
             "database": "lostcity",
             "username": "lostcity",
-        {
-            "mysqlOptions": {
-                "authProtocol": "default",
-                "enableSsl": "Disabled"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "driver": "MySQL",
-            "database": "lostcity",
-            "username": "lostcity",
-            "name": "lostcity",
-            "group": "mysql"
+            "password": ""
         }
+        // Uncomment the block below to use the root connection instead
+        /*
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Localhost (root)",
+            "database": "lostcity",
+            "username": "root",
+            "password": ""
+        }
+        */
+        // The following SQLite connection is commented out as it's not needed when using MySQL
+        /*
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "mysql://lostcity:@localhost:3306/lostcity",
+            "name": "SQLite Connection",
+            "group": "lostcity"
+        }
+        */
     ],
     "sqltools.useNodeRuntime": true
 }

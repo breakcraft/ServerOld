@@ -1,43 +1,80 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug Jest: Current test file",
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-            "args": [
-                "${fileBasenameNoExtension}",
-                "--runInBand",
-                "--config",
-                "${workspaceFolder}/jest.config.ts"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "console": "internalConsole"
+    "editor.tokenColorCustomizations": {
+        "[*Light*]": {
+            "textMateRules": [
+                {
+                    "scope": "ref.matchtext",
+                    "settings": {
+                        "foreground": "#000"
+                    }
+                }
+            ]
         },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug Jest: All tests",
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-            "args": [
-                "--runInBand",
-                "--config",
-                "${workspaceFolder}/jest.config.ts"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "console": "internalConsole"
+        "[*Dark*]": {
+            "textMateRules": [
+                {
+                    "scope": "ref.matchtext",
+                    "settings": {
+                        "foreground": "#fff"
+                    }
+                }
+            ]
         },
+        "textMateRules": [
+            {
+                "scope": "googletest.failed",
+                "settings": {
+                    "foreground": "#f00"
+                }
+            },
+            {
+                "scope": "googletest.passed",
+                "settings": {
+                    "foreground": "#0f0"
+                }
+            },
+            {
+                "scope": "googletest.run",
+                "settings": {
+                    "foreground": "#0f0"
+                }
+            }
+        ]
+    },
+    "sqltools.connections": [
         {
-            "type": "node-terminal",
-            "name": "Start Server",
-            "request": "launch",
-            "command": "npm start",
-            "cwd": "${workspaceFolder}"
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Lostcity MySQL Connection",
+            "database": "lostcity",
+            "username": "lostcity",
+            "password": ""
         }
-    ]
+        // Uncomment the block below to use the root connection instead
+        /*
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Localhost (root)",
+            "database": "lostcity",
+            "username": "root",
+            "password": ""
+        }
+        */
+        // The following SQLite connection is commented out as it's not needed when using MySQL
+        /*
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "mysql://lostcity:@localhost:3306/lostcity",
+            "name": "SQLite Connection",
+            "group": "lostcity"
+        }
+        */
+    ],
+    "sqltools.useNodeRuntime": true
 }
