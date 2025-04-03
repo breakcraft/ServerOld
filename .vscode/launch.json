@@ -76,5 +76,10 @@
         }
         */
     ],
-    "sqltools.useNodeRuntime": true
+    "sqltools.useNodeRuntime": true,
+    "configurations": [
+        
+
+
+    ]
 }
