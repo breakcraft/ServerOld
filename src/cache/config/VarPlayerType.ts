@@ -1,3 +1,6 @@
+// VarPlayerType.ts
+// C:\Users\lionk\Desktop\2004Scape\Server\src\cache\config\VarPlayerType.ts
+
 import fs from 'fs';
 
 

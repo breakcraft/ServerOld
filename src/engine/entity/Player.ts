@@ -1,7 +1,10 @@
+// Player.ts
+// C:\Users\lionk\Desktop\2004Scape\Server\src\engine\entity\Player.ts
+
 import 'dotenv/config';
 
 import { PlayerInfoProt, Visibility } from '@2004scape/rsbuf';
-import { CollisionType, CollisionFlag } from '@2004scape/rsmod-pathfinder';
+import { CollisionFlag, CollisionType } from '@2004scape/rsmod-pathfinder';
 
 import Component from '#/cache/config/Component.js';
 import FontType from '#/cache/config/FontType.js';
@@ -99,6 +102,13 @@ export function getExpByLevel(level: number) {
 }
 
 export default class Player extends PathingEntity {
+    // cheat toggles for all-in-1 mode (added so TypeScript won't complain about usage)
+    godModeEnabled: boolean = false;
+    infinitePrayer: boolean = false;
+    infiniteRun: boolean = false;
+    infiniteRunes: boolean = false;
+    _originalUpdateEnergy?: () => void;
+
     static readonly DESIGN_BODY_COLORS: number[][] = [
         [6798, 107, 10283, 16, 4797, 7744, 5799, 4634, 33697, 22433, 2983, 54193],
         [8741, 12, 64030, 43162, 7735, 8404, 1701, 38430, 24094, 10153, 56621, 4783, 1341, 16578, 35003, 25239],
@@ -1072,9 +1082,9 @@ export default class Player extends PathingEntity {
         // The follow interaction doesn't do anything, just continue
         if (this.targetOp === ServerTriggerType.APPLAYER3 || this.targetOp === ServerTriggerType.OPPLAYER3) {
             return false;
+            // Run the opTrigger if it exists and Player is within range
+            // allowOpScenery controls if Locs and Objs can be op'd
         }
-        // Run the opTrigger if it exists and Player is within range
-        // allowOpScenery controls if Locs and Objs can be op'd
         if (opTrigger && (this.target instanceof PathingEntity || allowOpScenery) && this.inOperableDistance(this.target)) {
             const target = this.target;
 
@@ -1329,6 +1339,7 @@ export default class Player extends PathingEntity {
 
         stream.p8(this.username37);
         stream.p1(this.combatLevel);
+        stream.p1(this.staffModLevel); // sends mod rights byte (0 = none, 1 = mod, 2 = admin)
 
         const appearance: Uint8Array = new Uint8Array(stream.pos);
         stream.pos = 0;

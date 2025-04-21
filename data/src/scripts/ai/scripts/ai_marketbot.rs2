@@ -1,0 +1,179 @@
+[ai_spawn,goblin_unarmed1]
+npc_settimer(5);  // Start the behavior loop after 5 ticks
+
+[ai_timer,goblin_unarmed1]
+def_int $say = random(12);
+def_int $color = random(6);
+
+// Use nested ifs to output a colorized message
+if ($color = 0) {  // Red messages
+    if ($say = 0) {
+        npc_say("Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("Buying death runes");
+    } else if ($say = 4) {
+        npc_say("Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("Selling fire runes 10k!");
+    } else {
+        npc_say("Need GP? Sell me ur junk!");
+    }
+} else if ($color = 1) {  // Green messages
+    if ($say = 0) {
+        npc_say("@gre@Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("@gre@Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("@gre@Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("@gre@Buying death runes");
+    } else if ($say = 4) {
+        npc_say("@gre@Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("@gre@Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("@gre@Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("@gre@B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("@gre@Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("@gre@Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("@gre@Selling fire runes 10k!");
+    } else {
+        npc_say("@gre@Need GP? Sell me ur junk!");
+    }
+} else if ($color = 2) {  // Blue messages
+    if ($say = 0) {
+        npc_say("@blu@Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("@blu@Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("@blu@Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("@blu@Buying death runes");
+    } else if ($say = 4) {
+        npc_say("@blu@Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("@blu@Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("@blu@Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("@blu@B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("@blu@Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("@blu@Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("@blu@Selling fire runes 10k!");
+    } else {
+        npc_say("@blu@Need GP? Sell me ur junk!");
+    }
+} else if ($color = 3) {  // Yellow messages
+    if ($say = 0) {
+        npc_say("@yel@Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("@yel@Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("@yel@Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("@yel@Buying death runes");
+    } else if ($say = 4) {
+        npc_say("@yel@Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("@yel@Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("@yel@Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("@yel@B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("@yel@Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("@yel@Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("@yel@Selling fire runes 10k!");
+    } else {
+        npc_say("@yel@Need GP? Sell me ur junk!");
+    }
+} else if ($color = 4) {  // Cyan messages
+    if ($say = 0) {
+        npc_say("@cya@Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("@cya@Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("@cya@Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("@cya@Buying death runes");
+    } else if ($say = 4) {
+        npc_say("@cya@Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("@cya@Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("@cya@Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("@cya@B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("@cya@Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("@cya@Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("@cya@Selling fire runes 10k!");
+    } else {
+        npc_say("@cya@Need GP? Sell me ur junk!");
+    }
+} else if ($color = 5) {  // Magenta messages
+    if ($say = 0) {
+        npc_say("@mag@Selling coal! Cheap!");
+    } else if ($say = 1) {
+        npc_say("@mag@Buying iron bars!");
+    } else if ($say = 2) {
+        npc_say("@mag@Selling 10k willows");
+    } else if ($say = 3) {
+        npc_say("@mag@Buying death runes");
+    } else if ($say = 4) {
+        npc_say("@mag@Trade me for deals!");
+    } else if ($say = 5) {
+        npc_say("@mag@Selling feathers 5gp each!");
+    } else if ($say = 6) {
+        npc_say("@mag@Buying all runes!");
+    } else if ($say = 7) {
+        npc_say("@mag@B U Y I N G  S T E E L  B A R S");
+    } else if ($say = 8) {
+        npc_say("@mag@Selling lobster! PM me!");
+    } else if ($say = 9) {
+        npc_say("@mag@Buying pure essence!");
+    } else if ($say = 10) {
+        npc_say("@mag@Selling fire runes 10k!");
+    } else {
+        npc_say("@mag@Need GP? Sell me ur junk!");
+    }
+}
+
+// Movement: decide whether to remain idle or to walk
+def_int $walk_type = random(3);
+if ($walk_type = 0) {
+    // Idle – do nothing this cycle
+} else if ($walk_type = 1) {
+    npc_walk(movecoord(npc_coord, random(1), 0, random(1)));
+} else {
+    npc_walk(movecoord(npc_coord, sub(random(3), 1), 0, sub(random(3), 1)));
+}
+
+// Reset the timer for the next cycle (delay between 5 and 30 ticks)
+def_int $next = add(5, random(25));
+npc_settimer($next);

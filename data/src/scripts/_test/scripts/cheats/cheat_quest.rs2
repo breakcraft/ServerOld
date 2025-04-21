@@ -109,7 +109,7 @@ if (p_finduid(uid) = true) {
                 case 30 : queue(hero_quest_complete, 0);
                 case 31 : queue(grail_quest_complete, 0);
                 case 32 : queue(junglepotion_quest_complete, 0);
-                case 33 : mes("Quest not implemented.");
+                case 33 : queue(legends_quest_complete, 0);
                 case 34 : queue(zanaris_quest_complete, 0);
                 case 35 : queue(arthur_quest_complete, 0);
                 case 36 : queue(drunkmonk_complete, 0);
@@ -217,7 +217,7 @@ if (p_finduid(uid) = true) {
                 case 30 : %hero_progress = 0;
                 case 31 : %grail_progress = 0;
                 case 32 : %junglepotion_progress = 0;
-                case 33 : mes("Quest not implemented.");
+                case 33 : %legends_progress = 0;
                 case 34 : %zanaris_progress = 0;
                 case 35 : %arthur_progress = 0;
                 case 36 : %drunkmonk_progress = 0;
@@ -421,6 +421,8 @@ return;
 %grail_progress = 0;
 %junglepotion_progress = 0;
 // Legend's Quest not implemented
+// Legend's Quest updated
+%legends_progress = 0;
 %zanaris_progress = 0;
 %arthur_progress = 0;
 %drunkmonk_progress = 0;

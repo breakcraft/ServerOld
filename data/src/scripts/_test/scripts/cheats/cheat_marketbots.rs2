@@ -1,0 +1,14 @@
+[debugproc,marketbots]
+
+if (p_finduid(uid) = false) return;
+
+def_coord $base = 1_42_54_38_36;
+def_int $i = 0;
+
+while ($i < 10) {
+    def_coord $coord = movecoord($base, random(4), 0, random(4));
+    npc_add($coord, goblin_unarmed1, 500); // ✅ verified working npc type
+    $i = add($i, 1);
+}
+
+mes("Market bots spawned.");
