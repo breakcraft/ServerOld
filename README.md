@@ -1,50 +1,43 @@
-<div align="center">
-    <h1>Lost City - May 18, 2004</h1>
-</div>
+# Lost City – May 18 2004
 
-> [!NOTE]
-> Learn about our history and ethos on our forum: https://lostcity.rs/t/faq-what-is-lost-city/16
+> **NOTE**  
+> Learn about our history and ethos on our forum:  
+> <https://lostcity.rs/t/faq-what-is-lost-city/16>
 
 ## Getting Started
 
-> [!IMPORTANT]
+> **IMPORTANT**  
 > If you run into issues, please see our [common issues](#common-issues).
 
-1. Download and extract this repo somewhere on your computer.
-2. Install our [dependencies](#dependencies).
-3. Open the folder you downloaded: **Run the quickstart script and follow the on-screen prompts.** You may disregard any severity warnings you see.
+1. **Download and extract** this repo somewhere on your computer.  
+2. **Install** the required [dependencies](#dependencies).  
+3. **Open the folder** you downloaded, run the quick-start script and follow the prompts.  
+   You may disregard any “severity” warnings.
 
-Once your setup process has completed, wait for it to tell you the world has started before trying to play.
-
-The server includes its own web client, so you don't have to download a client!
+After setup completes, wait until the console says **“World started”** before launching the game.  
+The server ships with its own web client, so you don’t need a separate download!
 
 ## Dependencies
 
-- [NodeJS 22](https://nodejs.org/)
-- [Java 17](https://adoptium.net/) - later LTS versions are also fine.
+- [Node.js 22](https://nodejs.org/)  
+- [Java 17 (LTS)](https://adoptium.net/) — later LTS versions work too.
 
-> [!TIP]
-> If you're using VS Code (recommended), [we have an extension to install on the marketplace.](https://marketplace.visualstudio.com/items?itemName=2004scape.runescriptlanguage)
+> **TIP**  
+> Using VS Code? Install our [RuneScript Language extension](https://marketplace.visualstudio.com/items?itemName=2004scape.runescriptlanguage).
 
 ## Workflow
 
-Content developers should run `npm start`. The server will watch for changes to scripts and configs, then automatically repack everything.
-
-Engine developers should run `npm run dev`. This does what `npm start` does above, but also completely restarts the server when engine code has changed.
+| Role | Command | What it does |
+|------|---------|--------------|
+| **Content devs** | `npm start` | Watches scripts/configs, repacks on change |
+| **Engine devs**  | `npm run dev` | Same as above **plus** full server restart on engine changes |
 
 ## Common Issues
 
-* `bad option: --import`  
-
-You are using an older version of Node. Reinstall and re-run.
-
-* `'"java"' is not recognized as an internal or external command`  
-
-You do not have Java installed.
-
-* `XXXXX has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 52.0`  
-
-You are using Java 8 or Java 11. If you have multiple Java versions, you will need to set `JAVA_PATH=path-to-java.exe` in your .env file.
+- **`bad option: --import`** – Upgrade to Node 22 and rerun.  
+- **`"java" is not recognised …`** – Java not installed or not in `PATH`.  
+- **Class-file version 61.0 error** – You’re on Java 8/11; set `JAVA_PATH=<path-to-java17>` in `.env`.
 
 ## License
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for details.
+
+Licensed under the [MIT License](LICENSE).
