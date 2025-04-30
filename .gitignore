@@ -2,6 +2,7 @@ out/
 .env
 package-lock.json
 tsconfig.tsbuildinfo
+2004scape_repo_full.jsonl
 
 data/pack/
 
@@ -60,3 +61,5 @@ Thumbs.db
 ### macOS ###
 .DS_Store
 ._*
+.github/workflows/update-jsonl.yml
+.github/workflows/scripts/update_repo_jsonl.py
