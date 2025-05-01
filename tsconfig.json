@@ -21,7 +21,8 @@
     "alwaysStrict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowUnreachableCode": true
+    "allowUnreachableCode": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*.ts", "src/**/*.js", "tools/**/*.ts", "tools/**/*.js"],
   "exclude": ["node_modules", "<node_internals>/**"]
