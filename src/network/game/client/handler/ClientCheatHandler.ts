@@ -1,10 +1,7 @@
 /***************************************************************************************************
  *  ClientCheatHandler.ts – 2004Scape Server
  *
- *  NOTE: All legacy comments (// … and /* … */ /*are preserved verbatim so future
-/* devs can trace original intent.This header & quick‑win lint fixes were added on 2025‑04‑20.
-***************************************************************************************************/
-
+ *  NOTE: All legacy comments (// … and /* … */
 /* ───────── External packages ───────── */
 import { Visibility } from '@2004scape/rsbuf';
 import { LocAngle, LocShape } from '@2004scape/rsmod-pathfinder';
@@ -42,7 +39,9 @@ import { tryParseInt } from '#/util/TryParse.js';
    (projects sometimes alias '#/.../Player' vs '#/.../Player.js')
 ──────────────────────────────────────────────────────────────────────────── */
 declare module '#/engine/entity/Player.js' {
-    interface Player { _cheat?: CheatFlags }
+    interface Player {
+        _cheat?: CheatFlags;
+    }
 }
 
 /* ---- Helper types ---- */
@@ -117,6 +116,7 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                                 params[i] = InvType.getId(args.shift() ?? '');
                                 break;
                             case ScriptVarType.COORD: {
+                                // Note: This logic is from the original code
                                 const seg = cheat.split('_');
                                 params[i] = CoordGrid.packCoord(
                                     Number.parseInt(seg[0].slice(6), 10),
@@ -312,7 +312,9 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                         player.messageGame('All‑in‑1 mode activated');
                     } else {
                         ep.infinitePrayer = ep.infiniteRun = ep.infiniteRunes = false;
-                        if (ep._originalUpdateEnergy) player.updateEnergy = ep._originalUpdateEnergy;
+                        if (ep._originalUpdateEnergy) {
+                            player.updateEnergy = ep._originalUpdateEnergy;
+                        }
                         player.messageGame('All‑in‑1 mode deactivated');
                     }
                     break;
@@ -320,8 +322,12 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
 
                 case 'unlimitrun': {
                     const ep: EP = player as EP;
-                    if (!ep._originalUpdateEnergy) ep._originalUpdateEnergy = player.updateEnergy;
-                    player.updateEnergy = function () { this.runenergy = 10_000; };
+                    if (!ep._originalUpdateEnergy) {
+                        ep._originalUpdateEnergy = player.updateEnergy;
+                    }
+                    player.updateEnergy = function () {
+                        this.runenergy = 10_000;
+                    };
                     player.messageGame('Unlimited run energy activated!');
                     break;
                 }
@@ -437,7 +443,9 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     }
 
                     player.invAdd(InvType.INV, finalId, amount, false);
-                    player.messageGame(`Gave ${(ObjType.get(finalId)?.name) ?? finalId} x${amount}${wantNoted ? ' (noted)' : ''}`);
+                    player.messageGame(
+                        `Gave ${(ObjType.get(finalId)?.name) ?? finalId} x${amount}${wantNoted ? ' (noted)' : ''}`
+                    );
                     break;
                 }
 
@@ -460,7 +468,9 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                         const term = itemName.toLowerCase();
                         for (let i = 0; i < ObjType.count; i++) {
                             const obj = ObjType.get(i);
-                            if (obj?.name?.toLowerCase().includes(term)) hits.push({ id: i, name: obj.name });
+                            if (obj?.name?.toLowerCase().includes(term)) {
+                                hits.push({ id: i, name: obj.name });
+                            }
                         }
 
                         if (!hits.length) {
@@ -468,8 +478,12 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                         } else if (hits.length === 1) {
                             player.messageGame(`Item '${hits[0].name}' id: ${hits[0].id}`);
                         } else {
-                            player.messageGame(`Multiple items${hits.length > 10 ? ' (showing first 10)' : ''}:`);
-                            hits.slice(0, 10).forEach(h => player.messageGame(`- ${h.name} (ID: ${h.id})`));
+                            player.messageGame(
+                                `Multiple items${hits.length > 10 ? ' (showing first 10)' : ''}:`
+                            );
+                            hits.slice(0, 10).forEach(h =>
+                                player.messageGame(`- ${h.name} (ID: ${h.id})`)
+                            );
                             if (hits.length > 10) {
                                 player.messageGame(`... and ${hits.length - 10} more.`);
                             }
@@ -488,7 +502,12 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     }
                     const obj = ObjType.getId(args[1]);
                     if (obj === -1) return false;
-                    other.invAdd(InvType.INV, obj, Math.max(1, tryParseInt(args[2], 1)), false);
+                    other.invAdd(
+                        InvType.INV,
+                        obj,
+                        Math.max(1, tryParseInt(args[2], 1)),
+                        false
+                    );
                     break;
                 }
 
@@ -499,6 +518,7 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                         while (random === -1) {
                             random = Math.trunc(Math.random() * ObjType.count);
                             const obj = ObjType.get(random);
+                            // skip if members-only item on F2P environment or if dummy item
                             if ((!Environment.NODE_MEMBERS && obj.members) || obj.dummyitem) {
                                 random = -1;
                             }
@@ -509,7 +529,9 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                 }
                 case 'givemany': {
                     const obj = ObjType.getId(args[0]);
-                    if (obj !== -1) player.invAdd(InvType.INV, obj, 1000, false);
+                    if (obj !== -1) {
+                        player.invAdd(InvType.INV, obj, 1000, false);
+                    }
                     break;
                 }
 
@@ -521,12 +543,16 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     break;
 
                 // ───── Instant world reboot ─────
-                case 'reboot':           // production shard
-                    if (Environment.NODE_PRODUCTION) World.rebootTimer(0);
+                case 'reboot': // production shard
+                    if (Environment.NODE_PRODUCTION) {
+                        World.rebootTimer(0);
+                    }
                     break;
 
-                case 'dreboot':          // dev‑only reboot (works when NODE_PRODUCTION = false)
-                    if (!Environment.NODE_PRODUCTION) World.rebootTimer(0);
+                case 'dreboot': // dev‑only reboot (works when NODE_PRODUCTION = false)
+                    if (!Environment.NODE_PRODUCTION) {
+                        World.rebootTimer(0);
+                    }
                     break;
 
                 case 'serverdrop':
@@ -546,6 +572,7 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     if (args.length < 2) return false;
                     const stat = PlayerStatMap.get(args[0].toUpperCase());
                     if (stat === undefined) return false;
+                    // forcibly set level to 1, then add appropriate XP
                     player.stats[stat] = player.baseLevels[stat] = player.levels[stat] = 1;
                     player.addXp(stat, getExpByLevel(tryParseInt(args[1], 1)), false);
                     break;
@@ -628,11 +655,16 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     const lz = Number(seg[4] ?? 32);
 
                     if (
-                        level < 0 || level > 3 ||
-                        mx < 0 || mx > 255 ||
-                        mz < 0 || mz > 255 ||
-                        lx < 0 || lx > 63 ||
-                        lz < 0 || lz > 63
+                        level < 0 ||
+                        level > 3 ||
+                        mx < 0 ||
+                        mx > 255 ||
+                        mz < 0 ||
+                        mz > 255 ||
+                        lx < 0 ||
+                        lx > 63 ||
+                        lz < 0 ||
+                        lz > 63
                     ) {
                         return false;
                     }
@@ -646,11 +678,40 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                 }
 
                 case 'teleto': {
-                    if (!Environment.NODE_PRODUCTION || !args.length) return false;
-                    const other = World.getPlayerByUsername(args[0]);
-                    if (!other) return false;
+                    if (!args.length) {
+                        player.messageGame('Usage: ::teleto <username>');
+                        return false;
+                    }
+
+                    const targetName = args[0];
+                    // 1) exact match first
+                    let other = World.getPlayerByUsername(targetName);
+
+                    // 2) fallback to case-insensitive by scanning known player indices
+                    if (!other) {
+                        const targetLower = targetName.toLowerCase();
+                        // If your server uses a different max player count, adjust 2048:
+                        for (let i = 0; i < 2048; i++) {
+                            const p2 = World.getPlayer(i);
+                            if (!p2) continue;
+                            if (p2.username.toLowerCase() === targetLower) {
+                                other = p2;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!other) {
+                        player.messageGame(`Player '${targetName}' not found or offline.`);
+                        return false;
+                    }
+
                     player.closeModal();
-                    if (!player.canAccess()) return false;
+                    if (!player.canAccess()) {
+                        player.messageGame('You are currently busy.');
+                        return true;
+                    }
+
                     player.clearInteraction();
                     player.unsetMapFlag();
                     player.teleJump(other.x, other.z, other.level);
@@ -660,10 +721,17 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                 case 'setvis':
                     if (!Environment.NODE_PRODUCTION || !args.length) return false;
                     switch (args[0]) {
-                        case '0': player.setVisibility(Visibility.DEFAULT); break;
-                        case '1': player.setVisibility(Visibility.SOFT); break;
-                        case '2': player.setVisibility(Visibility.HARD); break;
-                        default: return false;
+                        case '0':
+                            player.setVisibility(Visibility.DEFAULT);
+                            break;
+                        case '1':
+                            player.setVisibility(Visibility.SOFT);
+                            break;
+                        case '2':
+                            player.setVisibility(Visibility.HARD);
+                            break;
+                        default:
+                            return false;
                     }
                     return true;
 
@@ -710,4 +778,3 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
         return false;
     }
 }
-
