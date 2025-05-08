@@ -263,39 +263,97 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                 }
 
                 /* ----------------------------------------------------------------
-                   NEW allin1 command for “god mode” in the original script
-                ---------------------------------------------------------------- */
-                case 'allin1': {
-                    const ep: EP = player as EP;
-                    ep.godModeEnabled = !ep.godModeEnabled;
-                    if (ep.godModeEnabled) {
-                        // set HP to a large number
-                        player.levels[PlayerStat.HITPOINTS] = 999_999_999;
+   ALL-IN-1 GOD-MODE  — robust version (stand-alone / no deps)
+---------------------------------------------------------------- */
+case 'allin1': {
+    // === 0) one-time rune-id cache =======================================
+    const RUNE_IDS: ReadonlySet<number> = (() => {
+        if ((globalThis as any).__runeIdCache) {
+            return (globalThis as any).__runeIdCache as ReadonlySet<number>;
+        }
+        const ids: number[] = [];
+        for (let i = 0; i < ObjType.count; i++) {
+            const o = ObjType.get(i);
+            if (o?.name?.toLowerCase().endsWith(' rune')) ids.push(i);
+        }
+        return ((globalThis as any).__runeIdCache = new Set<number>(ids)) as ReadonlySet<number>;
+    })();
 
-                        // Fully restore stats based on baseLevels
-                        player.levels.forEach((_, i) => (player.levels[i] = player.baseLevels[i]));
+    // === 1) augment player w/ original fns (first call only) =============
+    interface GodModePatch {
+        godModeEnabled?: boolean;
+        origFns?: {
+            updateEnergy: Player['updateEnergy'];
+            applyDamage: Player['applyDamage'];
+            invDel: Player['invDel'];
+            invDelSlot: Player['invDelSlot'];
+            invTotal: Player['invTotal'];
+        };
+    }
+    const cheat = player as Player & GodModePatch;
+    if (!cheat.origFns) {
+        cheat.origFns = {
+            updateEnergy: player.updateEnergy.bind(player),
+            applyDamage: player.applyDamage.bind(player),
+            invDel: player.invDel.bind(player),
+            invDelSlot: player.invDelSlot.bind(player),
+            invTotal: player.invTotal.bind(player)
+        };
+    }
 
-                        // Activate infinite flags
-                        ep.infinitePrayer = ep.infiniteRun = ep.infiniteRunes = true;
+    // === 2) flip flag =====================================================
+    cheat.godModeEnabled = !cheat.godModeEnabled;
 
-                        // Save original updateEnergy if not saved
-                        if (!ep._originalUpdateEnergy) {
-                            ep._originalUpdateEnergy = player.updateEnergy;
-                        }
+    // --- constants --------------------------------------------------------
+    const MAX_SAFE_HP = 2_147_000_000;     // avoid 32-bit overflow on client
 
-                        // Override updateEnergy
-                        player.updateEnergy = function () {
-                            this.runenergy = 10_000;
-                        };
+    if (cheat.godModeEnabled) {
+        /* ---------------- ENABLE -------------------------------------- */
+        // 2.1 force every stat to its base (HP gets huge cap)
+        for (let i = 0; i < player.levels.length; i++) {
+            player.levels[i] = player.baseLevels[i];
+        }
+        player.levels[PlayerStat.HITPOINTS] = Math.min(MAX_SAFE_HP, 999_999_999);
+        player.runenergy = 10_000;
 
-                        player.messageGame('All‑in‑1 mode activated');
-                    } else {
-                        ep.infinitePrayer = ep.infiniteRun = ep.infiniteRunes = false;
-                        if (ep._originalUpdateEnergy) player.updateEnergy = ep._originalUpdateEnergy;
-                        player.messageGame('All‑in‑1 mode deactivated');
-                    }
-                    break;
-                }
+        // 2.2 replace energy tick (namespaced fn for easier stack-trace)
+        player.updateEnergy = function allin1_energyHook() {
+            player.runenergy = 10_000;
+            player.levels[PlayerStat.PRAYER] = player.baseLevels[PlayerStat.PRAYER];
+        };
+
+        // 2.3 make player invincible
+        player.applyDamage = function allin1_damageHook() {/* noop */};
+
+        // 2.4 infinite runes & rune-grief protection
+        player.invTotal = function allin1_invTotalHook(inv, obj) {
+            return inv === InvType.INV && RUNE_IDS.has(obj)
+                ? 1_000_000
+                : cheat.origFns!.invTotal(inv, obj);
+        };
+
+        player.invDel = function allin1_invDelHook(inv, obj, count, beginSlot = -1) {
+            return inv === InvType.INV && RUNE_IDS.has(obj)
+                ? count
+                : cheat.origFns!.invDel(inv, obj, count, beginSlot);
+        };
+
+        player.invDelSlot = function allin1_invDelSlotHook(inv, slot) {
+            if (inv === InvType.INV) {
+                const itm = player.invGetSlot(inv, slot);
+                if (itm && RUNE_IDS.has(itm.id)) return;  // skip removal
+            }
+            cheat.origFns!.invDelSlot(inv, slot);
+        };
+
+        player.messageGame('All-in-1 mode activated.');
+    } else {
+        /* ---------------- DISABLE (restore originals) ----------------- */
+        Object.assign(player, cheat.origFns!);
+        player.messageGame('All-in-1 mode deactivated.');
+    }
+    return true;
+}
 
                 case 'unlimitrun': {
                     const ep: EP = player as EP;
