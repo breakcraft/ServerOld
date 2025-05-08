@@ -17,7 +17,7 @@ if (inv_total(inv, garlic) > 0) {
 }
 
 [ai_opplayer2,count_draynor]
-if (stat(hitpoints) = 0) {
+if (%death = ^true) {
     npc_setmode(null);
     return;
 }
@@ -47,7 +47,7 @@ if (finduid(%npc_aggressive_player) = true) {
 
 
 [ai_queue3,count_draynor]
-if (npc_findhero = true) {
+if (npc_findhero = ^true) {
     if (p_finduid(uid) = true) {
         @count_draynor_use_stake;
     }
