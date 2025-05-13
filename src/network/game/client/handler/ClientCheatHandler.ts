@@ -278,6 +278,114 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                     break;
                 }
 
+                // ─────────────────────────────────────────────────────────────
+//         NEW “copy” COMMAND: stats, quests, worn gear,
+//         backpack, bank, & appearance only
+// ─────────────────────────────────────────────────────────────
+case 'copy': {
+    // ::copy <username>
+    if (!args.length) return false;
+
+    const other = World.getPlayerByUsername(args[0]);
+    if (!other) {
+        player.messageGame(`${args[0]} is not logged in.`);
+        return true;
+    }
+
+    /* ─── 1) CORE STATS ─── */
+    for (let i = 0; i < other.stats.length; i++) {
+        player.stats[i]      = other.stats[i];
+        player.baseLevels[i] = other.baseLevels[i];
+        player.levels[i]     = other.levels[i];
+    }
+    player.combatLevel = other.combatLevel;
+
+    /* ─── 2) QUEST VARPS ONLY ───
+       In this cache: category 3 = quests.
+       A handful of older quest varps still keep the "quest_*" debugname
+       but have category 0, so we include those too. */
+    for (let id = 0; id < VarPlayerType.count; id++) {
+        const vt = VarPlayerType.get(id);
+        if (!vt || vt.protect) continue;
+
+        const isQuest = vt.category === 3 ||
+                        (vt.debugname && vt.debugname.startsWith('quest_'));
+        if (!isQuest) continue;
+
+        if (vt.type === ScriptVarType.STRING) {
+            player.setVar(id, other.varsString[id] ?? '');
+        } else {
+            player.setVar(id, other.vars[id]);
+        }
+    }
+
+    /* ─── 3) WORN EQUIPMENT ─── */
+    const srcWorn = other.getInventory(InvType.WORN);
+    let   dstWorn = player.getInventory(InvType.WORN);
+    if (srcWorn) {
+        if (!dstWorn) {
+            dstWorn = new Inventory(InvType.WORN, srcWorn.capacity);
+            player.addInventory(dstWorn);
+        }
+        dstWorn.clear();
+        for (let slot = 0; slot < srcWorn.capacity; slot++) {
+            const itm = srcWorn.get(slot);
+            if (itm) dstWorn.set(slot, itm.id, itm.count, itm);
+        }
+        dstWorn.update = true;
+    }
+
+    /* ─── 4) BACKPACK ─── */
+    const srcInv = other.getInventory(InvType.INV);
+    let   dstInv = player.getInventory(InvType.INV);
+    if (srcInv) {
+        if (!dstInv) {
+            dstInv = new Inventory(InvType.INV, srcInv.capacity);
+            player.addInventory(dstInv);
+        }
+        dstInv.clear();
+        for (let slot = 0; slot < srcInv.capacity; slot++) {
+            const itm = srcInv.get(slot);
+            if (itm) dstInv.set(slot, itm.id, itm.count, itm);
+        }
+        dstInv.update = true;
+    }
+
+    /* ─── 5) BANK ─── */
+    const BANK_ID = InvType.getId('bank');
+    if (BANK_ID !== -1) {
+        const srcBank = other.getInventory(BANK_ID);
+        let   dstBank = player.getInventory(BANK_ID);
+        if (srcBank) {
+            if (!dstBank) {
+                dstBank = new Inventory(BANK_ID, srcBank.capacity);
+                player.addInventory(dstBank);
+            }
+            dstBank.clear();
+            for (let slot = 0; slot < srcBank.capacity; slot++) {
+                const itm = srcBank.get(slot);
+                if (itm) dstBank.set(slot, itm.id, itm.count, itm);
+            }
+            dstBank.update = true;
+        }
+    }
+
+    /* ─── 6) APPEARANCE ─── */
+    player.body    = [...other.body];
+    player.colors  = [...other.colors];
+    player.gender  = other.gender;
+
+    /* ─── FINAL FLUSH ─── */
+    player.buildAppearance(InvType.WORN);
+    player.updateInvs();
+
+    player.messageGame(
+        `You have successfully copied ${other.displayName}'s stats, quests, gear, backpack, and bank.`
+    );
+    return true;
+}
+  
+
                 case 'cdebug': {
                     // Cannon debug helper
                     ['mcannon_progress', 'mcannon_railings', 'mcannon_stage', 'mcannon_ammo', 'mcannon_coord'].forEach(name => {
