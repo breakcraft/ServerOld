@@ -45,7 +45,7 @@
     "@inquirer/prompts": "^7.2.3",
     "@jimp/js-png": "^1.6.0",
     "@jimp/plugin-quantize": "^1.6.0",
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^11.8.1",
     "dotenv": "^16.4.7",
@@ -88,6 +88,6 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.9"
   }
 }
