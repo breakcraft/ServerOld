@@ -291,6 +291,7 @@ export default class Player extends PathingEntity {
     runenergy: number = 10000;
     specEnergy: number = 10000;
     lastRunEnergy: number = -1;
+    specEnergy: number = 1000;
     lastSpecEnergy: number = -1;
     runweight: number = 0;
     playtime: number = 0;
