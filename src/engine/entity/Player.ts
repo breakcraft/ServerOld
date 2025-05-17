@@ -203,6 +203,7 @@ export default class Player extends PathingEntity {
         }
         sav.p1(this.gender);
         sav.p2(this.runenergy);
+        sav.p2(this.specEnergy);
         sav.p4(this.playtime);
 
         for (let i = 0; i < 21; i++) {
@@ -288,6 +289,7 @@ export default class Player extends PathingEntity {
     run: number = 0;
     tempRun: number = 0;
     runenergy: number = 10000;
+    specEnergy: number = 10000;
     lastRunEnergy: number = -1;
     specEnergy: number = 1000;
     lastSpecEnergy: number = -1;
@@ -697,6 +699,16 @@ export default class Player extends PathingEntity {
         }
         if (this.runenergy < 100) {
             this.tempRun = 0;
+        }
+    }
+
+    updateSpecialEnergy() {
+        if (this.delayed) {
+            return;
+        }
+
+        if (this.specEnergy < 10000) {
+            this.specEnergy = Math.min(this.specEnergy + 20, 10000);
         }
     }
 
