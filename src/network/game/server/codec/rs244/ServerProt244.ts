@@ -60,6 +60,7 @@ export default class ServerProt244 extends ServerProtBase {
     static readonly UPDATE_REBOOT_TIMER = new ServerProt244(85, 2); // NXT naming
     static readonly UPDATE_STAT = new ServerProt244(24, 6); // NXT naming
     static readonly UPDATE_RUNENERGY = new ServerProt244(177, 1); // NXT naming
+    static readonly UPDATE_SPECENERGY = new ServerProt244(253, 1); // NXT naming
     static readonly RESET_ANIMS = new ServerProt244(242, 0); // NXT naming
     static readonly UPDATE_PID = new ServerProt244(210, 3);
     static readonly LAST_LOGIN_INFO = new ServerProt244(44, 9); // NXT naming

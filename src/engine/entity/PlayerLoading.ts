@@ -83,7 +83,12 @@ export class PlayerLoading {
         player.gender = sav.g1();
         player.runenergy = sav.g2();
         if (version >= 7) {
+
             player.specialEnergy = sav.g1();
+            player.specEnergy = sav.g2();
+        } else {
+            player.specEnergy = 10000;
+
         }
         if (version >= 2) {
             // oops playtime overflow

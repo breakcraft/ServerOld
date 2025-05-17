@@ -200,12 +200,16 @@ export const enum ScriptOpcode {
     SETSKINCOLOUR,
     P_ANIMPROTECT,
     RUNENERGY,
+    SPECENERGY,
+    SPECENERGY_SET,
     WEIGHT,
     LAST_COORD,
     SESSION_LOG, // custom
     WEALTH_LOG, // custom
     WEALTH_EVENT, // custom
     P_RUN, // todo: real command name?
+    SPECENERGY,
+    SET_SPECENERGY,
 
     // Npc ops (2500-2999)
     NPC_ADD = 2500, // official
@@ -645,12 +649,16 @@ export const ScriptOpcodeMap: Map<string, number> = new Map([
     ['SETSKINCOLOUR', ScriptOpcode.SETSKINCOLOUR],
     ['P_ANIMPROTECT', ScriptOpcode.P_ANIMPROTECT],
     ['RUNENERGY', ScriptOpcode.RUNENERGY],
+    ['SPECENERGY', ScriptOpcode.SPECENERGY],
+    ['SPECENERGY_SET', ScriptOpcode.SPECENERGY_SET],
     ['WEIGHT', ScriptOpcode.WEIGHT],
     ['LAST_COORD', ScriptOpcode.LAST_COORD],
     ['SESSION_LOG', ScriptOpcode.SESSION_LOG],
     ['WEALTH_LOG', ScriptOpcode.WEALTH_LOG],
     ['WEALTH_EVENT', ScriptOpcode.WEALTH_EVENT],
     ['P_RUN', ScriptOpcode.P_RUN],
+    ['SPECENERGY', ScriptOpcode.SPECENERGY],
+    ['SET_SPECENERGY', ScriptOpcode.SET_SPECENERGY],
     ['NPC_ADD', ScriptOpcode.NPC_ADD],
     ['NPC_ANIM', ScriptOpcode.NPC_ANIM],
     ['NPC_BASESTAT', ScriptOpcode.NPC_BASESTAT],

@@ -1128,6 +1128,19 @@ const PlayerOps: CommandHandlers = {
         state.pushInt(player.runenergy);
     }),
 
+    [ScriptOpcode.SPECENERGY]: checkedHandler(ActivePlayer, state => {
+        const player = state.activePlayer;
+        state.pushInt(player.specEnergy);
+    }),
+
+
+    [ScriptOpcode.SET_SPECENERGY]: checkedHandler(ProtectedActivePlayer, state => {
+=======
+    [ScriptOpcode.SPECENERGY_SET]: checkedHandler(ActivePlayer, state => {
+
+        state.activePlayer.specEnergy = check(state.popInt(), NumberNotNull);
+    }),
+
     [ScriptOpcode.WEIGHT]: checkedHandler(ProtectedActivePlayer, state => {
         state.pushInt(state.activePlayer.runweight);
     }),
