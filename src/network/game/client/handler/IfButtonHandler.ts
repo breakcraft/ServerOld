@@ -18,6 +18,14 @@ export default class IfButtonHandler extends MessageHandler<IfButton> {
             return false;
         }
 
+        if (comId === Component.SPEC_ATTACK_BUTTON) {
+            const spec = ScriptProvider.getByName('special_attack');
+            if (spec) {
+                player.executeScript(ScriptRunner.init(spec, player), true);
+            }
+            return true;
+        }
+
         player.lastCom = comId;
 
         if (player.resumeButtons.indexOf(player.lastCom) !== -1) {
