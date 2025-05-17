@@ -738,6 +738,8 @@ class World {
 
                 // - run energy
                 player.updateEnergy();
+                // - special energy
+                player.updateSpecialEnergy();
 
                 if ((player.masks & PlayerInfoProt.EXACT_MOVE) == 0) {
                     player.validateDistanceWalked();

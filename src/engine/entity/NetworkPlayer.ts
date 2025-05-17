@@ -28,6 +28,7 @@ import PlayerInfo from '#/network/game/server/model/PlayerInfo.js';
 import SetMultiway from '#/network/game/server/model/SetMultiway.js';
 import UpdateInvFull from '#/network/game/server/model/UpdateInvFull.js';
 import UpdateRunEnergy from '#/network/game/server/model/UpdateRunEnergy.js';
+import UpdateSpecialEnergy from '#/network/game/server/model/UpdateSpecialEnergy.js';
 import UpdateRunWeight from '#/network/game/server/model/UpdateRunWeight.js';
 import UpdateStat from '#/network/game/server/model/UpdateStat.js';
 import OutgoingMessage from '#/network/game/server/OutgoingMessage.js';
@@ -348,6 +349,11 @@ export class NetworkPlayer extends Player {
         if (Math.floor(this.runenergy) / 100 !== Math.floor(this.lastRunEnergy) / 100) {
             this.write(new UpdateRunEnergy(this.runenergy));
             this.lastRunEnergy = this.runenergy;
+        }
+
+        if (Math.floor(this.specEnergy) / 100 !== Math.floor(this.lastSpecEnergy) / 100) {
+            this.write(new UpdateSpecialEnergy(this.specEnergy));
+            this.lastSpecEnergy = this.specEnergy;
         }
     }
 

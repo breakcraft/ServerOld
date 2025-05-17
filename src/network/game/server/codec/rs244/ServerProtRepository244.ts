@@ -58,6 +58,7 @@ import UpdateInvStopTransmitEncoder from '#/network/game/server/codec/rs244/Upda
 import UpdatePidEncoder from '#/network/game/server/codec/rs244/UpdatePidEncoder.js';
 import UpdateRebootTimerEncoder from '#/network/game/server/codec/rs244/UpdateRebootTimerEncoder.js';
 import UpdateRunEnergyEncoder from '#/network/game/server/codec/rs244/UpdateRunEnergyEncoder.js';
+import UpdateSpecialEnergyEncoder from '#/network/game/server/codec/rs244/UpdateSpecialEnergyEncoder.js';
 import UpdateRunWeightEncoder from '#/network/game/server/codec/rs244/UpdateRunWeightEncoder.js';
 import UpdateStatEncoder from '#/network/game/server/codec/rs244/UpdateStatEncoder.js';
 import UpdateZoneFullFollowsEncoder from '#/network/game/server/codec/rs244/UpdateZoneFullFollowsEncoder.js';
@@ -126,6 +127,7 @@ import UpdateInvStopTransmit from '#/network/game/server/model/UpdateInvStopTran
 import UpdateUid192 from '#/network/game/server/model/UpdatePid.js';
 import UpdateRebootTimer from '#/network/game/server/model/UpdateRebootTimer.js';
 import UpdateRunEnergy from '#/network/game/server/model/UpdateRunEnergy.js';
+import UpdateSpecialEnergy from '#/network/game/server/model/UpdateSpecialEnergy.js';
 import UpdateRunWeight from '#/network/game/server/model/UpdateRunWeight.js';
 import UpdateStat from '#/network/game/server/model/UpdateStat.js';
 import UpdateZoneFullFollows from '#/network/game/server/model/UpdateZoneFullFollows.js';
@@ -196,6 +198,7 @@ export default class ServerProtRepository244 extends ServerProtRepository {
         this.bind(UpdateInvPartial, new UpdateInvPartialEncoder());
         this.bind(UpdateInvStopTransmit, new UpdateInvStopTransmitEncoder());
         this.bind(UpdateRunEnergy, new UpdateRunEnergyEncoder());
+        this.bind(UpdateSpecialEnergy, new UpdateSpecialEnergyEncoder());
         this.bind(UpdateRunWeight, new UpdateRunWeightEncoder());
         this.bind(UpdateRebootTimer, new UpdateRebootTimerEncoder());
         this.bind(UpdateStat, new UpdateStatEncoder());
