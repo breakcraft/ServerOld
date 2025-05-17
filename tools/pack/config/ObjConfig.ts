@@ -17,7 +17,7 @@ export function parseObjConfig(key: string, value: string): ConfigValue | null |
     // prettier-ignore
     const numberKeys = [
         '2dzoom', '2dxan', '2dyan', '2dxof', '2dyof', '2dzan',
-        'cost', 'respawnrate'
+        'cost', 'respawnrate', 'special_energy_cost'
     ];
     // prettier-ignore
     const booleanKeys = [
@@ -379,6 +379,9 @@ export function packObjConfigs(configs: Map<string, ConfigLine[]>): { client: Pa
             } else if (key === 'respawnrate') {
                 server.p1(201);
                 server.p2(value as number);
+            } else if (key === 'special_energy_cost') {
+                server.p1(202);
+                server.p1(value as number);
             }
         }
 

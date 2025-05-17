@@ -182,6 +182,7 @@ export default class ObjType extends ConfigType {
     dummyitem = 0;
     tradeable = true;
     respawnrate = 100; // default to 1-minute
+    specialEnergyCost = 0;
     params: ParamMap = new Map();
 
     decode(code: number, dat: Packet): void {
@@ -281,6 +282,8 @@ export default class ObjType extends ConfigType {
             this.countco[code - 100] = dat.g2();
         } else if (code === 201) {
             this.respawnrate = dat.g2();
+        } else if (code === 202) {
+            this.specialEnergyCost = dat.g1();
         } else if (code === 249) {
             this.params = ParamHelper.decodeParams(dat);
         } else if (code === 250) {
