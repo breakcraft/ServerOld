@@ -19,6 +19,7 @@ export default class Component {
     static TOGGLE_BUTTON: number = 4;
     static SELECT_BUTTON: number = 5;
     static PAUSE_BUTTON: number = 6;
+    static SPEC_ATTACK_BUTTON: number = -1; // TODO: replace with real id
 
     private static componentNames: Map<string, number> = new Map();
     private static components: Component[] = [];

@@ -208,6 +208,8 @@ export const enum ScriptOpcode {
     WEALTH_LOG, // custom
     WEALTH_EVENT, // custom
     P_RUN, // todo: real command name?
+    SPECENERGY,
+    SET_SPECENERGY,
 
     // Npc ops (2500-2999)
     NPC_ADD = 2500, // official
@@ -655,6 +657,8 @@ export const ScriptOpcodeMap: Map<string, number> = new Map([
     ['WEALTH_LOG', ScriptOpcode.WEALTH_LOG],
     ['WEALTH_EVENT', ScriptOpcode.WEALTH_EVENT],
     ['P_RUN', ScriptOpcode.P_RUN],
+    ['SPECENERGY', ScriptOpcode.SPECENERGY],
+    ['SET_SPECENERGY', ScriptOpcode.SET_SPECENERGY],
     ['NPC_ADD', ScriptOpcode.NPC_ADD],
     ['NPC_ANIM', ScriptOpcode.NPC_ANIM],
     ['NPC_BASESTAT', ScriptOpcode.NPC_BASESTAT],

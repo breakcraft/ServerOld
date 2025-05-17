@@ -527,6 +527,14 @@ const ScriptOpcodePointers: {
         require: ['p_active_player'],
         require2: ['p_active_player2']
     },
+    [ScriptOpcode.SPECENERGY]: {
+        require: ['active_player'],
+        require2: ['active_player2']
+    },
+    [ScriptOpcode.SET_SPECENERGY]: {
+        require: ['p_active_player'],
+        require2: ['p_active_player2']
+    },
 
     // Npc ops
     [ScriptOpcode.NPC_ADD]: {
