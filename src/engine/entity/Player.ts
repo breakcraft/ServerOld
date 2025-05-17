@@ -203,6 +203,7 @@ export default class Player extends PathingEntity {
         }
         sav.p1(this.gender);
         sav.p2(this.runenergy);
+        sav.p1(this.specialEnergy);
         sav.p4(this.playtime);
 
         for (let i = 0; i < 21; i++) {
@@ -288,6 +289,7 @@ export default class Player extends PathingEntity {
     run: number = 0;
     tempRun: number = 0;
     runenergy: number = 10000;
+    specialEnergy: number = 100;
     lastRunEnergy: number = -1;
     runweight: number = 0;
     playtime: number = 0;

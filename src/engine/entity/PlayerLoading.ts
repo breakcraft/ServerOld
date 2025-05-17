@@ -11,7 +11,7 @@ import { fromBase37, toBase37 } from '#/util/JString.js';
 
 export class PlayerLoading {
     public static readonly SAV_MAGIC: number = 0x2004;
-    public static readonly SAV_VERSION: number = 6;
+    public static readonly SAV_VERSION: number = 7;
 
     static verify(sav: Packet) {
         if (sav.g2() !== PlayerLoading.SAV_MAGIC) {
@@ -82,6 +82,9 @@ export class PlayerLoading {
         }
         player.gender = sav.g1();
         player.runenergy = sav.g2();
+        if (version >= 7) {
+            player.specialEnergy = sav.g1();
+        }
         if (version >= 2) {
             // oops playtime overflow
             player.playtime = sav.g4();
