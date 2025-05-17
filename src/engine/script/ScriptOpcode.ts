@@ -200,6 +200,8 @@ export const enum ScriptOpcode {
     SETSKINCOLOUR,
     P_ANIMPROTECT,
     RUNENERGY,
+    SPECENERGY,
+    SPECENERGY_SET,
     WEIGHT,
     LAST_COORD,
     SESSION_LOG, // custom
@@ -645,6 +647,8 @@ export const ScriptOpcodeMap: Map<string, number> = new Map([
     ['SETSKINCOLOUR', ScriptOpcode.SETSKINCOLOUR],
     ['P_ANIMPROTECT', ScriptOpcode.P_ANIMPROTECT],
     ['RUNENERGY', ScriptOpcode.RUNENERGY],
+    ['SPECENERGY', ScriptOpcode.SPECENERGY],
+    ['SPECENERGY_SET', ScriptOpcode.SPECENERGY_SET],
     ['WEIGHT', ScriptOpcode.WEIGHT],
     ['LAST_COORD', ScriptOpcode.LAST_COORD],
     ['SESSION_LOG', ScriptOpcode.SESSION_LOG],
