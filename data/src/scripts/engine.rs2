@@ -479,6 +479,10 @@
 [command,.p_animprotect](int $toggle)
 // info: Get the player's curernt run energy
 [command,runenergy]()(int)
+// info: Get the player's current special attack energy
+[command,specenergy]()(int)
+// info: Set the player's special attack energy
+[command,specenergy_set](int $value)
 // info: Get the player's current run weight
 [command,weight]()(int)
 // info: Requires protected access - clear the current interaction, but leave the walk queue intact

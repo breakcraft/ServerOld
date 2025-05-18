@@ -1,9 +1,9 @@
 [proc,special_attack](player_uid $target, int $damage, seq $anim, spotanim $gfx, int $cost)
-if (%spec_energy < $cost) {
+if (specenergy < $cost) {
     mes("You don't have enough special energy.");
     return;
 }
-%spec_energy = sub(%spec_energy, $cost);
+specenergy_set(sub(specenergy, $cost));
 anim($anim, 0);
 spotanim_pl($gfx, 0, 0);
 damage($target, 1, $damage);
