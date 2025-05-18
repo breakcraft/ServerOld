@@ -15,7 +15,8 @@
 
 1. Download and extract this repo somewhere on your computer.
 2. Install our [dependencies](#dependencies).
-3. Open the folder you downloaded: **Run the quickstart script and follow the on-screen prompts.** You may disregard any severity warnings you see.
+3. Run `./fix-permissions.sh` to make sure script files are executable.
+4. Open the folder you downloaded: **Run the quickstart script and follow the on-screen prompts.** You may disregard any severity warnings you see.
 
 Once your setup process has completed, wait for it to tell you the world has started before trying to play.
 
