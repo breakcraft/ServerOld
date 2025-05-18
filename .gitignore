@@ -27,6 +27,7 @@ data/config/login.json
 data/config/friend.json
 
 dump/
+tmp/
 
 node_modules/
 

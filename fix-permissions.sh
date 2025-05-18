@@ -4,4 +4,9 @@
 
 find . -type f \( -name "*.sh" -o -name "mvnw" -o -name "gradlew" \) -exec chmod +x {} +
 
+# Ensure Node.js helper scripts are executable
+if [ -d node_modules/.bin ]; then
+    find node_modules/.bin -type f -exec chmod +x {} +
+fi
+
 echo "Executable bits applied"
