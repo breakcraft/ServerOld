@@ -1134,9 +1134,7 @@ const PlayerOps: CommandHandlers = {
     }),
 
 
-    [ScriptOpcode.SET_SPECENERGY]: checkedHandler(ProtectedActivePlayer, state => {
-=======
-    [ScriptOpcode.SPECENERGY_SET]: checkedHandler(ActivePlayer, state => {
+    [ScriptOpcode.SPECENERGY_SET]: checkedHandler(ProtectedActivePlayer, state => {
 
         state.activePlayer.specEnergy = check(state.popInt(), NumberNotNull);
     }),
