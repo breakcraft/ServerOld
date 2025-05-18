@@ -15,6 +15,7 @@
 
 1. Download and extract this repo somewhere on your computer.
 2. Install our [dependencies](#dependencies).
+3. From the repo root, run `./fix-permissions.sh` once to make script files executable.
 3. Run `./fix-permissions.sh` to make sure script files are executable.
 4. Open the folder you downloaded: **Run the quickstart script and follow the on-screen prompts.** You may disregard any severity warnings you see.
 
