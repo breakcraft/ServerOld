@@ -1133,6 +1133,7 @@ const PlayerOps: CommandHandlers = {
         state.pushInt(player.specEnergy);
     }),
 
+    [ScriptOpcode.SPECENERGY_SET]: checkedHandler(ActivePlayer, state => {
 
     [ScriptOpcode.SPECENERGY_SET]: checkedHandler(ProtectedActivePlayer, state => {
 
