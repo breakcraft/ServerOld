@@ -69,6 +69,9 @@ export default {
     FRIEND_SERVER: tryParseBoolean(process.env.FRIEND_SERVER, false),
     FRIEND_HOST: tryParseString(process.env.FRIEND_HOST, 'localhost'),
     FRIEND_PORT: tryParseInt(process.env.FRIEND_PORT, 45099),
+    FRIEND_WORLD_PLAYER_LIMIT: tryParseInt(process.env.FRIEND_WORLD_PLAYER_LIMIT, 2000),
+    FRIEND_LIST_LIMIT: tryParseInt(process.env.FRIEND_LIST_LIMIT, 100),
+    IGNORE_LIST_LIMIT: tryParseInt(process.env.IGNORE_LIST_LIMIT, 100),
 
     /// logger server
     LOGGER_SERVER: tryParseBoolean(process.env.LOGGER_SERVER, false),
