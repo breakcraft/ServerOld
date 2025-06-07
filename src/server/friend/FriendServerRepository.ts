@@ -141,7 +141,7 @@ export class FriendServerRepository {
             }
 
             for (const friend of friendsOnWorld) {
-                if (playerFriends.length >= Environment.FRIEND_LIST_LIMIT) {
+                if (this.hasReachedFriendLimit(playerFriends)) {
                     break;
                 }
 
