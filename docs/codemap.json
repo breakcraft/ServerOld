@@ -2,22 +2,55 @@
   "src/util/Environment.ts": {
     "description": "Environment variable parsing utilities",
     "exports": [],
-    "depends_on": ["src/util/TryParse.js"],
+    "depends_on": [
+      "src/util/TryParse.js"
+    ],
     "last_updated": "2025-06-07T03:11:53Z",
     "commit": "0ec91fd6447c6d54d36476c899f544db05d2853a"
   },
   "src/server/friend/FriendServer.ts": {
     "description": "WebSocket based friend server handling friend interactions",
-    "exports": ["FriendServer"],
-    "depends_on": ["src/util/Environment.ts", "src/server/friend/FriendServerRepository.ts"],
+    "exports": [
+      "FriendServer"
+    ],
+    "depends_on": [
+      "src/util/Environment.ts",
+      "src/server/friend/FriendServerRepository.ts"
+    ],
     "last_updated": "2025-06-07T03:11:53Z",
     "commit": "0ec91fd6447c6d54d36476c899f544db05d2853a"
   },
   "src/server/friend/FriendServerRepository.ts": {
     "description": "Data store for friends server",
-    "exports": ["FriendServerRepository"],
-    "depends_on": ["src/db/query.js", "src/util/Environment.ts"],
-    "last_updated": "2025-06-07T03:11:53Z",
-    "commit": "0ec91fd6447c6d54d36476c899f544db05d2853a"
+    "exports": [
+      "FriendServerRepository"
+    ],
+    "depends_on": [
+      "src/db/query.js",
+      "src/util/Environment.ts"
+    ],
+    "last_updated": "2025-06-07T03:44:34Z",
+    "commit": "1332806c6a6b4a51997ae1ec028fd4b998421896"
+  },
+  "README.md": {
+    "description": "Project overview and setup instructions",
+    "exports": [],
+    "depends_on": [],
+    "last_updated": "2025-06-07T03:53:30Z",
+    "commit": "29b6538eef31ba1986664d843452cd948aa35805"
+  },
+  ".env.example": {
+    "description": "Example environment configuration",
+    "exports": [],
+    "depends_on": [],
+    "last_updated": "2025-06-07T03:53:30Z",
+    "commit": "29b6538eef31ba1986664d843452cd948aa35805"
+  },
+  "progress.md": {
+    "description": "Progress log of repository changes",
+    "exports": [],
+    "depends_on": [],
+    "last_updated": "2025-06-07T03:35:22Z",
+    "commit": "1332806c6a6b4a51997ae1ec028fd4b998421896"
   }
 }
