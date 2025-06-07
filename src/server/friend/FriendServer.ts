@@ -53,8 +53,8 @@ export const enum FriendsServerOpcodes {
     RELAY_QUEUESCRIPT,
 }
 
-// TODO make this configurable (or at least source it from somewhere common)
-const WORLD_PLAYER_LIMIT = 2000;
+// Configurable world player limit
+const WORLD_PLAYER_LIMIT = Environment.FRIEND_WORLD_PLAYER_LIMIT;
 
 /**
  * TODO refactor, this class shares a lot with the other servers
