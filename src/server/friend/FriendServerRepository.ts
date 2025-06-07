@@ -205,6 +205,10 @@ export class FriendServerRepository {
 
         this.playerFriends[username] = this.playerFriends[username] ?? [];
 
+        if (this.playerFriends[username].length >= Environment.FRIEND_LIST_LIMIT) {
+            return;
+        }
+
         if (this.playerFriends[username].includes(targetUsername37)) {
             // console.error(`[Friends]: ${username} tried to add ${targetUsername} to their friend list, but they are already friends`);
             return;
@@ -222,7 +226,6 @@ export class FriendServerRepository {
             return;
         }
 
-        // TODO check player is not over friends limit
 
         await db
             .insertInto('friendlist')
@@ -238,6 +241,10 @@ export class FriendServerRepository {
 
         this.playerIgnores[username] = this.playerIgnores[username] ?? [];
 
+        if (this.playerIgnores[username].length >= Environment.IGNORE_LIST_LIMIT) {
+            return;
+        }
+
         if (this.playerIgnores[username].includes(value37)) {
             return;
         }
@@ -252,7 +259,6 @@ export class FriendServerRepository {
 
         const { id } = account;
 
-        // TODO check player is not over ignore limit
 
         let query = db.insertInto('ignorelist').values({
             account_id: id,
