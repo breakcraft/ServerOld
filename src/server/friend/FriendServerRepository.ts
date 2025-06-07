@@ -3,6 +3,7 @@ import { db } from '#/db/query.js';
 import { ChatModePrivate } from '#/util/ChatModes.js';
 import Environment from '#/util/Environment.js';
 import { fromBase37, toBase37 } from '#/util/JString.js';
+import { printWarning } from '#/util/Logger.js';
 
 /**
  * Stores friends data related to players.
@@ -140,17 +141,28 @@ export class FriendServerRepository {
             }
 
             for (const friend of friendsOnWorld) {
+                if (this.hasReachedFriendLimit(playerFriends)) {
+                    break;
+                }
+
                 if (this.isVisibleTo(username37, friend) === false) {
                     continue;
                 }
 
-                // TODO cap to 100 friends here too?
                 playerFriends.push([worldId, friend]);
+            }
+
+            if (playerFriends.length >= Environment.FRIEND_LIST_LIMIT) {
+                break;
             }
         }
 
         const remainingFriends = this.playerFriends[username].filter(f => !playerFriends.some(p => p[1] === f));
         for (const friend of remainingFriends) {
+            if (playerFriends.length >= Environment.FRIEND_LIST_LIMIT) {
+                break;
+            }
+
             playerFriends.push([0, friend]);
         }
 
@@ -177,7 +189,6 @@ export class FriendServerRepository {
 
     public async deleteFriend(username37: bigint, targetUsername37: bigint) {
         const username = fromBase37(username37);
-        const _targetUsername = fromBase37(targetUsername37);
 
         this.playerFriends[username] = this.playerFriends[username] ?? [];
         const index = this.playerFriends[username].indexOf(targetUsername37);
@@ -201,11 +212,11 @@ export class FriendServerRepository {
 
     public async addFriend(username37: bigint, targetUsername37: bigint) {
         const username = fromBase37(username37);
-        const _targetUsername = fromBase37(targetUsername37);
 
         this.playerFriends[username] = this.playerFriends[username] ?? [];
 
         if (this.playerFriends[username].length >= Environment.FRIEND_LIST_LIMIT) {
+            printWarning(`[Friends]: ${username}'s friend list is full`);
             return;
         }
 
@@ -242,6 +253,7 @@ export class FriendServerRepository {
         this.playerIgnores[username] = this.playerIgnores[username] ?? [];
 
         if (this.playerIgnores[username].length >= Environment.IGNORE_LIST_LIMIT) {
+            printWarning(`[Friends]: ${username}'s ignore list is full`);
             return;
         }
 

@@ -49,5 +49,15 @@ You do not have Java installed.
 
 You are using Java 8 or Java 11. If you have multiple Java versions, you will need to set `JAVA_PATH=path-to-java.exe` in your .env file.
 
+## Friend Server Configuration
+
+The friend server limits can be configured through environment variables:
+
+- `FRIEND_WORLD_PLAYER_LIMIT` – maximum players tracked per world (default `2000`).
+- `FRIEND_LIST_LIMIT` – maximum friends per player (default `100`).
+- `IGNORE_LIST_LIMIT` – maximum ignored players per player (default `100`).
+
+Set these in your `.env` file or as system variables to adjust the limits.
+
 ## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for details.
