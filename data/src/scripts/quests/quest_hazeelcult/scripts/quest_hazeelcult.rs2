@@ -83,7 +83,7 @@ mes("You can hear there is a hollow behind this wall."); // from rs3
 
 [oploc1,loc_2851]
 if(%hazeelcult_progress = ^hazeelcult_given_armour_or_scroll & %hazeelcult_side = ^hazeelcult_goodside) {
-    ~mesbox("You search the cupbaord thoroughly. You find a bottle of poison and a mysterious amulet. You pass your discovery on to Ceril.");
+    ~mesbox("You search the cupboard thoroughly. You find a bottle of poison and a mysterious amulet. You pass your discovery on to Ceril.");
     ~chatplayer("<p,angry>Ceril!");
     if (npc_find(coord, ceril_carnillean, 6, 0) = false) { 
         return;
@@ -159,7 +159,7 @@ inv_add(inv, carnilleanchestkey, 1);
 [queue,hazeelcult_fake_complete]
 inv_add(inv, coins, 5);
 %hazeelcult_progress = ^hazeelcult_given_armour_or_scroll;
-~midi_jingle(^death_jingle, ^death_jingle_millis);
+midi_jingle(^death_jingle, ^death_jingle_millis);
 if_settext(questscroll:com_3, "You have... kind of...\\ncompleted the Hazeel Cult Quest!");
 if_settext(questscroll:com_9, "5");
 if_settext(questscroll:com_10, "coins.");
