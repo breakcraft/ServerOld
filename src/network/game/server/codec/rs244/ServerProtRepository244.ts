@@ -58,8 +58,8 @@ import UpdateInvStopTransmitEncoder from '#/network/game/server/codec/rs244/Upda
 import UpdatePidEncoder from '#/network/game/server/codec/rs244/UpdatePidEncoder.js';
 import UpdateRebootTimerEncoder from '#/network/game/server/codec/rs244/UpdateRebootTimerEncoder.js';
 import UpdateRunEnergyEncoder from '#/network/game/server/codec/rs244/UpdateRunEnergyEncoder.js';
-import UpdateSpecialEnergyEncoder from '#/network/game/server/codec/rs244/UpdateSpecialEnergyEncoder.js';
 import UpdateRunWeightEncoder from '#/network/game/server/codec/rs244/UpdateRunWeightEncoder.js';
+import UpdateSpecialEnergyEncoder from '#/network/game/server/codec/rs244/UpdateSpecialEnergyEncoder.js';
 import UpdateStatEncoder from '#/network/game/server/codec/rs244/UpdateStatEncoder.js';
 import UpdateZoneFullFollowsEncoder from '#/network/game/server/codec/rs244/UpdateZoneFullFollowsEncoder.js';
 import UpdateZonePartialEnclosedEncoder from '#/network/game/server/codec/rs244/UpdateZonePartialEnclosedEncoder.js';
@@ -127,8 +127,8 @@ import UpdateInvStopTransmit from '#/network/game/server/model/UpdateInvStopTran
 import UpdateUid192 from '#/network/game/server/model/UpdatePid.js';
 import UpdateRebootTimer from '#/network/game/server/model/UpdateRebootTimer.js';
 import UpdateRunEnergy from '#/network/game/server/model/UpdateRunEnergy.js';
-import UpdateSpecialEnergy from '#/network/game/server/model/UpdateSpecialEnergy.js';
 import UpdateRunWeight from '#/network/game/server/model/UpdateRunWeight.js';
+import UpdateSpecialEnergy from '#/network/game/server/model/UpdateSpecialEnergy.js';
 import UpdateStat from '#/network/game/server/model/UpdateStat.js';
 import UpdateZoneFullFollows from '#/network/game/server/model/UpdateZoneFullFollows.js';
 import UpdateZonePartialEnclosed from '#/network/game/server/model/UpdateZonePartialEnclosed.js';
