@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { describe, it, expect, vi } from 'vitest';
 
 import Packet from '#/io/Packet.js';
 
