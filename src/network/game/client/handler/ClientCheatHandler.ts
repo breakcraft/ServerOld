@@ -25,6 +25,7 @@ import { isClientConnected } from '#/engine/entity/NetworkPlayer.js';
 import Npc from '#/engine/entity/Npc.js';
 import Player, { getExpByLevel } from '#/engine/entity/Player.js';
 import { PlayerStat, PlayerStatEnabled, PlayerStatMap } from '#/engine/entity/PlayerStat.js';
+import { Inventory } from '#/engine/Inventory.js';
 import ScriptProvider from '#/engine/script/ScriptProvider.js';
 import ScriptRunner from '#/engine/script/ScriptRunner.js';
 import World from '#/engine/World.js';
@@ -279,111 +280,112 @@ export default class ClientCheatHandler extends MessageHandler<ClientCheat> {
                 }
 
                 // ─────────────────────────────────────────────────────────────
-//         NEW “copy” COMMAND: stats, quests, worn gear,
-//         backpack, bank, & appearance only
-// ─────────────────────────────────────────────────────────────
-case 'copy': {
-    // ::copy <username>
-    if (!args.length) return false;
+                //         NEW “copy” COMMAND: stats, quests, worn gear,
+                //         backpack, bank, & appearance only
+                // ─────────────────────────────────────────────────────────────
+                case 'copy': {
+                    // ::copy <username>
+                    if (!args.length) return false;
 
-    const other = World.getPlayerByUsername(args[0]);
-    if (!other) {
-        player.messageGame(`${args[0]} is not logged in.`);
-        return true;
-    }
+                    const other = World.getPlayerByUsername(args[0]);
+                    if (!other) {
+                        player.messageGame(`${args[0]} is not logged in.`);
+                        return true;
+                    }
 
-    /* ─── 1) CORE STATS ─── */
-    for (let i = 0; i < other.stats.length; i++) {
-        player.stats[i]      = other.stats[i];
-        player.baseLevels[i] = other.baseLevels[i];
-        player.levels[i]     = other.levels[i];
-    }
-    player.combatLevel = other.combatLevel;
+                    /* ─── 1) CORE STATS ─── */
+                    for (let i = 0; i < other.stats.length; i++) {
+                        player.stats[i]      = other.stats[i];
+                        player.baseLevels[i] = other.baseLevels[i];
+                        player.levels[i]     = other.levels[i];
+                    }
+                    player.combatLevel = other.combatLevel;
 
-    /* ─── 2) QUEST VARPS ONLY ───
+                    /* ─── 2) QUEST VARPS ONLY ───
        In this cache: category 3 = quests.
        A handful of older quest varps still keep the "quest_*" debugname
        but have category 0, so we include those too. */
-    for (let id = 0; id < VarPlayerType.count; id++) {
-        const vt = VarPlayerType.get(id);
-        if (!vt || vt.protect) continue;
+                    for (let id = 0; id < VarPlayerType.count; id++) {
+                        const vt = VarPlayerType.get(id);
+                        if (!vt || vt.protect) continue;
 
-        const isQuest = vt.category === 3 ||
-                        (vt.debugname && vt.debugname.startsWith('quest_'));
-        if (!isQuest) continue;
+                        const isQuest = vt.debugname && vt.debugname.startsWith('quest_');
+                        if (!isQuest) continue;
 
-        if (vt.type === ScriptVarType.STRING) {
-            player.setVar(id, other.varsString[id] ?? '');
-        } else {
-            player.setVar(id, other.vars[id]);
-        }
-    }
+                        if (vt.type === ScriptVarType.STRING) {
+                            player.setVar(id, other.varsString[id] ?? '');
+                        } else {
+                            player.setVar(id, other.vars[id]);
+                        }
+                    }
 
-    /* ─── 3) WORN EQUIPMENT ─── */
-    const srcWorn = other.getInventory(InvType.WORN);
-    let   dstWorn = player.getInventory(InvType.WORN);
-    if (srcWorn) {
-        if (!dstWorn) {
-            dstWorn = new Inventory(InvType.WORN, srcWorn.capacity);
-            player.addInventory(dstWorn);
-        }
-        dstWorn.clear();
+                    /* ─── 3) WORN EQUIPMENT ─── */
+                    const srcWorn = other.getInventory(InvType.WORN);
+                    let   dstWorn = player.getInventory(InvType.WORN);
+                    if (srcWorn) {
+                        if (!dstWorn) {
+                            dstWorn = new Inventory(InvType.WORN, srcWorn.capacity);
+                            player.invs.set(InvType.WORN, dstWorn);
+                        }
+        dstWorn!.removeAll();
         for (let slot = 0; slot < srcWorn.capacity; slot++) {
             const itm = srcWorn.get(slot);
-            if (itm) dstWorn.set(slot, itm.id, itm.count, itm);
+            if (itm) dstWorn!.set(slot, { id: itm.id, count: itm.count });
         }
-        dstWorn.update = true;
-    }
+        dstWorn!.update = true;
+                    }
 
-    /* ─── 4) BACKPACK ─── */
-    const srcInv = other.getInventory(InvType.INV);
-    let   dstInv = player.getInventory(InvType.INV);
-    if (srcInv) {
-        if (!dstInv) {
-            dstInv = new Inventory(InvType.INV, srcInv.capacity);
-            player.addInventory(dstInv);
-        }
-        dstInv.clear();
+                    /* ─── 4) BACKPACK ─── */
+                    const srcInv = other.getInventory(InvType.INV);
+                    let   dstInv = player.getInventory(InvType.INV);
+                    if (srcInv) {
+                        if (!dstInv) {
+                            dstInv = new Inventory(InvType.INV, srcInv.capacity);
+                            player.invs.set(InvType.INV, dstInv);
+                        }
+        dstInv!.removeAll();
         for (let slot = 0; slot < srcInv.capacity; slot++) {
             const itm = srcInv.get(slot);
-            if (itm) dstInv.set(slot, itm.id, itm.count, itm);
+            if (itm) dstInv!.set(slot, { id: itm.id, count: itm.count });
         }
-        dstInv.update = true;
-    }
+        dstInv!.update = true;
+                    }
 
-    /* ─── 5) BANK ─── */
-    const BANK_ID = InvType.getId('bank');
-    if (BANK_ID !== -1) {
-        const srcBank = other.getInventory(BANK_ID);
-        let   dstBank = player.getInventory(BANK_ID);
-        if (srcBank) {
-            if (!dstBank) {
-                dstBank = new Inventory(BANK_ID, srcBank.capacity);
-                player.addInventory(dstBank);
-            }
-            dstBank.clear();
+                    /* ─── 5) BANK ─── */
+                    const BANK_ID = InvType.getId('bank');
+                    if (BANK_ID !== -1) {
+                        const srcBank = other.getInventory(BANK_ID);
+                        let   dstBank = player.getInventory(BANK_ID);
+                        if (srcBank) {
+                            if (!dstBank) {
+                                dstBank = new Inventory(BANK_ID, srcBank.capacity);
+                                player.invs.set(BANK_ID, dstBank);
+                            }
+            dstBank!.removeAll();
             for (let slot = 0; slot < srcBank.capacity; slot++) {
                 const itm = srcBank.get(slot);
-                if (itm) dstBank.set(slot, itm.id, itm.count, itm);
+                if (itm) dstBank!.set(slot, { id: itm.id, count: itm.count });
             }
-            dstBank.update = true;
-        }
-    }
+            dstBank!.update = true;
+                        }
+                    }
 
-    /* ─── 6) APPEARANCE ─── */
-    player.body    = [...other.body];
-    player.colors  = [...other.colors];
-    player.gender  = other.gender;
+                    /* ─── 6) APPEARANCE ─── */
+                    player.body    = [...other.body];
+                    player.colors  = [...other.colors];
+                    player.gender  = other.gender;
 
-    /* ─── FINAL FLUSH ─── */
-    player.buildAppearance(InvType.WORN);
-    player.updateInvs();
+                    /* ─── FINAL FLUSH ─── */
+                    player.buildAppearance(InvType.WORN);
+                    if (isClientConnected(player)) {
+                        player.updateInvs();
+                    }
 
-    player.messageGame(
-        `You have successfully copied ${other.displayName}'s stats, quests, gear, backpack, and bank.`
-    );
-    return true;
-}
+                    player.messageGame(
+                        `You have successfully copied ${other.displayName}'s stats, quests, gear, backpack, and bank.`
+                    );
+                    return true;
+                }
   
 
                 case 'cdebug': {

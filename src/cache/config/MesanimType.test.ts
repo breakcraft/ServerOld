@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { describe, it, expect, vi } from 'vitest';
 
 import Packet from '#/io/Packet.js';
 
@@ -34,6 +35,7 @@ describe('MesanimType', () => {
             packet.p2(5); // len[3]
             packet.p1(250); // opcode
             packet.pjstr('testName');
+            packet.p1(0); // end
             packet.pos = 0; // set pos to 0 for reading
 
             const instance = new MesanimType(1);
