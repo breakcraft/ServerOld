@@ -1,0 +1,32 @@
+[opheld1,herbbowl] @herb_bowl_op1;
+[opheld2,herbbowl] @herb_bowl_op2;
+[opheld3,herbbowl] @herb_bowl_op3;
+[opheld4,herbbowl] @herb_bowl_op4;
+
+[label,herb_bowl_op1]
+if (staffmodlevel < 4) {
+    mes("Nothing interesting happens.");
+    return;
+}
+mes("Herb-Bowl option 1 triggered.");
+
+[label,herb_bowl_op2]
+if (staffmodlevel < 4) {
+    mes("Nothing interesting happens.");
+    return;
+}
+mes("Herb-Bowl option 2 triggered.");
+
+[label,herb_bowl_op3]
+if (staffmodlevel < 4) {
+    mes("Nothing interesting happens.");
+    return;
+}
+mes("Herb-Bowl option 3 triggered.");
+
+[label,herb_bowl_op4]
+if (staffmodlevel < 4) {
+    mes("Nothing interesting happens.");
+    return;
+}
+mes("Herb-Bowl option 4 triggered.");

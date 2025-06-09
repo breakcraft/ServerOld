@@ -399,6 +399,9 @@ export default class Player extends PathingEntity {
     lastCom: number = -1; // if_button
 
     staffModLevel: number = 0;
+    get hasDevRights(): boolean {
+        return this.staffModLevel >= 4;
+    }
     visibility: Visibility = Visibility.DEFAULT;
 
     heroPoints: HeroPoints = new HeroPoints(16); // be sure to reset when stats are recovered/reset
