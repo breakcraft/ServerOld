@@ -38,7 +38,7 @@ data=success_chance,150,240
 data=loot,coins,9,9,123
 data=pocket,farmer's pocket
 
-[pickpocket_warrior]
+[pickpocket_warrior_woman_al_kharid_warrior]
 table=pickpocket
 data=npc,warrior_woman
 data=npc,al_kharid_warrior
@@ -90,7 +90,7 @@ data=success_chance,50,240
 data=loot,coins,50,50,128
 data=pocket,knight's pocket
 
-[pickpocket_watchman]
+[pickpocket_watchman_yanille]
 table=pickpocket
 data=npc,yanille_watchman
 data=level,65
@@ -114,7 +114,7 @@ data=loot,coins,80,80,128
 data=loot,chaosrune,2,2,128
 data=pocket,paladin's pocket
 
-[pickpocket_gnome]
+[pickpocket_tree_gnome_stronghold_gnome]
 table=pickpocket
 data=npc,gnome
 data=npc,browclothedgnome
