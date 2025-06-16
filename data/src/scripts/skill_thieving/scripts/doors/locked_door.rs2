@@ -1,7 +1,7 @@
-[oploc1,loc_2550]
+[oploc1,tutorial_hut_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2551]
+[oploc1,varrock_sewer_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
 [oploc1,east_ardy_sewer_gate_north] 
@@ -10,28 +10,28 @@
 [oploc1,east_ardy_sewer_gate_south] 
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2554]
+[oploc1,desert_palace_treasure_room_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2555]
+[oploc1,legends_guild_gatehouse_rear_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2556]
+[oploc1,draynor_manor_kitchen_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2557]
+[oploc1,witchaven_fish_shop_back_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2558]
+[oploc1,yanille_wizards_guild_side_door]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc1,loc_2559]
+[oploc1,lava_maze_gate]
 ~attempt_open_locked_door(loc_type, ~check_axis_locactive(coord));
 
-[oploc2,loc_2550]
+[oploc2,tutorial_hut_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oploc2,loc_2551]
+[oploc2,varrock_sewer_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
 [oploc2,east_ardy_sewer_gate_north] 
@@ -40,39 +40,39 @@
 [oploc2,east_ardy_sewer_gate_south] 
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oploc2,loc_2554]
+[oploc2,desert_palace_treasure_room_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oploc2,loc_2555]
+[oploc2,legends_guild_gatehouse_rear_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oploc2,loc_2556]
+[oploc2,draynor_manor_kitchen_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oploc2,loc_2557]
+[oploc2,witchaven_fish_shop_back_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oplocu,loc_2557]
+[oplocu,witchaven_fish_shop_back_door]
 if(last_useitem = lockpick) {
     ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
     return;
 }
 ~displaymessage(^dm_default);
 
-[oploc2,loc_2558]
+[oploc2,yanille_wizards_guild_side_door]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oplocu,loc_2558]
+[oplocu,yanille_wizards_guild_side_door]
 if(last_useitem = lockpick) {
     ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
     return;
 }
 ~displaymessage(^dm_default);
 
-[oploc2,loc_2559]
+[oploc2,lava_maze_gate]
 ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
 
-[oplocu,loc_2559]
+[oplocu,lava_maze_gate]
 if(last_useitem = lockpick) {
     ~pick_locked_door(loc_type, loc_coord, ~check_axis_locactive(coord));
     return;

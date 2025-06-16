@@ -1,13 +1,13 @@
-[locked_door_loc_2550]
+[locked_door_tutorial_hut_door]
 table=locked_door
-data=loc,loc_2550
+data=loc,tutorial_hut_door
 data=replacement,loc_2055
 data=level,1
 data=experience,38
 
-[locked_door_loc_2551]
+[locked_door_varrock_sewer_door]
 table=locked_door
-data=loc,loc_2551
+data=loc,varrock_sewer_door
 data=replacement,loc_2055
 data=level,16
 data=experience,150
@@ -29,47 +29,47 @@ data=level,31
 data=experience,250
 data=gate,true
 
-[locked_door_loc_2554]
+[locked_door_desert_palace_treasure_room_door]
 table=locked_door
-data=loc,loc_2554
+data=loc,desert_palace_treasure_room_door
 data=replacement,loc_2055
 data=level,46
 data=experience,375
 
-[locked_door_loc_2555]
+[locked_door_legends_guild_gatehouse_rear_door]
 table=locked_door
-data=loc,loc_2555
+data=loc,legends_guild_gatehouse_rear_door
 data=replacement,loc_2001
 data=level,61
 data=experience,500
 
-[locked_door_loc_2556]
+[locked_door_draynor_manor_kitchen_door]
 table=locked_door
-data=loc,loc_2556
+data=loc,draynor_manor_kitchen_door
 data=replacement,loc_2001
 data=level,13
 data=experience,150
 
-[locked_door_loc_2557]
+[locked_door_witchaven_fish_shop_back_door]
 table=locked_door
-data=loc,loc_2557
+data=loc,witchaven_fish_shop_back_door
 data=replacement,loc_1541
 data=level,23
 data=experience,250
 data=tool,lockpick,lockpick
 
-[locked_door_loc_2558]
+[locked_door_yanille_wizards_guild_side_door]
 table=locked_door
-data=loc,loc_2558
+data=loc,yanille_wizards_guild_side_door
 data=replacement,loc_2055
 data=level,39
 data=experience,350
 data=tool,lockpick,lockpick
 data=lock_inversed,true
 
-[locked_door_loc_2559]
+[locked_door_lava_maze_gate]
 table=locked_door
-data=loc,loc_2559
+data=loc,lava_maze_gate
 data=replacement,loc_2070
 data=level,82
 data=experience,500

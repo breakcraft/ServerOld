@@ -12465,7 +12465,7 @@ model=model_loc_2521
 width=2
 length=4
 
-[loc_2550]
+[tutorial_hut_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12476,7 +12476,7 @@ retex1d=door
 recol2s=6342
 recol2d=11458
 
-[loc_2551]
+[varrock_sewer_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12504,7 +12504,7 @@ active=yes
 op1=Open
 op2=Pick Lock
 
-[loc_2554]
+[desert_palace_treasure_room_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12515,7 +12515,7 @@ retex1d=door
 recol2s=6342
 recol2d=11458
 
-[loc_2555]
+[legends_guild_gatehouse_rear_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12526,7 +12526,7 @@ retex1d=elfdoor
 recol2s=6342
 recol2d=11458
 
-[loc_2556]
+[draynor_manor_kitchen_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12537,7 +12537,7 @@ retex1d=elfdoor
 recol2s=6342
 recol2d=11458
 
-[loc_2557]
+[witchaven_fish_shop_back_door]
 name=Door
 model=model_loc_37
 active=yes
@@ -12548,7 +12548,7 @@ retex1d=door2
 recol2s=6342
 recol2d=11458
 
-[loc_2558]
+[yanille_wizards_guild_side_door]
 name=Door
 model=model_loc_3
 active=yes
@@ -12559,7 +12559,7 @@ retex1d=door
 recol2s=6342
 recol2d=11458
 
-[loc_2559]
+[lava_maze_gate]
 name=Door
 model=model_loc_3
 active=yes

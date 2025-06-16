@@ -32,15 +32,15 @@ The following table consolidates all thieving-related requirements present in th
 
 | Level | Code ID / Location | Details |
 | ----- | ----------------- | ------- |
-| 1 | `loc_2550` | Tutorial hut doors (Karamja) |
-| 13 | `loc_2556` | Draynor Manor kitchen side-door |
-| 16 | `loc_2551` | Varrock Sewers wooden door |
-| 23 | `loc_2557` | Witchaven fish-shop back door |
+| 1 | `tutorial_hut_door` | Tutorial hut doors (Karamja) |
+| 13 | `draynor_manor_kitchen_door` | Draynor Manor kitchen side-door |
+| 16 | `varrock_sewer_door` | Varrock Sewers wooden door |
+| 23 | `witchaven_fish_shop_back_door` | Witchaven fish-shop back door |
 | 31 | `east_ardy_sewer_gate_(N/S)` | East Ardougne sewer gates |
-| 39 | `loc_2558` | Yanille Wizards’ Guild side entrance |
-| 46 | `loc_2554` | Desert palace treasure room |
-| 61 | `loc_2555` | Legends’ Guild gatehouse rear door |
-| 82 | `loc_2559` | Deep Wilderness Lava Maze gate |
+| 39 | `yanille_wizards_guild_side_door` | Yanille Wizards’ Guild side entrance |
+| 46 | `desert_palace_treasure_room_door` | Desert palace treasure room |
+| 61 | `legends_guild_gatehouse_rear_door` | Legends’ Guild gatehouse rear door |
+| 82 | `lava_maze_gate` | Deep Wilderness Lava Maze gate |
 
 ## Trapped and Loot Chests
 
