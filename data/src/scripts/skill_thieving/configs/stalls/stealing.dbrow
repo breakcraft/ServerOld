@@ -11,7 +11,7 @@ data=loot,cake,1,1,13,a cake
 data=loot,bread,1,1,5,some bread
 data=loot,chocolate_slice,1,1,2,a chocolate slice
 data=loot_total,20
-data=stall,baker's stall
+data=stall,Bakery stall
 
 [stealing_tea_stall]
 table=stealing
@@ -23,7 +23,7 @@ data=experience,160
 data=respawn_ticks,16
 data=loot,cup_of_tea,1,1,128,a cup of tea
 data=loot_total,128
-data=stall,tea stall
+data=stall,Tea stall
 data=stall,a cup of tea
 
 [stealing_silk_stall]
@@ -39,7 +39,7 @@ data=experience,240
 data=respawn_ticks,16
 data=loot,silk,1,1,128,a piece of silk
 data=loot_total,128
-data=stall,silk stall
+data=stall,Silk stall
 data=stall,some silk
 
 [stealing_fur_stall]
@@ -54,7 +54,7 @@ data=experience,360
 data=respawn_ticks,32
 data=loot,grey_wolf_fur,1,1,128,a piece of fur
 data=loot_total,128
-data=stall,fur stall
+data=stall,Fur stall
 data=stall,some fur
 
 [stealing_silver_stall]
@@ -71,7 +71,7 @@ data=experience,540
 data=respawn_ticks,100
 data=loot,silver_ore,1,1,128,some silver
 data=loot_total,128
-data=stall,silver stall
+data=stall,Silver stall
 data=stall,some silver
 
 [stealing_spice_stall]
@@ -88,7 +88,7 @@ data=experience,810
 data=respawn_ticks,166
 data=loot,spicespot,1,1,128,some spice
 data=loot_total,128
-data=stall,spice stall
+data=stall,Spice stall
 data=stall,some spice
 
 [stealing_gem_stall]
@@ -110,5 +110,5 @@ data=loot,uncut_emerald,1,1,17,an uncut emerald
 data=loot,uncut_ruby,1,1,5,an uncut ruby
 data=loot,uncut_diamond,1,1,1,an uncut diamond
 data=loot_total,128
-data=stall,gem stall
+data=stall,Gem stall
 data=stall,a gem

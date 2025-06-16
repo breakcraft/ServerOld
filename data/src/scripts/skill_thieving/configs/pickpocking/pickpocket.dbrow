@@ -1,4 +1,4 @@
-[pickpocket_man]
+[man]
 table=pickpocket
 data=npc,man
 data=npc,man2
@@ -11,9 +11,9 @@ data=stun_ticks,13
 data=stun_damage,1
 data=success_chance,180,240
 data=loot,coins,3,3,128
-data=pocket,man's pocket
+data=pocket,Man
 
-[pickpocket_woman]
+[woman]
 table=pickpocket
 data=npc,woman
 data=npc,woman2
@@ -25,9 +25,9 @@ data=stun_ticks,13
 data=stun_damage,1
 data=success_chance,180,240
 data=loot,coins,3,3,128
-data=pocket,woman's pocket
+data=pocket,Woman
 
-[pickpocket_farmer]
+[farmer]
 table=pickpocket
 data=npc,farmer
 data=level,10
@@ -36,9 +36,9 @@ data=stun_ticks,13
 data=stun_damage,1
 data=success_chance,150,240
 data=loot,coins,9,9,123
-data=pocket,farmer's pocket
+data=pocket,Farmer
 
-[pickpocket_warrior]
+[warrior_woman]
 table=pickpocket
 data=npc,warrior_woman
 data=npc,al_kharid_warrior
@@ -48,9 +48,9 @@ data=stun_ticks,13
 data=stun_damage,2
 data=success_chance,100,240
 data=loot,coins,18,18,128
-data=pocket,warrior's pocket
+data=pocket,Warrior Woman / Al-Kharid Warrior
 
-[pickpocket_rogue]
+[rogue]
 table=pickpocket
 data=npc,rogue
 data=level,32
@@ -63,9 +63,9 @@ data=loot,airrune,8,8,8
 data=loot,jug_wine,1,1,6
 data=loot,lockpick,1,1,5
 data=loot,iron_dagger_p,1,1,1
-data=pocket,rogue's pocket
+data=pocket,Rogue
 
-[pickpocket_guard]
+[guard]
 table=pickpocket
 data=npc,guard1
 data=npc,guard2
@@ -76,9 +76,9 @@ data=stun_ticks,13
 data=stun_damage,2
 data=success_chance,50,240
 data=loot,coins,30,30,128
-data=pocket,guard's pocket
+data=pocket,Guard
 
-[pickpocket_knight_of_ardougne]
+[knight_of_ardougne]
 table=pickpocket
 data=npc,knight_of_ardougne
 data=npc,knight_of_ardougne2
@@ -88,9 +88,9 @@ data=stun_ticks,13
 data=stun_damage,3
 data=success_chance,50,240
 data=loot,coins,50,50,128
-data=pocket,knight's pocket
+data=pocket,Knight of Ardougne
 
-[pickpocket_watchman]
+[watchman]
 table=pickpocket
 data=npc,yanille_watchman
 data=level,65
@@ -100,9 +100,9 @@ data=stun_damage,3
 data=success_chance,15,160
 data=loot,coins,60,60,128
 data=loot,bread,1,1,128
-data=pocket,watchman's pocket
+data=pocket,Watchman
 
-[pickpocket_paladin]
+[paladin]
 table=pickpocket
 data=npc,paladin
 data=level,70
@@ -112,9 +112,9 @@ data=stun_damage,3
 data=success_chance,50,150
 data=loot,coins,80,80,128
 data=loot,chaosrune,2,2,128
-data=pocket,paladin's pocket
+data=pocket,Paladin
 
-[pickpocket_gnome]
+[gnome]
 table=pickpocket
 data=npc,gnome
 data=npc,browclothedgnome
@@ -135,9 +135,9 @@ data=loot,swamp_toad,1,1,28
 data=loot,gold_ore,1,1,8
 data=loot,earthrune,1,1,5
 data=loot,fire_orb,1,1,2
-data=pocket,gnome's pocket
+data=pocket,Gnome
 
-[pickpocket_hero]
+[hero]
 table=pickpocket
 data=npc,hero
 data=level,80
@@ -152,4 +152,4 @@ data=loot,bloodrune,1,1,5
 data=loot,fire_orb,1,1,2
 data=loot,diamond,1,1,1
 data=loot,gold_ore,1,1,1
-data=pocket,hero's pocket
+data=pocket,Hero
