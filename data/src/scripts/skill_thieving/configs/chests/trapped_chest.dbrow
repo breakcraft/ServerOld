@@ -1,6 +1,6 @@
 [trapped_chest_ardougne_pub_10_coins]
 table=trapped_chest
-data=loc,chest_10_coins
+data=loc,ardougne_pub_10_coin_chest
 data=level,13
 data=experience,78
 data=respawn_ticks,15
@@ -8,7 +8,7 @@ data=loot,coins,10,10,128
 
 [trapped_chest_ardougne_pub_nature_rune]
 table=trapped_chest
-data=loc,chest_nature_rune
+data=loc,ardougne_pub_nature_rune_chest
 data=level,28
 data=experience,250
 data=respawn_ticks,30
@@ -17,7 +17,7 @@ data=loot,coins,3,3,128
 
 [trapped_chest_ardougne_pub_upstairs_50_coins]
 table=trapped_chest
-data=loc,chest_50_coins
+data=loc,ardougne_pub_upstairs_50_coin_chest
 data=level,43
 data=experience,1250
 data=respawn_ticks,150
@@ -25,7 +25,7 @@ data=loot,coins,50,50,128
 
 [trapped_chest_rogues_castle_steel_arrowtips]
 table=trapped_chest
-data=loc,chest_steel_arrowtips
+data=loc,rogues_castle_steel_arrowtips_chest
 data=level,47
 data=experience,1500
 data=respawn_ticks,250
@@ -34,7 +34,7 @@ data=loot,coins,20,20,128
 
 [trapped_chest_chaos_druid_tower_blood_runes]
 table=trapped_chest
-data=loc,chest_blood_runes
+data=loc,chaos_druid_tower_blood_runes_chest
 data=level,59
 data=experience,2500
 data=respawn_ticks,400
@@ -44,7 +44,7 @@ data=tele_coord,0_40_52_24_9
 
 [trapped_chest_ardougne_castle_paladin]
 table=trapped_chest
-data=loc,chest_ardougne_castle
+data=loc,ardougne_castle_paladin_chest
 data=level,72
 data=experience,5000
 data=respawn_ticks,800

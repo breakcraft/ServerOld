@@ -12618,7 +12618,7 @@ width=2
 length=2
 op2=Steal from
 
-[chest_10_coins]
+[ardougne_pub_10_coin_chest]
 name=Chest
 desc=I wonder what's inside it..
 model=wooden_chest
@@ -12627,7 +12627,7 @@ op1=Open
 op2=Search for traps
 forceapproach=north
 
-[chest_nature_rune]
+[ardougne_pub_nature_rune_chest]
 name=Chest
 desc=I wonder what's inside it.
 model=wooden_chest
@@ -12636,7 +12636,7 @@ op1=Open
 op2=Search for traps
 forceapproach=north
 
-[chest_50_coins]
+[ardougne_pub_upstairs_50_coin_chest]
 name=Chest
 desc=I wonder what's inside it.
 model=wooden_chest
@@ -12645,7 +12645,7 @@ op1=Open
 op2=Search for traps
 forceapproach=north
 
-[chest_blood_runes]
+[chaos_druid_tower_blood_runes_chest]
 name=Chest
 desc=I wonder what's inside it.
 model=wooden_chest
@@ -12654,7 +12654,7 @@ op1=Open
 op2=Search for traps
 forceapproach=north
 
-[chest_ardougne_castle]
+[ardougne_castle_paladin_chest]
 name=Chest
 desc=I wonder what's inside it.
 model=wooden_chest
@@ -12681,7 +12681,7 @@ op1=Open
 op2=Search for traps
 forceapproach=north
 
-[chest_steel_arrowtips]
+[rogues_castle_steel_arrowtips_chest]
 name=Chest
 desc=I wonder what's inside it.
 model=wooden_chest
