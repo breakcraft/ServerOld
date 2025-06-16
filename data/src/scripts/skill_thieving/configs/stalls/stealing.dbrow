@@ -1,4 +1,4 @@
-[stealing_bakery_stall]
+[stealing_bakers_stall]
 table=stealing
 data=loc,bakers_stall_stealing
 data=owner,baker
