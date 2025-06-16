@@ -35,6 +35,10 @@ Content developers should run `npm start`. The server will watch for changes to 
 
 Engine developers should run `npm run dev`. This does what `npm start` does above, but also completely restarts the server when engine code has changed.
 
+## Thieving Reference
+
+For quick lookup of thieving requirements, see [docs/THIEVING_LEVELS.md](docs/THIEVING_LEVELS.md).
+
 ## Common Issues
 
 * `bad option: --import`  
