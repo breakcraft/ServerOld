@@ -17,11 +17,11 @@ if($start_pos ! ^ta_quir_priw & $dest ! ^ta_quir_priw) {
     mes("You can't go there at the moment.");
     return;
 }
-%glider_takeoff = ~calc_glidervar($start_pos, $dest);
+%pilot_journey = ~calc_glidervar($start_pos, $dest);
 p_delay(0); // 1t before teleport, 3t before if_close
 p_teleport(map_findsquare($dest, 0, 1, ^map_findsquare_lineofwalk));
 p_delay(2);
-%glider_takeoff = -1;
+%pilot_journey = -1;
 if_close;
 
 [proc,calc_gliderstart]()(coord)
@@ -61,7 +61,7 @@ if(inzone(0_45_47_35_42, 0_45_47_45_53, npc_coord) = true) {
 if(inzone(movecoord(^lemanto_andra, -8, 0, -8), movecoord(^lemanto_andra, 8, 0, 8), npc_coord) = true) {
     @gnome_pilot_crash_varrock;
 }
-if(%grandtree_progress = ^grandtree_released_prison & inzone(3_38_54_31_43, 3_38_54_35_47, npc_coord) = true) {
+if(%grandtree = ^grandtree_released_prison & inzone(3_38_54_31_43, 3_38_54_35_47, npc_coord) = true) {
     ~chatnpc("<p,neutral>Hi, the King said that you need to leave?");
     ~chatplayer("<p,sad>Apparently humans are invading!");
     ~chatnpc("<p,angry>I find that hard to believe!|I have lots of human friends.");
@@ -91,7 +91,7 @@ if(%grandtree_progress = ^grandtree_released_prison & inzone(3_38_54_31_43, 3_38
     }
     return;
 }
-if(%grandtree_progress = ^grandtree_complete) {
+if(%grandtree = ^grandtree_complete) {
     @multi3("Can you take me on the glider?", gnome_pilot_glider, "Why are gliders better than other transport?", gnome_pilot_transport, "Sorry, I don't want anything now.", gnome_pilot_sorry);
 }
 ~chatnpc("<p,neutral>Welcome to Gnome Air!");
@@ -134,11 +134,11 @@ if_openmain(glidermap);
 ~chatplayer("<p,confused>I'll leave you to it.");
 
 [label,gnome_pilot_crash_karamja]
-if(%grandtree_progress >= ^grandtree_obtained_lumber_order) {
+if(%grandtree >= ^grandtree_obtained_lumber_order) {
     // from OSRS, I think this is where the original dialogue ends
     ~chatnpc("<p,sad>I don't think I can fix this.|Looks like I'll be heading back by foot.");
     return;
-} else if (%grandtree_progress = ^grandtree_released_prison) {
+} else if (%grandtree = ^grandtree_released_prison) {
     ~chatplayer("<p,neutral>Where's the shipyard from here?");
     ~chatnpc("<p,neutral>It's east of here. I think I saw some buildings on the coast while we were crashing...");
 } else {
@@ -146,7 +146,7 @@ if(%grandtree_progress >= ^grandtree_obtained_lumber_order) {
 }
 
 [label,gnome_pilot_crash_varrock]
-if(%grandtree_progress = ^grandtree_complete) {
+if(%grandtree = ^grandtree_complete) {
     ~chatnpc("<p,neutral>Ah, how embarrassing.");
     ~chatplayer("<p,quiz>What happened?");
     ~chatnpc("<p,neutral>A bit of a technical hitch with the landing gear. I won't be able to fly you anywhere, sorry.");

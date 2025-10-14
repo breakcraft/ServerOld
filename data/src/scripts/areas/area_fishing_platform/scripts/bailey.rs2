@@ -1,5 +1,5 @@
 [opnpc1,bailey]
-switch_int(%seaslug_progress) {
+switch_int(%seaslugquest) {
     case ^seaslug_boat_repaired, ^seaslug_spoken_kennith, ^seaslug_sailed_kent :
         ~chatplayer("<p,happy>Hello.");
         ~chatnpc("<p,scared>Well hello there.|What are you doing here?");

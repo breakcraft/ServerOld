@@ -1,8 +1,8 @@
 [opnpc1,father_urhney]
 ~chatnpc("<p,angry>Go away! I'm meditating!");
-if (%priest_progress = ^priest_started) {
+if (%prieststart = ^priest_started) {
     @multi3("Well, that's friendly.", father_urhney_well_thats_friendly, "Father Aereck sent me to talk to you.", father_urhney_priest_father_aereck_sent_me, "I've come to repossess your house.", father_urhney_repossess_house);
-} else if (%priest_progress >= ^priest_spoken_urhney & ~obj_gettotal(amulet_of_ghostspeak) = 0) {
+} else if (%prieststart >= ^priest_spoken_urhney & ~obj_gettotal(amulet_of_ghostspeak) = 0) {
     @multi3("Well, that's friendly.", father_urhney_well_thats_friendly, "I've lost the amulet.", father_urhney_priest_lost_amulet, "I've come to repossess your house.", father_urhney_repossess_house);
 } else {
     @multi2("Well, that's friendly.", father_urhney_well_thats_friendly, "I've come to repossess your house.", father_urhney_repossess_house);
@@ -47,7 +47,7 @@ if ($option = 1) {
 ~chatnpc("<p,sad>(sigh)");
 ~chatnpc("<p,angry>Well, I can't go back and exorcise it.|I vowed not to leave this place.|Until I had done a full two years of prayer and meditation.");
 ~chatnpc("<p,neutral>Tell you what I can do though;|take this amulet.");
-%priest_progress = ^priest_spoken_urhney;
+%prieststart = ^priest_spoken_urhney;
 inv_add(inv, amulet_of_ghostspeak, 1);
 ~mesbox("Father Urhney hands you an amulet.");
 ~chatnpc("<p,neutral>It is an Amulet of Ghostspeak.");

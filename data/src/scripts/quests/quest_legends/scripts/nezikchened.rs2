@@ -2,7 +2,7 @@
 
 [ai_queue2,nezikchened]
 if(finduid(%npc_aggressive_player) = true) {
-    if(%legends_progress ! ^legends_summoned_nezikchened_fire & %legends_progress ! ^legends_received_dagger & %legends_progress ! ^legends_spawned_nezikchened_final) {
+    if(%legendsquest ! ^legends_summoned_nezikchened_fire & %legendsquest ! ^legends_received_dagger & %legendsquest ! ^legends_spawned_nezikchened_final) {
         mes("Your attack glides straight through the demon, as if he isn't even there.");
         %npc_aggressive_player = null;
         return;
@@ -53,7 +53,7 @@ if (%npc_aggressive_player ! uid) {
     mes("It's not after you...");
     return;
 }
-if(%legends_progress ! ^legends_summoned_nezikchened_fire & %legends_progress ! ^legends_received_dagger & %legends_progress ! ^legends_spawned_nezikchened_final) {
+if(%legendsquest ! ^legends_summoned_nezikchened_fire & %legendsquest ! ^legends_received_dagger & %legendsquest ! ^legends_spawned_nezikchened_final) {
     mes("Your attack glides straight through the demon, as if he isn't even there.");
     %npc_aggressive_player = null;
     return;
@@ -65,7 +65,7 @@ if (%npc_aggressive_player ! uid) {
     mes("It's not after you...");
     return;
 }
-if(%legends_progress ! ^legends_summoned_nezikchened_fire & %legends_progress ! ^legends_received_dagger & %legends_progress ! ^legends_spawned_nezikchened_final) {
+if(%legendsquest ! ^legends_summoned_nezikchened_fire & %legendsquest ! ^legends_received_dagger & %legendsquest ! ^legends_spawned_nezikchened_final) {
     mes("Your attack glides straight through the demon, as if he isn't even there.");
     %npc_aggressive_player = null;
     return;
@@ -82,7 +82,7 @@ if (finduid(%npc_aggressive_player) = true) {
 [ai_queue4,nezikchened] gosub(npc_death);
 
 [proc,nezikchened_dagger_attack]()(boolean)
-if(inzone(0_37_73_0_0, 0_37_73_63_63, coord) = true & %legends_progress = ^legends_received_dagger) {
+if(inzone(0_37_73_0_0, 0_37_73_63_63, coord) = true & %legendsquest = ^legends_received_dagger) {
     if(random(10) = 0 & %npc_int = 0) {
         mes("The demon takes out a dark dagger and throws it at you.");
         if(random(3) = 0) {
@@ -100,7 +100,7 @@ if(inzone(0_37_73_0_0, 0_37_73_63_63, coord) = true & %legends_progress = ^legen
 
 [label,summon_nezi_part3]
 if_close;
-if(%legends_progress = ^legends_collected_totem) %legends_progress = ^legends_spawned_nezikchened_final;
+if(%legendsquest = ^legends_collected_totem) %legendsquest = ^legends_spawned_nezikchened_final;
 npc_add(map_findsquare(coord, 1, 2, ^map_findsquare_lineofwalk), nezikchened, 500);
 %aggressive_npc = npc_uid;
 %npc_lastcombat = sub(^max_32bit_int, 8);
@@ -176,8 +176,8 @@ if(npc_finduid(%aggressive_npc) = true & npc_type = nezikchened) {
     npc_setmode(none);
     npc_walk(npc_coord);
     p_stopaction;
-    if (inzone(0_43_145_0_0, 0_43_145_63_63, coord) = true & %legends_progress = ^legends_summoned_nezikchened_fire) {
-        %legends_progress = ^legends_defeated_nezikchened_fire;
+    if (inzone(0_43_145_0_0, 0_43_145_63_63, coord) = true & %legendsquest = ^legends_summoned_nezikchened_fire) {
+        %legendsquest = ^legends_defeated_nezikchened_fire;
         mes("Nezikchened: Ha ha ha... I shall return for you when the time is right.");
         npc_say("Ha ha ha... I shall return for you when the time is right.");
         mes("The demon starts an incantation...");
@@ -197,8 +197,8 @@ if(npc_finduid(%aggressive_npc) = true & npc_type = nezikchened) {
         npc_queue(4, 0, 0);
         p_delay(5);
         mes("The demon's body falls to the floor in a pile of ashes...");
-    } else if (inzone(0_37_73_0_0, 0_37_73_63_63, coord) = true & %legends_progress = ^legends_received_dagger) {
-        %legends_progress = ^legends_defeated_nezikchened_water;
+    } else if (inzone(0_37_73_0_0, 0_37_73_63_63, coord) = true & %legendsquest = ^legends_received_dagger) {
+        %legendsquest = ^legends_defeated_nezikchened_water;
         mes("The demon seems very angry now...");
         npc_say("Arrrgghhhhh, foul Vacu!");
         p_delay(2);
@@ -212,8 +212,8 @@ if(npc_finduid(%aggressive_npc) = true & npc_type = nezikchened) {
         npc_queue(4, 0, 0);
         p_delay(5);
         mes("The demon's body falls to the floor in a pile of ashes...");
-    } else if (inzone(0_43_45_5_2, 0_46_45_30_55, coord) = true & %legends_progress = ^legends_spawned_nezikchened_final) {
-        %legends_progress = ^legends_defeated_nezikchened_final;
+    } else if (inzone(0_43_45_5_2, 0_46_45_30_55, coord) = true & %legendsquest = ^legends_spawned_nezikchened_final) {
+        %legendsquest = ^legends_defeated_nezikchened_final;
         mes("You deliver the final killing blow to the foul demon.");
         p_delay(2);
         mes("Nezikchened: Arrggghhhhh....");

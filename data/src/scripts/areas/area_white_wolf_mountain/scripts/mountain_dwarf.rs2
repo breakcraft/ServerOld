@@ -1,5 +1,5 @@
 [opnpc1,tunnel_dwarf]
-switch_int (%fishingcompo_progress) {
+switch_int (%fishingcompo) {
     case ^fishingcompo_not_started : @tunnel_dwarf_start;
     case ^fishingcompo_complete : ~chatnpc("<p,happy>Welcome, oh great Fishing Champion!|Feel free to pop by any time.");
     case default : @tunnel_dwarf_won;
@@ -66,8 +66,8 @@ if($option = 1) {
     if($start = 1) {
         ~chatplayer("<p,happy>Fortunately I'm alright at fishing!");
         ~chatnpc("<p,happy>Okay, I entrust you with our competition pass.|Go to Hemenster and do us proud!");
-        %fishingcompo_progress = ^fishingcompo_started;
-        ~send_quest_progress(questlist:fishingcompo, %fishingcompo_progress, ^fishingcompo_complete);
+        %fishingcompo = ^fishingcompo_started;
+        ~send_quest_progress(questlist:fishingcompo, %fishingcompo, ^fishingcompo_complete);
         inv_add(inv, fishing_competition_pass, 1);
     } else if($start = 2) {
         // Option doesn't exist post-rework so some guessing here
@@ -90,7 +90,7 @@ inv_add(inv, fishing_competition_pass, 1);
 
 [label,tunnel_dwarf_won]
 ~chatnpc("<p,confused>Have you won yet?");
-if(%fishingcompo_progress = ^fishingcompo_won_comp) {
+if(%fishingcompo = ^fishingcompo_won_comp) {
     ~chatplayer("<p,happy>Yes I have!");
     ~chatnpc("<p,happy>Well done! So where is the trophy?");
     if(inv_total(inv, hemenster_fishing_trophy) > 0) {

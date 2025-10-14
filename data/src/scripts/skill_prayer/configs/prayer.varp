@@ -1,63 +1,63 @@
 [prayer_guild]
 scope=perm
 
-[prayer_thickskin]
+[prayer0]
 transmit=yes
 protect=no
 
-[prayer_strengthburst]
+[prayer1]
 transmit=yes
 protect=no
 
-[prayer_clarity]
+[prayer2]
 transmit=yes
 protect=no
 
-[prayer_rockskin]
+[prayer3]
 transmit=yes
 protect=no
 
-[prayer_superhumanstrength]
+[prayer4]
 transmit=yes
 protect=no
 
-[prayer_improvedreflexes]
+[prayer5]
 transmit=yes
 protect=no
 
-[prayer_rapidrestore]
+[prayer6]
 transmit=yes
 protect=no
 
-[prayer_rapidheal]
+[prayer7]
 transmit=yes
 protect=no
 
-[prayer_protectitems]
+[prayer8]
 transmit=yes
 protect=no
 
-[prayer_steelskin]
+[prayer9]
 transmit=yes
 protect=no
 
-[prayer_ultimatestrength]
+[prayer10]
 transmit=yes
 protect=no
 
-[prayer_incrediblereflexes]
+[prayer11]
 transmit=yes
 protect=no
 
-[prayer_protectfrommagic]
+[prayer12]
 transmit=yes
 protect=no
 
-[prayer_protectfrommissiles]
+[prayer13]
 transmit=yes
 protect=no
 
-[prayer_protectfrommelee]
+[prayer14]
 transmit=yes
 protect=no
 

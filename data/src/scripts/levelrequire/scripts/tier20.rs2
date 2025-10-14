@@ -28,7 +28,7 @@
 [opheld2,willow_shortbow] @levelrequire_ranged(20, last_slot);
 [opheld2,coif] @levelrequire_ranged(20, last_slot);
 [opheld2,studded_body] @levelrequire_ranged_and_defence(20, 20, last_slot);
-[opheld2,studded_chaps] @levelrequire_ranged(20, last_slot);
+[opheld2,studded_chaps] @levelrequire_ranged_lower(20, last_slot);
 
 [opheld2,mithril_dart] @levelrequire_ranged(20, last_slot);
 [opheld2,mithril_dart_p] @levelrequire_ranged(20, last_slot);
@@ -39,3 +39,4 @@
 [opheld2,mithril_javelin_p] @levelrequire_ranged(20, last_slot);
 
 // Magic
+[opheld2,boots_wizard] @levelrequire_magic(20, last_slot);

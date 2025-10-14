@@ -1,7 +1,7 @@
 [opnpc1,apothecary]
-if(%romeojuliet_progress = ^romeojuliet_spoken_father) {
+if(%rjquest = ^romeojuliet_spoken_father) {
     @apothecary_lawrence_sent;
-} else if(%romeojuliet_progress = ^romeojuliet_spoken_apothecary) {
+} else if(%rjquest = ^romeojuliet_spoken_apothecary) {
     @apothecary_make_cadaver;
 } else {
     // referncing https://www.youtube.com/watch?v=-tUhc9naLbo for start and str potion option
@@ -79,4 +79,4 @@ if(inv_total(inv, cadavaberries) > 0) {
 ~chatnpc("<p,neutral>I have all of that, but I need some Cadaver berries.");
 ~chatnpc("<p,neutral>You will have to find them while I get the rest ready.");
 ~chatnpc("<p,neutral>Bring them here when you have them.|But be careful. They are nasty.");
-%romeojuliet_progress = ^romeojuliet_spoken_apothecary;
+%rjquest = ^romeojuliet_spoken_apothecary;

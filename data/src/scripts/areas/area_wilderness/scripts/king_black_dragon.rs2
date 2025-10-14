@@ -160,7 +160,7 @@ def_int $attack_roll = ~npc_magic_attack_roll_no_prot;
 def_int $defence_roll = ~player_defence_roll_specific(^magic_style);
 if (randominc($attack_roll) > randominc($defence_roll)) {
     $damage = randominc(~kbd_fiery_breath_maxhit);
-    if (%prayer_protectfrommagic = ^false & inv_total(worn, antidragonbreathshield) < 1) {
+    if (%prayer12 = ^false & inv_total(worn, antidragonbreathshield) < 1) {
         mes("You're horribly burnt by the dragon's fiery breath!"); // https://youtu.be/R3ozXHcQkgs?list=PLn23LiLYLb1bYAFU3Vdk3N9niuHs-b-4-&t=78
     }
 }
@@ -185,7 +185,7 @@ def_int $attack_roll = ~npc_magic_attack_roll_no_prot;
 def_int $defence_roll = ~player_defence_roll_specific(^magic_style);
 if (randominc($attack_roll) > randominc($defence_roll)) {
     $damage = randominc(~kbd_fiery_breath_maxhit);
-    if (%prayer_protectfrommagic = ^false & inv_total(worn, antidragonbreathshield) < 1) {
+    if (%prayer12 = ^false & inv_total(worn, antidragonbreathshield) < 1) {
         mes("You're horribly burnt by the dragon's fiery breath!"); // https://youtu.be/R3ozXHcQkgs?list=PLn23LiLYLb1bYAFU3Vdk3N9niuHs-b-4-&t=78
     }
 
@@ -242,7 +242,7 @@ def_int $defence_roll = ~player_defence_roll_specific(^magic_style);
 if (randominc($attack_roll) > randominc($defence_roll)) {
     $damage = randominc(~kbd_special_breath_maxhit);
     def_int $random = random(2); // 50% chance upon successful hit to inflict a unique effect (osrs)
-    if (%prayer_protectfrommagic = ^true & inv_total(worn, antidragonbreathshield) > 0) {
+    if (%prayer12 = ^true & inv_total(worn, antidragonbreathshield) > 0) {
         $random = random(8); // 1/8 chance (osrs). Not sure what it is exactly, ash says "Well protect player"
         if ($random ! 0) {
             mes("Your shield absorbs most of the dragon's shocking breath!"); // https://youtu.be/iXYRtqL-GNw?t=9
@@ -331,7 +331,7 @@ if ($random_attack = 0) {
 
 [proc,kbd_fiery_breath_maxhit]()(int)
 def_int $maxhit = 65;
-if (%prayer_protectfrommagic = ^true) {
+if (%prayer12 = ^true) {
     mes("You manage to resist some of the dragon's fiery breath!"); // https://youtu.be/R3ozXHcQkgs?list=PLn23LiLYLb1bYAFU3Vdk3N9niuHs-b-4-&t=78
     $maxhit = 20;
 }
@@ -339,7 +339,7 @@ if (inv_total(worn, antidragonbreathshield) > 0) {
     mes("Your shield absorbs most of the dragon's fiery breath!");
     $maxhit = 15;
 }
-if (map_clock < %antifire) {
+if (map_clock < %dragonresist) {
     mes("Your potion protects you from the heat of the dragon's breath!"); // https://youtu.be/7nY0kuIooZk?list=PLn23LiLYLb1bYAFU3Vdk3N9niuHs-b-4-&t=45
     $maxhit = sub($maxhit, 15);
 }
@@ -348,7 +348,7 @@ return($maxhit);
 
 [proc,kbd_special_breath_maxhit]()(int)
 def_int $maxhit = 50;
-if (%prayer_protectfrommagic = ^true) {
+if (%prayer12 = ^true) {
     $maxhit = 15;
 }
 if (inv_total(worn, antidragonbreathshield) > 0) {
@@ -356,12 +356,12 @@ if (inv_total(worn, antidragonbreathshield) > 0) {
 }
 return($maxhit);
 
-[oploc1,loc_1816]
+[oploc1,dragonkinginlever]
 p_delay(0); // delay in osrs? isntead of arrivedelay
 anim(human_leverdown, 0); // OSRS uses seq's not in 225, going to assume here
 sound_synth(lever, 0, 0);
 // Temp note: dur updated
-loc_change(loc_161, 7);
+loc_change(hauntedleverdown, 7);
 if_close;
 p_delay(0);
 mes("You pull the lever...");
@@ -371,12 +371,12 @@ p_delay(0);
 ~player_teleport_normal(0_42_153_29_10); // not sure if its an area or just right next to the lever
 mes("...And teleport into the Dragon's lair."); // changed to "Lair" (uppercase), on rev 317
 
-[oploc1,loc_1817]
+[oploc1,dragonkingoutlever]
 p_arrivedelay;
 anim(human_leverdown, 0); // OSRS uses seq's not in 225, going to assume here
 sound_synth(lever, 0, 0);
 // Temp note: dur updated
-loc_change(loc_161, 7);
+loc_change(hauntedleverdown, 7);
 if_close;
 p_delay(0);
 mes("You pull the lever...");

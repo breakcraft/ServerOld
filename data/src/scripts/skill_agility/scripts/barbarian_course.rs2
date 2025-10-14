@@ -24,7 +24,7 @@ if(%barb_ropeswing_used >= map_clock) {
 %barb_ropeswing_used = calc(map_clock + 3);
 if($delay > 0) p_delay($delay);
 loc_anim(ropeswing_long);
-~agility_exactmove(human_ropeswing_long, 20, 1, $start_pos, movecoord($start_pos, 0, 0, -5), 45, 70, ^exact_south, false);
+~agility_exactmove(human_ropeswing_long, 20, 0, $start_pos, movecoord($start_pos, 0, 0, -5), 45, 70, ^exact_south, false);
 mes("You skillfully swing across.");
 stat_advance(agility, 200);
 ~update_barbarian_varp(1);
@@ -94,7 +94,9 @@ p_delay(0);
 stat_advance(agility, 200);
 ~update_barbarian_varp(4);
 
-[oploc1,barbarian_crumblingwall] 
+[oploc1,castlecrumbly1] @climb_barbarian_crumblingwall;
+
+[label,climb_barbarian_crumblingwall]
 if(coordx(coord) > coordx(loc_coord)) {
     mes("You cannot climb that from this side.");
     return;

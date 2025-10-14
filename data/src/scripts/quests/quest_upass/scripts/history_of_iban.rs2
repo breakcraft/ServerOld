@@ -1,8 +1,11 @@
 [opheld1,old_journal]
 // We will use the elements for the "books" here so we dont have to use up an extra var
+// https://youtu.be/ya7Cp845W_M?si=cIgwgRCjeDL3AB4M&t=227
+p_stopaction;
 mes("The journal is old and covered in dust...");
 p_delay(2);
-%upass_map_mechanisms = setbit(%upass_map_mechanisms, ^upass_read_history); // I think this is just used for quest journal
+mes("inside are several chapters...");
+%ibanmulti = setbit(%ibanmulti, ^upass_read_history); // I think this is just used for quest journal
 @multi4_header("Introduction.", history_of_iban_introduction, "Iban.", history_of_iban, "The Resurrection.", history_of_iban_resurrection, "The Four Elements.", history_of_iban_elements, "Pick a chapter...");
 
 [label,history_of_iban_introduction]

@@ -413,6 +413,7 @@ async function configureMulti() {
     child_process.execSync('npm run db:migrate', {
         stdio: 'inherit'
     });
+
     process.exit(0);
 }
 

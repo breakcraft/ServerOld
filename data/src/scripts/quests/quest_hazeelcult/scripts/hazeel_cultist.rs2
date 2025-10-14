@@ -1,5 +1,5 @@
 [opnpc1,hazeel_cultist]
-switch_int(%hazeelcult_progress) {
+switch_int(%hazeelcultquest) {
     case ^hazeelcult_poured_poison :
         // guessed mesanims
         ~chatplayer("<p,neutral>Hiya.");

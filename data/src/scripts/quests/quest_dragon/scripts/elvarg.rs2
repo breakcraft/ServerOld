@@ -10,7 +10,7 @@ if (%npc_aggressive_player ! uid) { // if u didnt do the last hit
 }
 // finish dragon slayer quest
 // https://youtu.be/zmYEl97Smxs?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=222
-if (%dragon_progress < ^dragon_complete) {
+if (%dragonquest < ^dragon_complete) {
     queue(dragon_complete, 0);
 }
 
@@ -112,21 +112,21 @@ if (inv_total(worn, antidragonbreathshield) > 0) {
     // https://youtu.be/zmYEl97Smxs?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=169
     mes("Your shield absorbs most of the dragon fire!");
     $maxhit = sub($maxhit, 60);
-    if (%prayer_protectfrommagic = ^true) {
+    if (%prayer12 = ^true) {
         $maxhit = sub($maxhit, 3);
         // https://youtu.be/lSV2whAirvY?t=41
         mes("Your prayers resist some of the dragon fire!");
     }
-    if (map_clock < %antifire) {
+    if (map_clock < %dragonresist) {
         $maxhit = sub($maxhit, 3);
         // guess based off this https://youtu.be/UXNFe3FeDgg?t=15
         mes("Your potion protects you from the heat of the dragon fire!");
     }
 } else {
-    if (%prayer_protectfrommagic = ^true) {
+    if (%prayer12 = ^true) {
         $maxhit = sub($maxhit, 15);
     }
-    if (map_clock < %antifire) {
+    if (map_clock < %dragonresist) {
         $maxhit = sub($maxhit, 15);
     }
 }

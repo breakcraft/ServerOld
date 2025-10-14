@@ -1,5 +1,5 @@
 [opnpc1,sir_percival]
-switch_int(%grail_progress) {
+switch_int(%grail) {
     case ^grail_finding_percival : @percival_found;
     case ^grail_given_whistle : ~chatnpc("<p,neutral>I said I will see you there then!");
     case ^grail_complete :
@@ -44,7 +44,7 @@ if(inv_total(inv, magic_whistle) > 0) {
     ~mesbox("You give a whistle to Sir Percival. You tell sir Percival what to do with the whistle.");
     ~chatnpc("<p,neutral>Ok, I will see you there then!");
     inv_del(inv, magic_whistle, 1);
-    %grail_progress = ^grail_given_whistle;
+    %grail = ^grail_given_whistle;
     return;
 }
 ~chatplayer("<p,neutral>I will just go and get you one.");

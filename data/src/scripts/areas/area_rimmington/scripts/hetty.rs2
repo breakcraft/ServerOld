@@ -1,5 +1,5 @@
 [opnpc1,hetty]
-switch_int(%hetty_progress) {
+switch_int(%hetty) {
     case ^hetty_not_started :
         ~chatnpc("<p,neutral>What could you want with an old woman like me?");
         def_int $option = ~p_choice2("I am in search of a quest.", 1, "I've heard that you are a witch.", 2);
@@ -21,7 +21,7 @@ switch_int(%hetty_progress) {
             inv_del(inv, rats_tail, 1);
             inv_del(inv, eye_of_newt, 1);
             inv_del(inv, onion, 1);
-            %hetty_progress = ^hetty_objects_given;
+            %hetty = ^hetty_objects_given;
             ~chatnpc("<p,happy>Ok, now drink from the cauldron.");
             return;
         } else {
@@ -77,7 +77,7 @@ if($option = 1) {
 ~chatnpc("<p,happy>Ok I'm going to make a potion to help bring out your darker self.");
 ~chatnpc("<p,neutral>You will need certain ingredients.");
 ~chatplayer("<p,neutral>What do I need?");
-%hetty_progress = ^hetty_started;
-~send_quest_progress(questlist:hetty, %hetty_progress, ^hetty_complete);
+%hetty = ^hetty_started;
+~send_quest_progress(questlist:hetty, %hetty, ^hetty_complete);
 ~chatnpc("<p,neutral>You need an eye of newt, a rat's tail, an onion... Oh and a piece of burnt meat.");
 ~chatplayer("<p,happy>Great, I'll go and get them.");

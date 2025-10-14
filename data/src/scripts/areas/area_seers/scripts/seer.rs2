@@ -1,5 +1,5 @@
 [opnpc1,seer]
-switch_int (%scorpcatcher_progress) {
+switch_int (%scorpcatcher) {
     case ^scorpcatcher_started :
         ~seers_greetings;
         @multi3("I need to locate some scorpions.", seer_locate_scorp, "Your friend Thormac sent me to speak to you.", seer_thormac, "I seek knowledge and power!", seer_knowledge_and_power);
@@ -16,7 +16,9 @@ switch_int (%scorpcatcher_progress) {
             @multi2("Where did you say that scorpion was again?", seer_where_scorp, "I seek knowledge and power!", seer_knowledge_and_power);
         } 
     case ^scorpcatcher_second_hint :
-        if(inv_total(inv, scorpioncagea) > 0 | inv_total(inv, scorpioncageac) > 0) {
+        if(inv_total(inv, scorpioncageab) > 0) {
+            @seer_second_scorp;
+        } else if(inv_total(inv, scorpioncagea) > 0 | inv_total(inv, scorpioncageac) > 0) {
             @seer_first_scorp;
         } else {
             ~seers_greetings;
@@ -61,7 +63,7 @@ p_delay(3);
 mes("The seer smoothes his hair with his hand");
 p_delay(3);
 ~chatnpc("<p,confused>I can see a scorpion that you seek.|It would appear to be near some nasty spiders.|I can see two coffins there as well.");
-%scorpcatcher_progress = ^scorpcatcher_first_hint;
+%scorpcatcher = ^scorpcatcher_first_hint;
 ~chatnpc("<p,confused>The scorpion seems to be going through some crack in the wall. It's gone into some sort of secret room.");
 ~chatnpc("<p,neutral>Well see if you can find that scorpion then, and I'll try and get you some information on the others.");
 
@@ -72,8 +74,8 @@ p_delay(3);
 [label,seer_first_scorp]
 ~chatplayer("<p,happy>Hi, I've retrieved the scorpion from near the spiders.");
 ~chatnpc("<p,confused>Well, I've checked my looking glass.|There seems to be a kharid scorpion in a little village in the east,|surrounded by lots of uncivilised-looking warriors.|Some kind of merchant there seems to have picked it up.");
-~chatnpc("<p,neutral>That's all I can tell you about that scorpion.");
-%scorpcatcher_progress = ^scorpcatcher_second_hint;
+~chatnpc("<p,confused>That's all I can tell you about that scorpion.");
+%scorpcatcher = ^scorpcatcher_second_hint;
 ~chatplayer("<p,happy>Any more scorpions?");
 ~chatnpc("<p,neutral>It's good that you should ask.|I have information on the last scorpion for you.");
 @seer_last_scorp;

@@ -1,7 +1,7 @@
-[opnpc1,bartender_brimhaven]
+[opnpc1,deadmans_bartender]
 ~chatnpc("<p,laugh>Yohoho me hearty what would you like to drink?");
 def_int $option;
-if(testbit(%barcrawl_progress, ^deadman_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+if(testbit(%barcrawl, ^deadman_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
     $option = ~p_choice4("Nothing, thank you.", 1, "A pint of Grog please.", 2, "A bottle of rum please.", 3, "I'm doing Alfred Grimhand's barcrawl.", 4);
 } else {
     $option = ~p_choice3("Nothing, thank you.", 1, "A pint of Grog please.", 2, "A bottle of rum please.", 3);
@@ -31,8 +31,8 @@ switch_int ($option) {
     case 4 : @deadman_barcrawl;
 }
 
-[opnpcu,bartender_brimhaven]
-if(testbit(%barcrawl_progress, ^deadman_index) = ^false & last_useitem = barcrawl_card) {
+[opnpcu,deadmans_bartender]
+if(testbit(%barcrawl, ^deadman_index) = ^false & last_useitem = barcrawl_card) {
     @deadman_barcrawl;
 }
 
@@ -45,7 +45,7 @@ if(inv_total(inv, coins) < 15) {
 }
 if_close;
 inv_del(inv, coins, 15);
-%barcrawl_progress = setbit(%barcrawl_progress, ^deadman_index);
+%barcrawl = setbit(%barcrawl, ^deadman_index);
 mes("The bartender serves you a glass of strange thick dark liquid.");
 p_delay(2);
 mes("You wince and drink it.");
@@ -58,4 +58,4 @@ stat_sub(cooking, 5, 5);
 stat_sub(herblore, 5, 5);
 p_delay(2);
 mes("You think you see 2 bartenders signing 2 barcrawl cards.");
-%barcrawl_progress = setbit(%barcrawl_progress, ^deadman_index);
+%barcrawl = setbit(%barcrawl, ^deadman_index);

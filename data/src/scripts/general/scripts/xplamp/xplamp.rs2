@@ -81,13 +81,13 @@ error("case not found for stat: <enum(stat, string, stat_names, $stat)>");
 [label,xplamp_select_stat](int $selection)
 switch_int ($selection) {
     case ^xplamp_herblore :
-        if (%druid_progress ! ^druid_complete) {
+        if (%druidquest ! ^druid_complete) {
             %xplamp = ^xplamp_none;
             mes("You need to complete the Druidic Ritual quest to choose that option.");
             return;
         }
     case ^xplamp_runecraft :
-        if (%runemysteries_progress ! ^runemysteries_complete) {
+        if (%runemysteries ! ^runemysteries_complete) {
             %xplamp = ^xplamp_none;
             mes("You need to complete the Rune Mysteries quest to choose that option.");
             return;

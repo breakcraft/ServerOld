@@ -1,5 +1,5 @@
-[opnpc1,femi]
-if(%grandtree_progress = ^grandtree_obtained_lumber_order) {
+[opnpc1,grandtree_femi]
+if(%grandtree = ^grandtree_obtained_lumber_order) {
     if(coordz(npc_coord) > 3400) {
         ~chatnpc("<p,neutral>Now, to get this lot to the Grand Tree!");
         switch_int(~p_choice2("Can I help?", 1, "I'd better get going!", 2)) {
@@ -35,17 +35,17 @@ if(%grandtree_progress = ^grandtree_obtained_lumber_order) {
                 ~chatnpc("<p,neutral>Alright, jump in the back of the cart. It's a food delivery, we should be fine.");
                 ~objbox(coins_250, "You give Femi 1000 coins", 250, 0, divide(^objbox_height, 2)); // no period
                 inv_del(inv, coins, 1000);
-                @femi_sneakin;
+                @grandtree_femi_sneakin;
         }
     }
     ~chatnpc("<p,neutral>Well, as you helped me I suppose I could. We'll have to be careful. If I get caught I'll be in the cage!");
     ~chatplayer("<p,neutral>OK, what should I do?");
     ~chatnpc("<p,neutral>Jump in the back of the cart.|It's a food delivery, we should be fine"); // no period, OSRS has this linebreak
-    @femi_sneakin;
+    @grandtree_femi_sneakin;
 }
 mes("The little gnome is too busy to talk.");
 
-[label,femi_sneakin]
+[label,grandtree_femi_sneakin]
 if_close;
 bas_running(null);
 p_walk(0_38_52_29_51); // respects clipping from my testing
@@ -55,21 +55,21 @@ anim(human_reachforladder, 0);
 p_delay(0);
 p_telejump(0_38_53_27_17);
 ~update_bas;
-if(loc_find(movecoord(coord, -1, 0, 1), loc_308) = false) {
+if(loc_find(movecoord(coord, -1, 0, 1), cart_boxes) = false) {
     // Temp note: dur updated
-    loc_add(movecoord(coord, -1, 0, 1), loc_308, 0, centrepiece_straight, 200);
+    loc_add(movecoord(coord, -1, 0, 1), cart_boxes, 0, centrepiece_straight, 200);
 }
-if(npc_find(coord, femi, 5, 0) = false) {
-    npc_add(movecoord(coord, -1, 0, 0), femi, 200);
+if(npc_find(coord, grandtree_femi, 5, 0) = false) {
+    npc_add(movecoord(coord, -1, 0, 0), grandtree_femi, 200);
 }
 ~chatnpc("<p,neutral>OK, traveller, you'd better get going.");
 ~chatplayer("<p,happy>Thanks again!");
 ~chatnpc("<p,neutral>That's OK, all the best.");
 
-[label,femi_boxes]
+[label,grandtree_femi_boxes]
 if(loc_find(0_38_52_28_52, inviswall) = true) {
     // Temp note: dur does not need updated
-    loc_change(loc_361, 200);
+    loc_change(boxes3, 200);
 }
 ~chatnpc("<p,happy>Hello there.");
 ~chatplayer("<p,happy>Hi!");
@@ -89,7 +89,7 @@ switch_int(~p_choice2("Sorry, I'm a bit busy.", 1, "OK then.", 2)) {
         p_delay(0);
         anim(human_pickupfloor, 0);
         p_delay(0);
-        if(loc_find(movecoord(coord, -1, 0, 0), loc_361) = true) {
+        if(loc_find(movecoord(coord, -1, 0, 0), boxes3) = true) {
             // Temp note: dur does not need updated
             loc_change(inviswall, 200); // rs3 removes loc here instead, this can get you stuck, not sure which is correct cause the cart doesn't change on RS3 as well
         }
@@ -97,9 +97,9 @@ switch_int(~p_choice2("Sorry, I'm a bit busy.", 1, "OK then.", 2)) {
         p_delay(0);
         anim(human_pickupfloor, 0);
         p_delay(0);
-        if(loc_find(0_38_52_26_50, loc_307) = true) {
+        if(loc_find(0_38_52_26_50, cart) = true) {
             // Temp note: dur does not need updated
-            loc_change(loc_308, 200);
+            loc_change(cart_boxes, 200);
         }
         p_delay(0);
         %femi_help = 2;

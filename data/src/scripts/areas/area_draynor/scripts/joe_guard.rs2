@@ -1,14 +1,14 @@
-[opnpc1,joe_guard]
-switch_int (%prince_progress) {
+[opnpc1,joe]
+switch_int (%princequest) {
     case ^prince_prep_finished : @joe_distract;
     case ^prince_guard_drunk, ^prince_tied_keli : @joe_drunk;
     case ^prince_saved, ^prince_complete : @joe_postquest;
     case default : @joe_prequest;
 }
 
-[opnpcu,joe_guard]
+[opnpcu,joe]
 if(last_useitem = beer) {
-    if(%prince_progress = ^prince_prep_finished) {
+    if(%princequest = ^prince_prep_finished) {
         @joe_beer;
     }
     ~chatplayer("<p,neutral>I don't see any need to give the guard my beer. I'll keep it for myself.");
@@ -40,7 +40,7 @@ if(inv_total(inv, beer) < 2) {
 ~chatnpc("<p,bored>I better not, I don't want to be drunk on duty.");
 ~chatplayer("<p,happy>Here, just keep these for later,|I hate to see a thirsty guard.");
 inv_del(inv, beer, 2);
-%prince_progress = ^prince_guard_drunk;
+%princequest = ^prince_guard_drunk;
 ~mesbox("You hand two more beers to the guard.|He takes a sip of one, and then he drinks them both.");
 ~chatnpc("<p,confused>Franksh, that wash just what I need to shtay on guard. No more beersh, I don't want to get drunk.");
 ~mesbox("The guard is drunk, and no longer a problem.");

@@ -1,4 +1,4 @@
-[murder_progress]
+[murderquest]
 scope=perm
 
 [murder_poisonproof_progress]
@@ -7,5 +7,5 @@ scope=perm
 [murder_evidence]
 scope=perm
 
-[murder_murderer_id]
+[murdersus]
 scope=perm

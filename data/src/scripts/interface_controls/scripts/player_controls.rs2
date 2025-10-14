@@ -6,19 +6,19 @@
 if_close; // closes interfaces in osrs
 if (p_finduid(uid) = true) {
     p_stopaction; // https://oldschool.runescape.wiki/w/Update:Slayer_Cave_%26_High_Risk_Worlds
-    %auto_retaliate = ^player_auto_retaliate_on;
+    %option_nodef = ^player_auto_retaliate_on;
     return;
 }
-%auto_retaliate = %auto_retaliate; // resync varp
+%option_nodef = %option_nodef; // resync varp
 
 [if_button,controls:com_3]
 if_close; // might be strongqueued in osrs
 if (p_finduid(uid) = true) {
     p_stopaction; // https://oldschool.runescape.wiki/w/Update:Slayer_Cave_%26_High_Risk_Worlds
-    %auto_retaliate = ^player_auto_retaliate_off;
+    %option_nodef = ^player_auto_retaliate_off;
     return;
 }
-%auto_retaliate = %auto_retaliate; // resync varp
+%option_nodef = %option_nodef; // resync varp
 
 
 // Player run
@@ -29,7 +29,7 @@ if (p_finduid(uid) = true) {
     p_run(^player_run_off);
     return;
 }
-%run = %run; // resync varp
+%option_run = %option_run; // resync varp
 
 [if_button,controls:com_5]
 if_close;
@@ -39,14 +39,14 @@ if (p_finduid(uid) = true) {
         p_run(^player_run_off);
         return;
     }
-    if (%tutorial_progress = ^tutorial_open_player_controls) {
-        %tutorial_progress = ^tutorial_has_toggled_on_run;
+    if (%tutorial = ^tutorial_open_player_controls) {
+        %tutorial = ^tutorial_has_toggled_on_run;
         ~set_tutorial_progress;
     }
     p_run(^player_run_on);
     return;
 }
-%run = %run; // resync varp
+%option_run = %option_run; // resync varp
 
 
 // emotes

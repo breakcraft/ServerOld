@@ -1,5 +1,5 @@
-[opnpc1,pierre]
-switch_int(%murder_progress) { 
+[opnpc1,pierre_the_family_dog_handler]
+switch_int(%murderquest) { 
     case ^murder_not_started :
         ~chatnpc("<p,neutral>The guards told me not to talk to anyone.");
     case ^murder_started :

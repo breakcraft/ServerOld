@@ -1,5 +1,5 @@
 [oploc1,chompybird_chest]
-if (%chompybird_progress < ^chompybird_kids_play_with_toad) {
+if (%chompybird < ^chompybird_kids_play_with_toad) {
     mes("Perhaps you'd better ask permission before opening this.");
     return;
 }
@@ -23,8 +23,8 @@ if (random(3) = 0) {
 mes("You manage to lift the huge rock off the chest.");
 say("I guess this is what an ogre would call a locked chest.");
 
-if (%chompybird_progress = ^chompybird_kids_play_with_toad) {
-    %chompybird_progress = ^chompybird_removed_rock_from_chest;
+if (%chompybird = ^chompybird_kids_play_with_toad) {
+    %chompybird = ^chompybird_removed_rock_from_chest;
 }
 // duration from OSRS
 // Temp note: dur updated ? Assuming this is an even number so I added 2 instead of 1

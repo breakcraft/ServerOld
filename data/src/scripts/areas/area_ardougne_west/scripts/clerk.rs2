@@ -1,5 +1,5 @@
 [opnpc1,clerk]
-switch_int(%elena_progress) {
+switch_int(%elenaquest) {
     case ^quest_elena_spoke_to_plague_house :
         ~chatnpc("<p,neutral>Hello, welcome to the Civic Office of West Ardougne. How can I help you?");
         @multi3("I need permission to enter a plague house.", clerk_i_need_permission, "Who is through that door?", clerk_who_is_through_that_door, "I'm just looking thanks.", clerk_im_just_looking_thanks);
@@ -13,7 +13,7 @@ switch_int(%elena_progress) {
 ~chatplayer("<p,quiz>Who is through that door?");
 ~chatnpc("<p,neutral>The city warder <nc_name(bravek)> is in there.");
 ~chatplayer("<p,quiz>Can I go in?");
-switch_int(%elena_progress) {
+switch_int(%elenaquest) {
     case ^quest_elena_spoke_to_plague_house :
         ~chatnpc("<p,neutral>He has asked not to be disturbed.");
         @multi2("This is urgent though!", clerk_this_is_urgent_though, "Ok I will leave him alone.", clerk_ok_i_will_leave_him_alone);

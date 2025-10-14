@@ -41,7 +41,7 @@ if (~inzone_coord_pair_table(trawler_game_zones, coord) = false) {
     return;
 }
 mes("Murphy turns the boat towards shore.");
-%boat_takeoff = 12;
+%journey_number = 12;
 %trawler = ^trawler_finished;
 midi_jingle(^sailing_journey_jingle, ^sailing_journey_jingle_millis);
 if_openmain(ship_journey);
@@ -114,7 +114,7 @@ if (stat_random(fishing, 150, 200) = false) { // junk https://web.archive.org/we
 if ($level >= 81 & stat_random(fishing, 3, 40) = true) {
     inv_add(trawler_rewardinv, raw_mantaray, 1);
     stat_advance(fishing, 1150);
-} else if ($level >= 80 & stat_random(fishing, 3, 40) = true) {
+} else if ($level >= 79 & stat_random(fishing, 3, 40) = true) {
     inv_add(trawler_rewardinv, raw_seaturtle, 1);
     stat_advance(fishing, 1050);
 } else if ($level >= 76 & stat_random(fishing, 3, 40) = true) {

@@ -1,9 +1,9 @@
-[opnpc1,bartender_flyinghorse]
+[opnpc1,flyinghorse_bartender]
 ~chatnpc("<p,quiz>Would you like to buy a drink?");
 ~chatplayer("<p,quiz>What do you serve?");
 ~chatnpc("<p,happy>Beer!");
 def_int $option;
-if(testbit(%barcrawl_progress, ^flyinghorse_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+if(testbit(%barcrawl, ^flyinghorse_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
     $option = ~p_choice3("I'll have a beer then.", 1, "I'll not have anything then.", 2, "I'm doing Alfred Grimhand's Barcrawl.", 3);
 } else {
     $option = ~p_choice2("I'll have a beer then.", 1, "I'll not have anything then.", 2);
@@ -25,8 +25,8 @@ if($option = 1) {
     @flyinghorse_barcrawl;
 }
 
-[opnpcu,bartender_flyinghorse]
-if(testbit(%barcrawl_progress, ^flyinghorse_index) = ^false & last_useitem = barcrawl_card) {
+[opnpcu,flyinghorse_bartender]
+if(testbit(%barcrawl, ^flyinghorse_index) = ^false & last_useitem = barcrawl_card) {
     @flyinghorse_barcrawl;
 }
 
@@ -47,5 +47,5 @@ mes("You clutch your chest.");
 p_delay(2);
 mes("Through your tears you see the bartender...");
 mes("signing your barcrawl card");
-%barcrawl_progress = setbit(%barcrawl_progress, ^flyinghorse_index);
+%barcrawl = setbit(%barcrawl, ^flyinghorse_index);
 ~damage_self(calc((stat(hitpoints) * 25) / 100));

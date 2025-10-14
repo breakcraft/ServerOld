@@ -1,5 +1,5 @@
 [opnpc1,kangai_mau]
-switch_int (%totem_progress) {
+switch_int (%totemquest) {
     case ^totem_not_started : @kangai_mau_prequest;
     case ^totem_started, ^totem_crate_marked, ^totem_crate_delivered, ^totem_teleported : @kangai_mau_totem_back;
     case ^totem_complete :
@@ -42,8 +42,8 @@ if($option = 1) {
 @multi3("Ok, I will get it back.", kangai_mau_start_totem, "Why does he have it?", kangai_mau_why, "How can I find Handelmort's house?", kangai_mau_house);
 
 [label,kangai_mau_start_totem]
-%totem_progress = ^totem_started;
-~send_quest_progress(questlist:totem, %totem_progress, ^totem_complete);
+%totemquest = ^totem_started;
+~send_quest_progress(questlist:totem, %totemquest, ^totem_complete);
 ~chatplayer("<p,neutral>Ok, I will get it back.");
 ~chatnpc("<p,neutral>Best of luck with that adventurer.");
 
@@ -59,7 +59,7 @@ if($option = 1) {
 
 [label,kangai_mau_totem_back]
 ~chatnpc("<p,neutral>Have you got our totem back?");
-if(inv_total(inv, tribal_totem) > 0 & %totem_progress = 4) { // shouldn't be able to get totem without progress = 4 anyways
+if(inv_total(inv, tribal_totem) > 0 & %totemquest = 4) { // shouldn't be able to get totem without progress = 4 anyways
     ~chatplayer("<p,neutral>Yes I have.");
     ~chatnpc("<p,happy>You have??? Many thanks brave adventurer! Here, have some freshly cooked Karamjan fish, caught specially by my tribe.");
     ~mesbox("You hand over the Tribal Totem.");

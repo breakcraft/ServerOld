@@ -29,7 +29,7 @@ protect=no
 [frozen]
 
 // not perm: https://youtu.be/HAeh4qE3WJ4?t=34
-[attackstyle]
+[com_mode]
 protect=no
 transmit=yes
 
@@ -83,16 +83,16 @@ protect=no
 [autocast_spell]
 scope=perm
 
-[gobdip_progress]
+[goblinquest]
 scope=perm
 
-[waterfall_progress]
+[waterfall_quest]
 scope=perm
 
 [waterfall_golrie_and_puzzle]
 scope=perm
 
-[boat_takeoff]
+[journey_number]
 transmit=yes
 
 [pk_skull]
@@ -102,7 +102,7 @@ scope=perm
 [xplamp]
 transmit=yes
 
-[questpoints]
+[qp]
 transmit=yes
 protect=no
 
@@ -129,7 +129,7 @@ scope=perm
 scope=perm
 protect=no
 
-[bank_noted]
+[bankcert]
 transmit=yes
 
 [zq_map_mechanisms]
@@ -174,13 +174,13 @@ scope=perm
 [gnome_restaurant_progress]
 scope=perm
 
-[gnomeball]
+[score_gnomeball_game]
 transmit=yes
 
 [open_book]
 type=obj
 
-[glider_takeoff]
+[pilot_journey]
 transmit=yes
 
 [shantay_jail_progress]
@@ -191,7 +191,7 @@ scope=perm
 
 [book_page]
 
-[elena_progress]
+[elenaquest]
 scope=perm
 
 [varp_174]
@@ -206,15 +206,10 @@ scope=perm
 
 [varp_199]
 
-[varp_202]
-
-[mill_flour]
-scope=perm
-
-[smithing_bars]
+[smithbars]
 transmit=yes
 
-[smithing_level]
+[modified_smith]
 transmit=yes
 
 [gnomeball_owedball]
@@ -302,34 +297,34 @@ scope=perm
 [temp]
 scope=temp
 
-[option1]
+[if1]
 transmit=yes
 
-[option2]
+[if2]
 transmit=yes
 
-[option3]
+[if3]
 transmit=yes
 
 [magearena]
 protect=no
 scope=perm
 
-[saradomin_strike_casts]
+[saramage]
 scope=perm
 
-[claws_of_guthix_casts]
+[guthmage]
 scope=perm
 
-[flames_of_zamorak_casts]
+[zamomage]
 scope=perm
 
 [varp_271]
 
-[charge_god_spell]
+[magearena_charge]
 scope=perm
 
-[antifire]
+[dragonresist]
 scope=perm
 
 [varp_278]

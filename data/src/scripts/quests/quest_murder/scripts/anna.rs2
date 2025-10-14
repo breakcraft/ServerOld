@@ -1,5 +1,5 @@
-[opnpc1,anna]
-switch_int(%murder_progress) { 
+[opnpc1,anna_sinclair]
+switch_int(%murderquest) { 
     case ^murder_not_started : mes("She is ignoring you.");
     case ^murder_started :
         ~chatplayer("<p,neutral>I'm here to help the guards with their investigation.");
@@ -34,7 +34,7 @@ switch_int(%murder_progress) {
             case 4 :
                 ~chatplayer("<p,neutral>Why'd you buy poison the other day?");
                 ~chatnpc("<p,angry>That useless Gardener Stanford has let his compost heap fester. It's an eyesore to the garden! So I bought some poison from a travelling salesman so that I could kill off some of the wildlife living in it.");
-                if(%murder_murderer_id = ^murderer_anna & %murder_poisonproof_progress = ^poisonproof_spoken_salesman) { 
+                if(%murdersus = ^murderer_anna & %murder_poisonproof_progress = ^poisonproof_spoken_salesman) { 
                     %murder_poisonproof_progress = ^poisonproof_spoken_murderer;
                 }
         }

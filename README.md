@@ -5,6 +5,15 @@
 > [!IMPORTANT]  
 > We are changing to [LostCityRS/Server](https://github.com/LostCityRS/Server) for future updates. This repo will remain up as an archive to look back on. We have moved away from a monorepo for the engine and content here.
 
+This new structure is as follows:
+```
+1. move data/src/ to ../content, this is the new Content repo
+2. rename this Server folder to engine, this is the new Engine-TS repo
+3. edit src/util/Environment.ts to change data/src/ to ../content
+4. make sure everything still runs
+```
+At this point you are on separate git history and can't git pull for updates, but you can copy anything manually from upstream!
+
 > [!NOTE]
 > Learn about our history and ethos on our forum: https://lostcity.rs/t/faq-what-is-lost-city/16
 

@@ -1,5 +1,5 @@
-[opnpc1,mourner_blacksuit_2] // mourner at quest start location
-switch_int(%elena_progress) {
+[opnpc1,mournertwa] // mourner at quest start location
+switch_int(%elenaquest) {
     case ^quest_elena_not_started :
         ~chatplayer("<p,happy>Hello there.");
         ~chatnpc("<p,quiz>Do you have a problem traveller?");

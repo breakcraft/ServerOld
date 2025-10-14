@@ -1,5 +1,5 @@
-[opnpc1,kalron]
-switch_int(%tree_progress) {
+[opnpc1,lostgnome]
+switch_int(%treequest) {
     case ^tree_not_started :
         ~chatplayer("<p,neutral>Hello.");
         ~chatnpc("<p,sad>Gotta find a way out.|We built this maze for protection|but I can't get used to it.|I'm always getting lost.");

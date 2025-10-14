@@ -2,13 +2,13 @@
 ~chatplayer("<p,quiz>Isn't this place built a bit out the way?");
 ~chatnpc("<p,neutral>We like it that way actually! We get disturbed less. We still get rather a large amount of travellers looking for sanctuary and healing here as it is!");
 
-[oploc1,loc_2641]
+[oploc1,monasteryladder]
 if (%prayer_guild < 1) {
     if (npc_find(coord, abbot_langley, 5, 0) = true) {
         ~chatnpc("<p,neutral>Only members of our order can go up there.");
         @ask_to_join_abbot_langley2;
     }
-    if (npc_find(coord, monk_edgeville, 5, 0) = true) {
+    if (npc_find(coord, monk, 5, 0) = true) {
         ~chatnpc("<p,neutral>You'll need to talk to Abbot Langley about that. He's|usually to be found walking the halls of the monastery.");
         return;
     }
@@ -33,4 +33,4 @@ if (stat_base(prayer) < 31) { // todo: confirm this isn't boostable
 ~chatnpc("<p,happy>Ok, I see you are someone suitable for our order. You|may join.");
 
 // altar
-[oploc1,loc_2640] @pray_at_altar(calc(stat_base(prayer) + 2));
+[oploc1,monks_altar] @pray_at_altar(calc(stat_base(prayer) + 2));

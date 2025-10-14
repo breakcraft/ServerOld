@@ -9,14 +9,17 @@
 // (see https://chisel.weirdgloop.org/varbs/display?varplayer=135)
 [proc,itexam_reset_student_errands]
 ~itexam_set_errand_progress(^itexam_errand_student1, 0);
-~itexam_set_errand_progress(^itexam_errand_student2, 0);
 ~itexam_set_errand_progress(^itexam_errand_student3, 0);
+~itexam_set_errand_progress(^itexam_errand_student2, 0);
 
 [proc,itexam_progress]()(int)
-return (getbit_range(%itexam_progress, 0, 3));
+return (getbit_range(%itexamlevel, 0, 3));
 
 [proc,itexam_set_progress](int $progress);
-%itexam_progress = setbit_range_toint(%itexam_progress, $progress, 0, 3);
+if ($progress < %itexamlevel) {
+    return;
+}
+%itexamlevel = setbit_range_toint(%itexamlevel, $progress, 0, 3);
 
 [proc,itexam_errand_progress](int $errand)(int)
 // we're reserving 2 bits for each errand, 0 = not started, 1 = in progress, 2 = complete

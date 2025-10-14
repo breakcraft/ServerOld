@@ -1,9 +1,5 @@
-[debugproc,hit](int $amount)
-queue(damage_player, 0, $amount);
-
 [proc,damage_self](int $amount)
 if (stat(hitpoints) = 0) {
-    ~player_die;
     return;
 }
 if_close;
@@ -15,8 +11,8 @@ if ($amount > 0) {
 }
 
 if (stat(hitpoints) = 0){
-    ~player_die;
-    // no early return, ring of life still processes on death. https://youtu.be/LSpyUVXa4LE?t=202
+    queue(player_death, 0);
+    return;
 }
 
 ~ring_of_life_check;

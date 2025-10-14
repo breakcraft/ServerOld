@@ -2,8 +2,8 @@
 type=player
 check_vis=lineofsight
 check_afk=off
-extracheck_var=%legends_progress,>^legends_not_started
-extracheck_var=%legends_progress,<^legends_complete
+extracheck_var=%legendsquest,>^legends_not_started
+extracheck_var=%legendsquest,<^legends_complete
 check_notcombat=%lastcombat
 rate=100
 check_notbusy=on

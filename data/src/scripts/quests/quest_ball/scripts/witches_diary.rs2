@@ -2,10 +2,10 @@
 [opheld1,witches_diary]
 %book_page = 0;
 %open_book = witches_diary;
-if(%ball_progress = ^ball_unlocked_mousedoor) {
+if(%ballquest = ^ball_unlocked_mousedoor) {
     // weird one but if you read the diary after unlocking the mouse door it changes varp ONLY in that case
     // if you get caught now you won't be reset to the start of the quest!
-    %ball_progress = ^ball_read_diary_after_door;
+    %ballquest = ^ball_read_diary_after_door;
 }
 @open_witches_diary;
 

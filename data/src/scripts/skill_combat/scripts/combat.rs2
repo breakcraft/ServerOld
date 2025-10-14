@@ -114,7 +114,7 @@ if(npc_type = black_knight_titan) {
     stat_advance(hitpoints, scale(133, 100, $base));
     return;
 }
-if (%tutorial_progress < ^tutorial_complete) {
+if (%tutorial < ^tutorial_complete) {
     switch_int($damagestyle) {
         case ^style_melee_accurate :
             ~tutorial_give_xp(attack, scale($multiplier, 1000, scale(400, 100, $base)));

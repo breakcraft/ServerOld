@@ -1,12 +1,12 @@
 [opnpc3,nulodion]
-if (%mcannon_progress < ^mcannon_complete) {
+if (%mcannon < ^mcannon_complete) {
     mes("The dwarf doesn't seem interested in trading.");
     return;
 }
 ~openshop_activenpc;
 
 [opnpc1,nulodion]
-switch_int(%mcannon_progress) {
+switch_int(%mcannon) {
     case ^mcannon_tasked_with_speaking_to_nulodion : @mcannon_speak_with_nulodion_first_time;
     case ^mcannon_return_to_dwarf_commander_with_notes : @mcannon_speak_with_nulodion_should_return_to_dwarf_commander;
     case ^mcannon_complete : @nulodion_post_quest;
@@ -21,8 +21,8 @@ switch_int(%mcannon_progress) {
 ~chatnpc("<p,neutral>Don't be silly, the ammo's made by using a mould.|Here, take these to him, the instructions explain everything.");
 inv_add(inv, nulodions_notes, 1);
 inv_add(inv, ammo_mould, 1);
-if (%mcannon_progress = ^mcannon_tasked_with_speaking_to_nulodion) {
-    %mcannon_progress = ^mcannon_return_to_dwarf_commander_with_notes;
+if (%mcannon = ^mcannon_tasked_with_speaking_to_nulodion) {
+    %mcannon = ^mcannon_return_to_dwarf_commander_with_notes;
 }
 mes("The Cannon Engineer gives you some notes and a mould.");
 ~chatplayer("<p,neutral>That's great, thanks.");
@@ -91,26 +91,26 @@ inv_add(inv, ammo_mould, 1);
 [label,lost_my_cannon]
 ~chatplayer("<p,sad>I've lost my cannon...");
 ~chatnpc("<p,neutral>That's unfortunate... but don't worry, I can sort you out.");
-if (%mcannon_coord = null | loc_find(%mcannon_coord, cannon) = true) {
+if (%ownedmcannon = null | loc_find(%ownedmcannon, dwarf_multicannon1) = true) {
     ~chatnpc("<p,sad>Oh dear, I'm only allowed to replace cannons|that were stolen in action.|I'm sorry but you'll have to buy a new set.");
     return;
 }
-if (%mcannon_coord ! null) {
-    if (loc_find(%mcannon_coord, multicannon_base) = true) {
+if (%ownedmcannon ! null) {
+    if (loc_find(%ownedmcannon, multicannon_base) = true) {
         ~chatnpc("<p,confused>Hmmm. I think you'll find the base still happily parked on the spot where you put it."); // osrs
         ~chatplayer("<p,confused>Oh, is it still there? I thought I'd lost it.");
         ~chatnpc("<p,laugh>Ha ha ha, what a muddle-headed numpty you are!");
         ~chatplayer("<p,angry>...");
         return;
     }
-    if (loc_find(%mcannon_coord, multicannon_stand) = true) {
+    if (loc_find(%ownedmcannon, multicannon_stand) = true) {
         ~chatnpc("<p,confused>Hmmm. I think you'll find the base and stand still happily parked on the spot where you put them."); // osrs
         ~chatplayer("<p,confused>Oh, is it still there? I thought I'd lost it.");
         ~chatnpc("<p,laugh>Ha ha ha, what a muddle-headed numpty you are!");
         ~chatplayer("<p,angry>...");
         return;
     }
-    if (loc_find(%mcannon_coord, multicannon_barrels) = true) {
+    if (loc_find(%ownedmcannon, multicannon_barrels) = true) {
         ~chatnpc("<p,confused>Hmmm. I think you'll find most of the cannon still happily parked on the spot where you put it."); // osrs
         ~chatplayer("<p,confused>Oh, is it still there? I thought I'd lost it.");
         ~chatnpc("<p,laugh>Ha ha ha, what a muddle-headed numpty you are!");
@@ -120,27 +120,27 @@ if (%mcannon_coord ! null) {
 }
 ~chatnpc("<p,neutral>Keep that quiet or I'll be in real trouble!");
 ~chatplayer("<p,neutral>Of course.");
-if (%mcannon_stage = ^cannon_stage_base) {
+if (%dropcannon = ^cannon_stage_base) {
     mes("The dwarf gives you a new cannon part."); // osrs
     inv_add(inv, twpart1, 1);
-} else if (%mcannon_stage = ^cannon_stage_stand) {
+} else if (%dropcannon = ^cannon_stage_stand) {
     mes("The dwarf gives you new cannon parts."); // osrs
     inv_add(inv, twpart1, 1);
     inv_add(inv, twpart2, 1);
-} else if (%mcannon_stage = ^cannon_stage_barrels) {
+} else if (%dropcannon = ^cannon_stage_barrels) {
     mes("The dwarf gives you new cannon parts."); // osrs
     inv_add(inv, twpart1, 1);
     inv_add(inv, twpart2, 1);
     inv_add(inv, twpart3, 1);
-} else if (%mcannon_stage = ^cannon_stage_full) {
+} else if (%dropcannon = ^cannon_stage_full) {
     mes("The dwarf gives you a new cannon."); // osrs
     inv_add(inv, twpart1, 1);
     inv_add(inv, twpart2, 1);
     inv_add(inv, twpart3, 1);
     inv_add(inv, twpart4, 1);
 }
-%mcannon_coord = null;
-%mcannon_stage = ^cannon_stage_none;
+%ownedmcannon = null;
+%dropcannon = ^cannon_stage_none;
 
 [label,ill_take_a_cannon]
 ~chatplayer("<p,neutral>Ok, I'll take a cannon please.");

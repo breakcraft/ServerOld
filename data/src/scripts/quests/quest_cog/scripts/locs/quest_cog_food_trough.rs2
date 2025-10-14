@@ -1,7 +1,7 @@
 [oplocu,ctfoodtrough] // Rat Food Trough
 if(last_useitem = rat_poison) {
     inv_del(inv, rat_poison, 1);
-    %cog_progress = setbit(%cog_progress, ^quest_cog_rat_door_bit);
+    %cogquest = setbit(%cogquest, ^quest_cog_rat_door_bit);
     mes("The rats swarm towards the poisoned food...");
     mes("...and devour it hungrily.");
     mes("You see them smashing against the gates in panic.");

@@ -1,7 +1,7 @@
 [opnpc1,fred_the_farmer]
-if(%sheep_progress = ^sheep_not_started) { 
+if(%sheep = ^sheep_not_started) { 
     @fred_start;
-} else if(%sheep_progress >= ^sheep_started & %sheep_progress <= ^sheep_last_wool) {
+} else if(%sheep >= ^sheep_started & %sheep <= ^sheep_last_wool) {
     @fred_progressed;
 } else {
     @fred_post_quest;
@@ -51,8 +51,8 @@ if($option = 1) {
 [label,fred_yes_okay]
 ~chatplayer("<p,happy>Yes okay. I can do that.");
 ~chatnpc("<p,neutral>Ok I'll see you when you have some wool.");
-%sheep_progress = ^sheep_started;
-~send_quest_progress_colour(questlist:sheep, %sheep_progress, ^sheep_complete);
+%sheep = ^sheep_started;
+~send_quest_progress_colour(questlist:sheep, %sheep, ^sheep_complete);
 
 [label,fred_progressed]
 ~chatnpc("<p,neutral>How are you doing getting those balls of wool?");
@@ -66,11 +66,11 @@ if(inv_total(inv, ball_of_wool) > 0) {
 }
 
 [label,fred_give_wool]
-if(inv_total(inv, ball_of_wool) > 0 & %sheep_progress ! ^sheep_last_wool) {
+if(inv_total(inv, ball_of_wool) > 0 & %sheep ! ^sheep_last_wool) {
     if_close;
     inv_del(inv, ball_of_wool, 1);
     mes("You give Fred a ball of wool.");
-    %sheep_progress = calc(%sheep_progress + 1);
+    %sheep = calc(%sheep + 1);
     p_delay(1);
     @fred_give_wool;
 } else {
@@ -78,7 +78,7 @@ if(inv_total(inv, ball_of_wool) > 0 & %sheep_progress ! ^sheep_last_wool) {
 }
 
 [label,fred_end_giving_wool]
-if(%sheep_progress = ^sheep_last_wool & inv_total(inv, ball_of_wool) > 0) {
+if(%sheep = ^sheep_last_wool & inv_total(inv, ball_of_wool) > 0) {
     ~chatplayer("<p,happy>I have your last ball of wool.");
     ~chatnpc("<p,sad>I guess I'd better pay you then.");
     queue(sheep_complete, 0);

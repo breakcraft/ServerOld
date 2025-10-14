@@ -26,25 +26,27 @@
 [oploc1,millbase]
 @millbase_take;
 
-[oploc1,millbase_full]
+[oploc1,millbase_flour]
 @millbase_take;
 
 [oplocu,millbase]
-if (last_useitem = pot_empty) {
-    @millbase_take;
-} else {
-    ~displaymessage(^dm_default);
-}
+@millbase_opu;
 
-[oplocu,millbase_full]
+[oplocu,millbase_flour]
+@millbase_opu;
+
+[label,millbase_opu]
 if (last_useitem = pot_empty) {
-    @millbase_take;
+    if (%flour > 0) p_oploc(1);
+    else @empty_flour_bin;
+} else if(last_useitem = pot_flour) {
+    mes("This pot is already full.");
 } else {
     ~displaymessage(^dm_default);
 }
 
 [label,millbase_take]
-if (%mill_flour > 0) {
+if (%flour > 0) {
     @take_flour_bin;
 } else {
     @empty_flour_bin;
@@ -54,77 +56,71 @@ if (%mill_flour > 0) {
 mes("The flour bin is already empty.");
 
 [label,take_flour_bin]
-p_arrivedelay;
-
 if (inv_total(inv, pot_empty) < 1) {
     mes("You need an empty pot to hold the flour in.");
 } else {
     inv_del(inv, pot_empty, 1);
     inv_add(inv, pot_flour, 1);
 
-    if (%mill_flour > 1) {
-        %mill_flour = sub(%mill_flour, 1);
+    if (%flour > 1) {
+        %flour = sub(%flour, 1);
         mes("You fill a pot with flour from the bin.");
     } else {
         // todo: do we revert visual state? let the loc_change run its course?
-        %mill_flour = 0;
+        %flour = 0;
         mes("You fill a pot with the last of the flour in the bin.");
         // Temp note: dur does not need updated
         loc_change(millbase, 500);
     }
 }
 
-[oplocu,hopper_full]
+[label,hopper_fill]
 if (last_useitem = grain) {
+    if(%hopper_full = ^false) {
+        inv_del(inv, grain, 1);
+        %hopper_full = ^true;
+        p_arrivedelay;
+        anim(human_pickuptable, 0);
+        p_delay(0);
+        mes("You put the grain in the hopper.");
+        return;
+    }
     mes("There is already grain in the hopper.");
 } else {
     ~displaymessage(^dm_default);
 }
 
-[oplocu,_hopper_nonfull]
-if (last_useitem = grain) {
-    anim(human_pickuptable, 0);
-    // sound?
-    mes("You put the grain in the hopper.");
-    inv_delslot(inv, last_useslot);
-    // Temp note: dur does not need updated
-    loc_change(hopper_full, 500);
-} else {
-    ~displaymessage(^dm_default);
-}
+[oplocu,hopper_full] @hopper_fill;
+[oplocu,_hopper_nonfull] @hopper_fill;
 
 [oploc1,_hoppercontrol]
 def_coord $hopper_coord = loc_param(hopper_coord);
 def_coord $millbase_coord = loc_param(millbase_coord);
-def_loc $hopper = loc_param(next_loc_stage);
-sound_synth(hopperlever, 0, 0);
-// Temp note: dur updated
-loc_change(hoppercontrol_inuse, 3);
+if(%hopper_full = ^false) {
+    // this message shows up before arrivedelay
+    mes("You operate the empty hopper. Nothing interesting happens.");
+}
+p_arrivedelay;
 anim(human_pickuptable, 0);
-
-if (loc_find($hopper_coord, hopper_full) = true) {
-    if (%mill_flour > 29) {
+loc_change(hoppercontrol_inuse, 3);
+sound_synth(lever, 0, 0);
+if(%hopper_full = ^true) {
+    if (%flour > 29) {
         mes("The flour bin downstairs is full, I should empty it first.");
         return;
     }
 
     mes("You operate the hopper. The grain slides down the chute.");
     sound_synth(millstones, 0, 0);
+    sound_synth(lever, 0, 0); // this sound plays twice
 
-    %mill_flour = add(%mill_flour, 1);
-    if (%mill_flour = 30) {
+    %hopper_full = ^false;
+    %flour = add(%flour, 1);
+    if (%flour = 30) {
         mes("The flour bin downstairs is now full.");
     }
 
-    // reverting the state means multiple people trying at the same time will have issues
-    // but it's necessary to prevent infinite flour!
-    // Temp note: dur does not need updated
-    // Temp note: dur does not need updated
-    loc_change($hopper, 500);
-
     if (loc_find($millbase_coord, millbase) = true) {
-        loc_change(millbase_full, 500);
+        loc_change(millbase_flour, 500);
     }
-} else {
-    mes("You operate the empty hopper. Nothing interesting happens.");
 }

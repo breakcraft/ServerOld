@@ -5,7 +5,7 @@ if(map_members = ^true & inv_total(inv, trail_clue_easy_simple007) = 1) {
 }
 ~chatnpc("<p,happy>A thousand greetings, sir.");
 def_int $option = 0;
-if (%crest_progress = ^crest_caleb_where) {
+if (%crestquest = ^crest_caleb_where) {
     $option = ~p_choice3("Do you want to trade?", 1, "Nice cloak.", 2, "I'm in search of a man named Avan Fitzharmon.", 3);
 }
 else {

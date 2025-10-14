@@ -1,5 +1,5 @@
-[opnpc1,bolkoy]
-switch_int(%tree_progress) {
+[opnpc1,treevillage_shopkeeper1]
+switch_int(%treequest) {
     case ^tree_retrieved_orb :
         ~chatplayer("<p,neutral>Hello.");
         if(inv_total(inv, orb_of_protection) > 0) {

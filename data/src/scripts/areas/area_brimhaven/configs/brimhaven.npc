@@ -59,7 +59,7 @@ param=shop_delta,30
 param=shop_title,The Shrimp and Parrot
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4920
 
-[bartender_brimhaven]
+[deadmans_bartender]
 vislevel=hide
 name=Bartender
 desc=I could get a beer from him.
@@ -121,7 +121,7 @@ param=shop_buy_multiplier,900
 param=shop_delta,20
 param=shop_title,Davon's Amulet Store
 
-[hajedy]
+[brimhavencartdriver]
 vislevel=hide
 name=Hajedy
 desc=A cart driver, it looks like he's quite experienced.

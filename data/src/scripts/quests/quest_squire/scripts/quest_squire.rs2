@@ -54,8 +54,8 @@ if($option = 1) {
     ~chatnpc("<p,quiz>I don't suppose you could try and track down the Imcando dwarves for me? I've got so much work to do...");
     $option = ~p_choice2("Ok, I'll give it a go.", 1, "No, I've got lots of mining work to do.", 2);
     if($option = 1) {
-        %squire_progress = ^squire_started;
-        ~send_quest_progress(questlist:squire, %squire_progress, ^squire_complete);
+        %squire = ^squire_started;
+        ~send_quest_progress(questlist:squire, %squire, ^squire_complete);
         ~chatplayer("<p,neutral>Ok, I'll give it a go.");
         ~chatnpc("<p,happy>Thank you very much! As I say, the best place to start should be with Reldo...");
     } else {
@@ -67,15 +67,15 @@ if($option = 1) {
 }
 
 [label,squire_status_report]
-if(%squire_progress = ^squire_given_pie) {
+if(%squire = ^squire_given_pie) {
     ~chatplayer("<p,happy>I have found an Imcando Dwarf named Thurgo! I have given him Redberry pie, I hope he will help me now.");
-} else if(%squire_progress = ^squire_spoken_thurgo) {
+} else if(%squire = ^squire_spoken_thurgo) {
     ~chatplayer("<p,happy>I have found an Imcando dwarf but he needs a picture of the sword before he can make it.");
     ~chatnpc("<p,confused>A picture eh? Hmmm.... The only one I can think of is in a small portrait of Sir Vyvin's father... Sir Vyvin keeps it in a cupboard in his room I think.");
-    %squire_progress = ^squire_looking_portrait;   
+    %squire = ^squire_looking_portrait;   
     ~chatplayer("<p,neutral>Ok, I'll try to get that then.");
     ~chatnpc("<p,confused>Please don't let him catch you! He MUSTN'T know what happened!");
-} else if(%squire_progress = ^squire_looking_portrait) {
+} else if(%squire = ^squire_looking_portrait) {
     if(inv_total(inv, knights_portrait) > 0) {
         ~chatplayer("<p,happy>I have the picture, I'll just take it to the dwarf now!");
         ~chatnpc("<p,confused>Please hurry!");
@@ -83,7 +83,7 @@ if(%squire_progress = ^squire_given_pie) {
         ~chatplayer("<p,sad>I didn't get the picture yet...");
         ~chatnpc("<p,sad>Please try and get it quickly... I am scared Sir Vyvin will find out!");
     }
-} else if(%squire_progress = ^squire_looking_blurite) {
+} else if(%squire = ^squire_looking_blurite) {
     if(inv_total(bank, faladian_sword) >= 1) {
         ~chatplayer("<p,neutral>I got a replacement sword made.");
         ~chatnpc("<p,happy>Thank you! Can I have it?");
@@ -120,7 +120,7 @@ if(%squire_progress = ^squire_given_pie) {
 ~chatnpc("<p,neutral>I believe I remember a couple living in Asgarnia|near the cliffs on the Asgarnian southern peninsula,|but they DO tend to keep to themselves.");
 ~chatnpc("<p,neutral>They tend not to tell people that they're the descendants of the Imcando, which is why people think that the tribe has died out totally, but you may well have more luck talking to them if you bring them some");
 ~chatnpc("<p,neutral>redberry pie. They REALLY like redberry pie.");
-%squire_progress = ^squire_spoken_reldo;
+%squire = ^squire_spoken_reldo;
 
 [label,thurgo_inquire]
 if(inv_total(inv, redberry_pie) >= 1) {
@@ -148,7 +148,7 @@ if(inv_total(inv, redberry_pie) >= 1) {
 ~chatnpc("<p,happy>I'd never say no to a redberry pie! They're GREAT stuff!");
 ~mesbox("You hand over the pie. Thurgo eats the pie. Thurgo pats his stomach.");
 inv_del(inv, redberry_pie, 1);
-%squire_progress = ^squire_given_pie;
+%squire = ^squire_given_pie;
 ~chatnpc("<p,happy>By Guthix! THAT was good pie! Anyone who makes pie like THAT has got to be alright!");
 
 [label,thurgo_special_sword_post_pie]
@@ -158,18 +158,18 @@ inv_del(inv, redberry_pie, 1);
 ~chatnpc("<p,neutral>A Knight's sword eh? Well I'd need to know exactly how it looked before I could make a new one.");
 ~chatnpc("<p,neutral>All the Faladian knights used to have swords with unique designs according to their position. Could you bring me a picture or something?");
 ~chatplayer("<p,neutral>I'll go and ask his squire and see if I can find one.");
-%squire_progress = ^squire_spoken_thurgo;
+%squire = ^squire_spoken_thurgo;
 
 [label,thurgo_about_sword]
 ~chatplayer("<p,neutral>About that sword...");
-if(%squire_progress = ^squire_complete | inv_total(inv, faladian_sword) >= 1) { // only checks inv (RS3)
+if(%squire = ^squire_complete | inv_total(inv, faladian_sword) >= 1) { // only checks inv (RS3)
     @thurgo_squire_complete;
 }
-if(%squire_progress = ^squire_spoken_thurgo | %squire_progress = ^squire_looking_portrait & inv_total(inv, knights_portrait) = 0) {
+if(%squire = ^squire_spoken_thurgo | %squire = ^squire_looking_portrait & inv_total(inv, knights_portrait) = 0) {
     ~chatnpc("<p,quiz>Have you got a picture of the sword for me yet?");
     ~chatplayer("<p,sad>Sorry, not yet.");
     ~chatnpc("<p,neutral>Well, come back when you do.");
-} else if (%squire_progress = ^squire_looking_portrait & inv_total(inv, knights_portrait) >= 1) {
+} else if (%squire = ^squire_looking_portrait & inv_total(inv, knights_portrait) >= 1) {
     ~chatplayer("<p,neutral>I have found a picture of the sword I would like you to make.");
     ~mesbox("You give the portrait to Thurgo. Thurgo studies the portrait.");
     ~chatnpc("<p,neutral>Ok. You'll need to get me some stuff in order for me to make this.");
@@ -180,8 +180,8 @@ if(%squire_progress = ^squire_spoken_thurgo | %squire_progress = ^squire_looking
     ~chatnpc("<p,neutral>You'll need a little bit of mining experience to be able to find it.");
     ~chatplayer("<p,neutral>Ok. I'll go and find them then.");
     inv_del(inv, knights_portrait, 1);
-    %squire_progress = ^squire_looking_blurite;
-} else if (%squire_progress = ^squire_looking_blurite) {
+    %squire = ^squire_looking_blurite;
+} else if (%squire = ^squire_looking_blurite) {
     @thurgo_check_blurite;
 }
 
@@ -217,7 +217,7 @@ if (npc_find(coord, sir_vyvin, 1, 0) = true) {
 return(true);
 
 [queue,squire_complete]
-%squire_progress = ^squire_complete;
+%squire = ^squire_complete;
 session_log(^log_adventure, "Quest complete: The Knight's Sword");
 ~send_quest_complete(questlist:squire, faladian_sword, 250, ^squire_questpoints, "You have completed the Knight's Sword Quest!");
 stat_advance(smithing, 127250);

@@ -1,13 +1,13 @@
 [opnpc1,hassan]
-switch_int (%prince_progress) {
+switch_int (%princequest) {
     case ^prince_not_started :
         ~chatnpc("<p,neutral>Greetings I am Hassan, Chancellor to the Emir of Al- Kharid.");
         def_int $option = ~p_choice3("Can I help you? You must need some help here in the desert.", 1, "It's just too hot here. How can you stand it?", 2, "Do you mind if I just kill your warriors?", 3);
         if($option = 1) {
             ~chatplayer("<p,happy>Can I help you? You must need some help here in the desert.");
             ~chatnpc("<p,neutral>I need the services of someone, yes. If you are interested, see the spymaster, Osman. I manage the finances here. Come to me when you need payment.");
-            %prince_progress = ^prince_started;
-            ~send_quest_progress(questlist:prince, %prince_progress, ^prince_complete);
+            %princequest = ^prince_started;
+            ~send_quest_progress(questlist:prince, %princequest, ^prince_complete);
         } else if($option = 2) {
             ~chatplayer("<p,sad>It's just too hot here. How can you stand it?");
             ~chatnpc("<p,neutral>We manage, in our humble way. We are a wealthy town and we have water. It cures many thirsts.");

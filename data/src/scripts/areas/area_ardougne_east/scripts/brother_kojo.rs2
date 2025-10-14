@@ -10,7 +10,7 @@ if(~has_sextant_clue = true) {
         ~chatplayer("<p,neutral>Can I have one?");
         ~chatnpc("<p,happy>You can have this one! It's the display model.");
         inv_add(inv, trail_watch, 1);
-        %trail_clue = setbit_range_toint(%trail_clue, ^trail_chart_spoken_kojo, 5, 8);
+        %trail_status = setbit_range_toint(%trail_status, ^trail_chart_spoken_kojo, 5, 8);
         ~objbox(trail_watch, "Brother Kojo has given you a watch.", 250, 0, divide(^objbox_height, 2));
         return;
     } else if(~get_chart_progress >= ^trail_chart_spoken_kojo & ~obj_gettotal(trail_watch) = 0) {

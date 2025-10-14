@@ -1,5 +1,5 @@
-[opnpc1,mary]
-switch_int(%murder_progress) { 
+[opnpc1,mary_the_maid]
+switch_int(%murderquest) { 
     case ^murder_not_started : mes("She is ignoring you.");
         case ^murder_started :
             ~chatplayer("<p,neutral>I'm here to help the guards with their investigation.");

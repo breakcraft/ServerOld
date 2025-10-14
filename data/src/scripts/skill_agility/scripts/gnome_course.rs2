@@ -1,7 +1,7 @@
 [oploc1,gnome_log_balance]
+~gnome_trainer_say("Okay get over that log, quick quick!");
 p_arrivedelay;
 mes("You walk carefully across the slippery log...");
-~gnome_trainer_say("Okay get over that log, quick quick!");
 ~agility_force_move(75, human_walk_logbalance, movecoord(coord, 0, 0, -7));
 mes("...You make it safely to the other side.");
 ~update_gnome_varp(1);
@@ -19,7 +19,7 @@ p_arrivedelay;
 
 [oploc1,gnome_tree_branch_1]
 mes("You climb the tree..");
-~gnome_trainer_say("That's it - straight up.");
+~gnome_trainer_say("That's it - straight up");
 p_arrivedelay;
 ~agility_climb_up(50, movecoord(loc_coord, 0, 1, -2));
 mes("...To the platform above.");
@@ -36,7 +36,7 @@ mes("You carefully cross the tightrope.");
 [oploc1,gnome_tree_branch_3] @climbdown_gnome_tree_branch;
 
 [label,climbdown_gnome_tree_branch]
-mes("You climb down the tree.");
+mes("You climb down the tree...");
 p_arrivedelay;
 ~agility_climb_up(50, 0_38_53_55_28);
 mes("You land on the ground.");
@@ -75,7 +75,7 @@ stat_advance(agility, 75);
 ~update_gnome_varp(7);
 
 [proc,gnome_trainer_say](string $line)
-if(npc_find(coord, gnometrainer, 6, 0) = true) {
+if(npc_find(coord, gnometrainer, 5, 0) = true) {
     npc_say($line);
 }
 

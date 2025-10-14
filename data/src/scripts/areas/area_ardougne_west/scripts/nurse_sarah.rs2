@@ -1,10 +1,10 @@
-[opnpc1,nurse_sarah]
-if(%biohazard_progress = ^biohazard_poisoned_stew) {
+[opnpc1,bionurse]
+if(%biohazard = ^biohazard_poisoned_stew) {
     ~chatplayer("<p,happy>Hello nurse.");
     ~chatnpc("<p,happy>Oh hello there.");
     ~chatnpc("<p,neutral>I'm afraid I can't stop and talk, a group of mourners have become ill with food poisoning. I need to go over and see what I can do.");
     ~chatplayer("<p,shifty>Hmmm, strange that!");
-} else if (%biohazard_progress = ^biohazard_climbed_ladder) {
+} else if (%biohazard = ^biohazard_climbed_ladder) {
     ~chatplayer("<p,happy>Hello nurse.");
     ~chatnpc("<p,sad>I don't know how much longer I can cope here.");
     ~chatplayer("<p,quiz>What? Is the plague getting to you?");

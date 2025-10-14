@@ -11,7 +11,7 @@ npc_walk(npc_coord);
 [opnpcu,gujuo]
 switch_obj(last_useitem) {
     case goldbowl_empty, goldbowl_water, goldbowl_pure :
-        if (%legends_progress < ^legends_asked_gujuo_holy_water) {
+        if (%legendsquest < ^legends_asked_gujuo_holy_water) {
             // shouldn't be possible under normal circumstances
             ~displaymessage(^dm_default);
             return;
@@ -36,7 +36,7 @@ switch_obj(last_useitem) {
 if (p_finduid(uid) = false) {
     return;
 }
-if(%legends_progress >= ^legends_asked_gujuo_holy_water) {
+if(%legendsquest >= ^legends_asked_gujuo_holy_water) {
     if (inv_total(inv, goldbowl_empty) > 0 | inv_total(inv, goldbowl_water) > 0 | inv_total(inv, goldbowl_pure) > 0) {
         ~chatnpc("<p,neutral>Greetings Bwana. Ah I see you have the golden bowl! Would you like me to show you how to bless it?");
         def_int $choice = ~p_choice2("Yes, I'd like you to bless my gold bowl.", 1, "No thanks, I need help with something else.", 2);
@@ -46,49 +46,49 @@ if(%legends_progress >= ^legends_asked_gujuo_holy_water) {
         }
     }
 }
-if (%legends_progress = ^legends_got_bullroarer | %legends_progress = ^legends_swung_bullroarer) {
+if (%legendsquest = ^legends_got_bullroarer | %legendsquest = ^legends_swung_bullroarer) {
     ~chatnpc("<p,neutral>Greetings Bwana... Why do you make such strange sounds and disturb the peace of the jungle?");
     @multi2("I was hoping to attract the attention of a native.", gujuo_attract,
             "Sorry, it was a mistake?", gujuo_sorry);
 }
-else if (%legends_progress >= ^legends_accepted_rescue_ungadulu & %legends_progress < ^legends_defeated_nezikchened_fire) {
+else if (%legendsquest >= ^legends_accepted_rescue_ungadulu & %legendsquest < ^legends_defeated_nezikchened_fire) {
     @gujuo_how_goes_ungadulu;
-} else if (%legends_progress = ^legends_defeated_nezikchened_fire) {
+} else if (%legendsquest = ^legends_defeated_nezikchened_fire) {
     ~chatnpc("<p,neutral>How goes your quest to release Ungadulu?");
     @multi3("Ungadulu is free, he was possessed by a demon and I killed it.", gujuo_ungadulu_free, "I have the Yommi tree seeds.", gujuo_have_seeds, "What do I do now?", gujuo_what_now);
-} else if (%legends_progress = ^legends_germinated_seeds) {
+} else if (%legendsquest = ^legends_germinated_seeds) {
     ~chatnpc("<p,neutral>Congratulations on releasing Ungadulu! My people are very pleased... How goes the growing of the Yommi tree?");
     @multi3("I have germinated the Yommi tree seeds.", gujuo_germinated, "Where is the fertile soil?", gujuo_wheresoil, "Ok thanks for your help.", gujuo_thanks);
-} else if (%legends_progress = ^legends_water_pool_dried_up) {
+} else if (%legendsquest = ^legends_water_pool_dried_up) {
     ~chatnpc("<p,neutral>I have visited Ungadulu in the caves, he is hard at work studying. He looks well! Have you grown the Yommi tree yet?");
     @multi2("The water pool has dried up and I need more water.", gujuo_pool_dried, "The Yommi tree died.", gujuo_tree_died);
-} else if (%legends_progress >= ^legends_talk_gujuo_pool & %legends_progress < ^legends_defeated_nezikchened_water) {
+} else if (%legendsquest >= ^legends_talk_gujuo_pool & %legendsquest < ^legends_defeated_nezikchened_water) {
     ~chatnpc("<p,neutral>I have visited Ungadulu in the caves, he is hard at work studying. He looks well! How is your quest going Bwana?");
-    if(%legends_progress = ^legends_talk_gujuo_pool) {
+    if(%legendsquest = ^legends_talk_gujuo_pool) {
         @multi5("Where can I get more water for the Yommi tree?", gujuo_morewater, 
                 "Where is the source of the spring of pure water?", gujuo_source, 
                 "I searched the catacombs thoroughly but found nothing else.", gujuo_searched,
                 "If I went in search of the source, could you help me?", gujuo_searchsource,
                 "Ok thanks for your help.", gujuo_thanks);
-    } else if(%legends_progress <= ^legends_heart_in_recess & %legends_progress >= ^legends_enter_lower_dungeon) {
+    } else if(%legendsquest <= ^legends_heart_in_recess & %legendsquest >= ^legends_enter_lower_dungeon) {
         @multi5("I have found a way into the caves!", gujuo_foundcaves, 
                 "Where is the source of the spring of pure water?", gujuo_source, 
                 "I searched the catacombs thoroughly but found nothing else.", gujuo_searched,
                 "If I went in search of the source, could you help me?", gujuo_searchsource,
                 "Ok thanks for your help.", gujuo_thanks);
     }
-} else if (%legends_progress >= ^legends_defeated_nezikchened_water & %legends_progress < ^legends_defeated_nezikchened_final) {
+} else if (%legendsquest >= ^legends_defeated_nezikchened_water & %legendsquest < ^legends_defeated_nezikchened_final) {
     ~chatnpc("<p,happy>Hello Bwana, I'm very pleased to see you again. Things seem much happier now in the Kharazi Jungle. I suspect that it is down to your good doings!");
     if(inv_total(inv, thtotempole) > 0) {
         @multi4("I made the Totem pole, now what do I do with it?", gujuo_madetotem, "I found the source of the spring and I got the water.", gujuo_foundsource, "I killed the demon again.", gujuo_demon, "Ok thanks for your help.", gujuo_thanks);
     }
     @multi4("I found the source of the spring and I got the water.", gujuo_foundsource, "I killed the demon again.", gujuo_demon, "How do I make the totem pole?", gujuo_totem, "Ok thanks for your help.", gujuo_thanks);
-} else if(%legends_progress = ^legends_replaced_totem) {
+} else if(%legendsquest = ^legends_replaced_totem) {
     ~chatnpc("<p,neutral>Greetings Bwana, we saw your fight with the Demon from some distance away. My people are so pleased with your heroic efforts. Your strength and ability as a warrior are Legendary.");
     ~objbox(thtotempolegift, "Gujuo offers you an awe inspiring totem pole.", 250, 0, ^objbox_height);
     ~chatnpc("<p,neutral>Please accept this as a token of our appreciation.");
     inv_add(inv, thtotempolegift, 1); // no invspace check
-    %legends_progress = ^legends_got_gilded_totem;
+    %legendsquest = ^legends_got_gilded_totem;
     ~chatnpc("<p,neutral>Please, now consider yourself a friend of my people. And visit us anytime.");
     if(inv_total(inv, yommiseeds_germ) > 0 | inv_total(bank, yommiseeds_germ) > 0) { // removes from both
         inv_del(bank, yommiseeds_germ, ^max_32bit_int);
@@ -101,7 +101,7 @@ else if (%legends_progress >= ^legends_accepted_rescue_ungadulu & %legends_progr
         ~chatnpc("<p,neutral>I'll take those Yommi tree seeds to Ungadulu, I'm sure he'll appreciate them.");
     }
     @gujuo_leave;
-} else if(%legends_progress = ^legends_got_gilded_totem) { // no dialogue for stages between this and quest completion, confirm this on rs3
+} else if(%legendsquest = ^legends_got_gilded_totem) { // no dialogue for stages between this and quest completion, confirm this on rs3
     if(~obj_gettotal(thtotempolegift) = 0) {
         ~chatnpc("<p,neutral>Good day Bwana, it's always good to see you.");
         @multi4("Do you have any news?", gujuo_news, "Where are all your people?", gujuo_people, "I've lost the tribal gift you gave me.", gujuo_lost_gift, "Ok thanks for your help.", gujuo_thanks);
@@ -109,7 +109,7 @@ else if (%legends_progress >= ^legends_accepted_rescue_ungadulu & %legends_progr
         ~chatnpc("<p,neutral>Good day Bwana. The Kharazi Jungle is especially beautiful today isn't it? My village people pass on their thanks to you.");
         @multi3("Do you have any news?", gujuo_news, "Where are all your people?", gujuo_people, "Ok thanks for your help.", gujuo_thanks);
     }
-} else if (%legends_progress >= ^legends_radimus_training_1) {
+} else if (%legendsquest >= ^legends_radimus_training_1) {
     ~chatnpc("<p,neutral>Good day Bwana. The jungle is especially beautiful today isn't it? My village people pass on their thanks to you.");
     @multi3("Do you have any news?", gujuo_news, "Where are all your people?", gujuo_people, "Ok thanks for your help.", gujuo_thanks);
 }
@@ -140,7 +140,7 @@ if(~obj_gettotal(thtotempolegift) = 0) {
 
 [label,gujuo_how_goes_ungadulu]
 ~chatnpc("<p,neutral>How goes your quest to release Ungadulu Bwana?");
-switch_int(%legends_progress) {
+switch_int(%legendsquest) {
     case ^legends_accepted_rescue_ungadulu :
         @multi2("I can't find the caves...", gujuo_cant_find,
                 "Ok thanks for your help.", gujuo_thanks);
@@ -254,7 +254,7 @@ switch_int(%legends_progress) {
 ~chatplayer("<p,neutral>If I went, could you help me?");
 ~chatnpc("<p,neutral>Well, if you are sure you want to go, I will assist as much as I can. You will need the bravery of the jungle lion, if you are to go into that forbidden place. I can give you the recipe for a potion to help with that.");
 ~chatnpc("<p,neutral>You will need to find two herbs, Snake weed and Ardrigal. Add them both to a vial of water, and you will walk with the bravery of the Kharazi lion.");
-if(%legends_progress = ^legends_water_pool_dried_up) %legends_progress = ^legends_talk_gujuo_pool;
+if(%legendsquest = ^legends_water_pool_dried_up) %legendsquest = ^legends_talk_gujuo_pool;
 @multi5("Where can I find Snake weed?", gujuo_snakeweed, 
         "Where is the source of the spring of pure water?", gujuo_source, 
         "Where can I find ardrigal?", gujuo_ardrigal, // no caps
@@ -469,7 +469,7 @@ else {
 
 [label,gujuo_idk]
 ~chatplayer("<p,neutral>I'm not sure what to do.");
-if (%legends_progress >= ^legends_spoke_ungadulu) {
+if (%legendsquest >= ^legends_spoke_ungadulu) {
     ~chatnpc("<p,neutral>I am at a loss as well Bwana. At this time Ungadulu is the only one who might know of a solution for this puzzle and at this time, he is part of that same puzzle.");
 }
 else {
@@ -484,8 +484,8 @@ else {
 if (testbit(%legends_bits, ^legends_asked_ungadulu_who) = ^true) {
     ~chatnpc("<p,neutral>This sounds very strange Bwana... but maybe I can help. There is a pool of water that is sacred to us. It is located in the middle of the Kharazi Jungle.");
     ~chatnpc("<p,neutral>The water contains special properties but it can only be contained in a blessed vessel made from metal of the sun. The water is difficult to get to, but I am sure you will manage to claim some.");
-    if (%legends_progress < ^legends_asked_gujuo_holy_water) {
-        %legends_progress = ^legends_asked_gujuo_holy_water;
+    if (%legendsquest < ^legends_asked_gujuo_holy_water) {
+        %legendsquest = ^legends_asked_gujuo_holy_water;
     }
     @multi5("Sorry for bothering you.", gujuo_sorry_bothering,
             "I'm not sure what to do.", gujuo_idk,
@@ -529,8 +529,8 @@ mes("Gujuo disappears into the Kharazi Jungle as swiftly as he appeared...");
 ~chatplayer("<p,neutral>Where is the pool of sacred water?");
 ~chatnpc("<p,neutral>The pool of sacred water is very precious to us, it is located in the middle of the Kharazi Jungle.");
 ~chatnpc("<p,neutral>The water contains special properties which can only be retained if the water is contained in a blessed vessel made from metal of the sun.");
-if (%legends_progress < ^legends_asked_gujuo_holy_water) {
-    %legends_progress = ^legends_asked_gujuo_holy_water;
+if (%legendsquest < ^legends_asked_gujuo_holy_water) {
+    %legendsquest = ^legends_asked_gujuo_holy_water;
 }
 @multi5("Sorry for bothering you.", gujuo_sorry_bothering,
         "I'm not sure what to do.", gujuo_idk,
@@ -646,7 +646,7 @@ npc_del;
 ~chatnpc("<p,neutral>You make me very happy Bwana! In the north western part of the Kharazi Jungle area, near some great cliffs, you will find three rocks that form a roughly triangular shape.");
 ~chatnpc("<p,neutral>They are flanked by the palm which also forms the divine geometry. The stones are the entrance, search them well. That's where you'll find Ungadulu. If you can free him he will entrust you with some sacred");
 ~chatnpc("<p,neutral>Yommi tree seeds.");
-%legends_progress = ^legends_accepted_rescue_ungadulu;
+%legendsquest = ^legends_accepted_rescue_ungadulu;
 @gujuo_leave;
 
 [label,gujuo_sorry_ungadulu]

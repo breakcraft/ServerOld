@@ -1,5 +1,5 @@
 [opnpc1,og]
-if(%itwatchtower_progress >= ^itwatchtower_made_relic | %itwatchtower_progress < ^itwatchtower_given_fingernails) {
+if(%itwatchtower >= ^itwatchtower_made_relic | %itwatchtower < ^itwatchtower_given_fingernails) {
     mes("He's busy; try him another time.");
 } else if(testbit(%itwatchtower_bits, ^itwatchtower_helped_og) = ^true) {
     ~chatnpc("<p,bored>It's the little rat again.");
@@ -18,7 +18,7 @@ if(%itwatchtower_progress >= ^itwatchtower_made_relic | %itwatchtower_progress <
     }
 } else if(testbit(%itwatchtower_bits, ^itwatchtower_spoken_og) = ^true) {
     @og_spoken;
-} else if(%itwatchtower_progress >= ^itwatchtower_given_fingernails) {
+} else if(%itwatchtower >= ^itwatchtower_given_fingernails) {
     // https://web.archive.org/web/20051025143129im_/http://www.runeweb.net/fireball/Watchtower%20Images/Watchtower5.PNG
     ~chatnpc("<p,confused>Why you here little rat?");
     switch_int(~p_choice2("I seek entrance to the city of ogres.", 1, "I have come to kill you.", 2)) {

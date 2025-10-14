@@ -3,7 +3,7 @@ if_close;
 if (p_finduid(uid) = true) {
     @activate_prayer_rapidheal;
 }
-%prayer_rapidheal = %prayer_rapidheal;
+%prayer7 = %prayer7;
 
 [label,activate_prayer_rapidheal]
 p_clearpendingaction;
@@ -11,25 +11,25 @@ def_dbrow $data = ~get_prayer_data(^prayer_rapidheal);
 if ($data = null) {
     return;
 }
-if (%prayer_rapidheal = ^true) {
-    %prayer_rapidheal = ^false;
+if (%prayer7 = ^true) {
+    %prayer7 = ^false;
     ~prayer_deactivate(^prayer_rapidheal);
     cleartimer(health_regen);
     settimer(health_regen, 100);
     return;
 }
 if (~prayer_checks($data) = false) {
-    %prayer_rapidheal = ^false;
+    %prayer7 = ^false;
     return;
 }
 def_int $levelreq = db_getfield($data, prayers:level, 0);
 if (stat_base(prayer) < $levelreq){
-    %prayer_rapidheal = ^false;
+    %prayer7 = ^false;
     sound_synth(prayer_off, 0, 0);
     ~mesbox("You need a @dbl@Prayer level of <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
     return;
 }
-%prayer_rapidheal = ^true;
+%prayer7 = ^true;
 ~prayer_activate($data);
 cleartimer(health_regen);
 settimer(health_regen, 50);

@@ -1,5 +1,5 @@
 [opnpc1,kilron]
-if(%biohazard_progress >= ^biohazard_climbed_ladder) {
+if(%biohazard >= ^biohazard_climbed_ladder) {
     ~chatplayer("<p,happy>Hello Kilron.");
     ~chatnpc("<p,neutral>Hello traveller. Do you need to go back over?");
     switch_int(~p_choice2("Not yet Kilron.", 1, "Yes I do.", 2)) {

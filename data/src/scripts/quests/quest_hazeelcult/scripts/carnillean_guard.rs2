@@ -1,5 +1,5 @@
-[opnpc1,carnillean_guard]
-switch_int(%hazeelcult_progress) {
+[opnpc1,guard_carnillean]
+switch_int(%hazeelcultquest) {
     case ^hazeelcult_not_started :
         ~chatplayer("<p,neutral>Hello.");
         ~chatnpc("<p,neutral>Hello there. I haven't seen you around here before. If you've come to admire the Carnillean family home I must warn you not to cause any trouble.");
@@ -12,7 +12,7 @@ switch_int(%hazeelcult_progress) {
         ~chatnpc("<p,neutral>Hello. The sarge is furious with me! Apparently those loony cultists have been back somehow without me noticing! I got a right roasting earlier...");
         ~chatnpc("<p,neutral>I don't exactly know what they got up to in the house... but that's besides the point. Sir Ceril was extremely upset, and I don't blame him.");
     case ^hazeelcult_started, ^hazeelcult_spoken_clivet, ^hazeelcult_clivet_decision, ^hazeelcult_finished_side_task :
-        if(%hazeelcult_progress = ^hazeelcult_finished_side_task & %hazeelcult_side = ^hazeelcult_evilside) {
+        if(%hazeelcultquest = ^hazeelcult_finished_side_task & %hazeelcult_side = ^hazeelcult_evilside) {
             ~chatplayer("<p,neutral>Hello.");
             ~chatnpc("<p,neutral>Hello again adventurer. Still hanging around here eh? Let me know if you spot any of those loony cultists sniffing around.");
             return;

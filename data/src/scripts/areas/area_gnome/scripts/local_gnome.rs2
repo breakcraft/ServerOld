@@ -1,5 +1,5 @@
-[opnpc1,local_gnome]
-switch_int(%tree_progress) {
+[opnpc1,chantergnome]
+switch_int(%treequest) {
     case ^tree_retrieved_orb :
         ~chatplayer("<p,neutral>Hello little man.");
         ~chatnpc("<p,happy>Little man stronger than big man. Hee hee, lardi dee, lardi da.");

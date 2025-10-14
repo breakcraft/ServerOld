@@ -1,4 +1,4 @@
-[opnpc1,golrie]
+[opnpc1,golrie_waterfall_quest]
 // diff dialogue, comparing with video to get mesanims (seems like the whole dialogue is neutral, almost matches with OSRS: https://www.youtube.com/watch?v=D80JSlBEC6I&t=282s)
 ~chatplayer("<p,neutral>Hello, is your name Golrie?");
 ~chatnpc("<p,neutral>That's me. I've been stuck in here for weeks, those goblins are trying to steal my family's heirlooms. My Grandad gave me all sorts of old junk.");
@@ -33,7 +33,7 @@ if (inv_total(inv, glarials_pebble_waterfall_quest) < 1) { // no bank check agai
 ~chatplayer("<p,neutral>OK... Take care Golrie.");
 
 [label,waterfall_golrie_door_dialogue]
-switch_int(%waterfall_progress) {
+switch_int(%waterfall_quest) {
     case ^waterfall_not_started, ^waterfall_started, ^waterfall_spoken_to_hudon :
         ~chatnpc("<p,neutral>What are you doing down here?|Leave before you get yourself into trouble.");
     case ^waterfall_opened_book_on_baxtorian :

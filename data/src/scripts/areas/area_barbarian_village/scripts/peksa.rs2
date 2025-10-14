@@ -1,7 +1,7 @@
 [opnpc1,peksa]
 ~chatnpc("<p,quiz>Are you interested in buying or selling a helmet?");
 def_int $option;
-if(%scorpcatcher_progress = ^scorpcatcher_second_hint) {
+if(%scorpcatcher = ^scorpcatcher_second_hint) {
     $option = ~p_choice3("I could be, yes.", 1, "No, I'll pass on that.", 2, "I've heard you have a small scorpion in your possession.", 3);
 } else {
     $option = ~p_choice2("I could be, yes.", 1, "No, I'll pass on that.", 2);

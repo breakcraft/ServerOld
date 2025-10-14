@@ -11,9 +11,9 @@ if (map_members = ^true & inv_total(inv, trail_clue_easy_simple022) = 1) {
     @trail_doric;
 }
 
-if (%doric_progress = 0) {
+if (%doricquest = 0) {
     @doric_not_started;
-} else if (%doric_progress = 10) {
+} else if (%doricquest = 10) {
     @doric_materials;
 } else {
     @doric_post_complete;
@@ -21,15 +21,15 @@ if (%doric_progress = 0) {
 
 [oplocu,doric_anvil]
 
-if (%doric_progress = 0) {
+if (%doricquest = 0) {
     mes("You must complete Doric's Quest to use this anvil.");
     if(npc_find(coord, doric, 5, 0) = true) @doric_not_started_anvil;
-} else if (%doric_progress = 10) {
+} else if (%doricquest = 10) {
     mes("You must complete Doric's Quest to use this anvil.");
     if(npc_find(coord, doric, 5, 0) = true) @doric_materials;
 } else {
     // Do regular anvil stuff
-    if (last_useitem = gold_bar & %legends_progress >= ^legends_asked_gujuo_holy_water) @make_golden_bowl;
+    if (last_useitem = gold_bar & %legendsquest >= ^legends_asked_gujuo_holy_water) @make_golden_bowl;
     else if (oc_category(last_useitem) = category_151) @smithing_anvil_interface(last_useitem);
     else if (last_useitem = dragonshield_a | last_useitem = dragonshield_b) @make_dragon_sq;
     else ~displaymessage(^dm_default);
@@ -72,8 +72,8 @@ if ($option = 1) {
 
 if ($option = 1) {
     ~chatplayer("<p,happy>Yes, I will get you materials.");
-    %doric_progress = 10;
-    ~send_quest_progress(questlist:doric, %doric_progress, ^doric_complete);
+    %doricquest = 10;
+    ~send_quest_progress(questlist:doric, %doricquest, ^doric_complete);
     ~chatnpc("<p,neutral>Well, clay is what I use more than anything. I make casts. Could you get me 6 clay, and 4 copper ore and 2 iron ore please? I could pay a little, and let you use my anvils.");
     ~chatplayer("<p,happy>Certainly, I will get them for you. Goodbye.");
 } else if ($option = 2) {
@@ -111,7 +111,7 @@ if (inv_total(inv, clay) > 5 & inv_total(inv, copper_ore) > 3 & inv_total(inv, i
 
 // Reward Scroll
 [queue,doric_quest_complete]
-%doric_progress = ^doric_complete;
+%doricquest = ^doric_complete;
 stat_advance(mining, 13000);
 session_log(^log_adventure, "Quest complete: Doric's Quest");
 ~send_quest_complete(questlist:doric, steel_pickaxe, 250, ^doric_questpoints, "You have completed\\nDoric's Quest!");

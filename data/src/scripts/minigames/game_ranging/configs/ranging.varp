@@ -1,11 +1,11 @@
-[target1]
+[targetcount]
 scope=perm
 transmit=yes
 
-[target2]
+[targetscore]
 scope=perm
 transmit=yes
 
-[target3]
+[targethit]
 scope=perm
 transmit=yes

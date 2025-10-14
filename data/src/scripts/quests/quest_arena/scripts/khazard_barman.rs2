@@ -3,7 +3,7 @@
 ~chatplayer("<p,neutral>Hello.");
 ~chatnpc("<p,happy>Hi, what can I get you? We have a range of quality brews.");
 def_int $option;
-if(%arena_progress >= ^arena_spoken_drunkguard) {
+if(%arenaquest >= ^arena_spoken_drunkguard) {
     $option = ~p_choice3("I'll have a beer please.", 1, "I'd like a Khali brew please.", 3, "Got any news?", 2);
 } else {
     $option = ~p_choice2("I'll have a beer please.", 1, "Got any news?", 2);

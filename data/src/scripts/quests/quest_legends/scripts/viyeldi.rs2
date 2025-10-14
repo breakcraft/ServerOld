@@ -1,5 +1,5 @@
 [opobj3,viyeldihat]
-if(%legends_progress >= ^legends_defeated_nezikchened_water | testbit(%legends_bits, ^legends_killed_viyeldi) = ^true) { // confirm this
+if(%legendsquest >= ^legends_defeated_nezikchened_water | testbit(%legends_bits, ^legends_killed_viyeldi) = ^true) { // confirm this
     ~mesbox("Your hand passes straight through the hat as though it wasn't there at all. Nothing else seems to happen though.");
     return;
 }
@@ -16,14 +16,14 @@ p_delay(0);
 @viyeldi_dialogue;
 
 [opnpc1,viyeldi]
-if(%legends_progress >= ^legends_defeated_nezikchened_water) { // confirm this
+if(%legendsquest >= ^legends_defeated_nezikchened_water) { // confirm this
     mes("Your eyes must be playing tricks on you. There is nothing interesting there!");
     return;
 }
 @viyeldi_dialogue;
 
 [opnpcu,viyeldi]
-if(%legends_progress >= ^legends_defeated_nezikchened_water) { // confirm this
+if(%legendsquest >= ^legends_defeated_nezikchened_water) { // confirm this
     mes("Your eyes must be playing tricks on you. There is nothing interesting there!");
     return;
 }
@@ -50,13 +50,13 @@ npc_del;
 
 // not checked in ap script, not checked on manual cast
 [opnpc2,viyeldi]
-if(%legends_progress >= ^legends_defeated_nezikchened_water) { // confirm this
+if(%legendsquest >= ^legends_defeated_nezikchened_water) { // confirm this
     mes("You have no further business with him.");
     return;
 }
 if(inv_total(worn, deathdagger) > 0) {
     inv_setslot(worn, ^wearpos_rhand, deathdaggerdone, 1);
-    ~update_bas;
+    ~update_all(deathdagger);
     @stab_viyeldi;
 }
 ~chatnpc("<p,neutral>Adventurer, I am already deceased, and therefore impervious to your attacks. Still, I can tell when I'm not wanted...");

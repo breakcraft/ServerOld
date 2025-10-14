@@ -37,7 +37,7 @@ if(loc_find(0_38_151_33_16, portcullis_upass) = true) {
 // generates a 5-digit value from 1-5
 // https://x.com/JagexOrion/status/1039548840339296261/photo/4
 [proc,setupassgrilltrap]
-def_int $grid = getbit_range(%upass_map_mechanisms, 22, 31);
+def_int $grid = getbit_range(%ibanmulti, 22, 31);
 def_int $counter = 0;
 def_int $value = 0;
 def_int $last_digit = ~random_range(1, 5);
@@ -47,11 +47,11 @@ while($counter < 2) {
     $value = calc($value * 10 + $last_digit);
     $counter = add($counter,1);
 }
-%upass_map_mechanisms = setbit_range_toint(%upass_map_mechanisms, $value, 22, 31);
+%ibanmulti = setbit_range_toint(%ibanmulti, $value, 22, 31);
 
 // this is unique for each player, prob just easier to do this w/coord varps...
 [timer,upass_grid_traps]
-def_int $grid_val = getbit_range(%upass_map_mechanisms, 22, 31);
+def_int $grid_val = getbit_range(%ibanmulti, 22, 31);
 def_int $first_col = modulo(calc(($grid_val / pow(10, 2))), 10);
 def_int $second_col = modulo(calc(($grid_val / pow(10, 1))), 10);
 def_int $third_col = modulo(calc(($grid_val / pow(10, 0))), 10);
@@ -96,9 +96,3 @@ anim(human_reachforladder, 0);
 p_delay(0);
 mes("You crawl out of the pit.");
 p_teleport(0_38_151_45_13);
-
-[debugproc,testmaze]
-if(p_finduid(uid) = true) ~setupassgrilltrap;
-
-[debugproc,getmaze]
-if(p_finduid(uid) = true) mes("<tostring(getbit_range(%upass_map_mechanisms, 22, 31))>");

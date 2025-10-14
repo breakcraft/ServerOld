@@ -1,5 +1,5 @@
 [label,kennith_chat]
-switch_int(%seaslug_progress) {
+switch_int(%seaslugquest) {
     case ^seaslug_boat_repaired :
         ~chatplayer("<p,quiz>Are you okay young one?");
         ~chatnpc("<p,sad>No, I want my daddy!");
@@ -7,7 +7,7 @@ switch_int(%seaslug_progress) {
         ~chatnpc("<p,sad>He went to get help days ago.");
         ~chatnpc("<p,sad>The nasty fishermen tried to throw|me and daddy into the sea.|So he told me to hide here.");
         ~chatplayer("<p,neutral>That's good advice,|you stay here and I'll go|try and find your father.");
-        %seaslug_progress = ^seaslug_spoken_kennith;
+        %seaslugquest = ^seaslug_spoken_kennith;
     case ^seaslug_spoken_kennith :
         ~chatplayer("<p,quiz>Are you okay?");
         ~chatnpc("<p,sad>I want to see daddy!");
@@ -20,7 +20,7 @@ switch_int(%seaslug_progress) {
         ~chatplayer("<p,confused>What, why not?");
         ~chatnpc("<p,shock>I'm scared of those nasty sea slugs.|I won't go near them.");
         ~chatplayer("<p,neutral>Okay, you wait here and I'll go figure another way to get you out.");
-        %seaslug_progress = ^seaslug_kennith_need_escape;
+        %seaslugquest = ^seaslug_kennith_need_escape;
     case ^seaslug_panel_opened :
         ~chatplayer("<p,neutral>Kennith, I've made an opening in the wall. You can come out through there.");
         ~chatnpc("<p,quiz>Are there any sea slugs on the other side?");
@@ -28,6 +28,6 @@ switch_int(%seaslug_progress) {
         ~chatnpc("<p,quiz>How will I get downstairs?");
         ~chatplayer("<p,neutral>I'll figure that out in a moment.");
         ~chatnpc("<p,neutral>Ok, when you have I'll come out.");
-        %seaslug_progress = ^seaslug_need_kennith_path;
+        %seaslugquest = ^seaslug_need_kennith_path;
     case default : mes("He doesn't seem interested in talking.");
 }

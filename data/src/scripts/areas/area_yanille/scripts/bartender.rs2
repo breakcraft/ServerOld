@@ -1,11 +1,11 @@
-[opnpc1,bartender_dragoninn]
+[opnpc1,dragon_bartender]
 ~chatnpc("<p,quiz>What can I get you?");
 ~chatplayer("<p,quiz>What's on the menu?");
 // also sells beer in OSRS, just these 2 in RSC, sals and RHQ mentions it's only 2 drinks as well
 // so i'm guessing it was changed with watchtower rework
 ~chatnpc("<p,happy>Dragon Bitter and Greenman's Ale.");
 def_int $option;
-if(testbit(%barcrawl_progress, ^dragoninn_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+if(testbit(%barcrawl, ^dragoninn_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
     $option = ~p_choice4("I'll give it a miss I think.", 1, "I'll try the Dragon Bitter.", 2, "Can I have some Greenman's Ale?", 3, "I'm doing Alfred Grimhand's Barcrawl.", 4);
 } else {
     $option = ~p_choice3("I'll give it a miss I think.", 1, "I'll try the Dragon Bitter.", 2, "Can I have some Greenman's Ale?", 3);
@@ -38,8 +38,8 @@ switch_int($option) {
     case 4 : @dragoninn_barcrawl;
 }
 
-[opnpcu,bartender_dragoninn]
-if(testbit(%barcrawl_progress, ^dragoninn_index) = ^false & last_useitem = barcrawl_card) {
+[opnpcu,dragon_bartender]
+if(testbit(%barcrawl, ^dragoninn_index) = ^false & last_useitem = barcrawl_card) {
     @dragoninn_barcrawl;
 }
 
@@ -60,5 +60,5 @@ stat_sub(attack, 5, 5);
 stat_sub(defence, 5, 5);
 mes("Your vision blurs and you stagger slightly.");
 p_delay(2);
-%barcrawl_progress = setbit(%barcrawl_progress, ^dragoninn_index);
+%barcrawl = setbit(%barcrawl, ^dragoninn_index);
 mes("You can just about make out the bartender signing your barcrawl card.");      

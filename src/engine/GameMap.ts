@@ -16,15 +16,16 @@ import Zone from '#/engine/zone/Zone.js';
 import ZoneGrid from '#/engine/zone/ZoneGrid.js';
 import ZoneMap from '#/engine/zone/ZoneMap.js';
 import Packet from '#/io/Packet.js';
+import Environment from '#/util/Environment.js';
 import { printDebug, printWarning } from '#/util/Logger.js';
 
 export default class GameMap {
     private static readonly OPEN: number = 0x0;
-    private static readonly BLOCKED: number = 0x1;
-    private static readonly BRIDGE: number = 0x2;
-    private static readonly ROOF: number = 0x4;
-    private static readonly WALL: number = 0x8;
-    private static readonly LOWMEMORY: number = 0x10;
+    private static readonly BLOCK_MAP_SQUARE: number = 0x1;
+    private static readonly LINK_BELOW: number = 0x2;
+    private static readonly REMOVE_ROOFS: number = 0x4;
+    private static readonly VISIBLE_BELOW: number = 0x8;
+    private static readonly NOT_LOW_DETAIL: number = 0x10;
 
     private static readonly Y: number = 4;
     private static readonly X: number = 64;
@@ -47,8 +48,8 @@ export default class GameMap {
     init(): void {
         printDebug('Loading game map');
 
-        this.loadCsvMap(this.multimap, fs.readFileSync('data/src/maps/multiway.csv', 'ascii').replace(/\r/g, '').split('\n'));
-        this.loadCsvMap(this.freemap, fs.readFileSync('data/src/maps/free2play.csv', 'ascii').replace(/\r/g, '').split('\n'));
+        this.loadCsvMap(this.multimap, fs.readFileSync(`${Environment.BUILD_SRC_DIR}/maps/multiway.csv`, 'ascii').replace(/\r/g, '').split('\n'));
+        this.loadCsvMap(this.freemap, fs.readFileSync(`${Environment.BUILD_SRC_DIR}/maps/free2play.csv`, 'ascii').replace(/\r/g, '').split('\n'));
 
         const path: string = 'data/pack/server/maps/';
         const maps: string[] = fs.readdirSync(path).filter(x => x[0] === 'm');
@@ -181,15 +182,15 @@ export default class GameMap {
 
                     const land: number = lands[this.packCoord(x, z, level)];
 
-                    if ((land & GameMap.ROOF) !== GameMap.OPEN) {
+                    if ((land & GameMap.REMOVE_ROOFS) !== GameMap.OPEN) {
                         changeRoofCollision(absoluteX, absoluteZ, level, true);
                     }
 
-                    if ((land & GameMap.BLOCKED) !== GameMap.BLOCKED) {
+                    if ((land & GameMap.BLOCK_MAP_SQUARE) !== GameMap.BLOCK_MAP_SQUARE) {
                         continue;
                     }
 
-                    const bridged: boolean = (level === 1 ? land & GameMap.BRIDGE : lands[this.packCoord(x, z, 1)] & GameMap.BRIDGE) === GameMap.BRIDGE;
+                    const bridged: boolean = (level === 1 ? land & GameMap.LINK_BELOW : lands[this.packCoord(x, z, 1)] & GameMap.LINK_BELOW) === GameMap.LINK_BELOW;
                     const actualLevel: number = bridged ? level - 1 : level;
                     if (actualLevel < 0) {
                         continue;
@@ -203,18 +204,18 @@ export default class GameMap {
 
     private loadLocations(lands: Int8Array, packet: Packet, mapsquareX: number, mapsquareZ: number): void {
         let locId: number = -1;
-        let locIdOffset: number = packet.gsmart();
+        let locIdOffset: number = packet.gsmarts();
         while (locIdOffset !== 0) {
             locId += locIdOffset;
 
             let coord: number = 0;
-            let coordOffset: number = packet.gsmart();
+            let coordOffset: number = packet.gsmarts();
 
             while (coordOffset !== 0) {
                 const { x, z, level } = this.unpackCoord((coord += coordOffset - 1));
 
                 const info: number = packet.g1();
-                coordOffset = packet.gsmart();
+                coordOffset = packet.gsmarts();
 
                 const absoluteX: number = x + mapsquareX;
                 const absoluteZ: number = z + mapsquareZ;
@@ -223,13 +224,18 @@ export default class GameMap {
                     continue;
                 }
 
-                const bridged: boolean = (level === 1 ? lands[coord] & GameMap.BRIDGE : lands[this.packCoord(x, z, 1)] & GameMap.BRIDGE) === GameMap.BRIDGE;
+                const bridged: boolean = (level === 1 ? lands[coord] & GameMap.LINK_BELOW : lands[this.packCoord(x, z, 1)] & GameMap.LINK_BELOW) === GameMap.LINK_BELOW;
                 const actualLevel: number = bridged ? level - 1 : level;
                 if (actualLevel < 0) {
                     continue;
                 }
 
                 const type: LocType = LocType.get(locId);
+                if (!type) {
+                    printWarning(`Missing loc config ${locId}`);
+                    continue;
+                }
+
                 const width: number = type.width;
                 const length: number = type.length;
                 const shape: number = info >> 2;
@@ -239,11 +245,9 @@ export default class GameMap {
                     changeLocCollision(shape, angle, type.blockrange, length, width, type.active, absoluteX, absoluteZ, actualLevel, true);
                 }
 
-                if (type.active === 1) {
-                    this.getZone(absoluteX, absoluteZ, actualLevel).addStaticLoc(new Loc(actualLevel, absoluteX, absoluteZ, width, length, EntityLifeCycle.RESPAWN, locId, shape, angle));
-                }
+                this.getZone(absoluteX, absoluteZ, actualLevel).addStaticLoc(new Loc(actualLevel, absoluteX, absoluteZ, width, length, EntityLifeCycle.RESPAWN, locId, shape, angle));
             }
-            locIdOffset = packet.gsmart();
+            locIdOffset = packet.gsmarts();
         }
     }
 
@@ -385,6 +389,9 @@ export function reachedObj(level: number, srcX: number, srcZ: number, destX: num
 }
 
 export function canTravel(level: number, x: number, z: number, offsetX: number, offsetZ: number, size: number, extraFlag: number, collision: CollisionType): boolean {
+    if (!Environment.NODE_MEMBERS && !World.gameMap.isFreeToPlay(x + offsetX, z + offsetZ)) {
+        return false;
+    }
     return rsmod.canTravel(level, x, z, offsetX, offsetZ, size, extraFlag, collision);
 }
 

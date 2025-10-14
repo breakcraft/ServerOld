@@ -100,7 +100,7 @@ head1=model_64_npc_head
 huntmode=gujuo
 huntrange=3
 
-[ungadulu]
+[ungadulu_good]
 name=Ungadulu
 desc=The Kharazi tribes elusive Shaman.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
@@ -129,7 +129,7 @@ model8=model_534_obj_wear
 head1=model_52_idk_head
 head2=model_82_idk_head
 wanderrange=1
-maxrange=41
+maxrange=40
 // respawnrate=50
 hitpoints=65
 attack=57
@@ -143,11 +143,12 @@ param=damagetype,^crush_style
 param=attack_anim,human_staff_pummel
 param=defend_anim,human_staff_block
 param=attack_sound,staff_hit
-// osrs attack sound staff_double
+// osrs attack_sound staff_double
 // TODO: check respawn time.
 // osrs stats and Vislvl match 1:1
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_
 
-[ungadulu_possessed]
+[ungadulu_bad]
 name=Ungadulu
 desc=The Kharazi tribes elusive Shaman - something doesn't look quite right with him.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
@@ -179,6 +180,8 @@ model7=model_181_idk
 model8=model_534_obj_wear
 head1=model_52_idk_head
 head2=model_82_idk_head
+wanderrange=3
+maxrange=5
 // TODO respawnrate?
 hitpoints=150
 attack=147
@@ -192,7 +195,7 @@ param=damagetype,^crush_style
 param=attack_anim,human_staff_pummel
 param=defend_anim,human_staff_block
 param=attack_sound,staff_hit
-// osrs attack sound staff_double
+// osrs attack_sound staff_double
 // stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3958
 // Stats match osrs version but our version Vislvl is different.
 
@@ -240,6 +243,7 @@ param=attack_anim,human_spear_spike
 param=defend_anim,human_spear_def
 param=attack_sound,staff_stab
 // Stats match osrs version but our version Vislvl is different.
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_
 
 [nezikchened]
 name=Nezikchened
@@ -256,6 +260,9 @@ recol2d=1057
 recol3s=0
 recol3d=16417
 model1=model_2942_npc
+wanderrange=2
+maxrange=40
+attackrange=10
 hitpoints=150
 attack=165
 strength=168
@@ -268,15 +275,14 @@ param=attack_anim,demon_attack
 param=defend_anim,demon_block
 param=death_anim,demon_death
 param=demonbane_vulnerable,yes
-param=attack_sound,black_demon_attack
-param=defend_sound,black_demon_hit
-param=death_sound,black_demon_death
+param=attack_sound,demon_attack
+param=defend_sound,demon_hit
+param=death_sound,demon_death
 param=death_drop,null
 huntmode=nezikchened
 huntrange=5
-maxrange=41
-attackrange=10
 // osrs stats and Vislvl match 1:1
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3962
 
 [viyeldi]
 name=Viyeldi
@@ -299,7 +305,8 @@ model5=model_534_obj_wear
 model6=model_209_npc
 head1=model_54_npc_head
 head2=model_44_obj_wear
-wanderrange=0
+wanderrange=3
+maxrange=40
 hitpoints=80
 attack=62
 strength=66
@@ -312,7 +319,7 @@ param=damagetype,^crush_style
 param=attack_anim,human_staff_pummel
 param=defend_anim,human_staff_block
 param=attack_sound,staff_hit
-// osrs attack sound staff_double ??
+// osrs attack_sound staff_double
 // defend animation https://discord.com/channels/953326730632904844/1126857544523063367/1300620868782788709
 
 [san_tojalon]
@@ -362,6 +369,7 @@ param=death_drop,null
 huntmode=aggressive_melee
 huntrange=1
 // Stats match osrs version but our version Vislvl is different.
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3964
 
 [irvig_senay]
 name=Irvig Senay
@@ -409,6 +417,7 @@ param=death_drop,null
 huntmode=aggressive_melee
 huntrange=1
 // osrs stats and Vislvl match 1:1
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3965
 
 [ranalph_devere]
 name=Ranalph Devere
@@ -457,8 +466,9 @@ param=death_drop,null
 huntmode=aggressive_melee
 huntrange=1
 // Stats match osrs version but our version Vislvl is different.
+// stats taken here https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3966
 
-[legends_boulder]
+[boulder_legends]
 name=Boulder
 desc=I wonder what this is doing here.
 size=2

@@ -1,9 +1,9 @@
 [opnpc1,straven]
-if(%phoenixgang_progress >= ^phoenixgang_complete) {
+if(%phoenixgang >= ^phoenixgang_joined) {
     @straven_gangmember;
-} else if(%blackarmgang_progress >= ^blackarmgang_joined) {
+} else if(%blackarmgang >= ^blackarmgang_joined) {
     @straven_blackarmdog;
-} else if(%phoenixgang_progress = ^phoenixgang_spoken_straven) {
+} else if(%phoenixgang = ^phoenixgang_spoken_straven) {
     @straven_mission;
 } else {
     ~chatplayer("<p,quiz>What's through that door?");
@@ -12,9 +12,9 @@ if(%phoenixgang_progress >= ^phoenixgang_complete) {
 
 [opnpcu,straven]
 if(last_useitem = intelligence_report) {
-    if(%phoenixgang_progress = ^phoenixgang_spoken_straven) {
+    if(%phoenixgang = ^phoenixgang_spoken_straven) {
         @straven_mission;
-    } else if(%phoenixgang_progress >= ^phoenixgang_joined) {
+    } else if(%phoenixgang >= ^phoenixgang_joined) {
         ~chatnpc("<p,quiz>You've already given me that intelligence report!|Why are you offering me another copy of it?");
         return;
     }
@@ -24,7 +24,7 @@ if(last_useitem = intelligence_report) {
 [label,straven_cant_enter]
 ~chatnpc("<p,neutral>Hey! You can't go in there. Only authorised personnel of the VTAM Corporation are allowed beyond this point.");
 def_int $option;
-if(%phoenixgang_progress = 4) {
+if(%phoenixgang = 4) {
     $option = ~p_choice3("I know who you are!", 1, "How do I get a job with the VTAM corporation?", 2, "Why not?", 3);
 } else {
     $option = ~p_choice2("How do I get a job with the VTAM corporation?", 2, "Why not?", 3);
@@ -45,7 +45,7 @@ switch_int ($option) {
             ~chatplayer("<p,quiz>How would I go about doing that?");
             ~chatnpc("<p,neutral>Let me think...|I have an idea.");
             ~chatnpc("<p,neutral>A rival gang of ours,|called the Black Arm Gang|is supposedly meeting a contact from Port Sarim today.|In the Blue Moon Inn");
-            %phoenixgang_progress = 8;
+            %phoenixgang = 8;
             ~chatnpc("<p,neutral>by the south entrance to this city.|The name of the contact is Jonny the Beard.|Kill him and bring back his intelligence report.");
             ~chatplayer("<p,happy>Ok, I'll get right on it.");
         } else if($option = 2) {
@@ -70,7 +70,7 @@ if(inv_total(inv, intelligence_report) > 0) {
     ~chatnpc("<p,happy>Ok! You can join the Phoenix Gang!|I am Straven, one of the gang leaders.");
     ~chatplayer("<p,neutral>Nice to meet you.");
     ~chatnpc("<p,neutral>Take this key.");
-    %phoenixgang_progress = 9;
+    %phoenixgang = 9;
     inv_del(inv, intelligence_report, 1);
     inv_add(inv, phoenixkey2, 1);
     ~objbox(phoenixkey2, "Straven hands you a key.", 250, 0, divide(^objbox_height, 2));
@@ -81,10 +81,10 @@ if(inv_total(inv, intelligence_report) > 0) {
 ~chatnpc("<p,neutral>You need to kill Jonny the Beard,|who should be in the Blue Moon Inn.");
 
 [label,straven_gangmember]
-if (%hero_progress >= ^hero_phoenix_obtained_armband & ~obj_gettotal(master_thief_armband) < 1) {
+if (%heroquest >= ^hero_phoenix_obtained_armband & ~obj_gettotal(master_thief_armband) < 1) {
     @straven_gangmember_dialogues(1);
 } 
-else if (%hero_progress < ^hero_started | %hero_progress >= ^hero_phoenix_obtained_armband) {
+else if (%heroquest < ^hero_started | %heroquest >= ^hero_phoenix_obtained_armband) {
     ~chatnpc("<p,neutral>Greetings fellow gang member.");
     if(inv_total(inv, phoenixkey2) = 0 & ~obj_gettotal(phoenixkey2) < 1) {
         @straven_gangmember_dialogues(2);
@@ -92,15 +92,15 @@ else if (%hero_progress < ^hero_started | %hero_progress >= ^hero_phoenix_obtain
         @straven_gangmember_dialogues(~p_choice3("I've heard you've got some cool treasures in this place...", 3, "Any suggestions for where I can go thieving?", 4, "Where's the Black Arm Gang hideout?", 5));
     }
 }
-else if (%hero_progress > ^hero_started & inv_total(inv, petecandlestick) >= 1) {
+else if (%heroquest > ^hero_started & inv_total(inv, petecandlestick) >= 1) {
     ~chatplayer("<p,happy>I have retrieved a candlestick!");
-    if (%hero_progress = ^hero_phoenix_killed_grip) {
+    if (%heroquest = ^hero_phoenix_killed_grip) {
         @straven_gangmember_dialogues(6);
     } else {
         @straven_gangmember_dialogues(7);
     }
 }
-else if (%hero_progress = ^hero_started) {
+else if (%heroquest = ^hero_started) {
     @straven_gangmember_dialogues(8);
 }
 @straven_gangmember_dialogues(9);
@@ -146,7 +146,7 @@ switch_int($option) {
         ~mesbox("Straven hands you a master thief armband."); // imgur.com/EXYKfbv
         inv_del(inv, petecandlestick, 1);
         inv_add(inv, master_thief_armband, 1);
-        %hero_progress = ^hero_phoenix_obtained_armband;
+        %heroquest = ^hero_phoenix_obtained_armband;
     case 7 : // After heroes started, brought back invalid candlestick
         ~chatnpc("<p,neutral>Well, in all honesty, you didn't actually retrieve it yourself, did you? You don't qualify as a master thief unless you actually steal it yourself, you know...");
     case 8 : // First chat after heroes started
@@ -156,7 +156,7 @@ switch_int($option) {
         ~chatnpc("<p,neutral>His security is excellent, and the target very valuable so|that might be enough to get you the rank.");
         ~chatnpc("<p,neutral>Go talk to our man Alfonse, the waiter in the Shrimp|and Parrot.");
         ~chatnpc("<p,neutral>Use the secret word 'gherkin' to show you're one of us.");
-        %hero_progress = ^hero_phoenix_gangmember_spoken;
+        %heroquest = ^hero_phoenix_gangmember_spoken;
     case 9 : // After heroes started, chatting before getting candlestick
         ~chatplayer("<p,quiz>What am I supposed to be doing again?");
         ~chatnpc("<p,neutral>You told me you wanted to get a Master thief's armband! Now pay attention.");

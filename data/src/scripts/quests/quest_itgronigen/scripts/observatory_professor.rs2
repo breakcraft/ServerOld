@@ -2,7 +2,7 @@
 // https://web.archive.org/web/20041021084243/http://www.runehq.net/RHQInn/viewtopic.php?t=158, you cannot talk about clues during the quest, only before and after completion
 // https://web.archive.org/web/20051214060247/http://www.tip.it/runescape/?page=treasure_trails.htm this mentions it as well
 // tip.it seems to imply it's within the main dialogue options instead of a seperate set as well (like OSRS does)
-switch_int(%itgronigen_progress) {
+switch_int(%itgronigen) {
     case ^itgronigen_complete, ^itgronigen_claimed_wine : @professor_returns;
     case ^itgronigen_sent_telescope : ~chatnpc("<p,happy>The telescope is now repaired!|Let's go to the Observatory."); // dialogue doesn't exist on OSRS at all
     case ^itgronigen_given_mould : @professor_lens;
@@ -24,7 +24,7 @@ if(inv_total(inv, molten_glass) = 0) {
 // rsc version doesn't ever remove the molten glass, old guides say he removes and gives it back (same as post-rework)
 // so we'll do something similar here
 inv_del(inv, molten_glass, 1);
-%itgronigen_progress = ^itgronigen_given_glass;
+%itgronigen = ^itgronigen_given_glass;
 ~chatnpc("<p,happy>Excellent! Now all I need is to make the lens...");
 ~chatnpc("<p,sad>Oh no, I can't use this glass!|Until I find the lens mould used to cast it.");
 ~chatplayer("<p,quiz>What do you mean, lens mould?");
@@ -41,7 +41,7 @@ if(inv_total(inv, woodplank) < 3) {
 }
 ~chatplayer("<p,happy>Yes, I've got them. Here they are.");
 inv_del(inv, woodplank, 3);
-%itgronigen_progress = ^itgronigen_given_planks;
+%itgronigen = ^itgronigen_given_planks;
 ~chatnpc("<p,happy>Well done, I can start the tripod construction now.");
 ~chatnpc("<p,happy>Now, the bronze for the tube.");
 
@@ -54,7 +54,7 @@ if(inv_total(inv, bronze_bar) = 0) {
 }
 ~chatplayer("<p,happy>Yes, I have it.");
 inv_del(inv, bronze_bar, 1);
-%itgronigen_progress = ^itgronigen_given_bronze;
+%itgronigen = ^itgronigen_given_bronze;
 ~chatnpc("<p,happy>Great. Now all I need is the lens made.");
 ~chatnpc("<p,happy>Please get me some molten glass.");
 
@@ -78,7 +78,7 @@ if(inv_freespace(inv) = 0) { // todo: check mesanims on this
     ~chatnpc("<p,neutral>Hurry and free up some space, then.");
     return;
 }
-%itgronigen_progress = ^itgronigen_given_mould;
+%itgronigen = ^itgronigen_given_mould;
 inv_add(inv, molten_glass, 1);
 ~objbox(molten_glass, "The professor gives you back the molten glass.", 250, 0, 0);
 
@@ -91,7 +91,7 @@ if(inv_total(inv, lens) = 0) {
 }
 ~chatplayer("<p,happy>Yes, here it is.");
 inv_del(inv, lens, 1);
-%itgronigen_progress = ^itgronigen_sent_telescope;
+%itgronigen = ^itgronigen_sent_telescope;
 ~chatnpc("<p,happy>Wonderful, at last I can fix the telescope.");
 if(inv_total(inv, lens_mould) > 0) {
     ~chatnpc("<p,happy>I'll take back that mould for use again.");
@@ -114,15 +114,15 @@ if(last_useitem = woodplank | last_useitem = molten_glass | last_useitem = bronz
         ~chatnpc("<p,neutral>I'd rather you show me the actual item, as opposed to the note form.");
         return;
     }
-    if(last_useitem = woodplank & %itgronigen_progress = ^itgronigen_started) {
+    if(last_useitem = woodplank & %itgronigen = ^itgronigen_started) {
         @professor_planks;
-    } else if(last_useitem = bronze_bar & %itgronigen_progress = ^itgronigen_given_planks) {
+    } else if(last_useitem = bronze_bar & %itgronigen = ^itgronigen_given_planks) {
         @professor_bronze;
-    } else if(last_useitem = molten_glass & %itgronigen_progress = ^itgronigen_given_bronze) {
-        @professor_bronze;
-    } else if(last_useitem = lens_mould & %itgronigen_progress = ^itgronigen_given_glass) {
+    } else if(last_useitem = molten_glass & %itgronigen = ^itgronigen_given_bronze) {
+        @professor_glass;
+    } else if(last_useitem = lens_mould & %itgronigen = ^itgronigen_given_glass) {
         @professor_mould;
-    } else if(last_useitem = lens & %itgronigen_progress = ^itgronigen_given_mould) {
+    } else if(last_useitem = lens & %itgronigen = ^itgronigen_given_mould) {
         @professor_lens;
     } 
 } 
@@ -170,8 +170,8 @@ switch_int ($ops) {
                 ~chatnpc("<p,happy>Go talk to him if you need some advice.");
                 ~chatplayer("<p,quiz>Okay what do I need to do?");
                 ~chatnpc("<p,neutral>First I need three planks of wood for the tripod.");
-                %itgronigen_progress = ^itgronigen_started;
-                ~send_quest_progress(questlist:itgronigen, %itgronigen_progress, ^itgronigen_complete);
+                %itgronigen = ^itgronigen_started;
+                ~send_quest_progress(questlist:itgronigen, %itgronigen, ^itgronigen_complete);
             case 2 :
                 ~chatplayer("<p,neutral>Oh, sorry, I don't have time for that.");
                 ~chatnpc("<p,sad>Oh dear. I really do need some help.");
@@ -221,7 +221,7 @@ switch_int(~get_chart_progress) {
         ~chatplayer("<p,neutral>Riiight. So, where do I get these items from?");
         ~chatnpc("<p,happy>I think Murphy, the owner of the Fishing Trawler moored at Port Khazard, might be able to spare you a sextant. After that, the nearest clock tower is south of Ardougne - you could probably get a watch there.");
         ~chatnpc("<p,happy>I've got plenty of charts myself; just come back here when you've got the sextant and watch, and I'll give you one and teach you how to use them.");
-        %trail_clue = setbit_range_toint(%trail_clue, ^trail_chart_spoken_prof, 5, 8);
+        %trail_status = setbit_range_toint(%trail_status, ^trail_chart_spoken_prof, 5, 8);
         ~chatplayer("<p,confused>Thanks, I'll see you later.");
     // https://youtu.be/yu_DOQ2vv10?si=CBKnNXojB7y5oxS-&t=35
     case ^trail_chart_spoken_prof, ^trail_chart_spoken_murphy :
@@ -242,7 +242,7 @@ switch_int(~get_chart_progress) {
         ~chatnpc("<p,neutral>You use the sextant to measure the angle that the sun is currently at. You need the watch so that you know what the time is back here at the Observatory.");
         ~chatnpc("<p,neutral>You then need this chart to work out your position. Your position is recorded in terms of latitude and longitude. Latitude is your position above the equator and longitude is your position relative to here.");
         inv_add(inv, trail_chart, 1);
-        %trail_clue = setbit_range_toint(%trail_clue, ^trail_chart_complete, 5, 8);
+        %trail_status = setbit_range_toint(%trail_status, ^trail_chart_complete, 5, 8);
         ~objbox(trail_chart, "The professor has given you a navigation chart.", 250, 0, divide(^objbox_height, 2));
         ~chatnpc("<p,neutral>So, if you have your sextant, watch and chart with you, then you can work out exactly where you are!");
     case ^trail_chart_complete :
@@ -268,9 +268,9 @@ switch_int(~get_chart_progress) {
 inv_add(inv, trail_chart, 1);
 ~objbox(trail_chart, "The professor has given you a navigation chart.", 250, 0, divide(^objbox_height, 2));
 
-[opnpc1,observatory_professor_tower]
+[opnpc1,observatory_professor2]
 // mostly 1-1 with RSC (with fixes) because this dialogue doesn't exist post-rework
-switch_int(%itgronigen_progress) {
+switch_int(%itgronigen) {
     case ^itgronigen_complete, ^itgronigen_claimed_wine :
         ~chatnpc("<p,happy>Hello friend.|The stars hold many secrets.");
         ~chatnpc("<p,happy>The moon rises in Scorpio...");

@@ -1,15 +1,15 @@
-[mcannon_progress]
+[mcannon]
 scope=perm
 
-[mcannon_railings]
+[mcannonmulti]
 scope=perm
 
-[mcannon_stage]
+[dropcannon]
 scope=perm
 
-[mcannon_ammo]
+[rockthrower]
 scope=perm
 
-[mcannon_coord]
+[ownedmcannon]
 scope=perm
 type=coord

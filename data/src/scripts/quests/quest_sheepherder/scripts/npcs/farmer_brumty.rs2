@@ -1,5 +1,5 @@
 [opnpc1,farmer_brumty]
-switch_int(%sheepherder_progress) {
+switch_int(%sheepherderquest) {
     case ^sheepherder_not_started : @farmer_brumty_before_sheep_herder;
     case ^sheepherder_tasked_with_talking_to_dr_orbon : @farmer_brumty_before_talking_to_orbon;
     case ^sheepherder_tasked_with_disposing_of_sheep : @farmer_brumty_during_sheep_herder;

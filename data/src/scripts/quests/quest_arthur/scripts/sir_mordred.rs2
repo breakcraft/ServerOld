@@ -5,7 +5,7 @@
 ~npc_retaliate(0);
 
 [ai_queue3,sir_mordred]
-if (finduid(%npc_aggressive_player) = true & %arthur_progress >= ^arthur_spoken_lancelot & %arthur_progress < ^arthur_complete) {
+if (finduid(%npc_aggressive_player) = true & %arthur >= ^arthur_spoken_lancelot & %arthur < ^arthur_complete) {
     if_close;
     if(p_finduid(%npc_aggressive_player) = true) { // will fail if delayed, no queue
         @lefaye_spare_son;
@@ -36,8 +36,8 @@ switch_int(~p_choice3("Tell me how to untrap Merlin and I might.", 1, "No. He de
         ~chatnpc("<p,neutral>This will summon a mighty spirit named Thrantax.");
         ~chatnpc("<p,neutral>You will need to bind him with magic words.");
         ~chatnpc("<p,neutral>Then you will need the sword Excalibur with which the spell was bound in order to shatter the crystal.");
-        if(%arthur_progress = ^arthur_spoken_lancelot) {
-            %arthur_progress = ^arthur_spoken_morgan_lefaye;
+        if(%arthur = ^arthur_spoken_lancelot) {
+            %arthur = ^arthur_spoken_morgan_lefaye;
         }
         @multi3("So where can I find Excalibur?", lefaye_excalibur, "OK I will go do all that.", lefaye_ok, "What are the magic words?", lefaye_magic_words);
     case 2 :

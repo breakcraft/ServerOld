@@ -1,5 +1,5 @@
-[opnpc1,gossip]
-switch_int(%murder_progress) { 
+[opnpc1,gossipy_man]
+switch_int(%murderquest) { 
     case ^murder_not_started :
         ~chatnpc("<p,neutral>There's some kind of commotion up at the Sinclair place I hear. Not surprising all things considered.");
     case ^murder_started :

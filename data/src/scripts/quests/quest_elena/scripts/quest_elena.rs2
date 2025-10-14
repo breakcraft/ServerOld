@@ -1,6 +1,6 @@
 [proc,quest_elena_set_progress](int $stage)
-%elena_progress = $stage;
-~send_quest_progress(questlist:elena, %elena_progress, ^elena_complete);
+%elenaquest = $stage;
+~send_quest_progress(questlist:elena, %elenaquest, ^elena_complete);
 
 [queue,quest_elena_complete]
 inv_del(inv, elena_picture, ^max_32bit_int);

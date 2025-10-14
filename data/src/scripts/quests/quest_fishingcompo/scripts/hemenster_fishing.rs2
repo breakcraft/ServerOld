@@ -53,7 +53,7 @@ if (%hemenster_comp_stage = ^hemenster_comp_all_fish_caught) { // 3 fish caught
 }
 
 [label,attempt_fish_hemenster]
-if(%fishingcompo_progress >= ^fishingcompo_won_comp) {
+if(%fishingcompo >= ^fishingcompo_won_comp) {
     ~mesbox("You have already won the fishing competition!|You don't need to catch any more fish here.");
     return;
 }
@@ -61,7 +61,7 @@ if(~in_hemenster_comp = false) {
     return;
 }
 // Vampire check
-if((npc_type = 0_41_53_sinisterfishspot & %fishingcompo_progress = ^fishingcompo_in_comp) | (npc_type = 0_41_53_compofishspot & %fishingcompo_progress = ^fishingcompo_garlic_comp)) {
+if((npc_type = 0_41_53_sinisterfishspot & %fishingcompo = ^fishingcompo_in_comp) | (npc_type = 0_41_53_compofishspot & %fishingcompo = ^fishingcompo_garlic_comp)) {
     if(npc_find(coord, sinister_stranger, 8, 0) = true) {
         @sinister_stranger_my_spot;
     }
@@ -107,7 +107,7 @@ if (%hemenster_comp_stage = ^hemenster_comp_not_entered) { // Havn't entered the
         mes("Talk to Bonzo to pay the entrance fee.");
     }
     return (false);
-} else if (%hemenster_comp_stage >= ^hemenster_comp_paidfee & %fishingcompo_progress = ^fishingcompo_started) { // Entered comp but hasnt been assigned spot
+} else if (%hemenster_comp_stage >= ^hemenster_comp_paidfee & %fishingcompo = ^fishingcompo_started) { // Entered comp but hasnt been assigned spot
     if(npc_find(coord, bonzo, 12, 0) = true) {
         ~bonzo_set_places;
     }

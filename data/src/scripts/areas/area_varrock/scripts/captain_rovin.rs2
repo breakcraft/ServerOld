@@ -55,8 +55,8 @@ if ($option = 1) {
 }
 
 [proc,demon_slayer_captain_rovin_dialogue_options]()(int)
-if (%demon_progress < ^demon_key_hunt | %demon_progress >= ^demon_silverlight) {
+if (%demonstart < ^demon_key_hunt | %demonstart >= ^demon_silverlight) {
     return(~p_choice2("I am one of the palace guards.", 1, "What about the King?", 2));
-} else if (%demon_progress >= ^demon_key_hunt  & %demon_progress < ^demon_silverlight) {
+} else if (%demonstart >= ^demon_key_hunt  & %demonstart < ^demon_silverlight) {
     return(~p_choice3("I am one of the palace guards.", 1, "What about the King?", 2, "Yes I know, but this is important.", 3));
 }

@@ -1,6 +1,6 @@
 [human_pickpocket]
-righthand=hide
-lefthand=hide
+replaceheldleft=hide
+replaceheldright=hide
 frame1=anim_2219
 frame2=anim_504
 frame3=anim_804

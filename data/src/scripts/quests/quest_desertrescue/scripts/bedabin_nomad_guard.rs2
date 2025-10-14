@@ -1,7 +1,7 @@
-[opnpc1,bedabin_nomad_guard]
-if(%desertrescue_progress >= ^desertrescue_given_pineapple) {
+[opnpc1,bedabin_guard]
+if(%desertrescue >= ^desertrescue_given_pineapple) {
     ~chatnpc("<p,happy>Sorry, but you can't use the tent without permission.|But thanks for all your help with the Bedabin people.");
-} else if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^true & %desertrescue_progress < ^desertrescue_learned_darts) {
+} else if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^true & %desertrescue < ^desertrescue_learned_darts) {
     ~chatnpc("<p,happy>Oh, I remember you; yeah go on in. Hope the weapon construction is going okay.");
     if_close;
     if(coord ! 0_49_47_33_37) {
@@ -10,13 +10,13 @@ if(%desertrescue_progress >= ^desertrescue_given_pineapple) {
         p_delay(max(0, calc(3 - $dist)));
     }
     // Temp note: dur updated
-    if(loc_find(0_49_47_33_38, loc_2700) = true) loc_change(loc_2701, 3);
+    if(loc_find(0_49_47_33_38, bedabin_tentdoor) = true) loc_change(bedabin_tentdoor_open, 3);
     p_teleport(0_49_47_33_38);
     p_delay(3);
     return;
 } else {
     ~chatnpc("<p,angry>Sorry, but you can't use the tent without permission. Orders of Al Shabim.");
-    if(%desertrescue_progress = ^desertrescue_shown_plans_shabim) {
+    if(%desertrescue = ^desertrescue_shown_plans_shabim) {
         if(inv_total(inv, thcaptplans) = 0) {
             ~chatnpc("<p,neutral>Sorry, no one is allowed to enter.");
             ~chatplayer("<p,neutral>But Al Shabim said I could enter!");
@@ -33,16 +33,16 @@ if(%desertrescue_progress >= ^desertrescue_given_pineapple) {
             p_delay(max(0, calc(3 - $dist)));
         }
         // Temp note: dur updated
-        if(loc_find(0_49_47_33_38, loc_2700) = true) loc_change(loc_2701, 3);
+        if(loc_find(0_49_47_33_38, bedabin_tentdoor) = true) loc_change(bedabin_tentdoor_open, 3);
         p_teleport(0_49_47_33_38);
         p_delay(3);
     }
 }
 
-[oploc1,loc_2700]
-if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^true & %desertrescue_progress < ^desertrescue_learned_darts) {
+[oploc1,bedabin_tentdoor]
+if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^true & %desertrescue < ^desertrescue_learned_darts) {
     // Temp note: dur updated
-    loc_change(loc_2701, 3);
+    loc_change(bedabin_tentdoor_open, 3);
     if(coordz(coord) >= coordz(loc_coord)) {
         mes("You walk out of the tent.");
         p_teleport(0_49_47_33_37);
@@ -52,10 +52,10 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^tr
         p_teleport(0_49_47_33_38); // no delay
     }
     return;
-} else if(npc_find(coord, bedabin_nomad_guard, 5, 0) = true) { // you can kill these in 225, changed in Oct 2004 so need to confirm original behaviour
-    if(%desertrescue_progress >= ^desertrescue_given_pineapple) {
+} else if(npc_find(coord, bedabin_guard, 5, 0) = true) { // you can kill these in 225, changed in Oct 2004 so need to confirm original behaviour
+    if(%desertrescue >= ^desertrescue_given_pineapple) {
         ~chatnpc("<p,happy>Sorry, but you can't use the tent without permission.|But thanks for all your help with the Bedabin people.");
-    } else if(%desertrescue_progress = ^desertrescue_shown_plans_shabim) {
+    } else if(%desertrescue = ^desertrescue_shown_plans_shabim) {
         if(inv_total(inv, thcaptplans) > 0) {
             ~chatplayer("<p,neutral>Al Shabim said I could enter, here are the plans!");
             ~chatnpc("<p,happy>Okay go ahead.");
@@ -63,7 +63,7 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^tr
             %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access);
             p_teleport(movecoord(coord, 0, 0, 1));
             // Temp note: dur updated
-            loc_change(loc_2701, 3); // curtain_open
+            loc_change(bedabin_tentdoor_open, 3); // curtain_open
             p_delay(3);
         } else { // todo - confirm mesanims
             ~chatnpc("<p,neutral>Sorry, no one is allowed to enter.");
@@ -76,9 +76,9 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access) = ^tr
     }
 }
 
-[opnpcu,bedabin_nomad_guard]
+[opnpcu,bedabin_guard]
 if(last_useitem = thcaptplans) {
-    switch_int(%desertrescue_progress) {
+    switch_int(%desertrescue) {
         case default :
             inv_del(inv, thcaptplans, 1);
             ~chatnpc("<p,neutral>Sorry, but you can't use the tent without permission.|But thanks for all your help with the Bedabin people.|And we'll take those plans off your hands as well!");
@@ -88,7 +88,7 @@ if(last_useitem = thcaptplans) {
             %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_gained_tent_access);
             p_teleport(movecoord(coord, 0, 0, 1));
             // Temp note: dur updated
-            if(loc_find(0_49_47_33_38, loc_2700) = true) loc_change(loc_2701, 3);
+            if(loc_find(0_49_47_33_38, bedabin_tentdoor) = true) loc_change(bedabin_tentdoor_open, 3);
         case ^desertrescue_retrieved_plans :
             ~chatnpc("<p,neutral>Hmm, those plans look interesting. Go and show them to Al Shabim... I'm sure he'll be pleased to see them.");
     }

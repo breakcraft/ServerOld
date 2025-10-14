@@ -1,5 +1,5 @@
-[opnpc1,lucien_ardougne]
-switch_int (%ikov_progress) {
+[opnpc1,ikov_lucien1]
+switch_int (%ikov) {
     case ^ikov_completed_armadyl :
         ~chatplayer("<p,angry>I thought I killed you?!");
         ~chatnpc("<p,evillaugh>Ha! Ha! Ha!");
@@ -20,18 +20,18 @@ switch_int (%ikov_progress) {
         @lucien_mission;
 }
 
-[opnpc1,lucien_edge]
+[opnpc1,ikov_lucien2]
 if(map_members = ^false) { // RS3
     ~chatnpc("<p,angry>Leave me alone, I have much to ponder on!");
     return;
 }
-if(%ikov_progress >= ^ikov_completed_armadyl) {
+if(%ikov >= ^ikov_completed_armadyl) {
     mes("You have completed the Temple of Ikov quest."); // RS3, also mentioned here: https://forum.tip.it/topic/195563-temple-of-ikov-armadyl/ (aug 2008)
     return;
 }
 // varp = 70, different on osrs: https://youtu.be/cePHhIOqsqg?si=PiP6lepYRxiJUmTB&t=1128
 ~chatnpc("<p,neutral>Have you got the Staff of Armadyl yet?");
-if(%ikov_progress = ^ikov_paid_winelda & inv_total(inv, ikov_staffofarmardyl) > 0) {
+if(%ikov = ^ikov_paid_winelda & inv_total(inv, ikov_staffofarmardyl) > 0) {
     // https://youtu.be/sCl0GprumNE?si=4WQbtK0D4xielNmx&t=578
     def_int $choice = ~p_choice2("Yes! Here it is.", 1, "No, not yet.", 2);
     if($choice = 1) {
@@ -64,8 +64,8 @@ if(%ikov_progress = ^ikov_paid_winelda & inv_total(inv, ikov_staffofarmardyl) > 
 ~chatnpc("<p,sad>It's not as easy as it sounds.|The monster can only be killed with a weapon of ice.|There are many other dangers.");
 ~chatplayer("<p,happy>I'm up for it!");
 ~chatnpc("<p,neutral>Take this pendant. Without it you will not be able to enter the Chamber of Fear.");
-%ikov_progress = ^ikov_started;
-~send_quest_progress(questlist:ikov, %ikov_progress, ^ikov_completed_armadyl);
+%ikov = ^ikov_started;
+~send_quest_progress(questlist:ikov, %ikov, ^ikov_completed_armadyl);
 inv_add(inv, ikov_pendantoflucien, 1);
 ~objbox(ikov_pendantoflucien, "Lucien has given you a pendant!", 250, 0, 0);
 ~chatnpc("<p,sad>I cannot stay here much longer.");
@@ -94,7 +94,7 @@ if(~obj_gettotal(ikov_pendantoflucien) = 0) {
     ~objbox(ikov_pendantoflucien, "Lucien has given you another pendant!", 250, 0, 0);
     return;
 }
-if(%ikov_progress <= ^ikov_helping_armadyl) { // guessing...
+if(%ikov <= ^ikov_helping_armadyl) { // guessing...
     ~chatplayer("<p,confused>Sorry! Can you remind me of my mission?");
     ~chatnpc("<p,angry>My patience grows thin hero!");
     // https://web.archive.org/web/20051025135143im_/http://www.runeweb.net/fireball/Temple%20of%20Ikov%20Images/Temple2.PNG
@@ -105,8 +105,8 @@ if(%ikov_progress <= ^ikov_helping_armadyl) { // guessing...
 ~chatplayer("<p,neutral>Yep, lots of heros about these days.");
 ~chatnpc("<p,neutral>Well if you see any be sure to point them in my direction.");
 
-[ai_queue3,lucien_edge]
-if(npc_findhero = ^true & %ikov_progress = ^ikov_helping_armadyl) {
+[ai_queue3,ikov_lucien2]
+if(npc_findhero = ^true & %ikov = ^ikov_helping_armadyl) {
     if_close;
     npc_setmode(none);
     npc_walk(npc_coord);

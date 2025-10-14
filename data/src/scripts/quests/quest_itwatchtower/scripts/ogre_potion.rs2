@@ -1,6 +1,6 @@
 [opheldu,ground_bat_bones]
 if(last_useitem = vial_water | last_useitem = guamvial | last_useitem = jangervial) {
-  if(%itwatchtower_progress < ^itwatchtower_learned_potion) { // this check is also one way
+  if(%itwatchtower < ^itwatchtower_learned_potion) { // this check is also one way
     ~chatplayer("<p,confused>Hmmm. Perhaps I shouldn't try and mix these items together. It might have unpredictable results...");
     return;
   }
@@ -10,13 +10,14 @@ if(last_useitem = vial_water | last_useitem = guamvial | last_useitem = jangervi
 
 [opheldu,jangerberries]
 if(last_useitem = vial_water | last_useitem = guamvial) {
-    if(%itwatchtower_progress < ^itwatchtower_learned_potion) {
+    if(%itwatchtower < ^itwatchtower_learned_potion) {
         ~chatplayer("<p,confused>Hmm, perhaps I shouldn't mix these together. It might have unpredictable results...");
         return;
     }
     @ogrepotion_add_jangerberries(last_useitem);
+} else {
+  ~attempt_brew_potion(last_useslot, last_slot);
 }
-~displaymessage(^dm_default);
 
 [opheldu,jangervial]
 if(last_useitem ! guam_leaf & last_useitem ! ground_bat_bones) {

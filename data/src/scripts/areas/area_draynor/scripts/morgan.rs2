@@ -1,7 +1,7 @@
 // https://youtu.be/6PFJRUDSKs4
 
 [opnpc1,morgan]
-switch_int (%vampire_progress) {
+switch_int (%vampire) {
     case ^quest_vampire_not_started : @morgan_before_vampire_slayer;
     case ^quest_vampire_started, ^quest_vampire_spoke_to_harlow : @morgan_during_vampire_slayer;
     case ^vampire_complete : @morgan_after_vampire_slayer;

@@ -1,5 +1,5 @@
 [opnpc1,brother_omad]
-switch_int (%drunkmonk_progress) {
+switch_int (%drunkmonkquest) {
     case ^drunkmonk_not_started : @omad_whats_wrong;
     case ^drunkmonk_spoken_to_omad : @omad_have_blanket;
     case ^drunkmonk_retrieved_blanket : @omad_organize_party;
@@ -32,9 +32,9 @@ switch_int (~p_choice2("Can I help at all?", 1, "I'm sorry to hear that! I hope 
 ~chatplayer("<p,quiz>Can I help at all?");
 ~chatnpc("<p,neutral>Please do. We won't be able to help you as we are peaceful men but we would be grateful for your help!");
 ~chatplayer("<p,neutral>Where are they?");
-%drunkmonk_progress = ^drunkmonk_spoken_to_omad;
+%drunkmonkquest = ^drunkmonk_spoken_to_omad;
 settimer(blanket_ladder, 1);
-~send_quest_progress(questlist:drunkmonk, %drunkmonk_progress, ^drunkmonk_complete);
+~send_quest_progress(questlist:drunkmonk, %drunkmonkquest, ^drunkmonk_complete);
 ~chatnpc("<p,neutral>They hide in a secret cave in the forest. It's hidden under a ring of stones. Please, bring back the blanket!");
 
 [label,omad_have_blanket]
@@ -47,7 +47,7 @@ if(inv_total(inv, childs_blanket) >= 1) {
     ~chatnpc("<p,happy>Really, that's excellent, well done! Maybe now I will be able to get some rest.");
     ~chatnpc("<p,neutral>*yawn*..I'm off to bed! Farewell brave traveller!");
     inv_del(inv, childs_blanket, 1);
-    %drunkmonk_progress = ^drunkmonk_retrieved_blanket;
+    %drunkmonkquest = ^drunkmonk_retrieved_blanket;
     return;
 }
 ~chatplayer("<p,sad>I'm afraid not.");
@@ -81,7 +81,7 @@ if($option = 1) {
 ~chatplayer("<p,quiz>Where should I look?");
 ~chatnpc("<p,happy>Oh, he won't be far. Probably out in the forest.");
 ~chatplayer("<p,neutral>Ok, I'll go and find him.");
-%drunkmonk_progress = ^drunkmonk_looking_cedric;
+%drunkmonkquest = ^drunkmonk_looking_cedric;
 
 [label,omad_come]
 ~chatplayer("<p,happy>Can I come to the party?");
@@ -89,11 +89,11 @@ if($option = 1) {
 
 [label,omad_need_wine]
 ~chatplayer("<p,neutral>Hello brother Omad.");
-if(%drunkmonk_progress = ^drunkmonk_looking_cedric) {
+if(%drunkmonkquest = ^drunkmonk_looking_cedric) {
     ~chatnpc("<p,neutral>Hello adventurer, have you found Brother Cedric?");
     ~chatplayer("<p,neutral>Not yet.");
     ~chatnpc("<p,sad>Well, keep looking, we need that wine!");
-} else if(%drunkmonk_progress = ^drunkmonk_finding_water) {
+} else if(%drunkmonkquest = ^drunkmonk_finding_water) {
     ~chatnpc("<p,sad>Hello adventurer, have you found Brother Cedric?");
     ~chatplayer("<p,happy>Yes I've seen him, he's a bit drunk!");
     ~chatnpc("<p,happy>Well, try your best to get him back here!");

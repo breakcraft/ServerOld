@@ -1,11 +1,11 @@
-[apnpc1,hudon]
-@hudon_dialogue;
+[apnpc1,hudon_waterfall_quest]
+@hudon_waterfall_quest_dialogue;
 
-[opnpc1,hudon]
-@hudon_dialogue;
+[opnpc1,hudon_waterfall_quest]
+@hudon_waterfall_quest_dialogue;
 
-[label,hudon_dialogue]
-switch_int (%waterfall_progress) {
+[label,hudon_waterfall_quest_dialogue]
+switch_int (%waterfall_quest) {
     case ^waterfall_not_started :
         ~chatplayer("<p,neutral>Hello there.");
         ~chatnpc("<p,neutral>What do you want?");
@@ -18,7 +18,7 @@ switch_int (%waterfall_progress) {
         ~chatplayer("<p,neutral>Where is this treasure you talk of?");
         ~chatnpc("<p,neutral>Just because I'm small doesn't mean I'm dumb! If I told you, you would take it all for yourself.");
         ~chatplayer("<p,neutral>Maybe I could help.");
-        %waterfall_progress = ^waterfall_spoken_to_hudon;
+        %waterfall_quest = ^waterfall_spoken_to_hudon;
         ~chatnpc("<p,neutral>I'm fine alone.");
         ~chatplayer("<p,neutral>Ok, I'll leave you to it.");
     case ^waterfall_spoken_to_hudon :

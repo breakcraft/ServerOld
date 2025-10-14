@@ -9,7 +9,7 @@
 [label,customs_journey]
 ~chatplayer("<p,quiz>Can I journey on this ship?");
 
-if (%hunt_progress >= 2) {
+if (%hunt >= 2) {
     if (inv_total(inv, karamja_rum) > 0) {
         @customs_spot_inspection;
     }

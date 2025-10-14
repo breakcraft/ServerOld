@@ -1,5 +1,5 @@
 [chatgoblin1]
-replayoff=12
+loops=12
 frame1=anim_371
 frame2=anim_371
 frame3=anim_376
@@ -66,7 +66,7 @@ iframe23=anim_369
 iframe24=anim_373
 
 [chatgoblin2]
-replayoff=12
+loops=12
 frame1=anim_356
 frame2=anim_356
 frame3=anim_362
@@ -181,7 +181,7 @@ iframe47=anim_369
 iframe48=anim_373
 
 [chatgoblin3]
-replayoff=12
+loops=12
 frame1=anim_361
 frame2=anim_361
 frame3=anim_366
@@ -330,7 +330,7 @@ iframe71=anim_369
 iframe72=anim_373
 
 [chatgoblin4]
-replayoff=12
+loops=12
 frame1=anim_356
 frame2=anim_356
 frame3=anim_362

@@ -1,5 +1,5 @@
-[oploc1,loc_2024]
-if(%hetty_progress = ^hetty_objects_given) {
+[oploc1,hettycauldron]
+if(%hetty = ^hetty_objects_given) {
     ~mesbox("You drink from the cauldron, it tastes horrible! You feel yourself imbued with power.");
     queue(hetty_quest_complete, 0);
 } else {
@@ -7,7 +7,7 @@ if(%hetty_progress = ^hetty_objects_given) {
 }
 
 [queue,hetty_quest_complete]
-%hetty_progress = ^hetty_complete;
+%hetty = ^hetty_complete;
 stat_advance(magic, 3250);
 session_log(^log_adventure, "Quest complete: Witch's Potion");
 ~send_quest_complete(questlist:hetty, eye_of_newt, 250, ^hetty_questpoints, "You have completed the\\nWitches Potion Quest!");

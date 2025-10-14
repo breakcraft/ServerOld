@@ -8,9 +8,10 @@ import NpcType from '#/cache/config/NpcType.js';
 import { CoordGrid } from '#/engine/CoordGrid.js';
 import Jagfile from '#/io/Jagfile.js';
 import Packet from '#/io/Packet.js';
+import Environment from '#/util/Environment.js';
 import { printWarning } from '#/util/Logger.js';
-import { shouldBuildFile, shouldBuildFileAny } from '#/util/PackFile.js';
-import { convertImage } from '#/util/PixPack.js';
+import { shouldBuildFile, shouldBuildFileAny } from '#tools/pack/PackFile.js';
+import { convertImage } from '#tools/pack/PixPack.js';
 
 function packWater(underlay: Packet, overlay: Packet, mx: number, mz: number) {
     underlay.p1(mx);
@@ -42,7 +43,7 @@ export async function packWorldmap() {
 
     // ---
 
-    const jag = new Jagfile();
+    const jag = Jagfile.new();
 
     // ----
 
@@ -105,10 +106,10 @@ export async function packWorldmap() {
     }
 
     // easiest solution for the time being
-    const multiway = fs.readFileSync('data/src/maps/multiway.csv', 'ascii').replace(/\r/g, '').split('\n');
+    const multiway = fs.readFileSync(`${Environment.BUILD_SRC_DIR}/maps/multiway.csv`, 'ascii').replace(/\r/g, '').split('\n');
     const multimap = processCsv(multiway, 'multiway');
 
-    const free2play = fs.readFileSync('data/src/maps/free2play.csv', 'ascii').replace(/\r/g, '').split('\n');
+    const free2play = fs.readFileSync(`${Environment.BUILD_SRC_DIR}/maps/free2play.csv`, 'ascii').replace(/\r/g, '').split('\n');
     const freemap = processCsv(free2play, 'free');
 
     const maps: string[] = fs.readdirSync('data/pack/server/maps').filter((x: string): boolean => x[0] === 'm');
@@ -230,18 +231,18 @@ export async function packWorldmap() {
 
         const locBuf = Packet.load(`data/pack/server/maps/l${mx}_${mz}`);
         let locId: number = -1;
-        let locIdOffset: number = locBuf.gsmart();
+        let locIdOffset: number = locBuf.gsmarts();
         while (locIdOffset !== 0) {
             locId += locIdOffset;
 
             let coord: number = 0;
-            let coordOffset: number = locBuf.gsmart();
+            let coordOffset: number = locBuf.gsmarts();
 
             while (coordOffset !== 0) {
                 const { x, z, level } = unpackCoord((coord += coordOffset - 1));
 
                 const info: number = locBuf.g1();
-                coordOffset = locBuf.gsmart();
+                coordOffset = locBuf.gsmarts();
 
                 const bridged: boolean = (level === 1 ? flags[level][x][z] & 0x2 : flags[1][x][z] & 0x2) === 2;
                 const actualLevel: number = bridged ? level - 1 : level;
@@ -327,7 +328,7 @@ export async function packWorldmap() {
                     mapfunctions[actualLevel][x][z] = type.mapfunction;
                 }
             }
-            locIdOffset = locBuf.gsmart();
+            locIdOffset = locBuf.gsmarts();
         }
 
         loc.p1(mx);
@@ -628,16 +629,16 @@ export async function packWorldmap() {
 
     const index = Packet.alloc(1);
 
-    const mapscene = await convertImage(index, 'data/src/sprites', 'mapscene');
+    const mapscene = await convertImage(index, `${Environment.BUILD_SRC_DIR}/sprites`, 'mapscene');
     jag.write('mapscene.dat', mapscene);
 
-    const mapfunction = await convertImage(index, 'data/src/sprites', 'mapfunction');
+    const mapfunction = await convertImage(index, `${Environment.BUILD_SRC_DIR}/sprites`, 'mapfunction');
     jag.write('mapfunction.dat', mapfunction);
 
-    const b12 = await convertImage(index, 'data/src/fonts', 'b12');
+    const b12 = await convertImage(index, `${Environment.BUILD_SRC_DIR}/fonts`, 'b12');
     jag.write('b12.dat', b12);
 
-    const mapdots = await convertImage(index, 'data/src/sprites', 'mapdots');
+    const mapdots = await convertImage(index, `${Environment.BUILD_SRC_DIR}/sprites`, 'mapdots');
     jag.write('mapdots.dat', mapdots);
 
     jag.write('index.dat', index);
@@ -646,7 +647,7 @@ export async function packWorldmap() {
 
     const labels = Packet.alloc(1);
     const labelsSrc = fs
-        .readFileSync('data/src/maps/labels.txt', 'ascii')
+        .readFileSync(`${Environment.BUILD_SRC_DIR}/maps/labels.txt`, 'ascii')
         .replace(/\r/g, '')
         .split('\n')
         .filter((x: string) => x.startsWith('='))

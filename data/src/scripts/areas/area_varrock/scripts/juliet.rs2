@@ -1,5 +1,5 @@
 [opnpc1,juliet]
-switch_int (%romeojuliet_progress) {
+switch_int (%rjquest) {
     case ^romeojuliet_not_started : @juliet_start;
     case ^romeojuliet_spoken_romeo : @juliet_from_romeo;
     case ^romeojuliet_spoken_juliet : @juliet_deliver_letter;
@@ -60,8 +60,8 @@ if($option = 1) {
 ~chatplayer("<p,happy>Certainly, I will deliver your message straight away.");
 ~chatnpc("<p,sad>It may be our only hope.");
 inv_add(inv, julietmessage, 1);
-%romeojuliet_progress = ^romeojuliet_spoken_juliet;
-~send_quest_progress(questlist:romeojuliet, %romeojuliet_progress, ^romeojuliet_complete);
+%rjquest = ^romeojuliet_spoken_juliet;
+~send_quest_progress(questlist:romeojuliet, %rjquest, ^romeojuliet_complete);
 ~mesbox("Juliet gives you a message.");
 
 [label,juliet_deliver_letter]
@@ -96,7 +96,7 @@ if(inv_total(inv, cadava) = 0) {
 ~chatplayer("<p,neutral>It should make you seem dead,|and get you away from this place.");
 ~mesbox("You pass the potion to Juliet.");
 inv_del(inv, cadava, 1);
-%romeojuliet_progress = ^romeojuliet_juliet_crypt;
+%rjquest = ^romeojuliet_juliet_crypt;
 ~chatnpc("<p,happy>Wonderful. I just hope Romeo can|remember to get me from the crypt.");
 ~chatnpc("<p,happy>Many thanks kind friend.");
 ~chatnpc("<p,neutral>Please go to Romeo, make sure he understands.");

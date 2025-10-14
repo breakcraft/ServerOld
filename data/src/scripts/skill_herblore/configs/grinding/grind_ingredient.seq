@@ -1,6 +1,6 @@
 [human_herbing_grind]
-lefthand=grinder
-righthand=herbbowl
+replaceheldright=grinder
+replaceheldleft=herbbowl
 frame1=anim_1707
 frame2=anim_2003
 frame3=anim_2302

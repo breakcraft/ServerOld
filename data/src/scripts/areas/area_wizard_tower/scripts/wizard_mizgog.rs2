@@ -1,5 +1,5 @@
 [opnpc1,wizard_mizgog]
-switch_int(%imp_progress) {
+switch_int(%imp) {
     case ^imp_not_started :
         ~chatnpc("<p,neutral>Hello there.");
         @multi2("Give me a quest!", mizgog_givequest, "Most of your friends are pretty quiet aren't they?", mizgog_quiet);
@@ -47,8 +47,8 @@ if($option = 1) {
     ~chatnpc("<p,sad>These imps stole all sorts of my things.|Most of these things I don't really care about,|just eggs and balls of string and things.");
     ~chatnpc("<p,sad>But they stole my four magical beads.|There was a red one, a yellow one,|a black one, and a white one.");
     ~chatnpc("<p,sad>These imps have now spread out all over the kingdom.|Could you get my beads back for me?");
-    %imp_progress = ^imp_started;
-    ~send_quest_progress(questlist:imp, %imp_progress, ^imp_complete);
+    %imp = ^imp_started;
+    ~send_quest_progress(questlist:imp, %imp, ^imp_complete);
     ~chatplayer("<p,happy>I'll try.");
 } else if($option = 2) {
     ~chatplayer("<p,sad>Give me a quest or else!");

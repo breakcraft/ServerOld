@@ -39,13 +39,13 @@ if (~player_npc_hit_roll(%damagetype) = true) {
     }
     if (inv_total(worn, holy_water) > 0) {
         if(npc_param(demonbane_vulnerable) = true) {
-            %com_maxhit = divide(multiply(%com_maxhit, 160), 100);
+            $maxhit = scale(160, 100, %com_maxhit);
             if(npc_type = nezikchened) {
-                %com_maxhit = add(%com_maxhit, 5);
+                $maxhit = add($maxhit, 5);
             }
             if (npc_stat(defence) >= npc_basestat(defence)) npc_statsub(defence, 0, 5);
         } else {
-             %com_maxhit = 0;
+            $maxhit = 0;
         }
     }
     $damage = randominc(min($maxhit, npc_param(max_dealt)));
@@ -72,12 +72,6 @@ npc_anim(npc_param(defend_anim), sub($delay, 30)); // delay npc this tick
 if (npc_param(defend_sound) ! null) {
     sound_synth(npc_param(defend_sound), 0, sub($delay, 30)); // delay 1 client tick for the hit queue
 }
-
-if ($ammo = holy_water) {
-    ~ranged_dropammo_npc($ammo, ^true, sub(divide($delay, 30), 2)); // 100% chance to drop ammo
-    return;
-}
-~ranged_dropammo_npc($ammo, 5, sub(divide($delay, 30), 2));
 
 [proc,player_ranged_check_ammo](obj $rhand)(obj)
 def_category $weapon_cat = oc_category($rhand);
@@ -108,32 +102,43 @@ if (oc_param($ammo, levelrequire) > oc_param($rhand, levelrequire)) { //todo con
 return($ammo);
 
 [proc,player_ranged_use_weapon](obj $rhand, obj $ammo)(int)
-switch_category(oc_category($rhand)) {
-    case weapon_bow, weapon_crossbow : return(~ranged_shoot_npc($ammo));
-    case weapon_thrown, weapon_javelin : return(~ranged_throw_npc($ammo));
-    case default : return(30); // idk some random default delay just in case shouldnt happen tho
-}
-
-[proc,ranged_shoot_npc](obj $ammo)(int)
-if($ammo = ogre_arrow) spotanim_pl(oc_param($ammo, proj_launch), 50, 0);
+if ($ammo = ogre_arrow) spotanim_pl(oc_param($ammo, proj_launch), 50, 0);
 else spotanim_pl(oc_param($ammo, proj_launch), 96, 0);
-inv_del(worn, $ammo, 1);
-return(~npc_projectile(coord, npc_uid, oc_param($ammo, proj_travel), 40, 36, 41, 15, 5, 11, 5));
-
-[proc,ranged_throw_npc](obj $ammo)(int)
-spotanim_pl(oc_param($ammo, proj_launch), 96, 0);
-inv_del(worn, $ammo, 1);
-if (inv_total(worn, $ammo) = 0) {
-    mes("That was your last one!");
-    p_stopaction;
-    ~update_all(inv_getobj(worn, ^wearpos_rhand));
+def_int $delay = 30;
+switch_category(oc_category($rhand)) {
+    case weapon_bow, weapon_crossbow : 
+        $delay = ~npc_projectile(coord, npc_uid, oc_param($ammo, proj_travel), 40, 36, 41, 15, 5, 11, 5);
+        ~ranged_dropammo_npc($ammo, divide($delay, 30));
+    case weapon_thrown, weapon_javelin : 
+        $delay = ~npc_projectile(coord, npc_uid, oc_param($ammo, proj_travel), 40, 36, 32, 15, 0, 11, 5);
+        ~ranged_dropammo_npc($ammo, divide($delay, 30));
+        if (inv_total(worn, $ammo) = 0) {
+            mes("That was your last one!");
+            p_stopaction;
+            ~update_all($ammo);
+        }
 }
-return(~npc_projectile(coord, npc_uid, oc_param($ammo, proj_travel), 40, 36, 32, 15, 0, 11, 5));
+return($delay);
 
-[proc,ranged_dropammo_npc](obj $ammo, int $chance, int $delay)
-if (random($chance) ! 0 | $chance = ^true) {
-    world_delay($delay);
+[proc,ranged_dropammo_npc](obj $ammo, int $delay)
+if($ammo = holy_water) {
+    ~ranged_dropammo_holywater(npc_coord, $delay);
+    return;
+}
+if (random(^dropammo_chance) ! 0) {
     if (map_blocked(npc_coord) = false) {
-        obj_add(npc_coord, enum(obj, namedobj, ranged_ammo, $ammo), 1, ^lootdrop_duration);
+        inv_dropitem_delayed(worn, npc_coord, $ammo, 1, ^lootdrop_duration, $delay);
+        return;
     }
+}
+inv_del(worn, $ammo, 1);
+
+[proc,ranged_dropammo_holywater](coord $coord, int $delay)
+if (~in_duel_arena(coord) = true) {
+    return;
+}
+inv_del(worn, holy_water, 1);
+if (inv_freespace(worn) > 0) {
+    inv_add(worn, smashed_glass, 1);
+    inv_dropitem_delayed(worn, $coord, smashed_glass, 1, ^lootdrop_duration, $delay);
 }

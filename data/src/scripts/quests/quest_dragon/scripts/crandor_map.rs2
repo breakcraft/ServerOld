@@ -50,7 +50,7 @@ if (inv_total(inv, mappart1) > 0 & inv_total(inv, mappart2) > 0 & inv_total(inv,
 
 
 [proc,quest_dragon_getting_map_parts]()(boolean)
-if (%dragon_progress >= ^quest_dragon_spoken_to_oziach & %dragon_progress < ^quest_dragon_ned_given_map) {
+if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^quest_dragon_ned_given_map) {
     return(true);
 }
 return(false);

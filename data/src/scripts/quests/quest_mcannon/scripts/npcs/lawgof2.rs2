@@ -1,5 +1,5 @@
 [opnpc1,lawgof2]
-switch_int(%mcannon_progress) {
+switch_int(%mcannon) {
     case ^mcannon_not_started : @lawgof2_start_quest;
     case ^mcannon_tasked_with_fixing_railings : @lawgof2_how_goes_fixing_those_fences;
     case ^mcannon_tasked_with_checking_guard_tower : @lawgof2_how_goes_finding_the_guard;
@@ -30,9 +30,9 @@ switch_int(%mcannon_progress) {
 
 [label,id_love_to_help]
 ~chatplayer("<p,happy>Yeah, I'd love to help.");
-if (%mcannon_progress = ^mcannon_not_started) {
-    %mcannon_progress = ^mcannon_tasked_with_fixing_railings;
-    ~send_quest_progress_colour(questlist:mcannon, %mcannon_progress, ^mcannon_complete);
+if (%mcannon = ^mcannon_not_started) {
+    %mcannon = ^mcannon_tasked_with_fixing_railings;
+    ~send_quest_progress_colour(questlist:mcannon, %mcannon, ^mcannon_complete);
 }
 ~chatnpc("<p,neutral>Thank you, we have no time to waste.|The Goblins are attacking from the forests to the south,|they managed to get through the broken railings,|could you please replace them with these new ones?");
 ~chatplayer("<p,neutral>Sounds easy enough...");
@@ -46,15 +46,15 @@ inv_add(inv, mcannonrailing1_obj, 6);
 ~chatnpc("<p,happy>Hello again traveller.|How are you doing with those railings?");
 ~chatplayer("<p,neutral>I'm getting there.");
 
-if (getbit_range(%mcannon_railings, 5, 10) = 63) {
+if (getbit_range(%mcannonmulti, 5, 10) = 63) {
     ~chatnpc("<p,neutral>The goblins seemed to have stopped getting in,|I think you've done the job.");
     ~chatplayer("<p,neutral>Good stuff.");
     ~chatnpc("<p,neutral>Could you do me one more favour?|I need you to go check up on a guard,|he should be in the Black Guard watch tower|just to the South of here.");
     ~chatnpc("<p,neutral>He should have reported in by now.");
     ~chatplayer("<p,neutral>Ok, I'll see what I can find out.");
     ~chatnpc("<p,happy>Thanks traveller.");
-    if (%mcannon_progress = ^mcannon_tasked_with_fixing_railings) {
-        %mcannon_progress = ^mcannon_tasked_with_checking_guard_tower;
+    if (%mcannon = ^mcannon_tasked_with_fixing_railings) {
+        %mcannon = ^mcannon_tasked_with_checking_guard_tower;
     }
 } else {
     ~chatnpc("<p,neutral>The goblins are still getting in,|so there must still be some broken railings.");
@@ -79,8 +79,8 @@ if (inv_total(inv, mcannonremains) < 1) {
     ~chatnpc("<p,quiz>That's strange, Gilob never leaves his post.");
     ~chatplayer("<p,sad>I may have some bad news for you commander.");
     ~mesbox("You show the Dwarf Commander the remains.");
-    if (%mcannon_progress = ^mcannon_tasked_with_checking_guard_tower) {
-        %mcannon_progress = ^mcannon_tasked_with_finding_goblin_cave;
+    if (%mcannon = ^mcannon_tasked_with_checking_guard_tower) {
+        %mcannon = ^mcannon_tasked_with_finding_goblin_cave;
         inv_del(inv, mcannonremains, 1);
     }
     ~chatnpc("<p,sad>What's this? Oh no, it can't be!");
@@ -119,8 +119,8 @@ if (inv_total(inv, mcannonremains) < 1) {
 [label,mcannon_ill_see_what_i_can_do]
 ~chatplayer("<p,neutral>Ok, I'll see what I can do.");
 inv_add(inv, mcannontoolkit, 1);
-if (%mcannon_progress = ^mcannon_return_to_dwarf_commander) {
-    %mcannon_progress = ^mcannon_tasked_with_fixing_cannon;
+if (%mcannon = ^mcannon_return_to_dwarf_commander) {
+    %mcannon = ^mcannon_tasked_with_fixing_cannon;
 }
 mes("The Dwarf Commander gives you a tool kit.");
 ~chatnpc("<p,happy>Let me know how you get on.");
@@ -168,8 +168,8 @@ p_delay(1);
 ~chatnpc("<p,happy>You're a good adventurer, we were lucky to find you.|The base is located just South of the Ice Mountain.");
 ~chatnpc("<p,neutral>You'll need to speak to Nulodion, the Dwarf Cannon| Engineer. He's the Weapons Development Chief for the Black Guard, so if anyone knows how to fire that thing, it'll be him.");
 ~chatplayer("<p,neutral>Ok, I'll see what I can do.");
-if (%mcannon_progress = ^mcannon_has_repaired_cannon) {
-    %mcannon_progress = ^mcannon_tasked_with_speaking_to_nulodion;
+if (%mcannon = ^mcannon_has_repaired_cannon) {
+    %mcannon = ^mcannon_tasked_with_speaking_to_nulodion;
 }
 
 [label,lawgof2_havent_spoken_to_nulodion]

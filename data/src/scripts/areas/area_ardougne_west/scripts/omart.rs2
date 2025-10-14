@@ -1,5 +1,5 @@
 [opnpc1,omart]
-switch_int(%biohazard_progress) {
+switch_int(%biohazard) {
     case default :
         ~chatplayer("<p,happy>Hello Omart.");
         ~chatnpc("<p,neutral>Hello adventurer.|I'm afraid it's too risky to use the ladder again,|but I believe that Edmond's working on another tunnel.");

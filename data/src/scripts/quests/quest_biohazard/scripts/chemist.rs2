@@ -3,7 +3,7 @@ if(map_members = ^false) { // rs3
     ~chatnpc("<p,neutral>It's very nice that you've come all the way down here, but I really don't have time to talk at the moment. Maybe if you come back later on a members' world I'll be able to help.");
     return;
 }
-switch_int(%biohazard_progress) {
+switch_int(%biohazard) {
     case ^biohazard_spoken_chemist, ^biohazard_found_secret :
         ~chatplayer("<p,happy>Hello again.");
         ~chatnpc("<p,quiz>Oh hello, do you need more touch paper?");
@@ -56,6 +56,6 @@ mes("He takes the plague sample from you.");
 ~chatnpc("<p,neutral>It's better than entering Varrock with half a laboratory in your napsack.");
 ~chatplayer("<p,happy>Ok, thanks for your help. I know Elena appreciates it.");
 ~chatnpc("<p,neutral>Yes well don't stand around here gassing.|You'd better hurry if you want to see Guidor...|He won't be around for much longer.");
-%biohazard_progress = ^biohazard_spoken_chemist;
+%biohazard = ^biohazard_spoken_chemist;
 inv_add(inv, touch_paper, 1);
 mes("He gives you the touch paper.");

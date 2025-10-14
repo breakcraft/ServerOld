@@ -2,6 +2,7 @@ import CategoryType from '#/cache/config/CategoryType.js';
 import InvType from '#/cache/config/InvType.js';
 import ObjType from '#/cache/config/ObjType.js';
 import { CoordGrid } from '#/engine/CoordGrid.js';
+import { ObjDelayedRequest } from '#/engine/entity/ObjDelayedRequest.js';
 import { EntityLifeCycle } from '#/engine/entity/EntityLifeCycle.js';
 import { isClientConnected } from '#/engine/entity/NetworkPlayer.js';
 import Obj from '#/engine/entity/Obj.js';
@@ -185,6 +186,29 @@ const InvOps: CommandHandlers = {
         state.pointerAdd(ActiveObj[state.intOperand]);
     }),
 
+    [ScriptOpcode.INV_DROPITEM_DELAYED]: checkedHandler(ActivePlayer, state => {
+        const [inv, coord, obj, count, duration, delay] = state.popInts(6);
+
+        const invType: InvType = check(inv, InvTypeValid);
+        const position: CoordGrid = check(coord, CoordValid);
+        const objType: ObjType = check(obj, ObjTypeValid);
+        check(count, ObjStackValid);
+        check(duration, DurationValid);
+
+        if (!state.pointerGet(ProtectedActivePlayer[state.intOperand]) && invType.protect && invType.scope !== InvType.SCOPE_SHARED) {
+            throw new Error(`$inv requires protected access: ${invType.debugname}`);
+        }
+
+        const player = state.activePlayer;
+        const completed = player.invDel(invType.id, objType.id, count);
+        if (completed == 0) {
+            return;
+        }
+
+        const floorObj: Obj = new Obj(position.level, position.x, position.z, EntityLifeCycle.DESPAWN, objType.id, completed);
+        World.objDelayedQueue.addTail(new ObjDelayedRequest(floorObj, duration, delay, player.hash64));
+    }),
+
     // https://x.com/JagexAsh/status/1679942100249464833
     // inv write
     [ScriptOpcode.INV_DROPSLOT]: checkedHandler(ActivePlayer, state => {
@@ -206,7 +230,6 @@ const InvOps: CommandHandlers = {
         const objType = ObjType.get(obj.id);
         if (invType.scope === InvType.SCOPE_PERM) {
             // ammo drops are temp, without checking scope this spams in ranged combat
-            state.activePlayer.addWealthLog(-(obj.count * objType.cost), `Dropped ${objType.debugname} x${obj.count}`);
             state.activePlayer.addWealthEvent({
                 event_type: WealthEventType.DROP, 
                 account_items: [{ id: obj.id, name: objType.debugname, count: obj.count }], 
@@ -418,13 +441,6 @@ const InvOps: CommandHandlers = {
             }
 
             fromTotal += type.cost * obj.count;
-        }
-
-        for (const toLog of fromLogs.values()) {
-            // Log all wealth events
-            const totalValueGp = toLog.cost * toLog.count;
-            fromPlayer.addWealthLog(-totalValueGp, 'Gave ' + toLog.name + ' x' + toLog.count + ' to ' + toPlayer.username);
-            toPlayer.addWealthLog(totalValueGp, 'Received ' + toLog.name + ' x' + toLog.count + ' from ' + fromPlayer.username);
         }
 
         const toSession = isClientConnected(toPlayer) ? toPlayer.client.uuid : 'disconnected';
@@ -688,9 +704,6 @@ const InvOps: CommandHandlers = {
 
         const objType: ObjType = ObjType.get(obj.id);
         if (invType.scope === InvType.SCOPE_PERM) {
-            const value = obj.count * objType.cost;
-            state.activePlayer.addWealthLog(-(value), `Dropped ${objType.debugname} x${obj.count}`);
-            
             const p2Session = isClientConnected(toPlayer) ? toPlayer.client.uuid : 'disconnected';
             state.activePlayer.addWealthEvent({
                 event_type: WealthEventType.PVP, 
@@ -762,11 +775,6 @@ const InvOps: CommandHandlers = {
             }
 
             World.addObj(new Obj(position.level, position.x, position.z, EntityLifeCycle.DESPAWN, obj.id, obj.count), Obj.NO_RECEIVER, duration);
-        }
-        for (const toLog of wealthLog.values()) {
-            // Log all wealth events
-            const totalValueGp = toLog.cost * toLog.count;
-            state.activePlayer.addWealthLog(-totalValueGp, `Dropped ${toLog.name} x${toLog.count}`);
         }
 
         if (wealthLog.size > 0) {

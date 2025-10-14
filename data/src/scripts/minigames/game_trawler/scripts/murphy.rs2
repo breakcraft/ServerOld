@@ -12,7 +12,7 @@ if(~has_sextant_clue = true) {
         ~chatplayer("<p,neutral>Could I have it?");
         ~chatnpc("<p,neutral>Aye.");
         inv_add(inv, trail_sextant, 1);
-        %trail_clue = setbit_range_toint(%trail_clue, ^trail_chart_spoken_murphy, 5, 8);
+        %trail_status = setbit_range_toint(%trail_status, ^trail_chart_spoken_murphy, 5, 8);
         ~objbox(trail_sextant, "Murphy has given you his old sextant.", 250, 0, 0);
         ~chatplayer("<p,confused>Don't you still need it?");
         ~chatnpc("<p,happy>I can tell from the taste of the sea spray where I am, m'hearty!");

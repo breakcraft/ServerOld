@@ -20,8 +20,8 @@ if(inv_total(inv, coins) < $cost) { // chisel dialogue, confirm for 2004
     ~chatnpc("<p,angry>Well, come back when you do. I'm not running a charity here!");
     return;
 }
-%option1 = 0;
-%option2 = 0;
+%if1 = 0;
+%if2 = 0;
 ~chatnpc("<p,happy>Please select the hairstyle and colour you would like from this brochure.");
 if(gender = ^gender_male) {
     if_openmain(player_kit_hair_man);
@@ -38,66 +38,66 @@ if(inv_total(inv, coins) < 1000) { // chisel dialogue, confirm for 2004
     ~chatnpc("<p,angry>Well, come back when you do. I'm not running a charity here!");
     return;
 }
-%option1 = 0;
-%option2 = 0;
+%if1 = 0;
+%if2 = 0;
 ~chatnpc("<p,happy>Please select the facial hair you would like from this brochure.");
 if_openmain(player_kit_hair_jaw);
 
 [label,hairdresser_b1_s3]
 ~chatplayer("<p,neutral>No thank you.");
 
-[if_button,player_kit_hair_woman:com_137] %option1 = 1;
-[if_button,player_kit_hair_woman:com_138] %option1 = 2;
-[if_button,player_kit_hair_woman:com_139] %option1 = 3;
-[if_button,player_kit_hair_woman:com_140] %option1 = 4;
-[if_button,player_kit_hair_woman:com_141] %option1 = 5;
-[if_button,player_kit_hair_woman:com_142] %option1 = 6;
-[if_button,player_kit_hair_woman:com_143] %option1 = 7;
-[if_button,player_kit_hair_woman:com_144] %option1 = 8;
-[if_button,player_kit_hair_woman:com_145] %option1 = 9;
-[if_button,player_kit_hair_woman:com_146] %option1 = 10;
+[if_button,player_kit_hair_woman:com_137] %if1 = 1;
+[if_button,player_kit_hair_woman:com_138] %if1 = 2;
+[if_button,player_kit_hair_woman:com_139] %if1 = 3;
+[if_button,player_kit_hair_woman:com_140] %if1 = 4;
+[if_button,player_kit_hair_woman:com_141] %if1 = 5;
+[if_button,player_kit_hair_woman:com_142] %if1 = 6;
+[if_button,player_kit_hair_woman:com_143] %if1 = 7;
+[if_button,player_kit_hair_woman:com_144] %if1 = 8;
+[if_button,player_kit_hair_woman:com_145] %if1 = 9;
+[if_button,player_kit_hair_woman:com_146] %if1 = 10;
 
-[if_button,player_kit_hair_woman:com_125] %option2 = 1;
-[if_button,player_kit_hair_woman:com_126] %option2 = 2;
-[if_button,player_kit_hair_woman:com_127] %option2 = 3;
-[if_button,player_kit_hair_woman:com_128] %option2 = 4;
-[if_button,player_kit_hair_woman:com_129] %option2 = 5;
-[if_button,player_kit_hair_woman:com_130] %option2 = 6;
-[if_button,player_kit_hair_woman:com_131] %option2 = 7;
-[if_button,player_kit_hair_woman:com_132] %option2 = 8;
-[if_button,player_kit_hair_woman:com_133] %option2 = 9;
-[if_button,player_kit_hair_woman:com_134] %option2 = 10;
-[if_button,player_kit_hair_woman:com_135] %option2 = 11;
-[if_button,player_kit_hair_woman:com_136] %option2 = 12;
+[if_button,player_kit_hair_woman:com_125] %if2 = 1;
+[if_button,player_kit_hair_woman:com_126] %if2 = 2;
+[if_button,player_kit_hair_woman:com_127] %if2 = 3;
+[if_button,player_kit_hair_woman:com_128] %if2 = 4;
+[if_button,player_kit_hair_woman:com_129] %if2 = 5;
+[if_button,player_kit_hair_woman:com_130] %if2 = 6;
+[if_button,player_kit_hair_woman:com_131] %if2 = 7;
+[if_button,player_kit_hair_woman:com_132] %if2 = 8;
+[if_button,player_kit_hair_woman:com_133] %if2 = 9;
+[if_button,player_kit_hair_woman:com_134] %if2 = 10;
+[if_button,player_kit_hair_woman:com_135] %if2 = 11;
+[if_button,player_kit_hair_woman:com_136] %if2 = 12;
 
 [if_button,player_kit_hair_woman:com_100]
-if (%option1 = 0 | %option2 = 0) {
+if (%if1 = 0 | %if2 = 0) {
     mes("You must make a selection from both categories."); // guess based of thessalia
     return;
 }
 
 if_close;
-def_int $color = calc(%option2 - 1);
+def_int $color = calc(%if2 - 1);
 
-if (%option1 = 1) {
+if (%if1 = 1) {
     setidkit(woman_hair_bald, $color);
-} else if (%option1 = 2) {
+} else if (%if1 = 2) {
     setidkit(woman_hair_bun, $color);
-} else if (%option1 = 3) {
+} else if (%if1 = 3) {
     setidkit(woman_hair_dreadlocks, $color);
-} else if (%option1 = 4) {
+} else if (%if1 = 4) {
     setidkit(woman_hair_long, $color);
-} else if (%option1 = 5) {
+} else if (%if1 = 5) {
     setidkit(woman_hair_medium, $color);
-} else if (%option1 = 6) {
+} else if (%if1 = 6) {
     setidkit(woman_hair_pigtails, $color);
-} else if (%option1 = 7) {
+} else if (%if1 = 7) {
     setidkit(woman_hair_short, $color);
-} else if (%option1 = 8) {
+} else if (%if1 = 8) {
     setidkit(woman_hair_cropped, $color);
-} else if (%option1 = 9) {
+} else if (%if1 = 9) {
     setidkit(woman_hair_wildspikes, $color);
-} else if (%option1 = 10) {
+} else if (%if1 = 10) {
     setidkit(woman_hair_spikes, $color);
 } 
 
@@ -108,55 +108,55 @@ if (npc_find(coord, hairdresser, 5, 0) = true) {
     ~chatnpc("<p,happy>It really suits you!");
 }
 
-[if_button,player_kit_hair_man:com_135] %option1 = 1;
-[if_button,player_kit_hair_man:com_136] %option1 = 2;
-[if_button,player_kit_hair_man:com_137] %option1 = 3;
-[if_button,player_kit_hair_man:com_138] %option1 = 4;
-[if_button,player_kit_hair_man:com_139] %option1 = 5;
-[if_button,player_kit_hair_man:com_140] %option1 = 6;
-[if_button,player_kit_hair_man:com_141] %option1 = 7;
-[if_button,player_kit_hair_man:com_142] %option1 = 8;
-[if_button,player_kit_hair_man:com_143] %option1 = 9;
+[if_button,player_kit_hair_man:com_135] %if1 = 1;
+[if_button,player_kit_hair_man:com_136] %if1 = 2;
+[if_button,player_kit_hair_man:com_137] %if1 = 3;
+[if_button,player_kit_hair_man:com_138] %if1 = 4;
+[if_button,player_kit_hair_man:com_139] %if1 = 5;
+[if_button,player_kit_hair_man:com_140] %if1 = 6;
+[if_button,player_kit_hair_man:com_141] %if1 = 7;
+[if_button,player_kit_hair_man:com_142] %if1 = 8;
+[if_button,player_kit_hair_man:com_143] %if1 = 9;
 
-[if_button,player_kit_hair_man:com_123] %option2 = 1;
-[if_button,player_kit_hair_man:com_124] %option2 = 2;
-[if_button,player_kit_hair_man:com_125] %option2 = 3;
-[if_button,player_kit_hair_man:com_126] %option2 = 4;
-[if_button,player_kit_hair_man:com_127] %option2 = 5;
-[if_button,player_kit_hair_man:com_128] %option2 = 6;
-[if_button,player_kit_hair_man:com_129] %option2 = 7;
-[if_button,player_kit_hair_man:com_130] %option2 = 8;
-[if_button,player_kit_hair_man:com_131] %option2 = 9;
-[if_button,player_kit_hair_man:com_132] %option2 = 10;
-[if_button,player_kit_hair_man:com_133] %option2 = 11;
-[if_button,player_kit_hair_man:com_134] %option2 = 12;
+[if_button,player_kit_hair_man:com_123] %if2 = 1;
+[if_button,player_kit_hair_man:com_124] %if2 = 2;
+[if_button,player_kit_hair_man:com_125] %if2 = 3;
+[if_button,player_kit_hair_man:com_126] %if2 = 4;
+[if_button,player_kit_hair_man:com_127] %if2 = 5;
+[if_button,player_kit_hair_man:com_128] %if2 = 6;
+[if_button,player_kit_hair_man:com_129] %if2 = 7;
+[if_button,player_kit_hair_man:com_130] %if2 = 8;
+[if_button,player_kit_hair_man:com_131] %if2 = 9;
+[if_button,player_kit_hair_man:com_132] %if2 = 10;
+[if_button,player_kit_hair_man:com_133] %if2 = 11;
+[if_button,player_kit_hair_man:com_134] %if2 = 12;
 
 [if_button,player_kit_hair_man:com_99]
-if (%option1 = 0 | %option2 = 0) {
+if (%if1 = 0 | %if2 = 0) {
     mes("You must make a selection from both categories."); // guess based of thessalia
     return;
 }
 
 if_close;
-def_int $color = calc(%option2 - 1);
+def_int $color = calc(%if2 - 1);
 
-if (%option1 = 1) {
+if (%if1 = 1) {
     setidkit(man_hair_bald, $color);
-} else if (%option1 = 2) {
+} else if (%if1 = 2) {
     setidkit(man_hair_dreadlocks, $color);
-} else if (%option1 = 3) {
+} else if (%if1 = 3) {
     setidkit(man_hair_long, $color);
-} else if (%option1 = 4) {
+} else if (%if1 = 4) {
     setidkit(man_hair_medium, $color);
-} else if (%option1 = 5) {
+} else if (%if1 = 5) {
     setidkit(man_hair_tonsure, $color);
-} else if (%option1 = 6) {
+} else if (%if1 = 6) {
     setidkit(man_hair_short, $color);
-} else if (%option1 = 7) {
+} else if (%if1 = 7) {
     setidkit(man_hair_cropped, $color);
-} else if (%option1 = 8) {
+} else if (%if1 = 8) {
     setidkit(man_hair_wildspikes, $color);
-} else if (%option1 = 9) {
+} else if (%if1 = 9) {
     setidkit(man_hair_spikes, $color);
 } 
 
@@ -168,52 +168,52 @@ if (npc_find(coord, hairdresser, 5, 0) = true) {
 }
 
 
-[if_button,player_kit_hair_jaw:com_140] %option1 = 1;
-[if_button,player_kit_hair_jaw:com_141] %option1 = 2;
-[if_button,player_kit_hair_jaw:com_142] %option1 = 3;
-[if_button,player_kit_hair_jaw:com_143] %option1 = 4;
-[if_button,player_kit_hair_jaw:com_144] %option1 = 5;
-[if_button,player_kit_hair_jaw:com_145] %option1 = 6;
-[if_button,player_kit_hair_jaw:com_146] %option1 = 7;
-[if_button,player_kit_hair_jaw:com_147] %option1 = 8;
+[if_button,player_kit_hair_jaw:com_140] %if1 = 1;
+[if_button,player_kit_hair_jaw:com_141] %if1 = 2;
+[if_button,player_kit_hair_jaw:com_142] %if1 = 3;
+[if_button,player_kit_hair_jaw:com_143] %if1 = 4;
+[if_button,player_kit_hair_jaw:com_144] %if1 = 5;
+[if_button,player_kit_hair_jaw:com_145] %if1 = 6;
+[if_button,player_kit_hair_jaw:com_146] %if1 = 7;
+[if_button,player_kit_hair_jaw:com_147] %if1 = 8;
 
-[if_button,player_kit_hair_jaw:com_128] %option2 = 1;
-[if_button,player_kit_hair_jaw:com_129] %option2 = 2;
-[if_button,player_kit_hair_jaw:com_130] %option2 = 3;
-[if_button,player_kit_hair_jaw:com_131] %option2 = 4;
-[if_button,player_kit_hair_jaw:com_132] %option2 = 5;
-[if_button,player_kit_hair_jaw:com_133] %option2 = 6;
-[if_button,player_kit_hair_jaw:com_134] %option2 = 7;
-[if_button,player_kit_hair_jaw:com_135] %option2 = 8;
-[if_button,player_kit_hair_jaw:com_136] %option2 = 9;
-[if_button,player_kit_hair_jaw:com_137] %option2 = 10;
-[if_button,player_kit_hair_jaw:com_138] %option2 = 11;
-[if_button,player_kit_hair_jaw:com_139] %option2 = 12;
+[if_button,player_kit_hair_jaw:com_128] %if2 = 1;
+[if_button,player_kit_hair_jaw:com_129] %if2 = 2;
+[if_button,player_kit_hair_jaw:com_130] %if2 = 3;
+[if_button,player_kit_hair_jaw:com_131] %if2 = 4;
+[if_button,player_kit_hair_jaw:com_132] %if2 = 5;
+[if_button,player_kit_hair_jaw:com_133] %if2 = 6;
+[if_button,player_kit_hair_jaw:com_134] %if2 = 7;
+[if_button,player_kit_hair_jaw:com_135] %if2 = 8;
+[if_button,player_kit_hair_jaw:com_136] %if2 = 9;
+[if_button,player_kit_hair_jaw:com_137] %if2 = 10;
+[if_button,player_kit_hair_jaw:com_138] %if2 = 11;
+[if_button,player_kit_hair_jaw:com_139] %if2 = 12;
 
 [if_button,player_kit_hair_jaw:com_105]
-if (%option1 = 0 | %option2 = 0) {
+if (%if1 = 0 | %if2 = 0) {
     mes("You must make a selection from both categories."); // guess based of thessalia
     return;
 }
 
 if_close;
-def_int $color = calc(%option2 - 1);
+def_int $color = calc(%if2 - 1);
 
-if (%option1 = 1) {
+if (%if1 = 1) {
     setidkit(man_jaw_long, $color);
-} else if (%option1 = 2) {
+} else if (%if1 = 2) {
     setidkit(man_jaw_goatee, $color);
-} else if (%option1 = 3) {
+} else if (%if1 = 3) {
     setidkit(man_jaw_moustache, $color);
-} else if (%option1 = 4) {
+} else if (%if1 = 4) {
     setidkit(man_jaw_short, $color);
-} else if (%option1 = 5) {
+} else if (%if1 = 5) {
     setidkit(man_jaw_split, $color);
-} else if (%option1 = 6) {
+} else if (%if1 = 6) {
     setidkit(man_jaw_medium, $color);
-} else if (%option1 = 7) {
+} else if (%if1 = 7) {
     setidkit(man_jaw_none, $color);
-} else if (%option1 = 8) {
+} else if (%if1 = 8) {
     setidkit(man_jaw_pointy, $color);
 } 
 

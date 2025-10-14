@@ -1,5 +1,5 @@
 [opnpc1,captain_shanks]
-if(%zombiequeen_progress < ^zombiequeen_complete) {
+if(%zombiequeen < ^zombiequeen_complete) {
     ~chatnpc("<p,sad>Oh dear, this ship is in a terrible state. And I just can't get the items I need to repair it because Shilo village is overrun with zombies.");
     return;
 }
@@ -45,7 +45,7 @@ inv_del(inv, shiloshipticket, 1);
 ~chatnpc("<p,happy>Very well then me old shipmate, Just let me know if you change your mind.");
 
 [proc,set_sail_cairn](string $arrival_mes, coord $destination, int $map_route, int $delay)
-%boat_takeoff = $map_route;
+%journey_number = $map_route;
 if_openmain(ship_journey);
 midi_jingle(^sailing_journey_jingle, ^sailing_journey_jingle_millis);
 

@@ -1,9 +1,9 @@
 [opnpc1,mosol_rei]
-if(%junglepotion_progress < ^junglepotion_complete) {
+if(%junglepotion < ^junglepotion_complete) {
     ~chatnpc("<p,neutral>Sorry Bwana, I cannot help you at this time. Go and talk to Trufitus at Tai Bwo Wannai, I believe he needs some help."); // rs3
     return;
 }
-switch_int(%zombiequeen_progress) {
+switch_int(%zombiequeen) {
     case ^zombiequeen_complete, ^zombiequeen_complete_spoken_trufitus1, ^zombiequeen_complete_spoken_trufitus2 :
         ~chatplayer("<p,neutral>Greetings!");
         ~chatnpc("<p,happy>Greetings Bwana! We've removed the threat of Rashiliyia and though there are still some random outbreaks of undead activity we are more than able to deal with it.");
@@ -88,7 +88,7 @@ switch_int(~p_choice2("Yes, of course!", 1, "Not yet, I've been busy.", 2)) {
 
 [label,mosol_shaman]
 ~chatplayer("<p,neutral>I'll go to see the Shaman.");
-if(~obj_gettotal(mosol_wampum_belt) > 0 | %zombiequeen_progress > ^zombiequeen_started) {
+if(~obj_gettotal(mosol_wampum_belt) > 0 | %zombiequeen > ^zombiequeen_started) {
     ~chatnpc("<p,neutral>Well, if you go to see the Shaman, please give him that Wampum belt I gave to you, it will give him more details about our situation down here.");
 } else {
     ~chatnpc("<p,neutral>Well, that would be helpful Bwana. If you're sure you want to go, you can take a Wampum belt to him for me. It will give the Shaman, Trufitus the story of our problems down here. Are you sure you want to go?");
@@ -97,7 +97,7 @@ if(~obj_gettotal(mosol_wampum_belt) > 0 | %zombiequeen_progress > ^zombiequeen_s
 
 [label,mosol_wampumbelt]
 ~chatplayer("<p,neutral>Yes, I'm sure and I'll take the Wampum belt to Trufitus.");
-if(~obj_gettotal(mosol_wampum_belt) > 0 | %zombiequeen_progress > ^zombiequeen_started) {
+if(~obj_gettotal(mosol_wampum_belt) > 0 | %zombiequeen > ^zombiequeen_started) {
     ~chatnpc("<p,neutral>That's great Bwana, if you give Trufitus the Wampum belt I gave you, it will give him more details of our current situation.");
     return;
 }

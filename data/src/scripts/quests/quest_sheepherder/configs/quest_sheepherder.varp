@@ -1,5 +1,5 @@
-[sheepherder_progress]
+[sheepherderquest]
 scope=perm
 
-[sheepherder_disposal]
+[sheepherdervar]
 scope=perm

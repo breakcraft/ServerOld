@@ -2,7 +2,7 @@
 def_dbrow $spell_data = ~get_spell_data(%autocast_spell);
 if (~check_spell_requirements($spell_data) = false) {
     if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
-        %attackstyle_magic = 0;
+        ~player_autocast_reset;
     }
     return;
 }
@@ -71,7 +71,7 @@ if (map_clock < %action_delay) {
 }
 if (~check_spell_requirements($spell_data) = false) {
     if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
-        %attackstyle_magic = 0;
+        ~player_autocast_reset;
     }
     return(false);
 }
@@ -94,6 +94,10 @@ if (db_getfield($spell_data, magic_spell_table:freeze_time, 0) > 0) {
         // osrs wiki trivia says that snare didnt have this? No proof though
         // ive found proof of bind and entangle having this in 2006: https://imgur.com/a/jBb1awE
         mes("Your target is currently immune to that spell.");
+        return(false);
+    }
+    if (getwalktrigger() = duel_arena_no_move) {
+        mes("You can not use a hold spell in a no movement duel."); // https://www.youtube.com/watch?v=u2KZbLyCpgI&t=345s
         return(false);
     }
 }
@@ -147,9 +151,6 @@ while ($i < db_getfieldcount($spell_data, magic_spell_table:stat_change)) {
 }
 
 [proc,pvp_freeze_effect](dbrow $spell_data)
-if (~high_priority_walktrigger_exists = true) {
-    return;
-}
 def_int $freeze_time = db_getfield($spell_data, magic_spell_table:freeze_time, 0);
 if ($freeze_time > 0) {
     if (~.check_protect_prayer(^magic_style) = true) {

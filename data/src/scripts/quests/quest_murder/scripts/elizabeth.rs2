@@ -1,5 +1,5 @@
-[opnpc1,elizabeth]
-switch_int(%murder_progress) { 
+[opnpc1,elizabeth_sinclair]
+switch_int(%murderquest) { 
     case ^murder_not_started : mes("She is ignoring you.");
     case ^murder_started :
         ~chatplayer("<p,neutral>I'm here to help the guards with their investigation.");
@@ -38,7 +38,7 @@ switch_int(%murder_progress) {
                 ~chatnpc("<p,neutral>There was a nest of mosquitos under the fountain|in the garden, which I killed with poison the other day.|You can see for yourself if you're capable|of managing that, which I somehow doubt.");
                 ~chatplayer("<p,angry>I hate mosquitos!");
                 ~chatnpc("<p,neutral>Doesn't everyone?");
-                if(%murder_murderer_id = ^murderer_elizabeth & %murder_poisonproof_progress = ^poisonproof_spoken_salesman) { // todo: figure out exactly when these would get set for each murderer
+                if(%murdersus = ^murderer_elizabeth & %murder_poisonproof_progress = ^poisonproof_spoken_salesman) { // todo: figure out exactly when these would get set for each murderer
                     %murder_poisonproof_progress = ^poisonproof_spoken_murderer;
                 }
         }

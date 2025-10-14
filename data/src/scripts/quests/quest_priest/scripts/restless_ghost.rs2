@@ -1,5 +1,5 @@
-[opnpc1,restless_ghost]
-if(%priest_progress = ^priest_complete) {
+[opnpc1,ghostx]
+if(%prieststart = ^priest_complete) {
     mes("The ghost doesn't appear interested in talking."); 
     return;
 }
@@ -13,7 +13,7 @@ if(%priest_progress = ^priest_complete) {
 
 ~chatplayer("<p,neutral>Hello ghost, how are you?");
 if (inv_total(worn, amulet_of_ghostspeak) = 0) @priest_ghost_no_amulet;
-switch_int (%priest_progress) {
+switch_int (%prieststart) {
     case ^priest_spoken_urhney :
         ~chatnpc("<p,neutral>Not very good actually.");
         ~chatplayer("<p,quiz>What's the problem then?");
@@ -61,8 +61,8 @@ switch_int (%priest_progress) {
         ~chatnpc("<p,neutral>Hurrah! Now I can stop being a ghost! You just need to put it in my coffin there, And I will be free!");
 }
 
-[opnpcu,restless_ghost]
-if(last_useitem = ghost_skull) {
+[opnpcu,ghostx]
+if(last_useitem = ghostskull) {
     ~mesbox("I can't give it to him. It goes right through him.");
     return;
 }
@@ -135,7 +135,7 @@ switch_int ($option) {
 ~chatnpc("<p,neutral>I think it was one of the warlocks who lives in the big tower by the sea southwest from here.");
 ~chatplayer("<p,neutral>Ok. I will try and get the skull back for you, so you can rest in peace.");
 ~chatnpc("<p,neutral>Ooh, thank you. That would be such a great relief!");
-%priest_progress = ^priest_spoken_ghost;
+%prieststart = ^priest_spoken_ghost;
 ~chatnpc("<p,neutral>It is so dull being a ghost...");
 
 [label,priest_ghost_dontunderstand]

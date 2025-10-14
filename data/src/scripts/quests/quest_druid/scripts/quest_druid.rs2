@@ -1,5 +1,5 @@
 [queue,druid_quest_complete](npc_uid $uid)
-%druid_progress = ^druid_complete;
+%druidquest = ^druid_complete;
 stat_advance(herblore, 2500);
 session_log(^log_adventure, "Quest complete: Druidic Ritual");
 ~send_quest_complete(questlist:druid, marentill, 220, ^druid_questpoints, "You have completed the\\nDruidic Ritual Quest!");
@@ -11,7 +11,7 @@ if(npc_finduid($uid) = true) {
     @kaqemeex_herblore_fundamentals;
 }
 
-[oplocu,druid_cauldron]
+[oplocu,cauldron_of_thunder]
 def_obj $useitem = last_useitem;
 p_arrivedelay;
 if($useitem = raw_rat_meat) {

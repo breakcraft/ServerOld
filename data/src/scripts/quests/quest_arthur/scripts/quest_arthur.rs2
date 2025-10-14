@@ -1,6 +1,6 @@
 [oploc1,merlincrate_wall] @leave_arhein_crate;
 [oploc2,merlincrate_empty]
-if(%arthur_progress >= ^arthur_spoken_lancelot) {
+if(%arthur >= ^arthur_spoken_lancelot) {
     ~mesbox("The crate is empty. It's just about big enough to hide inside.");
     def_int $choice = ~p_choice2_header("Yes.", 1, "No.", 2, "Would you like to hide inside the crate?");
     if ($choice = 2) {
@@ -140,7 +140,7 @@ switch_int(~p_choice4("Pizza Delivery!", 1, "Have you ever thought about letting
 ~mesbox("It looks like you'll have to find another way in...");
 
 [oploc2,thrantaxaltar]
-if(%arthur_progress ! ^arthur_spoken_morgan_lefaye) {
+if(%arthur ! ^arthur_spoken_morgan_lefaye) {
     mes("An altar to the evil god Zamorak.");
     return;
 }
@@ -149,7 +149,7 @@ if(%arthur_progress ! ^arthur_spoken_morgan_lefaye) {
 
 [opheld5,bat_bones]
 if(inzone(movecoord(^camelot_magic_symbol, -1, 0, -1), movecoord(^camelot_magic_symbol, 1, 0, 1), coord) = true) { 
-    if(inv_total(inv, lit_black_candle) > 0 & %arthur_progress = ^arthur_spoken_morgan_lefaye) {
+    if(inv_total(inv, lit_black_candle) > 0 & %arthur = ^arthur_spoken_morgan_lefaye) {
         if(testbit(%excalibur_components_progress, ^chaosaltar_index) = ^false) {
             ~mesbox("I think I'd better learn the words of binding before summoning a mighty spirit...");
             return;
@@ -188,7 +188,7 @@ if(inzone(movecoord(^camelot_magic_symbol, -1, 0, -1), movecoord(^camelot_magic_
                 ~chatnpc("<p,angry>GRAAAAAARGH!");
                 // can't make black candles after this point, not sure about the chaos altar varp but we'll clear that as well
                 %excalibur_components_progress = clearbit_range(%excalibur_components_progress, ^chaosaltar_index, ^blackcandle_index); 
-                %arthur_progress = ^arthur_excalibur_bound;
+                %arthur = ^arthur_excalibur_bound;
                 ~chatnpc("<p,angry>The deed is done. Thou mayst now shatter Merlin's crystal with Excalibur, and I can once more rest. Begone! And leave me once more in peace.");
                 npc_del;
             case 3 :
@@ -220,7 +220,7 @@ if(testbit(%excalibur_components_progress, ^excalibur_rewarded) = ^false) {
         @lake_beggar_dialogue;
     } 
 }
-~open_and_close_door2(loc_1535, ~check_axis(coord, loc_coord, loc_angle), door_open);
+~open_and_close_door2(poordoor, ~check_axis(coord, loc_coord, loc_angle), door_open);
 
 [oploc1,jewellersladder]
 p_arrivedelay;
@@ -237,17 +237,17 @@ if(testbit(%excalibur_components_progress, ^excalibur_rewarded) = ^false & testb
 }
 
 [oplocu,merlins_crystal]
-if(%arthur_progress = ^arthur_complete) {
+if(%arthur = ^arthur_complete) {
     mes("You have already freed Merlin from the giant crystal.");
     return;
 }
-if(%arthur_progress = ^arthur_freed_merlin) {
+if(%arthur = ^arthur_freed_merlin) {
     ~mesbox("You have already freed Merlin from the crystal.|Go and see King Arthur for your reward.");
     return;
 }
 switch_obj(last_useitem) {
     case excalibur :
-        if(%arthur_progress < ^arthur_excalibur_bound) {
+        if(%arthur < ^arthur_excalibur_bound) {
             mes("You attempt to smash the crystal...");
             mes("... but it seems to be protected by a dark force.");
             return;
@@ -258,7 +258,7 @@ switch_obj(last_useitem) {
         npc_add(loc_coord, merlin, 50);
         // excalibur stuff is also cleared if you restarted it
         %excalibur_components_progress = 0;
-        %arthur_progress = ^arthur_freed_merlin;
+        %arthur = ^arthur_freed_merlin;
         sound_synth(mine_quick, 0, 0);
         ~chatnpc("<p,happy>Thank you! Thank you! Thank you!");
         ~chatnpc("<p,shock>It's not fun being trapped in a giant crystal!");
@@ -271,6 +271,6 @@ switch_obj(last_useitem) {
 }
 
 [queue,arthur_quest_complete]
-%arthur_progress = ^arthur_complete;
+%arthur = ^arthur_complete;
 session_log(^log_adventure, "Quest complete: Merlin's Crystal");
 ~send_quest_complete(questlist:arthur, excalibur, 250, ^arthur_questpoints, "You have completed the\\nMerlins' Crystal Quest!");

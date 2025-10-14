@@ -1,5 +1,5 @@
 [opnpc1,doctor_orbon]
-switch_int(%sheepherder_progress) {
+switch_int(%sheepherderquest) {
     case ^sheepherder_not_started : @doctor_orbon_before_sheep_herder;
     case ^sheepherder_tasked_with_talking_to_dr_orbon : @doctor_orbon_looking_for_protective_clothing;
     case ^sheepherder_tasked_with_disposing_of_sheep : @doctor_orbon_post_clothing_purchase;
@@ -52,8 +52,8 @@ if (inv_total(inv, coins) < 100) {
     inv_del(inv, coins, 100);
     inv_add(inv, plague_jacket, 1);
     inv_add(inv, plague_trousers, 1);
-    if (%sheepherder_progress = ^sheepherder_tasked_with_talking_to_dr_orbon) {
-        %sheepherder_progress = ^sheepherder_tasked_with_disposing_of_sheep;
+    if (%sheepherderquest = ^sheepherder_tasked_with_talking_to_dr_orbon) {
+        %sheepherderquest = ^sheepherder_tasked_with_disposing_of_sheep;
     }
     ~mesbox("You give Doctor Orbon 100 coins.|He hands over a protective suit.");
     ~chatnpc("<p,neutral>These should protect you from infection.");

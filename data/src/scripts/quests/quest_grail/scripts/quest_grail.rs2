@@ -1,6 +1,6 @@
 [oploc1,merlinworkshop] 
 // merlin door
-if(%grail_progress > ^grail_not_started) {
+if(%grail > ^grail_not_started) {
     def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
     if($entering = true) {
         if(npc_find(coord, merlin2, 6, 0) = true) {
@@ -8,7 +8,7 @@ if(%grail_progress > ^grail_not_started) {
         }
         npc_add(1_43_54_15_44, merlin2, 500);
     }
-    ~open_and_close_door(loc_1535, $entering, false);
+    ~open_and_close_door(poordoor, $entering, false);
     return;
 }
 mes("The door won't open.");
@@ -18,7 +18,7 @@ mes("The door won't open.");
 ~mesbox("You hear a muffled groan. The sack wriggles slightly.");
 
 [oploc2,percy_sacks]
-if(%grail_progress = ^grail_finding_percival) {
+if(%grail = ^grail_finding_percival) {
     ~mesbox("You hear muffled noises from the sack.|You open the sack.");
     if(npc_find(coord, sir_percival, 4, 0) = false) {
         npc_add(movecoord(loc_coord, -1, 0, -1), sir_percival, 500);
@@ -32,11 +32,11 @@ if(map_members = ^true & inv_total(inv, holy_table_napkin) > 0 & inv_total(inv, 
     obj_add(2_48_52_35_31, magic_whistle, 1, calc(^lootdrop_duration / 2)); // this is intended to keep spawning 2 more each time you enter/leave
     obj_add(2_48_52_35_31, magic_whistle, 1, calc(^lootdrop_duration / 2));
 }
-~open_and_close_door(loc_1535, ~check_axis(coord, loc_coord, loc_angle), false);
+~open_and_close_door(poordoor, ~check_axis(coord, loc_coord, loc_angle), false);
 
 [opheld1,magic_whistle]
 if(inzone(0_42_50_52_34, 0_42_50_55_37, coord) = true) { // Karamja -> fisher's realm
-    if(%grail_progress >= ^grail_given_whistle) {
+    if(%grail >= ^grail_given_whistle) {
         // this spawns you inside a tree, osrs has the tree moved 1 tile to the right (which was the case on release)
         // the map looks to be identical otherwise so I think they just moved the tree instead of fixing the coord
         p_teleport(0_41_73_54_43);
@@ -62,7 +62,7 @@ if(npc_find(coord, grail_maiden, 4, 0) = true & inzone(0_43_73_0_0, 0_43_73_63_6
 mes("Nothing happens.");
 
 [opobj3,holy_grail]
-if(%grail_progress < ^grail_given_whistle) {
+if(%grail < ^grail_given_whistle) {
     ~mesbox("You feel that the Grail shouldn't be moved.|You must complete some task here before you are worthy.");
     return;
 }
@@ -72,8 +72,8 @@ if(~obj_gettotal(holy_grail) > 0) {
 }
 inv_add(inv, holy_grail, 1); // no space check
 
-[opheld1,magic_gold_feather]
-if(%grail_progress ! ^grail_finding_percival) {
+[opheld1,magic_golden_feather]
+if(%grail ! ^grail_finding_percival) {
     ~displaymessage(^dm_default);
     return;
 }
@@ -111,7 +111,7 @@ if(abs($delta_x) > 5 & abs($delta_z) > 5) {
 }
 
 [queue,grail_quest_complete]
-%grail_progress = ^grail_complete;
+%grail = ^grail_complete;
 inv_del(inv, holy_grail, 1);
 stat_advance(prayer, 110000);
 stat_advance(defence, 153000);

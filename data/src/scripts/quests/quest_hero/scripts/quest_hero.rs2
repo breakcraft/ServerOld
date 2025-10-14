@@ -1,19 +1,19 @@
 [proc,has_hero_quest_requirements]()(boolean)
-if (%questpoints < ^hero_required_questpoints | %zanaris_progress < ^zanaris_complete | 
-    %dragon_progress < ^dragon_complete | %arthur_progress < ^arthur_complete |
-    (%blackarmgang_progress < ^blackarmgang_complete & %phoenixgang_progress < ^phoenixgang_complete)) {
+if (%qp < ^hero_required_questpoints | %zanaris < ^zanaris_complete | 
+    %dragonquest < ^dragon_complete | %arthur < ^arthur_complete |
+    (%blackarmgang < ^blackarmgang_complete & %phoenixgang < ^phoenixgang_complete)) {
   return (false);
 }
 return (true);
 
 [proc,hero_in_progress]()(boolean)
-if (%hero_progress > ^hero_not_started & %hero_progress < ^hero_complete) {
+if (%heroquest > ^hero_not_started & %heroquest < ^hero_complete) {
   return(true);
 }
 return(false);
 
 [proc,hero_phoenix_in_progress]()(boolean)
-if (%hero_progress > ^hero_started & %hero_progress < ^hero_phoenix_obtained_armband) {
+if (%heroquest > ^hero_started & %heroquest < ^hero_phoenix_obtained_armband) {
   return(true);
 }
 return(false);
@@ -25,7 +25,7 @@ if((inv_total(worn, black_platelegs) > 0) & (inv_total(worn, black_platebody) > 
 return (false);
 
 [queue,hero_quest_complete]
-%hero_progress = ^hero_complete;
+%heroquest = ^hero_complete;
 stat_advance(attack, 30750);
 stat_advance(defence, 30750);
 stat_advance(strength, 30750);

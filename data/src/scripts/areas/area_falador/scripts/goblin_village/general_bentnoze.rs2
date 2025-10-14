@@ -33,7 +33,7 @@ if (~quest_dragon_getting_map_parts = true & %dragon_goblin = ^quest_dragon_know
     }
     ~chatplayer("<p,quiz>So how is life for the goblins?");
 }
-switch_int (%gobdip_progress) {
+switch_int (%goblinquest) {
     case 6 : @goblin_diplomacy_completed;
     case default : @goblin_diplomacy_greet_general_bentnoze;
 }

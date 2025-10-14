@@ -28,8 +28,8 @@ if (inzone(0_44_150_31_28, 0_44_150_47_46, coord) = true) { // only tele if in t
     p_teleport(0_44_150_30_36);
 }
 %dragon_ned_hired = ^false;
-%dragon_planks = 0;
-%dragon_progress = ^dragon_complete;
+%dragonquestvar = 0;
+%dragonquest = ^dragon_complete;
 stat_advance(strength, 186500);
 stat_advance(defence, 186500);
 session_log(^log_adventure, "Quest complete: Dragon Slayer");

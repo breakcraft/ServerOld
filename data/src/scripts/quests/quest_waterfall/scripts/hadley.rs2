@@ -1,11 +1,11 @@
-[opnpc1,hadley]
+[opnpc1,hadley_waterfall_quest]
 ~chatplayer("<p,neutral>Hello there.");
 // https://youtu.be/5YeeYCNzDH8?si=hloyr9VphBCV4WTe&t=153, https://youtu.be/VxPuLLiUHNk?si=nfmb-EdajnHIlGp9&t=217
 if(inv_total(inv, baxtorian_book_waterfall_quest) > 0) {
     ~chatnpc("<p,neutral>I hope you're enjoying your stay,|there should be lots of useful infomation in that book you've got.|Places to go, people to see.");
     @multi4("Can you tell me what happened to the elf king?", waterfall_hadley_elf_king, "Where else is worth visiting around here?", waterfall_hadley_worth_visiting, "Is there treasure under the waterfall?", waterfall_hadley_treasure, "Thanks then, goodbye.", waterfall_hadley_bye);
 }
-switch_int (%waterfall_progress) {
+switch_int (%waterfall_quest) {
     case ^waterfall_not_started, ^waterfall_started :
         ~chatnpc("<p,neutral>Well hello, come in, come in, my name's Hadley, I'm head of tourism here in Hemenster. There's some of the most unspoilt wildlife and scenery in RuneScape here.");
         ~chatnpc("<p,neutral>People come from miles around to fish in the clear lakes or to wander the beautiful hill sides");
@@ -21,7 +21,7 @@ switch_int (%waterfall_progress) {
 }
 
 [label,waterfall_hadley_elf_king]
-switch_int (%waterfall_progress) {
+switch_int (%waterfall_quest) {
     case ^waterfall_not_started, ^waterfall_started :
         ~chatplayer("<p,neutral>What happened to the elf king?");
         ~chatnpc("<p,sad>Baxtorian, I guess he died a long long time ago, it's quite sad really. After defending his kingdom against the invading dark forces from the west, Baxtorian returned to find his beautiful wife, Glarial, had been captured by the enemy.");
@@ -44,7 +44,7 @@ switch_int (%waterfall_progress) {
 @multi3("Can you tell me what happened to the elf king?", waterfall_hadley_elf_king, "What else is worth visiting around here?", waterfall_hadley_worth_visiting, "Thanks then, goodbye.", waterfall_hadley_bye);  
 
 [label,waterfall_hadley_worth_visiting]
-switch_int (%waterfall_progress) {
+switch_int (%waterfall_quest) {
     case ^waterfall_not_started, ^waterfall_started :
         ~chatplayer("<p,neutral>What else is worth visiting around here?");
         ~chatnpc("<p,neutral>Well, there's a wide variety of wildlife, although unfortunately most of it's quite dangerous.|Please don't feed the goblins.");

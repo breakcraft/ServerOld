@@ -5,17 +5,17 @@ if(map_members = ^true & inv_total(inv, trail_clue_hard_riddle014) > 0) {
     @trail_oziach;
 }
 
-if (%dragon_progress = ^quest_dragon_spoken_to_guildmaster) {
+if (%dragonquest = ^quest_dragon_spoken_to_guildmaster) {
     // rsc
     ~chatnpc("<p,shifty>Aye, 'tis a fair day my friend.");
     @multi3("Can you sell me some Rune plate mail?", oziach_can_sell_rune_plate, "I'm not your friend.", oziach_not_friend, "Yes, it's a very nice day.", oziach_nice_day);
 }
 // osrs, very similar to rsc
-if (%dragon_progress < ^dragon_complete & %dragon_progress > 0) {
+if (%dragonquest < ^dragon_complete & %dragonquest > 0) {
     ~chatnpc("<p,quiz>So how is thy quest going?");
     @multi2("So where can I find this dragon?", oziach_find_dragon, "Where can I get an antidragon shield?", oziach_dragon_shield);
 }
-if (%dragon_progress >= ^dragon_complete) {
+if (%dragonquest >= ^dragon_complete) {
     @oziach_dragon_complete;
 }
 //default
@@ -23,17 +23,17 @@ if (%dragon_progress >= ^dragon_complete) {
 @multi2("I'm not your friend.", oziach_not_friend, "Yes, it's a very nice day.", oziach_nice_day);
 
 [opnpc3,oziach]
-if (%dragon_progress < ^quest_dragon_spoken_to_oziach) {
+if (%dragonquest < ^quest_dragon_spoken_to_oziach) {
     //osrs
     ~chatnpc("<p,angry>I ain't got nothing to sell ye, adventurer.");
     return;
 }
-if (%dragon_progress < ^dragon_complete) {
+if (%dragonquest < ^dragon_complete) {
     // osrs
     ~chatnpc("<p,angry>I'm not sellin' ye anything till you've slayed that dragon!");
     return;
 }
-if (%dragon_progress = ^dragon_complete) {
+if (%dragonquest = ^dragon_complete) {
     @oziach_dragon_complete;
 }
 ~openshop_activenpc;
@@ -97,7 +97,7 @@ if ($choice = 0) {
 ~chatnpc("<p,neutral>Elvarg really is one of the most powerful dragons|I really wouldn't recommend charging in without special equipment.");
 ~chatnpc("<p,neutral>Her breath is the main thing to watch out for.|You can get fried very fast, unless you have a special flameproof antidragon shield.");
 ~chatnpc("<p,neutral>It won't totally protect you|but it should prevent some of the damage to you.");
-%dragon_progress = ^quest_dragon_spoken_to_oziach; //rsc does it here
+%dragonquest = ^quest_dragon_spoken_to_oziach; //rsc does it here
 @multi2("So where can I find this dragon?", oziach_find_dragon, "Where can I get an antidragon shield?", oziach_dragon_shield);
 
 

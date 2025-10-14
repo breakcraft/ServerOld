@@ -1,9 +1,9 @@
 [timer,cannon_decay]
-if (%mcannon_coord = null) {
+if (%ownedmcannon = null) {
     cleartimer(cannon_decay);
     return;
 }
-if (loc_find(%mcannon_coord, cannon) = false) {
+if (loc_find(%ownedmcannon, dwarf_multicannon1) = false) {
     mes("Your cannon has decayed."); // https://runescape.wiki/w/Update:Patch_Notes_(6_May_2009)
     cleartimer(cannon_decay);
 }
@@ -12,7 +12,7 @@ if (loc_find(%mcannon_coord, cannon) = false) {
 settimer(cannon_decay, 5); // OSRS: Checks every 5 ticks if the cannon still exists. THIS DOESNT SET AGAIN ON LOGIN!
 
 [proc,cannon_belongs_to_player]()(boolean)
-if (loc_coord = %mcannon_coord) {
+if (loc_coord = %ownedmcannon) {
     return(true);
 }
 return(false);
@@ -50,14 +50,14 @@ while ($i < 50) {
 return(null);
 
 [opheld1,twpart1]
-if (%mcannon_progress < ^mcannon_complete) {
+if (%mcannon < ^mcannon_complete) {
     mes("You can't set up this cannon.");
     mes("You need to complete the Dwarf Cannon quest."); // osrs
     return;
 }
 // test: after deleting the cannon with a loc. This message still persists, Meaning they dont loc_find for it!
-if (%mcannon_coord ! null) { 
-    mes("You cannon construct more than one Cannon at a time."); // osrs
+if (%ownedmcannon ! null) { 
+    mes("You cannot construct more than one Cannon at a time."); // osrs
     mes("If you have lost your Cannon, go and see the Dwarf Cannon engineer."); // osrs
     return;
 }
@@ -92,6 +92,7 @@ if (map_blocked($center) = true | // center
     map_blocked(movecoord($center, 0, 0, -1)) = true | // south
     map_blocked(movecoord($center, -1, 0, -1)) = true | // south-west
     map_blocked(movecoord($center, -1, 0, 0)) = true | // west
+    map_blocked(movecoord($center, -1, 0, 1)) = true | // north-west
     lineofwalk(movecoord($center, 0, 0, 1), movecoord($center, 0, 0, -1)) = false |
     lineofwalk(movecoord($center, 1, 0, 0), movecoord($center, -1, 0, 0)) = false |
     lineofwalk(movecoord($center, 1, 0, 1), movecoord($center, -1, 0, -1)) = false |
@@ -112,8 +113,8 @@ facesquare($center);
 p_delay(0);
 
 def_coord $origin = movecoord($center, -1, 0, -1); // south-west tile
-%mcannon_coord = $origin;
-%mcannon_stage = ^cannon_stage_base;
+%ownedmcannon = $origin;
+%dropcannon = ^cannon_stage_base;
 
 anim(human_pickupfloor, 0);
 inv_del(inv, twpart1, 1);
@@ -130,8 +131,8 @@ if (inv_freespace(inv) < 1) {
     mes("You need one free inventory spaces to pick that up."); // osrs
     return;
 }
-%mcannon_coord = null;
-%mcannon_stage = ^cannon_stage_none;
+%ownedmcannon = null;
+%dropcannon = ^cannon_stage_none;
 mes("You pick up the cannon,");
 mes("It's really heavy.");
 sound_synth(pick, 0, 0);
@@ -148,7 +149,7 @@ if (last_useitem = twpart2) {
     inv_del(inv, twpart2, 1);
     loc_change(multicannon_stand, ^cannon_decay_length);
     mes("You add the stand.");
-    %mcannon_stage = ^cannon_stage_stand;
+    %dropcannon = ^cannon_stage_stand;
     return;
 }
 // in osrs, if you use a cannon base on a cannon base, itll have this message...
@@ -172,8 +173,8 @@ if (inv_freespace(inv) < 2) {
     mes("You need two free inventory spaces to pick that up."); // osrs
     return;
 }
-%mcannon_coord = null;
-%mcannon_stage = ^cannon_stage_none;
+%ownedmcannon = null;
+%dropcannon = ^cannon_stage_none;
 mes("You pick up the cannon,");
 mes("It's really heavy.");
 sound_synth(pick, 0, 0);
@@ -191,7 +192,7 @@ if (last_useitem = twpart3) {
     inv_del(inv, twpart3, 1);
     loc_change(multicannon_barrels, ^cannon_decay_length);
     mes("You add the barrels.");
-    %mcannon_stage = ^cannon_stage_barrels;
+    %dropcannon = ^cannon_stage_barrels;
     return;
 }
 if (oc_category(last_useitem) = cannon_parts & last_useitem ! twpart2) { 
@@ -211,8 +212,8 @@ if (inv_freespace(inv) < 3) {
     mes("You need three free inventory spaces to pick that up."); // osrs
     return;
 }
-%mcannon_coord = null;
-%mcannon_stage = ^cannon_stage_none;
+%ownedmcannon = null;
+%dropcannon = ^cannon_stage_none;
 mes("You pick up the cannon,");
 mes("It's really heavy.");
 sound_synth(pick, 0, 0);
@@ -230,8 +231,8 @@ if (last_useitem = twpart4) {
     anim(human_pickupfloor, 0);
     inv_del(inv, twpart4, 1);
     mes("You add the furnace.");
-    loc_change(cannon, ^cannon_decay_length);
-    %mcannon_stage = ^cannon_stage_full;
+    loc_change(dwarf_multicannon1, ^cannon_decay_length);
+    %dropcannon = ^cannon_stage_full;
     @cannon_ready_start;
 }
 if (oc_category(last_useitem) = cannon_parts & last_useitem ! twpart3) { 
@@ -242,7 +243,7 @@ if (oc_category(last_useitem) = cannon_parts & last_useitem ! twpart3) {
 // --------------
 
 // ------- cannon -------
-[oploc2,cannon]
+[oploc2,dwarf_multicannon1]
 if (~cannon_belongs_to_player = false) {
     mes("This is not your cannon."); // osrs
     return;
@@ -255,20 +256,20 @@ if (inv_freespace(inv) < 4) {
 mes("You pick up the cannon,"); // https://youtu.be/TeQXQDaawO0?t=518
 mes("It's really heavy.");
 sound_synth(pick, 0, 0);
-%mcannon_coord = null;
-%mcannon_stage = ^cannon_stage_none;
+%ownedmcannon = null;
+%dropcannon = ^cannon_stage_none;
 inv_add(inv, twpart1, 1);
 inv_add(inv, twpart2, 1);
 inv_add(inv, twpart3, 1);
 inv_add(inv, twpart4, 1);
 
-if (%mcannon_ammo > 0) {
-    inv_add(inv, mcannonball, min(30, %mcannon_ammo));
+if (%rockthrower > 0) {
+    inv_add(inv, mcannonball, min(30, %rockthrower));
 }
-%mcannon_ammo = 0;
+%rockthrower = 0;
 loc_del(1);
 
-[oploc1,cannon]
+[oploc1,dwarf_multicannon1]
 if (~cannon_belongs_to_player = false) {
     mes("That isn't your cannon!"); // https://youtu.be/aJDlEmyPpk8?t=140
     return;
@@ -277,7 +278,7 @@ if (gettimer(cannon_rotate) > 0) {
     mes("Your cannon is already firing."); // https://youtu.be/WWyNTsMXjTE?t=122
     return;
 }
-if (%mcannon_ammo < 1) {
+if (%rockthrower < 1) {
     // current osrs reloads, but thats wrong for our version
     // https://oldschool.runescape.wiki/w/Update:Happy_Birthday!:
     // - "Left-clicking on your cannon will now let you reload it, even if it isn't currently firing."
@@ -286,20 +287,20 @@ if (%mcannon_ammo < 1) {
 }
 settimer(cannon_rotate, 1, 0);
 
-[oplocu,cannon]
+[oplocu,dwarf_multicannon1]
 if (last_useitem = mcannonball) {
     if (~cannon_belongs_to_player = false) {
         mes("This is not your cannon."); // osrs
         return;
     }
-    if (%mcannon_ammo >= 30) {
+    if (%rockthrower >= 30) {
         mes("The cannon is already full of ammo."); // osrs
         return;
     }
-    def_int $count = min(sub(30, max(%mcannon_ammo, 0)), inv_total(inv, mcannonball));
+    def_int $count = min(sub(30, max(%rockthrower, 0)), inv_total(inv, mcannonball));
     // with one cannon ball, it'd still be plural: https://youtu.be/5itKFWuomiM&t=132
     mes("You load the cannon with <tostring($count)> cannonballs."); // https://youtu.be/TeQXQDaawO0?t=239
-    %mcannon_ammo = add(%mcannon_ammo, $count);
+    %rockthrower = add(%rockthrower, $count);
     inv_del(inv, mcannonball, $count);
 } else {
     ~displaymessage(^dm_default);

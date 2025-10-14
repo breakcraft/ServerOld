@@ -1,8 +1,8 @@
-[opnpc1,hazelmere]
+[opnpc1,grandtree_hazelmere]
 if(inv_total(inv, trail_clue_medium_anagram001) > 0) {
     @trail_hazelmere;
 }
-switch_int(%grandtree_progress) {
+switch_int(%grandtree) {
     case ^grandtree_spoken_hazelmere : @hazelmere_write_scroll;
     case ^grandtree_started :
         ~mesbox("The mage starts to speak but all you hear is:");
@@ -14,7 +14,7 @@ switch_int(%grandtree_progress) {
         ~objbox(grandtree_barksample, "You give the bark sample to Hazelmere.", 250, 0, 0);
         ~mesbox("The mage carefully examines the sample.");
         inv_del(inv, grandtree_barksample, 1);
-        %grandtree_progress = ^grandtree_spoken_hazelmere;
+        %grandtree = ^grandtree_spoken_hazelmere;
         @hazelmere_write_scroll;
     case default :
         ~mesbox("The mage starts to speak but all you hear is:");
