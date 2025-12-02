@@ -3,7 +3,7 @@ if_close;
 if (p_finduid(uid) = true) {
     @activate_prayer_ultimatestrength;
 }
-%prayer_ultimatestrength = %prayer_ultimatestrength;
+%prayer10 = %prayer10;
 
 [label,activate_prayer_ultimatestrength]
 p_clearpendingaction;
@@ -11,21 +11,21 @@ def_dbrow $data = ~get_prayer_data(^prayer_ultimatestrength);
 if ($data = null) {
     return;
 }
-if (%prayer_ultimatestrength = ^true) {
-    %prayer_ultimatestrength = ^false;
+if (%prayer10 = ^true) {
+    %prayer10 = ^false;
     ~prayer_deactivate(^prayer_ultimatestrength);
     return;
 }
 if (~prayer_checks($data) = false) {
-    %prayer_ultimatestrength = ^false;
+    %prayer10 = ^false;
     return;
 }
 def_int $levelreq = db_getfield($data, prayers:level, 0);
 if (stat_base(prayer) < $levelreq){
-    %prayer_ultimatestrength = ^false;
+    %prayer10 = ^false;
     sound_synth(prayer_off, 0, 0);
     ~mesbox("You need a @dbl@Prayer level of <tostring($levelreq)> to use <db_getfield($data, prayers:name, 0)>.");
     return;
 }
-%prayer_ultimatestrength = ^true;
+%prayer10 = ^true;
 ~prayer_activate($data);

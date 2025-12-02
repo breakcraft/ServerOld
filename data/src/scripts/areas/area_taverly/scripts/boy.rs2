@@ -1,5 +1,5 @@
-[opnpc1,boy]
-switch_int(%ball_progress) {
+[opnpc1,ballboy]
+switch_int(%ballquest) {
     case ^ball_not_started :
         ~chatplayer("<p,happy>Hello young man.");
         ~mesbox("The boy sobs.");
@@ -9,8 +9,8 @@ switch_int(%ball_progress) {
                 ~chatnpc("<p,sad>I've kicked my ball over that hedge, into that garden!|The old lady who lives there is scary...|She's locked the ball in her wooden shed!|Can you get my ball back for me please?");
                 switch_int(~p_choice2("Ok, I'll see what I can do.", 1, "Get it back yourself.", 2)) {
                     case 1 :
-                        %ball_progress = ^ball_started;
-                        ~send_quest_progress(questlist:ball, %ball_progress, ^ball_complete);
+                        %ballquest = ^ball_started;
+                        ~send_quest_progress(questlist:ball, %ballquest, ^ball_complete);
                         ~chatplayer("<p,neutral>Ok, I'll see what I can do.");
                         ~chatnpc("<p,happy>Thanks <text_gender("mister", "lady")>!");
                     case 2 :

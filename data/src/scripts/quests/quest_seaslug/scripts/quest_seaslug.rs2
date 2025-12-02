@@ -1,4 +1,4 @@
-[opnpc1,sea_slug] @pickup_seaslug;
+[opnpc1,seaslug] @pickup_seaslug;
 [opobj3,seasluginv] @pickup_seaslug;
 
 [label,pickup_seaslug]
@@ -55,13 +55,13 @@ if(inv_total(inv, torch_unlit) > 0) {
 } else {
     mes("The sticks smoke momentarily then die out");
 }
-if(%seaslug_progress = ^seaslug_spoken_kent) {
-    %seaslug_progress = ^seaslug_lit_torch;
+if(%seaslugquest = ^seaslug_spoken_kent) {
+    %seaslugquest = ^seaslug_lit_torch;
 }
 
-[oploc1,loc_2517]
+[oploc1,slugladder]
 p_arrivedelay;
-if(%seaslug_progress >= ^seaslug_spoken_kent & %seaslug_progress < ^seaslug_complete) {
+if(%seaslugquest >= ^seaslug_spoken_kent & %seaslugquest < ^seaslug_complete) {
     if(inv_total(inv, torch_lit) = 0) {
         mes("You attempt to climb up the ladder.");
         p_delay(2); // not sure if there's a delay here before the rework (since theres no anim)...
@@ -75,22 +75,22 @@ if(%seaslug_progress >= ^seaslug_spoken_kent & %seaslug_progress < ^seaslug_comp
 }
 ~climb_ladder(movecoord(coord(), 0, 1, 0), true);
 
-[oploc1,loc_2518]
+[oploc1,loosepanel]
 mes("You kick the loose panel.");
 anim(human_unarmedkick, 0);
 sound_synth(unarmed_kick, 0, 0);
-if(%seaslug_progress = ^seaslug_kennith_need_escape) {
+if(%seaslugquest = ^seaslug_kennith_need_escape) {
     p_delay(2);
     mes("The wood is rotten and crumbles away...");
     p_delay(2);
     mes("leaving an opening big enough for Kennith to climb through.");
-    %seaslug_progress = ^seaslug_panel_opened;
+    %seaslugquest = ^seaslug_panel_opened;
     return;
 }
 p_delay(3);
 mes("But nothing interesting happens.");
 
-[oploc1,loc_2520]
+[oploc1,fishingcrane]
 if(coordz(coord) < coordz(movecoord(loc_coord, 0, 0, 3))) {
     mes("I need to get closer to use that.");
     return;
@@ -98,7 +98,7 @@ if(coordz(coord) < coordz(movecoord(loc_coord, 0, 0, 3))) {
 p_delay(0);
 loc_anim(fishingcraneright);
 mes("You rotate the crane around.");
-if(%seaslug_progress = ^seaslug_need_kennith_path) {
+if(%seaslugquest = ^seaslug_need_kennith_path) {
     say("Jump on Kennith!");
     p_delay(0);
     mes("Kennith comes out through the broken panel.");
@@ -108,12 +108,12 @@ if(%seaslug_progress = ^seaslug_need_kennith_path) {
     mes("You rotate the crane back around...");
     p_delay(1);
     mes("and lower Kennith to the row boat waiting below.");
-    %seaslug_progress = ^seaslug_saved_kennith;
+    %seaslugquest = ^seaslug_saved_kennith;
     return;
 }
 p_delay(4);
 
-[oploc1,loc_2519]
+[oploc1,kennithwall]
 if (npc_find(movecoord(coord, 0, 0, 2), kennith, 5, 0) = true) {
     @kennith_chat;
 }

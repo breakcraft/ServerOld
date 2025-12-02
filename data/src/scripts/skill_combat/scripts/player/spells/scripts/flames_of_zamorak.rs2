@@ -6,7 +6,7 @@ def_dbrow $spell_data = ~get_spell_data(^flames_of_zamorak);
 if (~pvm_combat_spell_checks($spell_data) = false) {
     return;
 }
-if (%flames_of_zamorak_casts < ^mage_arena_spell_finished & ~inzone_coord_pair_table(mage_arena, coord) = false) {
+if (%zamomage < ^mage_arena_spell_finished & ~inzone_coord_pair_table(mage_arena, coord) = false) {
     // https://youtu.be/TrxuRyogdEo?list=PLn23LiLYLb1Y4vxMPWXM-CVEvOUfuAP_o&t=60
     mes("You are not yet experienced enough to use this spell outside the");
     mes("Mage Arena.");
@@ -20,7 +20,7 @@ if (~player_npc_hit_roll(^magic_style) = true) {
         if (npc_stat(magic) = npc_basestat(magic)) { // https://oldschool.runescape.wiki/w/Update:Contact!
             npc_statsub(magic, 1, 5); // npc_statdrain ?
         }
-        if (%charge_god_spell > 0) {
+        if (%magearena_charge > 0) {
             $maxhit = scale(3, 2, $maxhit);
         }
     }
@@ -28,11 +28,11 @@ if (~player_npc_hit_roll(^magic_style) = true) {
 } else {
     ~pvm_spell_fail($spell_data, 64);
 }
-if (%flames_of_zamorak_casts = ^mage_arena_spell_last_cast) {
+if (%zamomage = ^mage_arena_spell_last_cast) {
     // https://youtu.be/cX7x62vqRV0?list=PLn23LiLYLb1Y4vxMPWXM-CVEvOUfuAP_o&t=439
     mes("You can now cast Flames of Zamorak outside the Arena.");
-    %flames_of_zamorak_casts = ^mage_arena_spell_finished;
+    %zamomage = ^mage_arena_spell_finished;
     ~mesbox("Congratulations. Your ability to summon the Flames of Zamorak has|improved. You may now use this spell outside of the Arena.");
-} else if (%flames_of_zamorak_casts < ^mage_arena_spell_last_cast) {
-    %flames_of_zamorak_casts = add(%flames_of_zamorak_casts, 1);
+} else if (%zamomage < ^mage_arena_spell_last_cast) {
+    %zamomage = add(%zamomage, 1);
 }

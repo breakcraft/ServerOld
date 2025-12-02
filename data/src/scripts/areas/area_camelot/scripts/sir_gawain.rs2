@@ -1,6 +1,6 @@
 [opnpc1,sir_gawain]
 ~chatnpc("<p,happy>Good day to you <text_gender("sir", "madam")>!");
-if(%grail_progress > ^grail_not_started & %grail_progress < ^grail_complete) {
+if(%grail > ^grail_not_started & %grail < ^grail_complete) {
     ~chatplayer("<p,neutral>I seek the Grail in the name of Camelot!");
     ~chatnpc("<p,neutral>The Grail? That is truly a noble quest indeed. None but Galahad have come close.");
     ~chatplayer("<p,quiz>Galahad? Who is he?");
@@ -11,7 +11,7 @@ if(%grail_progress > ^grail_not_started & %grail_progress < ^grail_complete) {
     return;
 } 
 def_int $option;
-switch_int (%arthur_progress) {
+switch_int (%arthur) {
     case ^arthur_not_started, ^arthur_complete : $option = ~p_choice2("Good day.", 1, "Know you of any quests sir knight?", 2);
     case ^arthur_started : $option = ~p_choice3("Good day.", 1, "Any ideas on how to get Merlin out of that crystal?", 3, "Do you know how Merlin got trapped?", 4);
     case ^arthur_spoken_gawain, ^arthur_spoken_lancelot : $option = ~p_choice2("Any idea how to get into Morgan Le Faye's stronghold?", 5, "Hello again.", 6);
@@ -24,7 +24,7 @@ switch_int ($option) {
         ~chatplayer("<p,neutral>Good day.");
     case 2 :
         ~chatplayer("<p,neutral>Know you of any quests sir knight?");
-        if(%arthur_progress  = ^arthur_complete) {
+        if(%arthur  = ^arthur_complete) {
             ~chatnpc("<p,confused>I think you've done the main quest we were on right now...");
             return;
         }
@@ -37,7 +37,7 @@ switch_int ($option) {
         ~chatnpc("<p,angry>I would guess this is the work of the evil Morgan Le Faye!");
         ~chatplayer("<p,quiz>And where could I find her?");
         ~chatnpc("<p,angry>She lives in her stronghold to the south of here,|guarded by some renegade knights led by Sir Mordred.");
-        %arthur_progress = ^arthur_spoken_gawain;
+        %arthur = ^arthur_spoken_gawain;
         switch_int(~p_choice2("Any idea how to get into Morgan Le Faye's stronghold?", 1, "Thank you for the information.", 2)) {
             case 1 : @sir_gawain_lefaye_stronghold;
             case 2 :

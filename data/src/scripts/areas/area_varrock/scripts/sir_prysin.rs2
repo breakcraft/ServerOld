@@ -4,19 +4,19 @@ if(map_members = ^true & inv_total(inv, trail_clue_hard_riddle015) > 0) {
     ~progress_clue_hard(trail_clue_hard_riddle015, "Sir Prysin has given you another clue scroll!");
     return;
 }
-if (%demon_progress = ^demon_not_started | %demon_progress = ^demon_talked_gypsy) {
+if (%demonstart = ^demon_not_started | %demonstart = ^demon_talked_aris) {
     @demon_slayer_sir_prysin_pre_silverlight;
-} else if (%demon_progress >= ^demon_key_hunt & %demon_progress < ^demon_silverlight) {
+} else if (%demonstart >= ^demon_key_hunt & %demonstart < ^demon_silverlight) {
     @demon_slayer_sir_prysin_key_search_progress;
-} else if (%demon_progress = ^demon_silverlight){
+} else if (%demonstart = ^demon_silverlight){
     @demon_slayer_need_to_kill;
-} else if (%demon_progress = ^demon_complete) {
+} else if (%demonstart = ^demon_complete) {
     @demon_slayer_completed;
 }
 
 [label,demon_slayer_sir_prysin_pre_silverlight]
 ~chatnpc("<p,neutral>Hello, who are you?");
-def_int $option = ~demon_slayer_sir_prysin_options(%demon_progress);
+def_int $option = ~demon_slayer_sir_prysin_options(%demonstart);
 
 if ($option = 1) {
     ~chatplayer("<p,neutral>I am a mighty adventurer, who are you?");
@@ -26,7 +26,7 @@ if ($option = 1) {
     ~chatnpc("<p,neutral>Well I've never met you before.");
 } else {
     ~chatplayer("<p,neutral>Gypsy Aris said I should come and talk to you.");
-    @demon_slayer_sir_prysin_gypsy;
+    @demon_slayer_sir_prysin_aris;
 }
 
 [label,demon_slayer_sir_prysin_key_search_progress]
@@ -73,9 +73,9 @@ p_delay(2);
 mes("Prysin hands you an impressive looking sword.");
 p_delay(2);
 inv_add(inv, silverlight, 1);
-%demon_progress = ^demon_silverlight;
+%demonstart = ^demon_silverlight;
 
-[label,demon_slayer_sir_prysin_gypsy]
+[label,demon_slayer_sir_prysin_aris]
 ~chatnpc("<p,neutral>Gypsy Aris? Is she still alive? I remember her from when I was pretty young. Well what do you need to talk to me about?");
 def_int $option = ~p_choice2("I need to find Silverlight.", 1, "Yes, she is still alive.", 2);
 
@@ -120,7 +120,7 @@ if ($option_keys = 1) {
 ~chatnpc("<p,neutral>I kept one of the keys. I gave the other two to other people for safe keeping.");
 ~chatnpc("<p,neutral>One I gave to Rovin, the captain of the palace guard.");
 ~chatnpc("<p,neutral>I gave the other to the wizard Traiborn.");
-%demon_progress = ^demon_key_hunt;
+%demonstart = ^demon_key_hunt;
 def_int $option_keys = ~p_choice3("Can you give me your key?", 1, "Where can I find Captain Rovin?", 2, "Where does the wizard live?", 3);
 
 if ($option_keys = 1) {
@@ -266,7 +266,7 @@ else{
 [proc,demon_slayer_sir_prysin_options](int $demon_progress)(int)
 if ($demon_progress = ^demon_not_started) {
     return(~p_choice2("I am a mighty adventurer. Who are you?", 1, "I'm not sure, I was hoping you could tell me.", 2));
-} else if ($demon_progress = ^demon_talked_gypsy) {
+} else if ($demon_progress = ^demon_talked_aris) {
     return(~p_choice3("I am a mighty adventurer. Who are you?", 1, "I'm not sure, I was hoping you could tell me.", 2, "Gypsy Aris said I should come and talk to you.", 3));
 }
 

@@ -1139,13 +1139,6 @@ const PlayerOps: CommandHandlers = {
         state.activePlayer.addSessionLog(eventType, event);
     }),
 
-    [ScriptOpcode.WEALTH_LOG]: checkedHandler(ActivePlayer, state => {
-        const [isGained, amount] = state.popInts(2);
-        const event = state.popString();
-
-        state.activePlayer.addWealthLog(isGained ? amount : -amount, event);
-    }),
-
     [ScriptOpcode.WEALTH_EVENT]: checkedHandler(ActivePlayer, state => {
         const name = state.popString();
         const [eventType, count, value] = state.popInts(3);
@@ -1164,6 +1157,10 @@ const PlayerOps: CommandHandlers = {
 
         // todo: better way to sync engine varp
         state.activePlayer.setVar(VarPlayerType.RUN, state.activePlayer.run);
+    }),
+
+    [ScriptOpcode.PLAYERMEMBER]: checkedHandler(ActivePlayer, state => {
+        state.pushInt(state.activePlayer.members ? 1 : 0);
     })
 };
 

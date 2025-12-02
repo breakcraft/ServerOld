@@ -4,7 +4,7 @@ if(inv_total(inv, trail_clue_medium_anagram011) > 0) {
     ~progress_clue_medium(trail_clue_medium_anagram011, "The king has given you another clue scroll!");
     return;
 }
-switch_int(%tree_progress) {
+switch_int(%treequest) {
     case ^tree_not_started :
         ~chatplayer("<p,neutral>Hello.");
         ~chatnpc("<p,happy>Well hello stranger.|My name's Bolren, I'm the king of the tree gnomes.");
@@ -27,8 +27,8 @@ switch_int(%tree_progress) {
                 switch_int(~p_choice2("I would be glad to help.", 1, "I'm sorry but I won't be involved.", 2)) {
                     case 1 :
                         ~chatplayer("<p,neutral>I would be glad to help.");
-                        %tree_progress = ^tree_started;
-                        ~send_quest_progress(questlist:tree, %tree_progress, ^tree_complete);
+                        %treequest = ^tree_started;
+                        ~send_quest_progress(questlist:tree, %treequest, ^tree_complete);
                         ~chatnpc("<p,neutral>Thank you. The battlefield is to the north of the maze. Commander Montai will inform you of their current situation.");
                         ~chatnpc("<p,sad>That is if he's still alive.");
                         ~chatnpc("<p,neutral>My assistant shall guide you out. Good luck friend, try your best to return the orb.");
@@ -69,7 +69,7 @@ switch_int(%tree_progress) {
             case 1 :
                 ~chatplayer("<p,neutral>I will find the warlord and bring back the orbs.");
                 ~chatnpc("<p,neutral>You are brave,|but this task will be tough even for you.|I wish you the best of luck.|Once again you are our only hope.");
-                %tree_progress = ^tree_returned_first_orb;
+                %treequest = ^tree_returned_first_orb;
                 inv_del(inv, orb_of_protection, 1);
                 ~chatnpc("<p,neutral>I will safeguard this orb|and pray for your safe return.|My assistant will guide you out.");
                 @elkoy_leavemaze_second;
@@ -134,13 +134,13 @@ switch_int(%tree_progress) {
 }
 
 [proc,gnome_chant](coord $coord1, coord $coord2, string $message)
-if (npc_findexact($coord1, local_gnome) = true) {
+if (npc_findexact($coord1, chantergnome) = true) {
     npc_facesquare(movecoord(coord, 2, 0, 0));
     npc_say($message);
     npc_anim(midget_chanting, 0);
 }
 
-if (npc_findexact($coord2, local_gnome) = true) {
+if (npc_findexact($coord2, chantergnome) = true) {
     npc_facesquare(movecoord(coord, 2, 0, 0));
     npc_say($message);
     npc_anim(midget_chanting, 0);

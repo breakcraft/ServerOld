@@ -3,63 +3,80 @@
 
 [opnpc1,radimus_erkle]
 if(inzone(0_42_52_34_45, 0_42_52_45_56, npc_coord) = true) {
-    if(%legends_progress = ^legends_returned_to_radimus) {
+    if(%legendsquest = ^legends_returned_to_radimus) {
         ~chatnpc("<p,neutral>Welcome to the Legends Guild Main Hall. We've placed your Totem Pole as pride of place. All members of the Legends Guild will see it as they walk in. They will know that it was you who brought it back.");
         ~chatnpc("<p,neutral>Congratulations, you're now a fully fledged member. I would like to offer you some training which will increase your experience and abilities in four areas. Would you like to train now?");
         @multi2("Yes, I'll train now.", radimus_training, "No, I've got something else to do at the moment.", radimus_somethingelse);
-    } else if (%legends_progress > ^legends_returned_to_radimus & %legends_progress < ^legends_radimus_training_4) {
+    } else if (%legendsquest > ^legends_returned_to_radimus & %legendsquest < ^legends_radimus_training_4) {
         ~chatnpc("<p,neutral>Hello again... Would you like to continue with your training?");
         @multi2("Yes, I'll train now.", radimus_training, "No, I've got something else to do at the moment.", radimus_somethingelse);
-    } else if(%legends_progress = ^legends_radimus_training_4) {
+    } else if(%legendsquest = ^legends_radimus_training_4) {
         queue(legends_quest_complete, 0);
-    } else  {
-        ~chatnpc("<p,neutral>Hello there! How are you enjoying the Legends Guild?");
-        ~mesbox("Radimus looks busy...");
-        ~chatnpc("<p,neutral>Excuse me a moment, won't you?|Do feel free to explore the rest of the building.");
     }
+    @radimus_postquest;
     return;
 }
-if (%legends_progress = ^legends_not_started) {
+if (%legendsquest >= ^legends_returned_to_radimus & %legendsquest < ^legends_complete) {
+    ~chatnpc("<p,neutral>Hello again! Do go through to the main Legends Guild Hall I'll meet you in there and we can discuss your reward!");
+    return;
+}
+if (%legendsquest = ^legends_got_gilded_totem & inv_total(inv, thtotempolegift) > 0 & inv_total(inv, thkaramjamapcomp) > 0) {
+    @radimus_erkle_hand_in_totem;
+} else if(%legendsquest >= ^legends_started & %legendsquest < ^legends_returned_to_radimus) {
+    ~chatnpc("<p,neutral>Hello there, how is the quest going?");
+    @radimus_erkle_midquest;
+} else if (%legendsquest = ^legends_not_started) {
     ~chatnpc("<p,happy>Good day to you <text_gender("Sir", "m'Lady")>! No doubt you are keen to become a member of the Legends Guild?");
     @multi3("Yes actually, what's involved?", radimus_erkle_yes,
         "Maybe some other time.", radimus_erkle_decline,
         "Who are you?", radimus_erkle_who);
-} else if (inv_total(inv, thtotempolegift) > 0 & inv_total(inv, thkaramjamapcomp) > 0 
-        & %legends_progress = ^legends_got_gilded_totem) {
-        @radimus_erkle_hand_in_totem;
-} else if (%legends_progress >= ^legends_returned_to_radimus & %legends_progress < ^legends_complete) {
-    ~chatnpc("<p,neutral>Hello again! Do go through to the main Legends Guild Hall I'll meet you in there and we can discuss your reward!");
-} else {
-    ~chatnpc("<p,neutral>Hello there, how is the quest going?");
-    @radimus_erkle_midquest;
-}
+} 
+@radimus_postquest;
 
 [opnpcu,radimus_erkle]
+if(%legendsquest >= ^legends_returned_to_radimus) { // RS3
+    ~chatnpc("<p,neutral>Sorry old bean, but I don't really need that!");
+    return;
+}
 switch_obj(last_useitem) {
-    case thkaramjamapcomp : 
+    case thkaramjamapcomp :
+        if(%legendsquest = ^legends_got_gilded_totem) {
+            if (inv_total(inv, thkaramjamapcomp) = 0) {
+                ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but we also need something special to display in the Legends Guild.");
+            } else {
+                @radimus_erkle_hand_in_totem;
+            }
+            return;
+        }
         ~chatnpc("<p,neutral>Well done, <text_gender("Sir", "Madam")>, very well done. However, you'll probably need it while you search for natives of the Kharazi tribe in the Kharazi Jungle.");
         ~chatnpc("<p,neutral>Remember, we would like a special token of friendship from them to place in the Legends Guild. I'll take the map off your hands once we get the proof that you have met the natives.");
     case thtotempole :
         ~chatnpc("<p,neutral>Hmmm, well, it is very impressive. Especially since it looks very heavy... However, it lacks a certain authenticity, my guess is that you made it, though I'm not sure why.");
         ~chatnpc("<p,neutral>We would like to have a really nice item to put on display in the Legends Guild main hall. Do you think you could get something more authentic?");
     case thtotempolegift : 
-        if (inv_total(inv, thkaramjamapcomp) = 0) {
-            ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but we also need something special to display in the Legends Guild.");
-        }
-        else {
-            @radimus_erkle_hand_in_totem;
+        if(%legendsquest = ^legends_got_gilded_totem) {
+            if (inv_total(inv, thkaramjamapcomp) = 0) {
+                ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but I need you to complete the map as well.");
+            } else {
+                @radimus_erkle_hand_in_totem;
+            }
         }
     case default : 
         ~chatnpc("<p,neutral>Sorry old bean, but I don't really need that!");
 }
 
+[label,radimus_postquest]
+~chatnpc("<p,neutral>Hello there! How are you enjoying the Legends Guild?");
+~mesbox("Radimus looks busy...");
+~chatnpc("<p,neutral>Excuse me a moment, won't you?|Do feel free to explore the rest of the building.");
+
 [label,radimus_training]
-if(%legends_progress >= ^legends_radimus_training_4) {
+if(%legendsquest >= ^legends_radimus_training_4) {
     ~chatnpc("<p,neutral>Right, that's all the training I can offer you. I hope you're happy with your new skills. Do feel free to explore the rest of the building.");
     queue(legends_quest_complete, 0);
     return;
 }
-def_int $remaining = calc((^legends_radimus_training_4 - %legends_progress) / 5);
+def_int $remaining = calc((^legends_radimus_training_4 - %legendsquest) / 5);
 if($remaining > 1) {
     ~chatnpc("<p,neutral>You can choose <tostring($remaining)> areas to increase your abilities in.");
 } else {
@@ -101,7 +118,7 @@ switch_int(~p_choice4("* Herblore *", 1, "* Agility *", 2, "* Thieving *", 3, "-
 
 [label,radimus_train](stat $skill, string $skill_name)
 // https://youtu.be/5MwrA2Ci39Q?si=kqnNaYMoqEA4Rgfy&t=184
-%legends_progress = add(%legends_progress, 5);
+%legendsquest = add(%legendsquest, 5);
 stat_advance($skill, 76500);
 // this is stupid but video shows double space for herblore, meaning theres prob a seperate label for each skill in 2004 (and it's prob a linebreak)
 if(string_length($skill_name) > 7) { 
@@ -118,6 +135,7 @@ if(string_length($skill_name) > 7) {
 
 [label,radimus_erkle_hand_in_totem]
 ~chatnpc("<p,happy>Well, it looks as if you have some interesting items there. Let's have a look at them!|@blu@--Sir Radimus sees the gilded totem pole.--");
+~mesbox("You show the totem pole to Sir Radimus.");
 // todo: mesanim check
 ~chatnpc("<p,neutral><text_gender("Sir", "Madam")>, this is truly amazing...");
 ~chatnpc("<p,neutral>That totem pole will take pride of place in the Legends Guild as a reminder of your quest to gain entry. And so that many other great adventurers can admire your bravery.");
@@ -125,7 +143,7 @@ if(string_length($skill_name) > 7) {
 ~chatnpc("<p,neutral>Well, you've completed the tasks I set you. That map of the Kharazi jungle will be very helpful for future|expeditions.|@blu@-- Sir Radimus takes the map and the totem pole --");
 inv_del(inv, thtotempolegift, 1);
 inv_del(inv, thkaramjamapcomp, 1);
-%legends_progress = ^legends_returned_to_radimus;
+%legendsquest = ^legends_returned_to_radimus;
 ~chatnpc("<p,neutral>Congratulations, welcome to the Legends Guild. Please, go through to the main Legends Guild building and I will join you shortly.");
 
 [label,radimus_erkle_midquest]
@@ -218,8 +236,8 @@ if (inv_freespace(inv) = 0) {
 }
 ~chatnpc("<p,neutral>Ok, you'll need this starting map of the Kharazi Jungle.");
 ~objbox(thkaramjamap, "Grand Vizier Erkle gives you some notes and a map.", 250, 0, 0);
-%legends_progress = ^legends_started;
-~send_quest_progress(questlist:legends, %legends_progress, ^legends_complete);
+%legendsquest = ^legends_started;
+~send_quest_progress(questlist:legends, %legendsquest, ^legends_complete);
 inv_add(inv, thkaramjamap, 1);
 ~chatnpc("<p,neutral>Complete this map when you get to the Kharazi Jungle.|It's towards the southern most part of Karamja.");
 ~mesbox("Radimus shuffles around the back of his desk and gives you a stern|look.");

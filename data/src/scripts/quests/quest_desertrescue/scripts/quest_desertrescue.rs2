@@ -1,10 +1,10 @@
-[oploc2,loc_2673] @search_desertcamp_gate;
-[oploc2,loc_2674] @search_desertcamp_gate;
+[oploc2,miningcampgateclosedl] @search_desertcamp_gate;
+[oploc2,miningcampgateclosedr] @search_desertcamp_gate;
 
-[oploc1,loc_2673] @open_desertcamp_gate(^left);
-[oploc1,loc_2674] @open_desertcamp_gate(^right);
+[oploc1,miningcampgateclosedl] @open_desertcamp_gate(^left);
+[oploc1,miningcampgateclosedr] @open_desertcamp_gate(^right);
 
-[oplocu,loc_2673] 
+[oplocu,miningcampgateclosedl] 
 if(last_useitem = metal_key) {
     // this is to replicate osrs behaviour where you get nothing interesting happens after opening gate to leave w/key
     // this could just be a rework bug
@@ -17,7 +17,7 @@ if(last_useitem = metal_key) {
 }
 ~displaymessage(^dm_default);
 
-[oplocu,loc_2674]
+[oplocu,miningcampgateclosedr]
 if(last_useitem = metal_key) {
     def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
     if($entering = false) {
@@ -28,12 +28,12 @@ if(last_useitem = metal_key) {
 }
 ~displaymessage(^dm_default);
 
-[oploc1,loc_2702]
-if(%desertrescue_progress = ^desertrescue_not_started) ~mesbox("You see some footsteps in the sand.");
+[oploc1,anatracks1]
+if(%desertrescue = ^desertrescue_not_started) ~mesbox("You see some footsteps in the sand.");
 else ~mesbox("This looks like some disturbed sand.|Footsteps seem to be heading off towards the South west.");
 
-[oploc2,loc_2702]
-if(%desertrescue_progress = ^desertrescue_not_started) ~mesbox("You just see some footsteps in the sand.");
+[oploc2,anatracks1]
+if(%desertrescue = ^desertrescue_not_started) ~mesbox("You just see some footsteps in the sand.");
 else ~mesbox("You search the footsteps more closely. You can see that there are five sets of footprints. One set of footprints seems lighter than the others. The four other footsteps were made by heavier people with boots.");
 
 // other set of tracks (which are in RSC) don't ever seem to be used, replaced with a cactus after the rework, not going to add script for now
@@ -73,7 +73,7 @@ def_int $loc_angle = loc_angle;
 def_coord $loc_coord = loc_coord;
 // any piece, don't need whole outfit on
 if(inv_total(inv, thanainabarrel) > 0) {
-    if(npc_find(coord, mercenary_2, 4, 2) = true) {
+    if(npc_find(coord, desertminingmercenary2, 4, 2) = true) {
         mes("Guard: Hey! Where d'ya think you're going with that barrel?");
         npc_say("Hey! Where d'ya think you're going with that barrel?");
         p_delay(3);
@@ -107,7 +107,7 @@ if(inv_total(inv, thanainabarrel) > 0) {
     }
     return;
 }
-if($entering = false & npc_find(coord, mercenary_2, 4, 2) = true & (inv_total(worn, slave_shirt) > 0 | inv_total(worn, slave_robe) > 0 | inv_total(worn, slave_boots) > 0)) {
+if($entering = false & npc_find(coord, desertminingmercenary2, 4, 2) = true & (inv_total(worn, slave_shirt) > 0 | inv_total(worn, slave_robe) > 0 | inv_total(worn, slave_boots) > 0)) {
     mes("A guard notices you as you try to slip past...");
     npc_say("Hey! Where d'ya think you're going?");
     npc_setmode(playerescape);
@@ -120,14 +120,10 @@ if(inv_total(inv, metal_key) > 0) {
     mes("You use the metal key to unlock the gates.");
     p_delay(2);
     mes("You manage to sneak past the guards!");
-    if(%desertrescue_progress = ^desertrescue_killed_capt) %desertrescue_progress = ^desertrescue_entered_camp;
-    if(loc_find($loc_coord, $loc_type) = true) {
-        ~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, grate_open);
-    } else {
-        ~open_and_close_double_door3(~check_axis(coord, loc_coord, loc_angle), $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, grate_open);
-    }
+    if(%desertrescue = ^desertrescue_killed_capt) %desertrescue = ^desertrescue_entered_camp;
+    ~open_and_close_double_door3(~check_axis(coord, loc_coord, loc_angle), $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, grate_open);
     if($entering = false) return;
-    if(npc_find(coord, mercenary_2, 4, 0) = true | npc_find(coord, mercenary_1, 4, 0) = true) { // check dist on this
+    if(npc_find(coord, desertminingmercenary2, 4, 0) = true | npc_find(coord, desertminingmercenary1, 4, 0) = true) { // check dist on this
         ~mercenary_search_equip;
     }
     settimer(mercenary_check, ~random_range(25, 100)); // seems to be 25 - 100t, changes each time?
@@ -141,14 +137,14 @@ mes("This gate needs a key in order to be opened.");
 if(~inzone_coord_pair_table(mining_camp_zones, coord) = false) { 
     return;
 }
-if(npc_find(coord, mercenary_2, 4, 2) = true | npc_find(coord, mercenary_1, 4, 2) = true) { // check dist on this
+if(npc_find(coord, desertminingmercenary2, 4, 2) = true | npc_find(coord, desertminingmercenary1, 4, 2) = true) { // check dist on this
     ~mercenary_search_equip;
 }
 settimer(mercenary_check, ~random_range(25, 100)); // seems to be 25 - 100t, changes each time?
 
 [proc,mercenary_search_equip]
 def_boolean $caught = false;
-if(%desertrescue_progress = ^desertrescue_complete) {
+if(%desertrescue = ^desertrescue_complete) {
     return;
 }
 if((inv_getobj(worn, ^wearpos_rhand) ! null & oc_category(inv_getobj(worn, ^wearpos_rhand)) ! weapon_pickaxe) & ~player_wearing_armour() = true) {
@@ -172,13 +168,24 @@ npc_say("You don't belong in here!");
 mes("More guards come to arrest you.");
 ~npc_retaliate(0);
 p_delay(2);
+if(inv_total(inv, thanainabarrel) > 0) {
+    npc_say("Hey, what's in this barrel?");
+    p_delay(1);
+    npc_say("Right... we'll take that off your hands.");
+    inv_del(inv, thanainabarrel, 1); // not changeslot
+    inv_add(inv, thminebarrel_empty, 1);
+    p_delay(1);
+    mes("The guards drag Ana off into the distance.");
+    p_delay(1);
+}
 mes("You're outnumbered by all the guards.");
 p_delay(2);
 mes("They manhandle you into a cell.");
 p_delay(2);
-p_teleport(^desertrescue_prison_coord);
+if(inzone(0_51_147_0_0, 0_51_147_63_63, coord) = true) p_teleport(^desertrescue_underground_prison_coord);
+else p_teleport(^desertrescue_prison_coord);
 
-[oploc2,loc_2683] // RSC, this is completely different in osrs/post 2006
+[oploc2,cell_escape_window] // RSC, this is completely different in osrs/post 2006
 ~mesbox("You search the window.");
 ~mesbox("After some time you find that one of the bars looks weak,|you may be able to bend one of the bars.|Would you like to try?");
 def_int $choice = ~p_choice2("Yes, I'll bend the bar.", 1, "No, I'd better stay here.", 2);
@@ -221,7 +228,7 @@ if(coordx(coord) < 3284) {
     mes("You land near some rough rocks, which you may be able to climb.");
 }
 
-[aploc2,loc_2694]
+[aploc2,ttcellclimbrock1]
 if(distance(coord, loc_coord) > 2) {
     ~forcewalk2(0_51_47_18_29);
 }
@@ -234,10 +241,10 @@ if($op = 2) {
 }
 @desertrescue_climb_to_rocks;
 
-[aploc2,loc_2695] @desertrescue_climb_to_rocks;
-[aploc2,loc_2696] @desertrescue_climb_to_rocks;
+[aploc2,ttcellclimbrock2] @desertrescue_climb_to_rocks;
+[aploc2,ttcellclimbrock3] @desertrescue_climb_to_rocks;
 
-[aploc2,loc_2697]
+[aploc2,ttcellclimbrock4]
 mes("You start climbing the rocky elevation.");
 // completely guessing on how this works, rsc messages and damage
 ~agility_force_move(0, human_climbing, loc_coord);
@@ -264,13 +271,13 @@ if(stat_random(agility, 150, 250) = false) {
 }
 ~forcemove(movecoord(loc_coord, -1, 0, 0));
 
-[oploc1,loc_2689]
+[oploc1,capt_siad_cell_door]
 sound_synth(locked, 0, 0);
 mes("The door seems to be pretty locked.");
 
-[oplocu,loc_2689]
+[oplocu,capt_siad_cell_door]
 if(last_useitem = thcelldoorkey) {
-    ~open_and_close_door2(loc_1541, ~check_axis(coord, loc_coord, loc_angle), door_open);
+    ~open_and_close_door2(poshdooropen, ~check_axis(coord, loc_coord, loc_angle), door_open);
     return;
 }
 ~displaymessage(^dm_default);
@@ -288,7 +295,7 @@ if(inv_total(inv, metal_key) = 0) {
     inv_add(inv, metal_key, 1);
     $found = true;
 }
-if(%desertrescue_progress = ^desertrescue_escaped & inv_total(inv, thgoodminekey) = 0) {
+if(%desertrescue >= ^desertrescue_escaped & inv_total(inv, thgoodminekey) = 0) {
     ~objbox(thgoodminekey, "You find the key to the main gate.", 250, 0, 0);
     inv_add(inv, thgoodminekey, 1);
     $found = true;
@@ -296,7 +303,7 @@ if(%desertrescue_progress = ^desertrescue_escaped & inv_total(inv, thgoodminekey
 if($found = false) mes("...but you find nothing of interest.");
 
 
-[oploc1,loc_2677]
+[oploc1,captain_siads_chest_closed]
 if(testbit(%desertrescue_map_mechanisms, ^desertrescue_distracted_siad) = ^true) {
     %desertrescue_map_mechanisms = clearbit(%desertrescue_map_mechanisms, ^desertrescue_distracted_siad);
     if(inv_total(inv, thbedobinkey) > 0) {
@@ -306,20 +313,20 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_distracted_siad) = ^true)
     }
     return;
 }
-if(npc_find(coord, captain_siad, 7, 0) = true) { 
+if(npc_find(coord, capt_siad, 7, 0) = true) { 
     mes("The captain spots you before you manage to open the chest...");
     p_delay(2);
-    @captain_siad_dialogue;
+    @capt_siad_dialogue;
 }
 
-[oplocu,loc_2677]
+[oplocu,captain_siads_chest_closed]
 if(last_useitem = thbedobinkey) {
     def_int $can_open = testbit(%desertrescue_map_mechanisms, ^desertrescue_distracted_siad);
     %desertrescue_map_mechanisms = clearbit(%desertrescue_map_mechanisms, ^desertrescue_distracted_siad);
     if($can_open = ^true) {
         @unlock_bedobin_chest;
     } else {
-        if(npc_find(coord, captain_siad, 7, 0) = true) @captain_siad_dialogue; // osrs behaviour
+        if(npc_find(coord, capt_siad, 7, 0) = true) @capt_siad_dialogue; // osrs behaviour
     }
     return;
 }
@@ -332,13 +339,13 @@ if(~obj_gettotal(thcaptplans) > 0) {
     return;
 }
 ~objbox(thcaptplans, "While the Captain's distracted, you quickly unlock the chest. You use the Bedobin Copy Key to open the chest. You open the chest and take out the plans.", 250, 0, 0);
-if(%desertrescue_progress = ^desertrescue_given_bedobin_key) %desertrescue_progress = ^desertrescue_retrieved_plans;
+if(%desertrescue = ^desertrescue_given_bedobin_key) %desertrescue = ^desertrescue_retrieved_plans;
 inv_add(inv, thcaptplans, 1);
 
-[oploc1,loc_2678]
+[oploc1,capt_siad_bookcase]
 ~mesbox("The captain seems to collect lots of books!");
 
-[oploc2,loc_2678]
+[oploc2,capt_siad_bookcase]
 %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_sailing);
 ~mesbox("You notice several books on the subject of sailing.");
 
@@ -355,14 +362,14 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_ready_rescue) = ^true) {
             if_close;
             anim(human_reachforladder, 0);
             p_delay(1);
-            if(%desertrescue_progress = ^desertrescue_ana_on_mining_cart) %desertrescue_progress = ^desertrescue_escaped;
+            if(%desertrescue = ^desertrescue_ana_on_mining_cart) %desertrescue = ^desertrescue_escaped;
             %desertrescue_map_mechanisms = clearbit_range(%desertrescue_map_mechanisms, ^desertrescue_ana_mining_cart, ^desertrescue_ready_rescue);
             p_teleport(0_50_47_58_21);
             inv_add(inv, thanainabarrel, 1);
             ~mesbox("As soon as you get on the cart, it starts to move. Before too long you are past the gates. You jump off the cart taking Ana with you.");
         case 2 : mes("You decide not to get onto the cart.");
         case 3 :
-            if(npc_find(coord, mine_cart_driver, 4, 2) = true) { // requires line of walk 
+            if(npc_find(coord, mining_cart_driver, 4, 2) = true) { // requires line of walk 
                 npc_say("Ahem.");
                 ~chatnpc("<p,neutral>Hurry up, get in the cart or I'll go without you!");
             }
@@ -382,7 +389,7 @@ mes("This looks like a mine cart which takes barrels out of the encampment to Al
 
 [oplocu,loc_2682]
 if(last_useitem = thanainabarrel) {
-    if(%desertrescue_progress = ^desertrescue_retrieved_ana_liftbarrel) %desertrescue_progress = ^desertrescue_ana_on_mining_cart;
+    if(%desertrescue = ^desertrescue_retrieved_ana_liftbarrel) %desertrescue = ^desertrescue_ana_on_mining_cart;
     %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_ana_mining_cart);
     inv_del(inv, thanainabarrel, 1);
     ~mesbox("You place Ana (In the barrel) carefully on the cart. This was the last barrel to go on the cart, but the cart driver doesn't seem to be in any rush to get going. And the desert heat will soon get to Ana.");
@@ -390,17 +397,17 @@ if(last_useitem = thanainabarrel) {
 }
 ~displaymessage(^dm_default);
 
-[oploc1,loc_2675] @open_camp_door(^left);
-[oploc1,loc_2676] @open_camp_door(^right);
+[oploc1,thttmineentrancel] @open_camp_door(^left);
+[oploc1,thttmineentrancer] @open_camp_door(^right);
 
-[oploc2,loc_2675] @watch_camp_door;
-[oploc2,loc_2676] @watch_camp_door;
+[oploc2,thttmineentrancel] @watch_camp_door;
+[oploc2,thttmineentrancer] @watch_camp_door;
 
-[oploc1,loc_2690] @open_camp_door(^left);
-[oploc1,loc_2691] @open_camp_door(^right);
+[oploc1,thttmineexitl] @open_camp_door(^left);
+[oploc1,thttmineexitr] @open_camp_door(^right);
 
-[oploc2,loc_2690] @search_mine_camp_door;
-[oploc2,loc_2691] @search_mine_camp_door;
+[oploc2,thttmineexitl] @search_mine_camp_door;
+[oploc2,thttmineexitr] @search_mine_camp_door;
 
 [label,search_mine_camp_door]
 mes("Nothing much seems to happen.");
@@ -417,8 +424,7 @@ if(~wearing_slave_robes = true) {
     // no weapon check in rsc or mention of any pre-rework
     mes("The doors open with some effort!");
     if(coordz(loc_coord) > 6400) {
-        if(loc_find($loc_coord, $loc_type) = true) ~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, door_open);
-        else ~open_and_close_double_door3(~check_axis(coord, loc_coord, loc_angle), $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, door_open);
+        ~open_and_close_double_door3(~check_axis(coord, loc_coord, loc_angle), $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, door_open);
         p_delay(0);
         p_teleport(0_51_47_37_28);
         return;
@@ -426,25 +432,25 @@ if(~wearing_slave_robes = true) {
     sound_synth(door_open, 0, 0); // this is supposed to play the door open sound twice (bigdoor_open), might be an issue with the rework though
     p_teleport(0_51_147_14_18);
     p_delay(0);
-    if(loc_find(coord, loc_2690) = true) {
+    if(loc_find(coord, thttmineexitl) = true) {
         ~open_and_close_double_door2(~check_axis(coord, loc_coord, loc_angle), $side, door_open);
     } else {
         p_teleport(movecoord(coord, 0, 0, 1));
     }
-    if(%desertrescue_progress = ^desertrescue_traded_clothes) {
-        %desertrescue_progress = ^desertrescue_entered_mine;
+    if(%desertrescue = ^desertrescue_traded_clothes) {
+        %desertrescue = ^desertrescue_entered_mine;
         ~mesbox("The huge doors open into a dark, dank and smelly tunnel. The associated smells of a hundred sweaty miners greets your nostrils. And your ears ring with the 'CLANG CLANG CLANG' as metal hits rock.");
     }
 } else {
     p_delay(1);
-    npc_add(map_findsquare(coord, 1, 3, ^map_findsquare_lineofwalk), mercenary_2, 50);
+    npc_add(map_findsquare(coord, 1, 3, ^map_findsquare_lineofwalk), desertminingmercenary2, 50);
     npc_say("Oi you!");
     mes("A guard notices you and approaches...");
     p_delay(2);
     npc_say("Hey, you're no slave, where do you think you're going!");
     p_delay(1);
     npc_say("Guards! Guards!");
-    if(%desertrescue_progress = ^desertrescue_complete) {
+    if(%desertrescue = ^desertrescue_complete) {
         mes("No other guards come to the rescue.");
         return;
     }
@@ -464,15 +470,15 @@ return (false);
 if(coordx(coord) < coordx(loc_coord)) {
     if(~wearing_slave_robes = false) {
         // shouldn't ever fail since you can't attack these guards
-        if(npc_find(coord, mercenary_2, 6, 0) = true) {
+        if(npc_find(coord, desertminingmercenary2, 6, 0) = true) {
             ~npc_retaliate(0);
             ~desertcamp_guard_search;
         }
         return;
     }
-    if(%desertrescue_progress < ^desertrescue_given_pineapple) { 
+    if(%desertrescue < ^desertrescue_given_pineapple) { 
         mes("Two guards block your way further into the caves.");
-        ~chatnpc_specific(nc_name(mercenary_2), mercenary_2, "<p,angry>Hey you, move away from there!");
+        ~chatnpc_specific(nc_name(desertminingmercenary2), desertminingmercenary2, "<p,angry>Hey you, move away from there!");
     } else {
         mes("You walk into the dark of the cavern...");
         p_delay(2);
@@ -480,16 +486,16 @@ if(coordx(coord) < coordx(loc_coord)) {
         p_teleport(0_51_147_22_7);
     }
 } else {
-    if(~wearing_slave_robes = false & %desertrescue_progress < ^desertrescue_complete) {
+    if(~wearing_slave_robes = false & %desertrescue < ^desertrescue_complete) {
         // shouldn't ever fail since you can't attack these guards
-        if(npc_find(coord, mercenary_1, 6, 0) = true | npc_find(coord, mercenary_2, 6, 0) = true) {
+        if(npc_find(coord, desertminingmercenary1, 6, 0) = true | npc_find(coord, desertminingmercenary2, 6, 0) = true) {
             ~npc_retaliate(0);
             ~desertcamp_guard_search;
         }
         return;
     }
     if(inv_total(inv, thanainabarrel) > 0) {
-        if(npc_find(coord, mercenary_1, 6, 0) = true | npc_find(coord, mercenary_2, 6, 0) = true) { // basing off rsc w/osrs delays cause osrs version is not possible
+        if(npc_find(coord, desertminingmercenary1, 6, 0) = true | npc_find(coord, desertminingmercenary2, 6, 0) = true) { // basing off rsc w/osrs delays cause osrs version is not possible
             npc_say("Hey, where d'ya think you're going with that Barrel?");
             p_delay(3);
             mes("A guard comes over and takes the barrel off you.");
@@ -526,7 +532,7 @@ if(coordx(coord) < coordx(loc_coord)) {
 ~doubleobjbox(thcaptplans, hammer, "The plans look very technical!|But you can see that this item will require|a bronze bar and at least 10 feathers.", 150);
 
 [proc,desertcamp_guard_search]
-if(%desertrescue_progress = ^desertrescue_complete) {
+if(%desertrescue = ^desertrescue_complete) {
     return;
 }
 p_stopaction;
@@ -560,13 +566,13 @@ mes("You are roughed up by the guards and manhandled into a cell.");
 p_delay(1);
 npc_say("Into the cell you go! I hope this teaches you a lesson.");
 p_delay(1);
-if(inzone(0_51_147_0_0, 0_51_147_63_63, coord) = true & %desertrescue_progress >= ^desertrescue_given_pineapple) p_teleport(^desertrescue_underground_prison_coord);
+if(inzone(0_51_147_0_0, 0_51_147_63_63, coord) = true & %desertrescue >= ^desertrescue_given_pineapple) p_teleport(^desertrescue_underground_prison_coord);
 else p_teleport(^desertrescue_prison_coord);
 
-[oploc1,loc_2672]
+[oploc1,experimental_anvil]
 mes("To forge items use the metal you wish to work with the anvil.");
 
-[oplocu,loc_2672]
+[oplocu,experimental_anvil]
 if(last_useitem = bronze_bar | last_useitem = thcaptplans) {
     // order of checks matches osrs
     if(~obj_gettotal(thprotodarttip) > 0) {
@@ -621,7 +627,7 @@ if(last_useitem = bronze_bar | last_useitem = thcaptplans) {
             anim(human_smithing, 128);
             p_delay(2);
             inv_add(inv, thprotodarttip, 1);
-            if(%desertrescue_progress = ^desertrescue_shown_plans_shabim) %desertrescue_progress = ^desertrescue_made_dart_tip;
+            if(%desertrescue = ^desertrescue_shown_plans_shabim) %desertrescue = ^desertrescue_made_dart_tip;
             ~mesbox("You study the technical plans even more... You need to attach feathers to the tip to complete the weapon.");
         case 2 :
             ~mesbox("You decide not to follow the technical plans.");
@@ -657,17 +663,17 @@ if(stat_random(fletching, 61, 254) = false) {
 ~objbox(thprotodart, "You successfully attach the feathers to the dart tip.", 250, 0, 0);
 if_close;
 p_delay(2);
-if(%desertrescue_progress = ^desertrescue_made_dart_tip) %desertrescue_progress = ^desertrescue_finished_dart;
+if(%desertrescue = ^desertrescue_made_dart_tip) %desertrescue = ^desertrescue_finished_dart;
 stat_advance(fletching, 100);
 inv_del(inv, feather, 10);
 inv_del(inv, thprotodarttip, 1);
 inv_add(inv, thprotodart, 1);
 
-[oploc1,loc_2685] @open_desertrescue_camp_jail_gate(^left);
-[oploc1,loc_2686] @open_desertrescue_camp_jail_gate(^right);
+[oploc1,undergroundcellgatel] @open_desertrescue_camp_jail_gate(^left);
+[oploc1,undergroundcellgater] @open_desertrescue_camp_jail_gate(^right);
 
-[oploc2,loc_2685] @search_desertrescue_camp_jail_gate;
-[oploc2,loc_2686] @search_desertrescue_camp_jail_gate;
+[oploc2,undergroundcellgatel] @search_desertrescue_camp_jail_gate;
+[oploc2,undergroundcellgater] @search_desertrescue_camp_jail_gate;
 
 [label,open_desertrescue_camp_jail_gate](int $side)
 def_loc $loc_type = loc_type;
@@ -677,35 +683,34 @@ def_coord $loc_coord = loc_coord;
 def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
 if($entering = false) {
     mes("This gate seems to be locked.");
-    ~chatnpc_specific(nc_name(mercenary_1), mercenary_1, "<p,angry>Hey, move away from the gate. There's nothing interesting for you here.");
+    ~chatnpc_specific(nc_name(desertminingmercenary1), desertminingmercenary1, "<p,angry>Hey, move away from the gate. There's nothing interesting for you here.");
     return;
 }
 mes("This gate seems to be locked.");
 if(inv_total(inv, thpunishrock) >= 15) {
     ~chatplayer("<p,neutral>Okay, I have all your rocks here, let me out now.|@dbl@-- The guard unlocks the gate. --");
-    ~chatnpc_specific(nc_name(mercenary_1), mercenary_1, "<p,neutral>Okay, okay, come on out.");
+    ~chatnpc_specific(nc_name(desertminingmercenary1), desertminingmercenary1, "<p,neutral>Okay, okay, come on out.");
     inv_del(inv, thpunishrock, 15);
-    if(loc_find($loc_coord, $loc_type) = true) ~open_and_close_double_door2($entering, $side, grate_open); // iron_door_open
-    else ~open_and_close_double_door3($entering, $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, grate_open);
-    ~chatnpc_specific(nc_name(mercenary_1), mercenary_1, "<p,neutral>Okay, you've got all the rocks, you can go now, but keep your nose clean in future.");
+    ~open_and_close_double_door3($entering, $loc_type, $loc_shape, $loc_angle, $loc_coord, $side, grate_open); // iron_door_open
+    ~chatnpc_specific(nc_name(desertminingmercenary1), desertminingmercenary1, "<p,neutral>Okay, you've got all the rocks, you can go now, but keep your nose clean in future.");
     return;
 }
-~chatnpc_specific(nc_name(mercenary_1), mercenary_1, "<p,angry>Hey, move away from the gate. If you wanna get out you're gonna have to mine for it. You're gonna have to bring me 15 loads of rocks in one go!");
-~chatnpc_specific(nc_name(mercenary_1), mercenary_1, "<p,angry>And then I'll let you out. You can go back to work with the other slaves then!");
+~chatnpc_specific(nc_name(desertminingmercenary1), desertminingmercenary1, "<p,angry>Hey, move away from the gate. If you wanna get out you're gonna have to mine for it. You're gonna have to bring me 15 loads of rocks in one go!");
+~chatnpc_specific(nc_name(desertminingmercenary1), desertminingmercenary1, "<p,angry>And then I'll let you out. You can go back to work with the other slaves then!");
 
 [label,search_desertrescue_camp_jail_gate]
 mes("You search the gates... yep, they're locked.");
 mes("A nearby guard looks you over. He doesn't seem too impressed.");
 ~mesbox("It looks as if this is where very difficult prisoners are sent as a punishment.");
 
-[oploc1,loc_2680]
+[oploc1,thminebarrel_full]
 if(loc_coord = ^desertrescue_upper_barrel_coord) {
     ~mesbox("This looks like an interesting mining barrel.");
     return;
 }
 ~mesbox("You search the full barrel... It's full of rocks.");
 
-[oploc2,loc_2680]
+[oploc2,thminebarrel_full]
 if(loc_coord = ^desertrescue_upper_barrel_coord) {
     if(testbit(%desertrescue_map_mechanisms, ^desertrescue_ana_lift_barrel) = ^true) {
         // https://web.archive.org/web/20060215230522/http://img.photobucket.com/albums/v72/me9alomaniac/tt4.png
@@ -715,7 +720,7 @@ if(loc_coord = ^desertrescue_upper_barrel_coord) {
             return;
         }
         %desertrescue_map_mechanisms = clearbit(%desertrescue_map_mechanisms, ^desertrescue_ana_lift_barrel);
-        if(%desertrescue_progress = ^desertrescue_retrieved_ana_lift) %desertrescue_progress = ^desertrescue_retrieved_ana_liftbarrel;
+        if(%desertrescue = ^desertrescue_retrieved_ana_lift) %desertrescue = ^desertrescue_retrieved_ana_liftbarrel;
         inv_add(inv, thanainabarrel, 1);
         mes("You pick up Ana in a Barrel.");
     }
@@ -731,10 +736,10 @@ switch_int(random(6)) {
 }
 ~mesbox("This looks like a full mining barrel. Slaves use this to load up the rocks and stones that they're mining. <$mes>");
 
-[oploc1,loc_2681]
+[oploc1,thminebarrel_empty]
 ~mesbox("This looks like an empty mining barrel. Slaves use this to load up the rocks and stones that they're mining.");
 
-[oploc2,loc_2681]
+[oploc2,thminebarrel_empty]
 if(inv_total(inv, thanainabarrel) > 0) {
     mes("You cannot carry another barrel while you're carrying Ana.");
     return;
@@ -755,7 +760,7 @@ if(testbit(%desertrescue_map_mechanisms, ^desertrescue_ana_minecart_barrel) = ^t
         return;
     }
     %desertrescue_map_mechanisms = clearbit(%desertrescue_map_mechanisms, ^desertrescue_ana_minecart_barrel);
-    if(%desertrescue_progress = ^desertrescue_ana_minecart) %desertrescue_progress = ^desertrescue_retrieved_ana_minecart;
+    if(%desertrescue = ^desertrescue_ana_minecart) %desertrescue = ^desertrescue_retrieved_ana_minecart;
     inv_add(inv, thanainabarrel, 1);
     mes("You pick up Ana in a Barrel.");
     return;
@@ -770,11 +775,11 @@ if($op = 2) {
 inv_add(inv, thminebarrel_empty, 1);
 loc_del(100);
 
-[oploc1,loc_2668]
+[oploc1,ropepullthingy2]
 ~mesbox("This looks like a lift of some sort. You see barrels of rocks being placed on the lift and they're hauled up to the surface.");
 
-[oploc2,loc_2668]
-if(npc_find(coord, mercenary_2, 5, 0) = true | npc_find(coord, mercenary_1, 5, 0) = true) {
+[oploc2,ropepullthingy2]
+if(npc_find(coord, desertminingmercenary2, 5, 0) = true | npc_find(coord, desertminingmercenary1, 5, 0) = true) {
     if(testbit(%desertrescue_map_mechanisms, ^desertrescue_ana_on_lift) = ^true) {
         ~chatnpc("<p,neutral>Hey, you'd better go and operate that lift yourself if you want that big heavy barrel to go anywhere.");
         return;
@@ -786,19 +791,19 @@ if(npc_find(coord, mercenary_2, 5, 0) = true | npc_find(coord, mercenary_1, 5, 0
     @multi2("What is this thing?", camp_merc_thing, "Can I use this?", camp_merc_use);
 }
 
-[oplocu,loc_2668]
+[oplocu,ropepullthingy2]
 if(last_useitem = thanainabarrel) {
-    if(npc_find(coord, mercenary_2, 5, 0) = true | npc_find(coord, mercenary_1, 5, 0) = true) {
+    if(npc_find(coord, desertminingmercenary2, 5, 0) = true | npc_find(coord, desertminingmercenary1, 5, 0) = true) {
         @camp_merc_barrel_help;
     }
     return;
 }
 ~displaymessage(^dm_default);
 
-[oploc1,loc_2684]
+[oploc1,touristtrap_minecart]
 ~mesbox("This mine cart is being loaded up with new rocks and stone. It gets sent to a different section of the mine for unloading.");
 
-[oploc2,loc_2684]
+[oploc2,touristtrap_minecart]
 ~mesbox("You search the mine cart...");
 ~mesbox("There may be just enough space to squeeze yourself into the cart. Would you like to try?");
 def_int $op = ~p_choice2_header("Yes, of course.", 1, "No thanks, it looks pretty dangerous.", 2, "Squeeze into the cart?");
@@ -810,13 +815,13 @@ if(inv_total(inv, thanainabarrel) > 0) {
     ~chatnpc_specific("Ana (in a Barrel)", anabarrel, "<p,idle>There isn't enough space for both you and this barrel in the cart.");
     return;
 }
-if(random(3) = 0) {
+if(stat_random(agility, 100, 250) = true) {
     mes("You fail to fit yourself into the cart in time before it starts it's journey.");
     mes("You fall and hurt yourself.");
     ~damage_self(2);
     return;
 }
-if(%desertrescue_progress = ^desertrescue_given_pineapple) %desertrescue_progress = ^desertrescue_used_mine_cart;
+if(%desertrescue = ^desertrescue_given_pineapple) %desertrescue = ^desertrescue_used_mine_cart;
 mes("You succeed!");
 if(loc_coord = ^desertrescue_lower_minecart_coord) {
     p_teleport(0_51_147_55_23);
@@ -827,7 +832,7 @@ if(loc_coord = ^desertrescue_lower_minecart_coord) {
     ~mesbox("You appear back in the barrel loading room.|A nearby slave looks surprised to see you popping out of the cart.");
 }
 
-[oplocu,loc_2684]
+[oplocu,touristtrap_minecart]
 if(last_useitem = thanainabarrel) {
     if(loc_coord = ^desertrescue_lower_minecart_coord) {
         ~mesbox("You dare not put the barrel back in the mine cart. The guards might see you.");
@@ -837,19 +842,19 @@ if(last_useitem = thanainabarrel) {
     p_delay(2);
     mes("Soon the cart moves out of sight and then it returns.");
     p_delay(2);
-    if(%desertrescue_progress = ^desertrescue_caught_ana) %desertrescue_progress = ^desertrescue_ana_minecart;
+    if(%desertrescue = ^desertrescue_caught_ana) %desertrescue = ^desertrescue_ana_minecart;
     %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_ana_minecart_barrel);
     inv_del(inv, thanainabarrel, 1);
 }
 
-[oploc1,loc_2687] @desertrescue_open_wrought_gate(^left);
-[oploc1,loc_2688] @desertrescue_open_wrought_gate(^right);
+[oploc1,undergroundniceminel] @desertrescue_open_wrought_gate(^left);
+[oploc1,undergroundniceminer] @desertrescue_open_wrought_gate(^right);
 
-[oplocu,loc_2687] @desertrescue_useobj_wrought_gate(^left);
-[oplocu,loc_2688] @desertrescue_useobj_wrought_gate(^right);
+[oplocu,undergroundniceminel] @desertrescue_useobj_wrought_gate(^left);
+[oplocu,undergroundniceminer] @desertrescue_useobj_wrought_gate(^right);
 
-[oploc2,loc_2687] @desertrescue_search_wrought_gate;
-[oploc2,loc_2688] @desertrescue_search_wrought_gate;
+[oploc2,undergroundniceminel] @desertrescue_search_wrought_gate;
+[oploc2,undergroundniceminer] @desertrescue_search_wrought_gate;
 
 [label,desertrescue_open_wrought_gate](int $side)
 if(inv_total(inv, thgoodminekey) > 0 | coordz(coord) > coordz(loc_coord)) {
@@ -870,14 +875,14 @@ if(last_useitem = thgoodminekey) {
 [label,desertrescue_search_wrought_gate]
 ~mesbox("These wrought iron gates look like they're designed to keep people out. It looks like you'll need a key to get past these.");
 
-[oploc1,loc_2667]
+[oploc1,ropepullthingy]
 ~mesbox("This looks like a winch, it probably brings rocks up from underground.");
 
-[oploc2,loc_2667]
+[oploc2,ropepullthingy]
 mes("You pull on the winch.");
 p_delay(3);
 if(testbit(%desertrescue_map_mechanisms, ^desertrescue_ana_on_lift) = ^true) {
-    if(%desertrescue_progress = ^desertrescue_ana_lift) %desertrescue_progress = ^desertrescue_retrieved_ana_lift;
+    if(%desertrescue = ^desertrescue_ana_lift) %desertrescue = ^desertrescue_retrieved_ana_lift;
     %desertrescue_map_mechanisms = clearbit(%desertrescue_map_mechanisms, ^desertrescue_ana_on_lift);
     %desertrescue_map_mechanisms = setbit(%desertrescue_map_mechanisms, ^desertrescue_ana_lift_barrel);
     ~mesbox("You see a barrel coming to the surface. Before too long you haul it onto the side. The barrel seems quite heavy and you hear a muffled sound coming from inside.");
@@ -888,11 +893,11 @@ mes("You pull on the winch and a heavy barrel filled with stone comes to the sur
 
 [label,desertrescue_ana_rescued]
 inv_del(inv, thanainabarrel, 1);
-%desertrescue_progress = ^desertrescue_saved_ana; // assuming it sets here instead of after talking cause no varb -> ana can dissapear and you have to go rescue her again
+%desertrescue = ^desertrescue_saved_ana; // assuming it sets here instead of after talking cause no varb -> ana can dissapear and you have to go rescue her again
 npc_add(0_51_48_43_40, ana, 100);
 p_opnpc(1);
 
 [queue,desertrescue_complete]
-%desertrescue_progress = ^desertrescue_complete;
+%desertrescue = ^desertrescue_complete;
 // https://web.archive.org/web/20051025141912im_/http://runeweb.net/rathofdoom/quests/touristtrap/7.png
 ~send_quest_complete(questlist:desertrescue, bronze_dart, 200, ^desertrescue_questpoints, "You have completed the\\nTourist Trap Quest!");

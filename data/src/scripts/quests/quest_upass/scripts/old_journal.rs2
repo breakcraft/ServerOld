@@ -1,4 +1,5 @@
 [opheld1,upass_journal]
+p_stopaction;
 mes("The journal is old and worn.");
 p_delay(2); // 3t
 mes("It reads...");

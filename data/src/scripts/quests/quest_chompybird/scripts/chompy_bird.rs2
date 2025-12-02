@@ -41,12 +41,12 @@ npc_sethuntmode(chompybird);
 //      might not be necessary though
 
 if (p_finduid(%quest_chompybird_baiter) = true) {
-    if (%chompybird_progress = ^chompybird_dropped_toad) {
-        %chompybird_progress = ^chompybird_chompy_ate_toad;
+    if (%chompybird = ^chompybird_dropped_toad) {
+        %chompybird = ^chompybird_chompy_ate_toad;
     }
 }
 
-[opnpc4,chompy_bird_corpse]
+[opnpc4,chompybird_dead]
 mes("You start plucking the chompy bird.");
 anim(human_pickupfloor, 0);
 p_delay(1);
@@ -153,7 +153,7 @@ if (npc_param(defend_sound) ! null) {
 
 p_opnpc(5);
 
-~ranged_dropammo_npc($ammo, 5, sub(divide($delay, 30), 2));
+~ranged_dropammo_npc($ammo, divide($delay, 30));
 
 if (random(2) = 0) {
     // There's some randomness here, this is a guess
@@ -164,7 +164,6 @@ if (random(2) = 0) {
 // Ogre arrow launch spotanim is higher than other arrows by default, so we compensate for that here
 [proc,player_use_ogre_bow](obj $ammo)(int)
 spotanim_pl(oc_param($ammo, proj_launch), 50, 0);
-inv_del(worn, $ammo, 1);
 return(~npc_projectile(coord, npc_uid, oc_param($ammo, proj_travel), 40, 36, 41, 15, 5, 11, 5));
 
 [ai_queue3,chompy_bird]
@@ -174,14 +173,14 @@ if(npc_findhero = ^true) { // happens before npc_death
 gosub(npc_death);
 
 // todo confirm duration
-npc_add(npc_coord, chompy_bird_corpse, 100);
+npc_add(npc_coord, chompybird_dead, 100);
 
 [queue,chompybird_kill]
-if (%chompybird_progress = ^chompybird_rantz_gave_player_bow) {
-    %chompybird_progress = ^chompybird_player_killed_chompy;
+if (%chompybird = ^chompybird_rantz_gave_player_bow) {
+    %chompybird = ^chompybird_player_killed_chompy;
     return;
 }
-if(%chompybird_progress < ^chompybird_complete | %chompybird_kills >= 100000) { 
+if(%chompybird < ^chompybird_complete | %chompybird_kills >= 100000) { 
     return; 
 }
 // https://youtu.be/7ze4YEvQwHM?si=AYdN3zfe62SP4emb&t=215

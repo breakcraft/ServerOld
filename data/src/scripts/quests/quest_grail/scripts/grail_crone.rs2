@@ -6,8 +6,8 @@
 ~chatnpc("<p,quiz>Did you say the Grail?|You are a Grail knight, yes?|Well you'd better hurry. A Fisher King is in pain.");
 ~chatplayer("<p,angry>Well I would, but I don't know where I am going!");
 ~chatnpc("<p,neutral>Go to where the six heads face,|blow the whistle and away you go!");
-if(%grail_progress = ^grail_spoken_merlin) {
-    %grail_progress = 4;
+if(%grail = ^grail_spoken_merlin) {
+    %grail = 4;
 }
 @multi4("What are the six heads?", grail_crone_six_heads, "What's a Fisher King?", grail_crone_fisherking, "Ok, I will go searching.", grail_crone_searching, "What do you mean by the whistle?", grail_crone_whistle);
 

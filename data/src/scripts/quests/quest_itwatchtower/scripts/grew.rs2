@@ -1,5 +1,5 @@
 [opnpc1,grew]
-if(%itwatchtower_progress >= ^itwatchtower_complete) {
+if(%itwatchtower >= ^itwatchtower_complete) {
     mes("The ogre is not interested in you anymore.");
 } else if(getbit_range(%itwatchtower_bits, ^itwatchtower_spoken_grew, ^itwatchtower_helped_grew) = 2) {
     ~chatnpc("<p,angry>What are you doing here, morsel?");
@@ -45,7 +45,7 @@ if(%itwatchtower_progress >= ^itwatchtower_complete) {
     }
     ~chatplayer("<p,neutral>Err, I don't have it.");
     ~chatnpc("<p,angry>Morsel, you dare to return without the tooth!|Either you are stoopid, or wants to be eaten!");
-} else if(%itwatchtower_progress >= ^itwatchtower_given_fingernails) {
+} else if(%itwatchtower >= ^itwatchtower_given_fingernails) {
         ~chatnpc("<p,angry>What do you want, little morsel?|You would look good on my plate!");
         ~chatplayer("<p,neutral>I want to enter the city of ogres.");
         ~chatnpc("<p,happy>Hah! I should eat you instead!");

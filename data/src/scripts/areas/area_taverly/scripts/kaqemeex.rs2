@@ -1,14 +1,14 @@
 [opnpc1,kaqemeex]
 ~chatplayer("<p,neutral>Hello there.");
-if(%druid_progress = ^druid_not_started) {
+if(%druidquest = ^druid_not_started) {
     ~chatnpc("<p,quiz>What brings you to our holy monument?");
     @multi3("Who are you?", kaqemeex_who_are_you, "I'm in search of a quest.", druidic_ritual_start_1, "Did you build this?", kaqemeex_did_you_build);
-} else if(%druid_progress >= ^druid_started & %druid_progress < ^druid_given_ingredients) {
+} else if(%druidquest >= ^druid_started & %druidquest < ^druid_given_ingredients) {
     ~chatnpc("<p,neutral>Hello again, adventurer. You will need to speak to my fellow druid Sanfew in the village south of here to continue in your quest.");
     ~chatplayer("<p,happy>Ok, thanks.");
-} else if(%druid_progress = ^druid_given_ingredients) {
+} else if(%druidquest = ^druid_given_ingredients) {
     @druid_completion;
-} else if(%druid_progress = ^druid_complete) { // todo - dialogue from RSC, haven't been able to find any dialogue from RS2, before release of skillcapes.
+} else if(%druidquest = ^druid_complete) { // todo - dialogue from RSC, haven't been able to find any dialogue from RS2, before release of skillcapes.
     ~chatnpc("<p,neutral>Hello again. How is the Herblore going?");
     def_int $option = ~p_choice3("Very well, thank you.", 1, "I need more practice at it.", 2, "Can you explain the fundamentals again?", 3);
     if($option = 1) {
@@ -73,8 +73,8 @@ if($option = 1) {
 
 [label,druid_agree_to_help]
 ~chatplayer("<p,neutral>Ok, I will try to help.");
-%druid_progress = ^druid_started;
-~send_quest_progress(questlist:druid, %druid_progress, ^druid_complete);
+%druidquest = ^druid_started;
+~send_quest_progress(questlist:druid, %druidquest, ^druid_complete);
 ~chatnpc("<p,neutral>Excellent. Go to the village south of this place and speak to my fellow Sanfew who is working on the purification ritual. He knows better than I what is required to complete it.");
 ~chatplayer("<p,neutral>Will do.");
 

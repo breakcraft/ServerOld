@@ -22,43 +22,43 @@ if(inv_total(inv, coins) < 3000) {
     return;
 }
 ~chatnpc("<p,happy>You of course agree that if by some accident you are turned into a frog you have no rights for compensation or refund.");
-%option1 = calc(gender + 1);
-%option2 = 0;
+%if1 = calc(gender + 1);
+%if2 = 0;
 if_openmain(makeover_mage);
 
 [label,makeover_mage_no]
 ~chatplayer("<p,angry>No thanks. I'm happy as Saradomin made me.");
 ~chatnpc("<p,sad>Ehhh... suit yourself.");
 
-[if_button,makeover_mage:com_102] %option1 = 1;
-[if_button,makeover_mage:com_104] %option1 = 2;
+[if_button,makeover_mage:com_102] %if1 = 1;
+[if_button,makeover_mage:com_104] %if1 = 2;
 
-[if_button,makeover_mage:com_113] %option1 = 1;
-[if_button,makeover_mage:com_114] %option1 = 2;
+[if_button,makeover_mage:com_113] %if1 = 1;
+[if_button,makeover_mage:com_114] %if1 = 2;
 
-[if_button,makeover_mage:com_94] %option2 = 1;
-[if_button,makeover_mage:com_95] %option2 = 2;
-[if_button,makeover_mage:com_96] %option2 = 3;
-[if_button,makeover_mage:com_97] %option2 = 4;
-[if_button,makeover_mage:com_98] %option2 = 5;
-[if_button,makeover_mage:com_99] %option2 = 6;
-[if_button,makeover_mage:com_100] %option2 = 7;
-[if_button,makeover_mage:com_101] %option2 = 8;
+[if_button,makeover_mage:com_94] %if2 = 1;
+[if_button,makeover_mage:com_95] %if2 = 2;
+[if_button,makeover_mage:com_96] %if2 = 3;
+[if_button,makeover_mage:com_97] %if2 = 4;
+[if_button,makeover_mage:com_98] %if2 = 5;
+[if_button,makeover_mage:com_99] %if2 = 6;
+[if_button,makeover_mage:com_100] %if2 = 7;
+[if_button,makeover_mage:com_101] %if2 = 8;
 
 [if_button,makeover_mage:com_89]
 def_int $cur_gender = calc(gender + 1);
-if (%option1 = $cur_gender & %option2 = 0) {
+if (%if1 = $cur_gender & %if2 = 0) {
     mes("You haven't changed anything."); // current OSRS
     return;
 }
 
 // https://youtu.be/sKxvSaYuAYU?si=gYlSZJQC4rp9dAY0&t=136
 if_close;
-if(%option1 ! $cur_gender) {
-    setgender(calc(%option1 - 1));
+if(%if1 ! $cur_gender) {
+    setgender(calc(%if1 - 1));
 }
-if(%option2 > 0) {
-    setskincolour(calc(%option2 - 1));
+if(%if2 > 0) {
+    setskincolour(calc(%if2 - 1));
 }
 
 buildappearance(worn);

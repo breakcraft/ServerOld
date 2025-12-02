@@ -1,11 +1,11 @@
 [oploc1,broken_multicannon]
-if (%mcannon_progress = ^mcannon_tasked_with_fixing_cannon) {
+if (%mcannon = ^mcannon_tasked_with_fixing_cannon) {
     ~chatplayer("<p,neutral>I guess I'd better fix it with the toolkit I was given.");
-    %mcannon_progress = ^mcannon_inspected_cannon_first_time;
-} else if (%mcannon_progress = ^mcannon_inspected_cannon_first_time) {
+    %mcannon = ^mcannon_inspected_cannon_first_time;
+} else if (%mcannon = ^mcannon_inspected_cannon_first_time) {
     mes("You inspect the multi cannon.");
-    if (getbit_range(%mcannon_railings, 0, 3) = 15) {
-        %mcannon_progress = ^mcannon_has_repaired_cannon;
+    if (getbit_range(%mcannonmulti, 0, 3) = 15) {
+        %mcannon = ^mcannon_has_repaired_cannon;
         p_delay(2);
         ~chatplayer("<p,happy>The Cannon seems to be in working order.|Lawgof will be pleased.");
     } else {
@@ -49,7 +49,7 @@ if (~multi_cannon_fail_to_fix_or_find_problem() = true) {
 [label,fix_cannon_none]
 
 [label,attempt_repair](string $part_name, int $bit)
-if (testbit(%mcannon_railings, $bit) = ^true) {
+if (testbit(%mcannonmulti, $bit) = ^true) {
     mes("You've already fixed this part of the cannon.");
     return;
 }
@@ -66,7 +66,7 @@ p_delay(2);
 
 if (~multi_cannon_fail_to_fix_or_find_problem() = true) {
     mes("After some tinkering you manage to fix it.");
-    %mcannon_railings = setbit(%mcannon_railings, $bit);
+    %mcannonmulti = setbit(%mcannonmulti, $bit);
     stat_advance(crafting, 12); // 1.2xp gave 1.25 on classic
     p_delay(2);
 } else {

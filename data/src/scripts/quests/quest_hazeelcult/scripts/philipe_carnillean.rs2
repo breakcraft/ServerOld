@@ -1,5 +1,5 @@
 [opnpc1,philipe_carnillean]
-switch_int(%hazeelcult_progress) {
+switch_int(%hazeelcultquest) {
     case ^hazeelcult_not_started : @philipe_toys;
     case ^hazeelcult_started, ^hazeelcult_spoken_clivet, ^hazeelcult_clivet_decision : @philipe_carnillean_breakin;
     case ^hazeelcult_poured_poison :

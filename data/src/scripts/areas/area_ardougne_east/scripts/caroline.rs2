@@ -1,5 +1,5 @@
 [opnpc1,caroline]
-switch_int(%seaslug_progress) {
+switch_int(%seaslugquest) {
     case ^seaslug_not_started : @caroline_help;
     case ^seaslug_saved_kennith : @caroline_savedkennith;
     case ^seaslug_complete : @caroline_postquest;
@@ -20,8 +20,8 @@ switch_int(~p_choice2("I suppose so, how do I get there?", 1, "I'm sorry, I'm to
         ~chatplayer("<p,neutral>I suppose so, how do I get there?");
         ~chatnpc("<p,neutral>That's very good of you traveller.|My friend Holgart will take you there.");
         ~chatplayer("<p,neutral>Ok, I'll go and see if they're ok.");
-        %seaslug_progress = ^seaslug_started;
-        ~send_quest_progress(questlist:seaslug, %seaslug_progress, ^seaslug_complete);
+        %seaslugquest = ^seaslug_started;
+        ~send_quest_progress(questlist:seaslug, %seaslugquest, ^seaslug_complete);
         ~chatnpc("<p,neutral>I'll reward you for your time.|It'll give me peace of mind|to know Kennith and my husband, Kent, are safe.");
     case 2 :
         ~chatplayer("<p,neutral>I'm sorry, I'm too busy.");
@@ -39,8 +39,8 @@ switch_int(~p_choice2("I suppose so, how do I get there?", 1, "I'm sorry, I'm to
 ~chatnpc("<p,neutral>Yes, Holgart told me and sent a rescue party out.|Kent's back home now, resting with Kennith.|I don't think he'll be doing any fishing for a while.");
 ~chatnpc("<p,neutral>Here, take these Oyster pearls as a reward.|They're worth quite a bit|and can be used to make lethal crossbow bolts.");
 // QUEST REWARD
-%seaslug_progress = ^seaslug_complete;
-%questpoints = add(%questpoints, ^seaslug_questpoints);
+%seaslugquest = ^seaslug_complete;
+%qp = add(%qp, ^seaslug_questpoints);
 inv_add(inv, bigoysterpearls, 1);
 stat_advance(fishing, 71750);
 queue(seaslug_quest_complete, 0);

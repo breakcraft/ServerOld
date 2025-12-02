@@ -1,12 +1,12 @@
 [opnpc1,aubury]
-if(%runemysteries_progress = ^runemysteries_given_package) {
+if(%runemysteries = ^runemysteries_given_package) {
     ~chatnpc("<p,neutral>My gratitude to you adventurer for bringing me these research notes. I notice that you brought the head wizard a special talisman that was the key to our finally unlocking the puzzle.");
     ~chatnpc("<p,neutral>Combined with the information I had already already collated regarding the Rune Essence, I think we have finally unlocked the power to");
     ~chatnpc("<p,neutral>...no. I am getting ahead of myself. Please take this summary of my research back to the head wizard at the Wizards' Tower. I trust his judgement on whether to let you in on our little secret or not.");
-    %runemysteries_progress = ^runemysteries_received_notes;
+    %runemysteries = ^runemysteries_received_notes;
     inv_add(inv, research_notes, 1);
     ~mesbox("Aubury gives you his research notes.");
-} else if(%runemysteries_progress = ^runemysteries_received_notes) {
+} else if(%runemysteries = ^runemysteries_received_notes) {
     ~chatnpc("<p,neutral>I suggest you take those research notes of mine back to the head wizard at the Wizards' Tower.");
     if(~obj_gettotal(research_notes) = 0) {
         ~chatplayer("<p,neutral>I can't... I lost them...");
@@ -20,9 +20,9 @@ if(%runemysteries_progress = ^runemysteries_given_package) {
     return;
 } else {
     ~chatnpc("<p,happy>Do you want to buy some runes?");
-    if(%runemysteries_progress = ^runemysteries_complete) {
+    if(%runemysteries = ^runemysteries_complete) {
         @multi3("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no, "Can you teleport me to the Rune Essence?", aubury_ess);
-    } else if (%runemysteries_progress = ^runemysteries_received_package & inv_total(inv, research_package) > 0) {
+    } else if (%runemysteries = ^runemysteries_received_package & inv_total(inv, research_package) > 0) {
         @multi3("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no, "I have been sent here with a package for you.", aubury_package);
     } else {
         @multi2("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no);
@@ -30,7 +30,7 @@ if(%runemysteries_progress = ^runemysteries_given_package) {
 }
 
 [opnpcu,aubury]
-if(last_useitem = research_package & %runemysteries_progress = ^runemysteries_received_package) @aubury_package;
+if(last_useitem = research_package & %runemysteries = ^runemysteries_received_package) @aubury_package;
 ~displaymessage(^dm_default);
 
 [label,aubury_shop] ~openshop_activenpc;
@@ -54,5 +54,5 @@ if(inv_total(inv, research_package) = 0) {
 }
 ~mesbox("You hand Aubury the research package.");
 inv_del(inv, research_package, 1);
-%runemysteries_progress = ^runemysteries_given_package;
+%runemysteries = ^runemysteries_given_package;
 ~chatnpc("<p,neutral>This... is incredible. Please, give me a few moments to quickly look over this, and then talk to me again.");

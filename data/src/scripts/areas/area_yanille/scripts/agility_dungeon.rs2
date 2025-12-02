@@ -27,13 +27,11 @@ p_delay(0);
 stat_advance(agility, 75);
 
 [oploc1,loc_2303]
-// this runs the first 2 tiles when using the north side, but walks the entire thing 
-// on the south side, 
 if(stat(agility) < 40) {
     ~mesbox("You need an Agility level of 40 to cross the ledge.");
     return;
 }
-def_int $dz = 4;
+def_int $dz = 1;
 def_seq $walk_seq = human_walk_sidestepl;
 def_seq $start_seq = human_into_sidestepl;
 def_seq $end_seq = human_outof_sidestepl;
@@ -43,9 +41,9 @@ if(coordz(loc_coord) > 9518) {
     $start_seq = human_into_sidestep;
     $end_seq = human_outof_sidestep;
     $start = 0_40_148_20_48;
-    $dz = -4;
+    $dz = -1;
 }
-if(coord ! $start) {
+if(coord ! $start & $dz > 0) {
     // do nothing if the player isn't on the start tile
     return;
 }
@@ -56,18 +54,29 @@ if(%yanille_ledge_used >= map_clock) {
     return;
 }
 %yanille_ledge_used = calc(map_clock + 5);
-// mes("<tostring(%yanille_ledge_used)>, <tostring(map_clock)>");
 anim($start_seq, 0);
-p_delay(0);
+~set_forcemove_bas($walk_seq);
 mes("You put your foot on the ledge and try to edge across...");
-~agility_force_move(0, $walk_seq, movecoord(coord, 0, 0, $dz));
+if($dz < 0) {
+    p_teleport(movecoord($start, 0, 0, multiply($dz, 2)));
+    p_delay(0);
+    ~forcemove(movecoord(coord, 0, 0, multiply($dz, 2)));
+} else {
+    ~forcemove(movecoord($start, 0, 0, multiply($dz, 4)));
+}
 if(stat_random(agility, 65, 355) = false) {
     ~agility_delay_fail(movecoord(coord, -2, 0, 0), 0_40_149_18_44, calc((stat(hitpoints) * 20) / 100), "You slip and fall to the pit below.");
+    ~update_bas;
     return;
 }
 %yanille_ledge_used = calc(map_clock + 4);
-~agility_force_move(225, $walk_seq, movecoord(coord, 0, 0, $dz));
+~forcemove(movecoord(coord, 0, 0, multiply($dz, 3)));
+// sound here (244+)
+~forcemove(movecoord(coord, 0, 0, $dz));
+p_delay(0);
 anim($end_seq, 0);
+~update_bas;
+stat_advance(agility, 225);
 mes("You skillfully edge across the gap.");
 
 [oploc1,loc_2317]
@@ -75,18 +84,18 @@ if(stat(agility) < 67) {
     ~mesbox("You need an Agility level of 67 to climb this pile of rubble.");
     return;
 }
-mes("You climb up the pile of rubble...");
 ~agility_climb_up(55, 0_40_148_55_34);
+mes("You climb up the pile of rubble...");
 
 [oploc1,loc_2318]
 mes("You climb down the pile of rubble...");
 p_telejump(0_40_149_56_35);
 
-[oploc1,loc_377]
+[oploc1,shuttwistedchest]
 sound_synth(locked, 0, 0);
 mes("The chest is locked.");
 
-[oplocu,loc_377]
+[oplocu,shuttwistedchest]
 // https://youtu.be/A4crb0CaneU?si=ty3obEvZ9cIxbJ4F&t=278, typos are all intentional
 if(last_useitem = sinister_key) {
     mes("you unlock the chest with your key...");
@@ -112,7 +121,7 @@ if(last_useitem = sinister_key) {
 }
 ~displaymessage(^dm_default);
 
-[oploc1,loc_412]
+[oploc1,trappedchaosaltar]
 if (stat(prayer) >= stat_base(prayer)) {
     mes("You already have full prayer points.");
 } else {

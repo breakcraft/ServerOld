@@ -10,11 +10,11 @@ if(last_useitem = arravcertificate) {
 ~chatplayer("<p,happy>Greetings, your majesty.");
 if(inv_total(inv, arravcertificate) > 0) {
     ~chatplayer("<p,happy>Your majesty.|I have come to claim the reward|for the return of the Shield Of Arrav.");
-    if(%phoenixgang_progress < ^phoenixgang_joined & %blackarmgang_progress < ^blackarmgang_joined) {
+    if(%phoenixgang < ^phoenixgang_joined & %blackarmgang < ^blackarmgang_joined) {
         ~chatnpc("<p,confused>The name on this certificate isn't yours!|I can't give you the reward|unless you do the quest yourself!");
         return;
     }
-    if(%phoenixgang_progress = ^phoenixgang_complete | %blackarmgang_progress = ^blackarmgang_complete) {
+    if(%phoenixgang = ^phoenixgang_complete | %blackarmgang = ^blackarmgang_complete) {
         ~chatnpc("<p,confused>You have already claimed the reward.|You can't claim it twice!");
         ~mesbox("Why don't you give this certificate|to the person who helped you get the shield?");
         return;

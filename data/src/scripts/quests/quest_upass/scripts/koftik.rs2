@@ -1,9 +1,9 @@
 // outside underground pass
-[opnpc1,koftik_ardougne]
-if(%upass_progress = ^upass_not_started & testbit(%upass_map_mechanisms, ^upass_started_bit) = ^true) {
+[opnpc1,caveguide1]
+if(%upass = ^upass_not_started & testbit(%ibanmulti, ^upass_started_bit) = ^true) {
     @koftik_first_dialogue;
 }
-switch_int(%upass_progress) {
+switch_int(%upass) {
     case ^upass_complete :
         ~chatplayer("<p,quiz>Hello Koftik.");
         ~chatnpc("<p,happy>Hello Adventurer, how's things?");
@@ -40,7 +40,7 @@ switch_int(%upass_progress) {
 ~chatnpc("<p,shock>These caves are different... They're filled with the spirit of Zamorak!");
 ~chatnpc("<p,neutral>You can feel it as you wind your way round the stalagmites.. an icy chill that penetrates the very fabric of your being...");
 ~chatnpc("<p,neutral>Not so many travellers come down here these days, ...but there are some who are still foolhardy enough."); // intentional comma
-%upass_progress = ^upass_spoken_koftik;
+%upass = ^upass_spoken_koftik;
 switch_int(~p_choice2("I'll take my chances.", 1, "Tell me more...", 2)) {
     case 1 :
         ~chatplayer("<p,bored>I'll take my chances.");
@@ -55,8 +55,8 @@ switch_int(~p_choice2("I'll take my chances.", 1, "Tell me more...", 2)) {
 }
 
 // before the bridge in area 1
-[opnpc1,koftik_2]
-switch_int(%upass_progress) {
+[opnpc1,caveguide2]
+switch_int(%upass) {
     case ^upass_defeated_iban :
         ~chatplayer("<p,happy>Thanks for getting me out Koftik.");
         ~chatnpc("<p,happy>Always a pleasure squire.");
@@ -96,8 +96,8 @@ switch_int(%upass_progress) {
 }
 
 // before the bridge in area 1
-[opnpc1,koftik_3]
-switch_int(%upass_progress) {
+[opnpc1,caveguide3]
+switch_int(%upass) {
     case ^upass_defeated_iban, ^upass_complete :
         ~chatplayer("<p,quiz>Hello Koftik.");
         ~chatnpc("<p,happy>Hello, how's things?");
@@ -112,23 +112,23 @@ switch_int(%upass_progress) {
         ~chatnpc("<p,neutral>So many paths to choose...|Here we must all take our own path."); // https://web.archive.org/web/20050421234903/http://www.trillionareguild.com/runescape/underground.php
 }
 
-[opnpc1,koftik_4]
+[opnpc1,caveguide4]
 // guessing, need to confirm by getting someone midquest to spawn this one in
-if(%upass_progress >= ^upass_defeated_iban) {
+if(%upass >= ^upass_defeated_iban) {
     ~chatplayer("<p,quiz>Hello Koftik.");
     ~chatnpc("<p,happy>Hello, how's things?"); // no adventurer when i checked by grid
     ~chatplayer("<p,happy>Not bad, yourself?");
     ~chatnpc("<p,neutral>I'm good... just keeping an eye out.");
     return;
 }
-if(testbit(%upass_map_mechanisms, ^upass_koftik_gone_insane) = ^true) {
+if(testbit(%ibanmulti, ^upass_koftik_gone_insane) = ^true) {
     // todo: check mesanim I closed dialogue on rs3, it's happy on OSRS but dialogue is a bit different
     ~chatnpc("<p,happy>Nice job killing those Paladins. You're much closer to his side now. Perhaps you could kill those dwarfs to the south...");
     return;
 }
 @koftik_isthatyou;
 
-[opnpc1,koftik_5] @koftik_whereami;
+[opnpc1,caveguide5] @koftik_whereami;
 
 [label,koftik_whereami]
 ~chatnpc("<p,confused>Traveller, where am I? I can't remember a thing!");
@@ -144,7 +144,7 @@ p_teleport(0_38_151_49_53);
 mes("...and back to the cave entrance.");
 
 [label,koftik_isthatyou]
-%upass_map_mechanisms = setbit(%upass_map_mechanisms, ^upass_koftik_gone_insane);
+%ibanmulti = setbit(%ibanmulti, ^upass_koftik_gone_insane);
 ~chatnpc("<p,shock>Traveller is that you?.. my friend on a mission!");
 ~chatplayer("<p,quiz>Koftik, you're still here, you should leave.");
 ~chatnpc("<p,quiz>Leave?...leave?..this is my home now. Home with my lord, he talks to me, he's my friend.");

@@ -1,12 +1,12 @@
 ﻿name: Verify Engine Code
 
 on:
-  # pull_request:
-  # push:
-  #   paths:
-  #   - '.github/workflows/engine.yml'
-  #   - 'src/**'
-  #   - 'tools/**'
+  pull_request:
+  push:
+    paths:
+    - '.github/workflows/engine.yml'
+    - 'src/**'
+    - 'tools/**'
   workflow_dispatch:
 
 
@@ -17,24 +17,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: pnpm/action-setup@v4
-      name: Install pnpm
-      with:
-        version: 10
-        run_install: false
-
     - uses: actions/setup-node@v4
       with:
         node-version: '22.x'
-        cache: 'pnpm'
 
-    - run: pnpm i
+    - run: npm i
 
     - name: Lint
       run: npm run lint
 
     - name: Compile
       run: npx tsc
-
-    - name: Test
-      run: npm test

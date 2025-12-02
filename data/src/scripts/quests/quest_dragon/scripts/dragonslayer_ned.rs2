@@ -1,17 +1,7 @@
-[debugproc,dragslay]
-mes("Progress: <tostring(%dragon_progress)>.");
-mes("Planks: <tostring(%dragon_planks)>.");
-mes("Ned Hired: <tostring(%dragon_ned_hired)>.");
-mes("Oracle: <tostring(%dragon_oracle)>.");
-mes("Goblin: <tostring(%dragon_goblin)>.");
-mes("Shield: <tostring(%dragon_shield)>.");
-mes("Wall: <tostring(%dragon_wall)>.");
-
-
 [opnpc1,dragonslayer_ned]
 // just incase the player gets to crandor with this varp value
 // since ned is also on crandor
-if ((%dragon_progress = ^quest_dragon_ned_given_map | %dragon_progress = ^quest_dragon_sailed_to_crandor) & coordy(coord) = 3) {
+if ((%dragonquest = ^quest_dragon_ned_given_map | %dragonquest = ^quest_dragon_sailed_to_crandor) & coordy(coord) = 3) {
     ~chatnpc("<p,quiz>Ah! There you are! Ready to go?");
     def_int $choice = ~p_choice2("Yep lets go!", 1, "No I'm not quite ready yet...", 2);
     if ($choice = 2) {
@@ -22,16 +12,16 @@ if ((%dragon_progress = ^quest_dragon_ned_given_map | %dragon_progress = ^quest_
     ~chatplayer("<p,quiz>Yep lets go!");
     mes("You feel the ship begin to move...");
     mes("The ship is sailing across the ocean...");
-    %boat_takeoff = ^sail_port_sarim_to_crandor;
+    %journey_number = ^sail_port_sarim_to_crandor;
 
     if_settext(ship_journey:com_0, "You sail to Crandor Isle.");
     if_openmain(ship_journey);
     midi_jingle(^sailing_journey_jingle, ^sailing_journey_jingle_millis);
 
     p_telejump(^crandor_tele_coord);
-    %dragon_progress = ^quest_dragon_sailed_to_crandor;
+    %dragonquest = ^quest_dragon_sailed_to_crandor;
     %dragon_ned_hired = ^false;
-    %dragon_planks = 0;
+    %dragonquestvar = 0;
     p_delay(11);
     if_close;
     if_settext(ship_journey:com_0, "You Journey on the ship...."); // reset text

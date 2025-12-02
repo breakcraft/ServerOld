@@ -1,5 +1,5 @@
-[oploc1,loc_2530]
-switch_int(%elena_progress) {
+[oploc1,plaguekeybarrel]
+switch_int(%elenaquest) {
     case ^quest_elena_spoke_cured_bravek :
         if (inv_total(inv, elenakey) > 0) {
             mes("The barrel is empty.");
@@ -10,25 +10,25 @@ switch_int(%elena_progress) {
     case default : mes("The barrel is empty.");
 }
 
-[oploc1,loc_2522]
+[oploc1,plaguehousestairsdown]
 mes("You walk down the stairs...");
 p_telejump(0_39_151_41_6);
 
-[oploc1,loc_2523]
+[oploc1,plaguehousestairsup]
 mes("You walk up the stairs...");
 p_telejump(0_39_51_40_7);
 
-[oplocu,loc_2526]
+[oplocu,elenagateshut]
 switch_obj(last_useitem) {
     case elenakey : ~open_and_close_door(loc_param(next_loc_stage), ~check_axis(coord, loc_coord, loc_angle), false);
 }
 
-[oploc1,loc_2526] // elena door
+[oploc1,elenagateshut] // elena door
 if (~check_axis(coord, loc_coord, loc_angle) = false) {
     ~open_and_close_door(loc_param(next_loc_stage), ~check_axis(coord, loc_coord, loc_angle), false);
     return;
 }
-switch_int(%elena_progress) {
+switch_int(%elenaquest) {
     case ^quest_elena_freed_elena, ^elena_complete, ^elena_complete_read_scroll : ~open_and_close_door(loc_param(next_loc_stage), ~check_axis(coord, loc_coord, loc_angle), false);
     case default :
         if (inv_total(inv, elenakey) > 0) {
@@ -37,7 +37,7 @@ switch_int(%elena_progress) {
             ~open_and_close_door(loc_param(next_loc_stage), ~check_axis(coord, loc_coord, loc_angle), false);
         } else {
             ~mesbox("The door is locked.");
-            if (npc_find(coord, elena_imprisoned, 5, 0) = true) {
+            if (npc_find(coord, elenap, 5, 0) = true) {
                 ~chatnpc("<p,shock>Hey get me out of here please!");
                 ~chatplayer("<p,sad>I would do but I don't have a key.");
                 ~chatnpc("<p,confused>I think there may be one around somewhere. I'm sure I heard them stashing it somewhere.");

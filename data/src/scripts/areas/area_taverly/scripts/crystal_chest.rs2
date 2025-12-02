@@ -1,32 +1,27 @@
-[oploc1,closed_crystal_chest]
-@open_crystal_chest;
+// https://www.youtube.com/watch?v=Um6gmCg91Do&t=163s
+[oploc1,crystal_chestclosed]
+sound_synth(locked, 0, 0); // no arrivedelay
+mes("This chest is securely locked shut.");
 
-[oplocu,closed_crystal_chest]
+[oplocu,crystal_chestclosed]
 if(last_useitem = crystal_key) {
     @open_crystal_chest;
-} else {
-    ~displaymessage(^dm_default);
 }
+~displaymessage(^dm_default);
 
 [label,open_crystal_chest]
 p_arrivedelay;
-if (inv_total(inv, crystal_key) > 0) {
-    mes("You unlock the chest with your key.");
-    anim(human_openchest, 0);
-    sound_synth(chest_open, 0, 0);
-    // Temp note: dur updated
-    loc_change(opened_crystal_chest, 3);
-    p_delay(0);
-    inv_del(inv, crystal_key, 1);
-    mes("You find some treasure in the chest!");
-    @crystal_chest_reward;
-} else {
-    mes("This chest is securely locked shut.");
-}
+mes("You unlock the chest with your key.");
+anim(human_openchest, 0);
+sound_synth(chest_open, 0, 0);
+p_delay(0);
+loc_change(crystal_chestopen, 2);
+inv_del(inv, crystal_key, 1);
+mes("You find some treasure in the chest!");
+@crystal_chest_reward;
 
 [label,crystal_chest_reward]
 inv_add(inv, uncut_dragonstone, 1);
-
 def_int $random = random(128);
 
 if ($random < 34) {

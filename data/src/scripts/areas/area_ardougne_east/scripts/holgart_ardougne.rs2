@@ -1,5 +1,5 @@
-[opnpc1,holgart_ardougne]
-switch_int (%seaslug_progress) {
+[opnpc1,holgartland]
+switch_int (%seaslugquest) {
     case ^seaslug_not_started : @holgart_prequest;
     case ^seaslug_started : @holgart_wantboat;
     case ^seaslug_spoken_holgart : @holgart_paste;
@@ -27,7 +27,7 @@ switch_int (%seaslug_progress) {
 ~chatnpc("<p,sad>Unfortunately the only supply of swamp tar is in the swamps below Lumbridge. It's too far for an old man like me to travel.");
 ~chatnpc("<p,neutral>If you make me some swamp paste I'll give you a ride in my boat.");
 ~chatplayer("<p,neutral>I'll see what I can do.");
-%seaslug_progress = ^seaslug_spoken_holgart;
+%seaslugquest = ^seaslug_spoken_holgart;
 
 [label,holgart_paste]
 ~chatplayer("<p,happy>Hello Holgart.");
@@ -42,7 +42,7 @@ if(inv_total(inv, swamppaste) < 1) {
 ~chatplayer("<p,happy>Yes, I have some here.");
 mes("You give Holgart the swamp paste.");
 inv_del(inv, swamppaste, 1);
-%seaslug_progress = ^seaslug_boat_repaired;
+%seaslugquest = ^seaslug_boat_repaired;
 ~chatnpc("<p,neutral>Superb, this looks great.");
 ~mesbox("Holgart smears the paste over the under side of his boat.");
 ~chatnpc("<p,happy>That's the job done, now we can go.|Jump aboard!");

@@ -1,4 +1,4 @@
-[gundai]
+[magearena_banker]
 vislevel=hide
 name=Gundai
 desc=He must get lonely out here.
@@ -21,7 +21,7 @@ head1=model_53_idk_head
 head2=model_85_idk_head
 head3=model_78_npc_head
 
-[lundail]
+[magearena_runeshop]
 vislevel=hide
 name=Lundail
 desc=He sells rune stones.
@@ -44,7 +44,7 @@ param=shop_buy_multiplier,600
 param=shop_delta,30
 param=shop_title,Lundail's Arena-side Rune Shop.
 
-[chamber_guardian]
+[magearena_guardian]
 vislevel=hide
 name=Chamber guardian
 desc=He hasn't seen much sun lately.
@@ -76,7 +76,7 @@ param=shop_buy_multiplier,0
 param=shop_delta,20
 param=shop_title,Mage Arena Staffs.
 
-[kolodion]
+[arenamage1]
 vislevel=hide
 name=Kolodion
 desc=He runs the mage arena.
@@ -109,7 +109,7 @@ head2=model_82_idk_head
 head3=model_68_obj_wear
 wanderrange=1
 
-[kolodion_defeated]
+[arenamage2]
 vislevel=hide
 name=Kolodion
 desc=He runs the mage arena.
@@ -142,7 +142,7 @@ head3=model_68_obj_wear
 wanderrange=0
 moverestrict=nomove
 
-[kolodion_human_form]
+[kolhuman]
 vislevel=hide
 name=Kolodion
 desc=He runs the mage arena.
@@ -173,21 +173,23 @@ model9=model_290_obj_wear
 head1=model_48_npc_head
 head2=model_82_idk_head
 head3=model_68_obj_wear
+wanderrange=5
+maxrange=7
 attackrange=3
-// TODO respawnrate? recheck attackrange
+// TODO respawnrate?
 hitpoints=3
 attack=15
 defence=20
 strength=10
 magic=15
-// param=damagetype,
+// param=damagetype,^crush_style
+// this npc havent any defend sound? TODO confirm this..
 param=death_drop,null
 category=kolodion
 // osrs stats match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1605
-// TODO monster examine spell
 
-[kolodion_ogre_form]
+[kologre]
 vislevel=hide
 name=Kolodion
 desc=He's a shape shifter.
@@ -208,6 +210,8 @@ recol6s=15649
 recol6d=5283
 model1=model_2863_npc
 model2=model_2871_npc
+wanderrange=10
+maxrange=10
 attackrange=5
 // TODO respawnrate?
 hitpoints=65
@@ -215,11 +219,11 @@ attack=55
 strength=70
 defence=72
 magic=50
-// param=damagetype,
+// param=damagetype,^crush_style
 param=attack_anim,giant_attack
-param=magicattack_anim,giant_casting
 param=defend_anim,giant_block
 param=death_anim,giant_death
+param=magicattack_anim,giant_casting
 param=spawn_anim,giant_teleport_reverse
 param=attack_sound,giant_attack
 param=defend_sound,giant_hit
@@ -228,9 +232,8 @@ param=death_drop,null
 category=kolodion
 // osrs stats match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1606
-// TODO monster examine spell
 
-[kolodion_arachnid_form]
+[kolspider]
 vislevel=hide
 name=Kolodion
 desc=He's a shape shifter.
@@ -243,6 +246,8 @@ op2=Attack
 recol1s=31393
 recol1d=12690
 model1=model_2884_npc
+wanderrange=10
+maxrange=10
 attackrange=5
 // TODO respawnrate?
 hitpoints=78
@@ -250,7 +255,7 @@ attack=69
 strength=78
 defence=47
 magic=70
-// param=damagetype,
+// param=damagetype,^crush_style
 param=attack_anim,giantspider_attack
 param=defend_anim,giantspider_block
 param=death_anim,giantspider_death
@@ -262,10 +267,10 @@ param=death_sound,insect_death
 param=death_drop,null
 category=kolodion
 // osrs stats match 1:1
+// osrs sounds kilrag_hit
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1607
-// TODO monster examine spell
 
-[kolodion_ethereal_form]
+[kolethereal]
 vislevel=hide
 name=Kolodion
 desc=He's a shape shifter.
@@ -294,24 +299,31 @@ model4=model_162_idk
 model5=model_176_idk
 model6=model_267_idk
 model7=model_181_idk
-param=defend_anim,human_sword_transdef
-param=death_anim,human_transdeath
-param=spawn_anim,human_castteleport_reverse
-// TODO respawnrate?
+wanderrange=10
+maxrange=10
 attackrange=5
+// TODO respawnrate?
 hitpoints=78
 attack=28
 strength=23
 defence=58
 magic=30
-// param=damagetype,
+// param=damagetype,^crush_style
+param=attack_anim,human_trans_axe_chop
+param=defend_anim,human_sword_transdef
+param=death_anim,human_transdeath
+param=magicattack_anim,human_trans_casting
+param=spawn_anim,human_castteleport_reverse
+param=attack_sound,otherworld_attack
+param=defend_sound,otherworld_hit
+param=death_sound,otherworld_death
 param=death_drop,null
 category=kolodion
+// On the OSRS side, this NPC uses the defend sound ID 665 = screech2... which is exactly the same as the sound 664 = otherworld_hit.
 // osrs stats match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1608
-// TODO monster examine spell
 
-[kolodion_demon_form]
+[koldemon]
 size=3
 walkanim=demon_walk
 readyanim=demon_ready
@@ -327,8 +339,10 @@ recol2d=1057
 recol3s=0
 recol3d=16417
 model1=model_2942_npc
+wanderrange=10
+maxrange=10
 attackrange=5
-// TODO respawnrate? confirm demonbae effect?..
+// TODO respawnrate?
 hitpoints=107
 attack=85
 strength=98
@@ -338,19 +352,17 @@ param=damagetype,^slash_style
 param=attack_anim,demon_attack
 param=magicattack_anim,demon_casting
 param=defend_anim,demon_block
-param=death_anim,demon_death
+param=death_anim,demon_death_greater
 param=spawn_anim,demon_portalend_reverse
-param=demonbane_vulnerable,yes
 param=attack_sound,black_demon_attack
 param=defend_sound,black_demon_hit
 param=death_sound,black_demon_death
 param=death_drop,null
 category=kolodion
-// osrs stats match 1:1
+// Stats match osrs version but our version Vislvl is different.
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1609
-// TODO monster examine spell
 
-[battle_mage_zamorak]
+[zamorak_mage]
 name=Battle mage
 desc=He kills in the name of Zamorak.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
@@ -395,7 +407,7 @@ category=battle_mage
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1610
 
-[battle_mage_saradomin]
+[saradomin_mage]
 name=Battle mage
 desc=He kills in the name of Saradomin.
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
@@ -436,7 +448,7 @@ category=battle_mage
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1611
 
-[battle_mage_guthix]
+[guthix_mage]
 name=Battle mage
 desc=He kills in the name of Guthix.
 walkanim=midget_walk
@@ -458,12 +470,13 @@ respawnrate=300
 hitpoints=120
 magic=50
 param=damagetype,^crush_style
+param=attack_anim,midget_attackunarmed
+param=magicattack_anim,midget_chanting
+param=defend_anim,midget_block
 param=death_anim,midget_death
 param=attack_sound,gnome_attack
 param=defend_sound,gnome_hit
 param=death_sound,gnome_death
-param=magicattack_anim,midget_chanting
-param=defend_anim,midget_block
 category=battle_mage
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1612

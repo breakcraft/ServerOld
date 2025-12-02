@@ -38,7 +38,7 @@ if($option = 1) {
 [label,sinister_stranger_my_spot]
 ~chatnpc("<p,angry>I think you will find that is my spot.");
 // pipes spot only
-if(%fishingcompo_progress = ^fishingcompo_in_comp) {
+if(%fishingcompo = ^fishingcompo_in_comp) {
     ~chatplayer("<p,confused>Can't you go to another spot?");
     ~chatnpc("<p,angry>I like this place.|I like to savour the aroma coming from these pipes.");
 }

@@ -1,6 +1,6 @@
 [oploc1,ikov_luciendoor]
-if(%ikov_progress >= ^ikov_started) {
-    ~open_and_close_door2(loc_1538, ~check_axis_locactive(coord), door_open);
+if(%ikov >= ^ikov_started) {
+    ~open_and_close_door2(poordoor_crossopen, ~check_axis_locactive(coord), door_open);
     return;
 }
 // https://www.youtube.com/watch?v=-tsHE3OEuYk&t=126s
@@ -17,13 +17,13 @@ switch_int(random(6)) {
 }
 
 [proc,lucien_attack]()(boolean)
-if(map_members = ^true & %ikov_progress >= ^ikov_completed_armadyl) { // RS3 wiki implies map_members check here, seems to make sense
+if(map_members = ^true & %ikov >= ^ikov_completed_armadyl) { // RS3 wiki implies map_members check here, seems to make sense
     // RS3, OSRS wiki also mentions: "If you try to attack Lucien before the end of the Temple of Ikov quest without wearing the Armadyl pendant, he says "You do not want to attack me. I am your friend."
     // so likely was in OSRS as well
     mes("You have completed the Temple of Ikov quest.");
     return (false);
 }
-if(map_members = ^true & %ikov_progress = ^ikov_helping_armadyl & inv_total(worn, ikov_pendantofarmardyl) > 0) {
+if(map_members = ^true & %ikov = ^ikov_helping_armadyl & inv_total(worn, ikov_pendantofarmardyl) > 0) {
     return (true);
 }
 ~chatnpc("<p,neutral>You don't want to attack me. I am your friend.");
@@ -35,11 +35,11 @@ p_delay(1);
 return (false);
 
 [opobj3,ikov_staffofarmardyl]
-if(%ikov_progress >= ^ikov_completed_armadyl) {
+if(%ikov >= ^ikov_completed_armadyl) {
     mes("You have completed the quest of the Temple of Ikov.");
     return;
 }
-if(%ikov_progress = ^ikov_helping_armadyl) {
+if(%ikov = ^ikov_helping_armadyl) {
     mes("You decide not to steal the staff as you have agreed to help the Guardians.");
     return;  
 }
@@ -58,7 +58,7 @@ while (npc_huntnext = true) {
 @pickup_obj;
 
 [queue,ikov_armadyl_quest_complete](npc_uid $npc)
-%ikov_progress = ^ikov_completed_armadyl;
+%ikov = ^ikov_completed_armadyl;
 stat_advance(ranged, 105000);
 stat_advance(fletching, 80000);
 session_log(^log_adventure, "Quest complete: Temple of Ikov (Armadyl)");
@@ -68,7 +68,7 @@ if (npc_finduid($npc) = true) {
 }
 
 [queue,ikov_lucien_quest_complete]
-%ikov_progress = ^ikov_completed_lucien;
+%ikov = ^ikov_completed_lucien;
 inv_del(inv, ikov_staffofarmardyl, 1);
 stat_advance(ranged, 105000);
 stat_advance(fletching, 80000);

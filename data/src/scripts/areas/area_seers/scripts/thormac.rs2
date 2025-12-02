@@ -1,5 +1,5 @@
 [opnpc1,thormac]
-switch_int (%scorpcatcher_progress) {
+switch_int (%scorpcatcher) {
     case ^scorpcatcher_not_started : @thormac_assistance;
     case ^scorpcatcher_complete : @thormac_thankyou;
     case default : @thormac_how_goes;
@@ -57,8 +57,8 @@ if(inv_total(inv, scorpioncageempty) = 0) {
     inv_add(inv, scorpioncageempty, 1); 
     mes("Thormac gives you a cage.");
 }
-%scorpcatcher_progress = ^scorpcatcher_started;
-~send_quest_progress(questlist:scorpcatcher, %scorpcatcher_progress, ^scorpcatcher_complete);
+%scorpcatcher = ^scorpcatcher_started;
+~send_quest_progress(questlist:scorpcatcher, %scorpcatcher, ^scorpcatcher_complete);
 
 [label,thormac_how_goes]
 ~chatnpc("<p,quiz>How goes your quest?");

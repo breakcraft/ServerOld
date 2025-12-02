@@ -1,6 +1,6 @@
 [opnpc1,harlow]
 ~chatnpc("<p,confused>Buy me a drrink pleassh...");
-switch_int (%vampire_progress) {
+switch_int (%vampire) {
     case ^quest_vampire_started : @harlow_during_vampire_slayer;
     case ^quest_vampire_spoke_to_harlow : @harlow_during_vampire_slayer_buy_beer;
     case default : ~chatplayer("<p,quiz>I think you've had enough.");

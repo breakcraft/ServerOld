@@ -1,5 +1,5 @@
 [opnpc1,sir_amik_varze]
-switch_int (%blackknight_progress) {
+switch_int (%spy) {
     case 0 : @black_knights_fortress_sir_amik_prequest;
     case 1,2,3 : @black_knights_fortress_sir_amik_in_progress;
     case 4 : @black_knights_fortress_sir_amik_postquest;
@@ -12,7 +12,7 @@ def_int $option = ~p_choice2("I seek a quest!", 1, "I don't, I'm just looking ar
 if ($option = 1) {
     ~chatplayer("<p,neutral>I seek a quest.");
 
-    if (%questpoints < 12) {
+    if (%qp < 12) {
         ~chatnpc("<p,neutral>Well I do have a task, but it is very dangerous and it's critical to us that no mistakes are made. I couldn't possibly let an unexperienced quester like yourself go.");
         mes("You need at least 12 quest points before you may attempt this quest.");
     } else {
@@ -57,14 +57,14 @@ if ($option = 1) {
 ~update_blackknight_progress;
 
 [label,black_knights_fortress_sir_amik_in_progress]
-if (%blackknight_progress = 1) {
+if (%spy = 1) {
     ~chatnpc("<p,quiz>How's the mission going?");
     ~chatplayer("<p,sad>I haven't managed to find what the secret weapon is yet.");
-} else if (%blackknight_progress = 2) {
+} else if (%spy = 2) {
     ~chatnpc("<p,quiz>How's the mission going?");
     ~chatplayer("<p,neutral>I've found out what the Black Knight's secret weapon is. It's a potion of invincibility.");
     ~chatnpc("<p,angry>That is bad news.|If you can sabotage it somehow, you will be paid well.");
-} else if (%blackknight_progress = 3) {
+} else if (%spy = 3) {
     ~chatplayer("<p,happy>I have ruined the Black Knight's invincibility potion.|That should put a stop to your problem.");
     ~chatnpc("<p,neutral>Yes we have just received a message from the Black Knights saying they withdraw their demands. Which confirms your story.");
     ~chatplayer("<p,quiz>You said you were going to pay me.");

@@ -1,5 +1,5 @@
 [opnpc1,romeo]
-switch_int (%romeojuliet_progress) {
+switch_int (%rjquest) {
     case ^romeojuliet_not_started : @romeojuliet_start;
     case ^romeojuliet_spoken_romeo : ~chatnpc("<p,sad>Please find my Juliet, I am so, so sad.");
     case ^romeojuliet_spoken_juliet : @romeo_messagefrom;
@@ -40,8 +40,8 @@ switch_int(~p_choice3("Yes, I have seen her.", 1, "No, but that's girls for you.
 ~chatplayer("<p,neutral>Yes, I will tell her how you feel.");
 ~chatnpc("<p,happy>You are the saviour of my heart, thank you.");
 ~chatplayer("<p,neutral>Err, yes. Ok. Thats.... Nice.");
-%romeojuliet_progress = ^romeojuliet_spoken_romeo;
-~send_quest_progress(questlist:romeojuliet, %romeojuliet_progress, ^romeojuliet_complete);
+%rjquest = ^romeojuliet_spoken_romeo;
+~send_quest_progress(questlist:romeojuliet, %rjquest, ^romeojuliet_complete);
 
 [label,romeo_busy]
 ~chatplayer("<p,quiz>Sorry, I am too busy. Maybe later?");
@@ -55,7 +55,7 @@ switch_int(~p_choice3("Yes, I have seen her.", 1, "No, but that's girls for you.
 ~chatplayer("<p,happy>Romeo, I have a message from Juliet.");
 ~mesbox("You pass Juliet's message to Romeo.");
 inv_del(inv, julietmessage, 1);
-%romeojuliet_progress = ^romeojuliet_passed_message;
+%rjquest = ^romeojuliet_passed_message;
 ~chatnpc("<p,sad>Tragic news. Her father is opposing our marriage.");
 ~chatnpc("<p,sad>If her father sees me, he will kill me.");
 ~chatnpc("<p,sad>I dare not go near his lands.");

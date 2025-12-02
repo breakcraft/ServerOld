@@ -1,11 +1,11 @@
-[opnpc1,donovan]
+[opnpc1,donovan_the_family_handyman]
 if(inv_total(inv, trail_clue_medium_anagram009) > 0) {
     ~chatnpc("<p,neutral>Here you go.");
     ~progress_clue_medium(trail_clue_medium_anagram009, "Donovan has given you another clue scroll!");
     return;
 }
 
-switch_int(%murder_progress) { 
+switch_int(%murderquest) { 
     case ^murder_not_started :
         ~chatnpc("<p,neutral>I have no interest in talking to gawkers.");
     case ^murder_started :

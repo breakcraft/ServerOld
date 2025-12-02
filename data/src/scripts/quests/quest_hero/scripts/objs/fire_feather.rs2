@@ -1,5 +1,5 @@
-[opobj3,fire_feather]
-if (%hero_progress = ^hero_not_started) {
+[opobj3,hot_feather]
+if (%heroquest = ^hero_not_started) {
   mes("It looks dangerously hot, and you have no reason to take it.");
   return;
 }

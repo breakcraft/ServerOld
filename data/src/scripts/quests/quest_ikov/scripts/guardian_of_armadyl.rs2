@@ -1,5 +1,5 @@
 [opnpc1,_guardian_of_armadyl]
-if(%ikov_progress = ^ikov_helping_armadyl) {
+if(%ikov = ^ikov_helping_armadyl) {
     ~chatnpc("<p,neutral>Have you killed Lucien?");
     if(~obj_gettotal(ikov_pendantofarmardyl) = 0) {
         ~chatplayer("<p,sad>Not yet, I've lost the pendant you gave me!");
@@ -17,12 +17,12 @@ if(inv_total(inv, ikov_staffofarmardyl) > 0) {
     npc_setmode(opplayer2);
     return;
 }
-if(%ikov_progress = ^ikov_completed_lucien | inv_total(worn, ikov_pendantoflucien) > 0 | ~obj_gettotal(ikov_staffofarmardyl) > 0) {
+if(%ikov = ^ikov_completed_lucien | inv_total(worn, ikov_pendantoflucien) > 0 | ~obj_gettotal(ikov_staffofarmardyl) > 0) {
     ~chatnpc("<p,angry>Thou is a foul agent of Lucien! Such an agent must die!");
     npc_setmode(opplayer2);
     return;
 }
-if(%ikov_progress = ^ikov_paid_winelda) {
+if(%ikov = ^ikov_paid_winelda) {
     ~chatnpc("<p,neutral>Thou hast ventured deep into the tunnels, you have reached the temple of our master. It is many ages since a pilgrim has come here.");
     @multi3("I seek the Staff of Armadyl.", armadyl_staffofarma, "Out of my way fool!", armadyl_fool, "What are your kind and what are you doing here?", armadyl_what_kind);
 }
@@ -110,7 +110,7 @@ npc_setmode(opplayer2);
 ~chatnpc("<p,neutral>Hast thou come across the undead necromancer? It was he that raised an army of the undead against Varrock a generation ago. If you know where he is you can help us defeat him.");
 switch_int(~p_choice3("Ok! I'll help!", 1, "No! I shall not turn against my employer!", 2, "I need time to think.", 3)) {
     case 1 :
-        %ikov_progress = ^ikov_helping_armadyl;
+        %ikov = ^ikov_helping_armadyl;
         ~chatplayer("<p,happy>Ok! I'll help!");
         ~chatnpc("<p,happy>So he is close by?");
         ~chatplayer("<p,happy>Yes!");

@@ -10,7 +10,7 @@ if (~npc_is_attackable = false) { // test: wormbrain's special mes shows before 
 def_dbrow $spell_data = ~get_spell_data(%autocast_spell);
 if (~check_spell_requirements($spell_data) = false) {
     if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
-        %attackstyle_magic = 0;
+        ~player_autocast_reset;
     }
     return;
 }
@@ -18,7 +18,7 @@ p_opnpct(db_getfield($spell_data, magic_spell_table:spellcom, 0));
 
 // osrs's opnpct triggers are unused
 [apnpct,magic:wind_strike]
-if (%tutorial_progress < ^tutorial_complete) {
+if (%tutorial < ^tutorial_complete) {
    ~pvm_tutorial_spell(^wind_strike);
 } else {
    ~pvm_default_spell(^wind_strike);
@@ -39,19 +39,19 @@ if (%tutorial_progress < ^tutorial_complete) {
 [apnpct,magic:earth_wave] ~pvm_default_spell(^earth_wave);
 [apnpct,magic:fire_wave] ~pvm_default_spell(^fire_wave);
 [apnpct,magic:curse] 
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^curse);
 } else {
    ~pvm_default_spell(^curse);
 }
 [apnpct,magic:weaken]
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^weaken);
 } else {
    ~pvm_default_spell(^weaken);
 }
 [apnpct,magic:confuse]
-if (npc_type = ungadulu) {
+if (npc_type = ungadulu_good) {
    ~legends_spell_usage(^confuse);
 } else {
    ~pvm_default_spell(^confuse);
@@ -98,7 +98,7 @@ if (map_clock < %action_delay) {
 }
 if (~check_spell_requirements($spell_data) = false) {
     if (%autocast_spell = db_getfield($spell_data, magic_spell_table:spell, 0)) { // matches osrs behavior
-        %attackstyle_magic = 0;
+        ~player_autocast_reset;
     }
     return(false);
 }
@@ -203,9 +203,9 @@ if(npc_type = salarin_the_twisted) {
         case ^fire_strike : $damage = 12;
     }
 }
-else if (npc_type = crest_chronozon) {
+else if (npc_type = chronozon) {
     def_int $spell = db_getfield($spell_data, magic_spell_table:spell, 0);
-    ~crest_chronozon_spell($spell);
+    ~chronozon_spell($spell);
 }
 // if maxhit is defined then damage npc
 ~npc_retaliate(calc($duration / 30 + 1)); // delayed an extra tick in osrs

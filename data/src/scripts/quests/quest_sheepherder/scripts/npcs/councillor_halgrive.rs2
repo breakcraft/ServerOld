@@ -1,5 +1,5 @@
 [opnpc1,councillor_halgrive]
-switch_int(%sheepherder_progress) {
+switch_int(%sheepherderquest) {
     case ^sheepherder_not_started : @halgrive_before_sheep_herder;
     case ^sheepherder_tasked_with_talking_to_dr_orbon : @halgrive_before_obtaining_plague_gear;
     case ^sheepherder_tasked_with_disposing_of_sheep : @halgrive_before_incinerating_sheep;
@@ -41,9 +41,9 @@ switch_int(%sheepherder_progress) {
 ~chatnpc("<p,neutral>Please also take this poisoned sheep feed; we believe poisoning the sheep will minimise the risk of airborne contamination, and is of course also more humane to the sheep.");
 ~mesbox("The councillor gives you some poisoned sheep feed.");
 inv_add(inv, poisoned_feed, 1);
-if (%sheepherder_progress = ^sheepherder_not_started) {
-    %sheepherder_progress = ^sheepherder_tasked_with_talking_to_dr_orbon;
-    ~send_quest_progress(questlist:sheepherder, %sheepherder_progress, ^sheepherder_complete);
+if (%sheepherderquest = ^sheepherder_not_started) {
+    %sheepherderquest = ^sheepherder_tasked_with_talking_to_dr_orbon;
+    ~send_quest_progress(questlist:sheepherder, %sheepherderquest, ^sheepherder_complete);
 }
 ~chatplayer("<p,neutral>How will I know which sheep are infected?");
 ~chatnpc("<p,sad>The poor creatures have developed strangely discoloured wool and flesh. You should have no trouble spotting them.");
@@ -58,7 +58,7 @@ if (inv_total(inv, poisoned_feed) < 1) {
 
 [label,halgrive_before_incinerating_sheep]
 // test bit here
-if (getbit_range(%sheepherder_disposal, 0, 12) = 7020) {
+if (getbit_range(%sheepherdervar, 0, 12) = 7020) {
     ~chatnpc("<p,quiz>Have you managed to find and dispose of those four sheep yet?");
     ~chatplayer("<p,neutral>Yes, I have.");
     ~chatnpc("<p,neutral>Excellent work adventurer!|Please let me reimburse you the 100 gold|it cost you to purchase your protective clothing.");

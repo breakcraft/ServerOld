@@ -1,6 +1,6 @@
 [opnpc1,king_arthur]
-if(%grail_progress > ^grail_not_started) {
-    switch_int(%grail_progress) {
+if(%grail > ^grail_not_started) {
+    switch_int(%grail) {
         case ^grail_complete :  
             ~chatnpc("<p,happy>Thank you for retrieving the Grail!|You shall be long remembered|as one of the greatest heroes|amongst the Knights of the Round Table!");
         case ^grail_finding_percival :
@@ -17,15 +17,15 @@ if(%grail_progress > ^grail_not_started) {
                 ~chatnpc("<p,bored>Free up some space and I'll give you a feather.");
                 return;
             }
-            if(~obj_gettotal(magic_gold_feather) = 0) {
-                inv_add(inv, magic_gold_feather, 1);
+            if(~obj_gettotal(magic_golden_feather) = 0) {
+                inv_add(inv, magic_golden_feather, 1);
                 ~mesbox("King Arthur gives you a feather.");
             } else {
                 ~chatnpc("<p,bored>You've got one of the feathers somewhere - off you go."); // think these check dialogues may have been added to osrs but not sure
             }
         case default :
             ~chatnpc("<p,quiz>How goes thy quest?");
-            if(inv_total(inv, holy_grail) > 0 & %grail_progress = ^grail_given_whistle) {
+            if(inv_total(inv, holy_grail) > 0 & %grail = ^grail_given_whistle) {
                 ~chatplayer("<p,happy>I have retrieved the Grail!");
                 ~chatnpc("<p,happy>Wow! Incredible! You truly are a splendid knight!");
                 queue(grail_quest_complete, 0);
@@ -33,12 +33,12 @@ if(%grail_progress > ^grail_not_started) {
             }
             ~chatplayer("<p,neutral>I am making progress, but I have not recovered the Grail yet.");
             ~chatnpc("<p,neutral>Well, the Grail IS very elusive, it may take some perseverance.");
-            if(%grail_progress = ^grail_started) {
+            if(%grail = ^grail_started) {
                 ~chatnpc("<p,neutral>As I said before, speak to Merlin in the workshop by the library.");
             }
     }
 } else {
-    switch_int(%arthur_progress) {
+    switch_int(%arthur) {
         case ^arthur_freed_merlin : @king_arthur_merlin_free;
         case ^arthur_complete : @king_arthur_grailstart;
         case default : @king_arthur_firstmeet;
@@ -62,8 +62,8 @@ switch_int(~p_choice2("Tell me of this quest.", 1, "I am weary of questing for t
         switch_int(~p_choice2("I'd enjoy trying that.", 1, "I may come back and try that later.", 2)) {
             case 1 :
                 ~chatplayer("<p,neutral>I'd enjoy trying that.");
-                %grail_progress = ^grail_started;
-                ~send_quest_progress(questlist:grail, %grail_progress, ^grail_complete);
+                %grail = ^grail_started;
+                ~send_quest_progress(questlist:grail, %grail, ^grail_complete);
                 ~chatnpc("<p,neutral>Go speak to Merlin. He may be able to give a better clue as to where it is now you have freed him from that crystal.");
                 ~chatnpc("<p,neutral>He has set up his workshop in the room next to the library.");
             case 2 :
@@ -81,7 +81,7 @@ switch_int(~p_choice2("Tell me of this quest.", 1, "I am weary of questing for t
 switch_int(~p_choice3("I want to become a Knight of the Round Table!", 1, "So what are you doing in RuneScape?", 2, "Thank you very much.", 3)) {
     case 1 :
         ~chatplayer("<p,neutral>I want to become a Knight of the Round Table!");
-        if(%arthur_progress > ^arthur_not_started) {
+        if(%arthur > ^arthur_not_started) {
             ~chatnpc("<p,neutral>Well then you must complete your quest to rescue Merlin. Talk to my knights if you need any help.");
             return;
         }
@@ -89,8 +89,8 @@ switch_int(~p_choice3("I want to become a Knight of the Round Table!", 1, "So wh
         ~chatnpc("<p,neutral>My knights all appreciate a good quest.");
         ~chatnpc("<p,sad>Unfortunately, our current quest is to rescue Merlin.");
         ~chatnpc("<p,confused>Back in England, he got himself trapped in some|sort of magical crystal. We've moved|him from the cave we found him in and now|he's upstairs in his tower.");
-        %arthur_progress = ^arthur_started;
-        ~send_quest_progress(questlist:arthur, %arthur_progress, ^arthur_complete);
+        %arthur = ^arthur_started;
+        ~send_quest_progress(questlist:arthur, %arthur, ^arthur_complete);
         ~chatplayer("<p,neutral>I will see what I can do then.");
         ~chatnpc("<p,neutral>Talk to my knights if you need any help.");
     case 2 :

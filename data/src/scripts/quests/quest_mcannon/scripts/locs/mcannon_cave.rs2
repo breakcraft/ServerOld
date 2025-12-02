@@ -3,8 +3,8 @@
 p_delay(1);
 // Message exists in RSC
 mes("You cautiously enter the cave.");
-if (%mcannon_progress = ^mcannon_tasked_with_finding_goblin_cave) {
-    %mcannon_progress = ^mcannon_tasked_with_finding_gilobs_son;
+if (%mcannon = ^mcannon_tasked_with_finding_goblin_cave) {
+    %mcannon = ^mcannon_tasked_with_finding_gilobs_son;
 }
 // Anim used in OSRS is 2796
 p_telejump(0_40_153_60_5);

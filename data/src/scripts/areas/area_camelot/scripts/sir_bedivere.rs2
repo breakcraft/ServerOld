@@ -1,12 +1,12 @@
 [opnpc1,sir_bedivere]
 ~chatnpc("<p,happy>May I help you?");
-if(%grail_progress > ^grail_not_started & %grail_progress < ^grail_complete) {
+if(%grail > ^grail_not_started & %grail < ^grail_complete) {
     ~chatnpc("<p,happy>You are looking for the Grail now adventurer?");
     ~chatplayer("<p,neutral>Absolutely.");
      ~chatnpc("<p,happy>The best of luck to you! Make the name of Camelot proud, and bring it back to us.");
     return;
 } 
-switch_int (%arthur_progress) {
+switch_int (%arthur) {
     case ^arthur_not_started :
         ~chatplayer("<p,neutral>I'm really just looking for a quest...");
         ~chatnpc("<p,neutral>Fortune favours us both then adventurer.|I suggest you go and speak to King Arthur.");

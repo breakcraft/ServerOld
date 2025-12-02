@@ -9,7 +9,7 @@ p_telejump($coord);
 // force walk to a specific location, this isn't the 
 // same as an exactmove 
 [proc,agility_force_move](int $xp, seq $walk_seq, coord $dest)
-~set_walkbas($walk_seq);
+~set_forcemove_bas($walk_seq);
 def_int $change_x = calc(coordx($dest) - coordx(coord));
 def_int $change_z = calc(coordz($dest) - coordz(coord));
 ~agility_walk($change_x, $change_z, true);
@@ -114,8 +114,8 @@ if (gender() = 0) {
 mes($message);
 p_delay(0);
 if (stat(hitpoints) = 0){
-    ~player_die;
-    // no early return, ring of life still processes on death. https://youtu.be/LSpyUVXa4LE?t=202
+    queue(player_death, 0);
+    return;
 }
 ~ring_of_life_check;
 
@@ -151,6 +151,16 @@ mes($message);
 
 [proc,set_readywalkturn_bas](seq $ready_seq, seq $turn_seq, seq $walk_seq)
 ~bas_set($ready_seq, $turn_seq, $walk_seq, $walk_seq, $walk_seq, $walk_seq, null);
+
+[proc,set_forcemove_bas](seq $walk_seq)
+switch_seq($walk_seq) {
+    case human_walk_logbalance : ~set_readywalk_bas(human_walk_logbalance_ready, human_walk_logbalance);
+    case human_climbing : ~set_readywalk_bas(human_climbing_ready, human_climbing);
+    case human_climbing_down : ~set_readywalk_bas(human_climbing_ready, human_climbing_down);
+    case human_walk_sidestep : ~set_readywalkturn_bas(human_ready_sidestep, human_ready_sidestep, human_walk_sidestep);
+    case human_walk_sidestepl : ~set_readywalkturn_bas(human_ready_sidestepl, human_ready_sidestepl, human_walk_sidestepl);
+    case default : ~set_walkbas($walk_seq);
+}
 
 // Finds an identical loc on the $merge_pos coord to switch active_loc to
 [proc,change_merged_loc](coord $merge_pos)

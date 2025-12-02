@@ -1,5 +1,5 @@
 [chatquiz1]
-replayoff=12
+loops=12
 frame1=anim_129
 frame2=anim_129
 frame3=anim_184
@@ -66,7 +66,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatquiz2]
-replayoff=12
+loops=12
 frame1=anim_338
 frame2=anim_338
 frame3=anim_30
@@ -181,7 +181,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatquiz3]
-replayoff=12
+loops=12
 frame1=anim_26
 frame2=anim_26
 frame3=anim_74
@@ -330,7 +330,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatquiz4]
-replayoff=12
+loops=12
 frame1=anim_338
 frame2=anim_338
 frame3=anim_30
@@ -529,7 +529,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatbored1]
-replayoff=12
+loops=12
 frame1=anim_268
 frame2=anim_268
 frame3=anim_322
@@ -596,7 +596,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatbored2]
-replayoff=12
+loops=12
 frame1=anim_107
 frame2=anim_107
 frame3=anim_161
@@ -711,7 +711,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatbored3]
-replayoff=12
+loops=12
 frame1=anim_157
 frame2=anim_157
 frame3=anim_212
@@ -860,7 +860,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatbored4]
-replayoff=12
+loops=12
 frame1=anim_107
 frame2=anim_107
 frame3=anim_161
@@ -1059,7 +1059,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [shortchatneu1]
-replayoff=12
+loops=12
 frame1=anim_35
 frame2=anim_35
 frame3=anim_85
@@ -1090,7 +1090,7 @@ iframe5=anim_235
 iframe6=anim_290
 
 [chathap1]
-replayoff=12
+loops=12
 frame1=anim_275
 frame2=anim_275
 frame3=anim_330
@@ -1158,7 +1158,7 @@ iframe24=anim_66
 
 
 [chathap2]
-replayoff=12
+loops=12
 frame1=anim_111
 frame2=anim_111
 frame3=anim_166
@@ -1273,7 +1273,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chathap3]
-replayoff=12
+loops=12
 frame1=anim_162
 frame2=anim_162
 frame3=anim_216
@@ -1422,7 +1422,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chathap4]
-replayoff=12
+loops=12
 frame1=anim_111
 frame2=anim_111
 frame3=anim_166
@@ -1621,7 +1621,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatshock1]
-replayoff=12
+loops=12
 frame1=anim_22
 frame2=anim_22
 frame3=anim_69
@@ -1688,7 +1688,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatshock2]
-replayoff=12
+loops=12
 frame1=anim_225
 frame2=anim_225
 frame3=anim_280
@@ -1803,7 +1803,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatshock3]
-replayoff=12
+loops=12
 frame1=anim_273
 frame2=anim_273
 frame3=anim_328
@@ -1952,7 +1952,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatshock4]
-replayoff=12
+loops=12
 frame1=anim_225
 frame2=anim_225
 frame3=anim_280
@@ -2151,7 +2151,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatcon1]
-replayoff=12
+loops=12
 frame1=anim_0
 frame2=anim_0
 frame3=anim_48
@@ -2218,7 +2218,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatcon2]
-replayoff=12
+loops=12
 frame1=anim_199
 frame2=anim_199
 frame3=anim_254
@@ -2333,7 +2333,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatcon3]
-replayoff=12
+loops=12
 frame1=anim_251
 frame2=anim_251
 frame3=anim_306
@@ -2482,7 +2482,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatcon4]
-replayoff=12
+loops=12
 frame1=anim_199
 frame2=anim_199
 frame3=anim_254
@@ -2681,7 +2681,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatidleneu1]
-replayoff=12
+loops=12
 frame1=anim_35
 frame2=anim_35
 frame3=anim_85
@@ -2724,7 +2724,7 @@ frame39=anim_154
 frame40=anim_154
 
 [chatneu1]
-replayoff=12
+loops=12
 frame1=anim_35
 frame2=anim_35
 frame3=anim_85
@@ -2791,7 +2791,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatneu2]
-replayoff=12
+loops=12
 frame1=anim_241
 frame2=anim_241
 frame3=anim_295
@@ -2906,7 +2906,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatneu3]
-replayoff=12
+loops=12
 frame1=anim_293
 frame2=anim_293
 frame3=anim_342
@@ -3055,7 +3055,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatneu4]
-replayoff=12
+loops=12
 frame1=anim_241
 frame2=anim_241
 frame3=anim_295
@@ -3254,7 +3254,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatshifty1]
-replayoff=12
+loops=12
 frame1=anim_86
 frame2=anim_86
 frame3=anim_141
@@ -3321,7 +3321,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatshifty2]
-replayoff=12
+loops=12
 frame1=anim_296
 frame2=anim_296
 frame3=anim_347
@@ -3436,7 +3436,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatshifty3]
-replayoff=12
+loops=12
 frame1=anim_343
 frame2=anim_343
 frame3=anim_34
@@ -3585,7 +3585,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatshifty4]
-replayoff=12
+loops=12
 frame1=anim_296
 frame2=anim_296
 frame3=anim_347
@@ -3784,7 +3784,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatscared1]
-replayoff=12
+loops=12
 frame1=anim_47
 frame2=anim_47
 frame3=anim_96
@@ -3851,7 +3851,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatscared2]
-replayoff=12
+loops=12
 frame1=anim_253
 frame2=anim_253
 frame3=anim_308
@@ -3966,7 +3966,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatscared3]
-replayoff=12
+loops=12
 frame1=anim_305
 frame2=anim_305
 frame3=anim_354
@@ -4129,7 +4129,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatscared4]
-replayoff=12
+loops=12
 frame1=anim_253
 frame2=anim_253
 frame3=anim_308
@@ -4328,7 +4328,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatdrunk1]
-replayoff=12
+loops=12
 frame1=anim_210
 frame2=anim_210
 frame3=anim_264
@@ -4395,7 +4395,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatdrunk2]
-replayoff=12
+loops=12
 frame1=anim_52
 frame2=anim_52
 frame3=anim_103
@@ -4510,7 +4510,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatdrunk3]
-replayoff=12
+loops=12
 frame1=anim_102
 frame2=anim_102
 frame3=anim_155
@@ -4659,7 +4659,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatdrunk4]
-replayoff=12
+loops=12
 frame1=anim_52
 frame2=anim_52
 frame3=anim_103
@@ -4858,7 +4858,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [evilidle1]
-replayoff=17
+loops=17
 frame1=anim_67
 frame2=anim_67
 frame3=anim_67
@@ -4878,7 +4878,7 @@ frame16=anim_67
 frame17=anim_67
 
 [chatlaugh1]
-replayoff=12
+loops=12
 frame1=anim_170
 frame2=anim_170
 frame3=anim_224
@@ -4921,7 +4921,7 @@ frame39=anim_154
 frame40=anim_154
 
 [chatlaugh2]
-replayoff=12
+loops=12
 frame1=anim_16
 frame2=anim_16
 frame3=anim_62
@@ -4988,7 +4988,7 @@ frame63=anim_154
 frame64=anim_154
 
 [chatlaugh3]
-replayoff=12
+loops=12
 frame1=anim_58
 frame2=anim_58
 frame3=anim_110
@@ -5079,7 +5079,7 @@ frame87=anim_154
 frame88=anim_154
 
 [chatlaugh4]
-replayoff=12
+loops=12
 frame1=anim_16
 frame2=anim_16
 frame3=anim_62
@@ -5188,7 +5188,7 @@ frame105=anim_154
 frame106=anim_154
 
 [evillaugh1]
-replayoff=17
+loops=17
 frame1=anim_307
 frame2=anim_1
 frame3=anim_307
@@ -5221,7 +5221,7 @@ frame29=anim_67
 frame30=anim_67
 
 [chatsad1]
-replayoff=12
+loops=12
 frame1=anim_28
 frame2=anim_28
 frame3=anim_76
@@ -5288,7 +5288,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatsad2]
-replayoff=12
+loops=12
 frame1=anim_231
 frame2=anim_231
 frame3=anim_286
@@ -5403,7 +5403,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatsad3]
-replayoff=12
+loops=12
 frame1=anim_283
 frame2=anim_283
 frame3=anim_336
@@ -5552,7 +5552,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatsad4]
-replayoff=12
+loops=12
 frame1=anim_231
 frame2=anim_231
 frame3=anim_286
@@ -5751,7 +5751,7 @@ iframe89=anim_19
 iframe90=anim_66
 
 [chatang1]
-replayoff=12
+loops=12
 frame1=anim_301
 frame2=anim_301
 frame3=anim_351
@@ -5818,7 +5818,7 @@ iframe23=anim_19
 iframe24=anim_66
 
 [chatang2]
-replayoff=12
+loops=12
 frame1=anim_139
 frame2=anim_139
 frame3=anim_194
@@ -5933,7 +5933,7 @@ iframe47=anim_19
 iframe48=anim_66
 
 [chatang3]
-replayoff=12
+loops=12
 frame1=anim_187
 frame2=anim_187
 frame3=anim_242
@@ -6096,7 +6096,7 @@ iframe71=anim_19
 iframe72=anim_66
 
 [chatang4]
-replayoff=12
+loops=12
 frame1=anim_139
 frame2=anim_139
 frame3=anim_194

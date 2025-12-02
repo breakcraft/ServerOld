@@ -5,8 +5,8 @@
 @open_arrav_book;
 
 [label,open_arrav_book]
-if(%phoenixgang_progress = 1) {
-    %phoenixgang_progress = 2;
+if(%phoenixgang = 1) {
+    %phoenixgang = 2;
 }
 @book_flip_page(0, 0, 2, shieldofarrav_book);
 

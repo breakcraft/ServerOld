@@ -19,10 +19,42 @@ if (stat_base(defence) < $level) {
 }
 ~equip($slot);
 
+[label,levelrequire_attack_caps](int $level, int $slot)
+if (stat_base(attack) < $level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have an Attack level of <tostring($level)>.");
+    return;
+}
+~equip($slot);
+
+[label,levelrequire_defence_caps](int $level, int $slot)
+if (stat_base(defence) < $level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have a Defence level of <tostring($level)>.");
+    return;
+}
+~equip($slot);
+
 [label,levelrequire_ranged](int $level, int $slot)
 if (stat_base(ranged) < $level) {
     mes("You are not a high enough level to use this item.");
     mes("You need to have a Ranged level of <tostring($level)>.");
+    return;
+}
+~equip($slot);
+
+[label,levelrequire_ranged_lower](int $level, int $slot)
+if (stat_base(ranged) < $level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have a ranged level of <tostring($level)>.");
+    return;
+}
+~equip($slot);
+
+[label,levelrequire_magic](int $level, int $slot)
+if (stat_base(ranged) < $level) {
+    mes("You are not a high enough level to use this item.");
+    mes("You need to have a Magic level of <tostring($level)>.");
     return;
 }
 ~equip($slot);
@@ -43,27 +75,11 @@ if (stat_base(ranged) < $ranged_level | stat_base(defence) < $defence_level) {
 }
 ~equip($slot);
 
-[label,levelrequire_dragon_slayer_quest_attack](int $level, int $slot)
-if (~levelrequire_dragon_slayer_quest = false) {
-    return;
-}
-if (stat_base(attack) < $level) {
-    mes("You are not a high enough level to use this item.");
-    mes("You need to have an Attack level of <tostring($level)>.");
-    return;
-}
-~equip($slot);
-
 [label,levelrequire_dragon_slayer_quest_defence](int $level, int $slot)
 if (~levelrequire_dragon_slayer_quest = false) {
     return;
 }
-if (stat_base(defence) < $level) {
-    mes("You are not a high enough level to use this item.");
-    mes("You need to have an Defence level of <tostring($level)>.");
-    return;
-}
-~equip($slot);
+@levelrequire_defence($level, $slot);
 
 [label,levelrequire_dragon_slayer_quest_ranged_and_defence](int $ranged_level, int $defence_level, int $slot)
 if (~levelrequire_dragon_slayer_quest = false) {
@@ -75,37 +91,22 @@ if (~levelrequire_dragon_slayer_quest = false) {
 if (~levelrequire_heroes_quest = false) {
     return;
 }
-if (stat_base(attack) < $level) {
-    mes("You are not a high enough level to use this item.");
-    mes("You need to have an Attack level of <tostring($level)>.");
-    return;
-}
-~equip($slot);
+@levelrequire_attack_caps($level, $slot);
 
 [label,levelrequire_legends_quest_defence](int $level, int $slot)
 if (~levelrequire_legends_quest = false) {
     return;
 }
-if (stat_base(defence) < $level) {
-    mes("You are not a high enough level to use this item.");
-    mes("You need to have an Defence level of <tostring($level)>.");
-    return;
-}
-~equip($slot);
+@levelrequire_defence_caps($level, $slot);
 
 [label,levelrequire_zanaris_quest_attack](int $level, int $slot)
 if (~levelrequire_zanaris_quest = false) {
     return;
 }
-if (stat_base(attack) < $level) {
-    mes("You are not a high enough level to use this item.");
-    mes("You need to have an Attack level of <tostring($level)>.");
-    return;
-}
-~equip($slot);
+@levelrequire_attack_caps($level, $slot);
 
 [proc,levelrequire_dragon_slayer_quest]()(boolean)
-if (%dragon_progress < ^dragon_complete) {
+if (%dragonquest < ^dragon_complete) {
     mes("You have not earned the right to wear this yet.");
     mes("You need to complete the Dragon Slayer quest first."); // todo confirm for 2004
     return(false);
@@ -113,7 +114,7 @@ if (%dragon_progress < ^dragon_complete) {
 return(true);
 
 [proc,levelrequire_heroes_quest]()(boolean)
-if (%hero_progress < ^hero_complete) {
+if (%heroquest < ^hero_complete) {
     mes("You have not earned the right to wield this yet.");
     mes("You need to complete the Heroes' Guild entry quest."); // todo confirm for 2004
     return(false);
@@ -121,7 +122,7 @@ if (%hero_progress < ^hero_complete) {
 return(true);
 
 [proc,levelrequire_legends_quest]()(boolean)
-if (%legends_progress < ^legends_complete) {
+if (%legendsquest < ^legends_complete) {
     mes("You have not earned the right to wear this yet.");
     mes("You need to complete the Legends' Quest."); // todo confirm for 2004
     return(false);
@@ -129,7 +130,7 @@ if (%legends_progress < ^legends_complete) {
 return(true);
 
 [proc,levelrequire_zanaris_quest]()(boolean)
-if (%zanaris_progress < ^zanaris_complete) {
+if (%zanaris < ^zanaris_complete) {
     mes("You have not earned the right to wear this yet.");
     mes("You need to complete the Lost City of Zanaris Quest."); // todo confirm for 2004
     return(false);
@@ -139,8 +140,9 @@ return(true);
 [label,levelrequire_iban_staff](int $slot)
 // https://oldschool.runescape.wiki/w/Update:Various_tweaks_to_the_game
 // > Fixed a bug which meant the Iban-staff could be wielded at level 49, despite stating a requirement of 50.
+// https://youtu.be/FKFdDdH5rlE?si=rTj214wpX9RKHiMy&t=188
 if (stat(magic) < 50) {
-    mes("You are not a high enough level to use this item.");
+    mes("You are not a high enough level to use this item,");
     mes("You need to have a Magic level of 50.");
     return;
 }
@@ -149,6 +151,4 @@ if (stat(attack) < 50) {
     mes("You need to have an Attack level of 50.");
     return;
 }
-// https://youtu.be/n_ip_vEDbCA?si=0uESoOC98Fvl7HqS&t=2333
-mes("You equip the staff of Iban.");
 ~equip($slot);

@@ -1,6 +1,6 @@
 [human_dragonstonecutting]
-lefthand=dragonstone
-righthand=hide
+replaceheldright=dragonstone
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -24,8 +24,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_diamondcutting]
-lefthand=diamond
-righthand=hide
+replaceheldright=diamond
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -49,8 +49,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_rubycutting]
-lefthand=ruby
-righthand=hide
+replaceheldright=ruby
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -74,8 +74,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_sapphirecutting]
-lefthand=sapphire
-righthand=hide
+replaceheldright=sapphire
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -99,8 +99,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_emeraldcutting]
-lefthand=emerald
-righthand=hide
+replaceheldright=emerald
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -124,8 +124,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_opalcutting]
-lefthand=opal
-righthand=hide
+replaceheldright=opal
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -149,8 +149,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_jadecutting]
-lefthand=jade
-righthand=hide
+replaceheldright=jade
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404
@@ -174,8 +174,8 @@ frame20=anim_1404
 frame21=anim_1121
 
 [human_redtopazcutting]
-lefthand=red_topaz
-righthand=hide
+replaceheldright=red_topaz
+replaceheldleft=hide
 frame1=anim_838
 frame2=anim_1121
 frame3=anim_1404

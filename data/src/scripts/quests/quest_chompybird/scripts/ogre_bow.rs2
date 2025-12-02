@@ -1,5 +1,5 @@
 [opheld3,ogre_bow]
-if (%chompybird_progress < ^chompybird_complete) {
+if (%chompybird < ^chompybird_complete) {
     mes("You've scratched up no kills yet!");
     mes("You've got to complete the quest first!");
     return;

@@ -1,10 +1,10 @@
-[opnpc1,monk_zanaris]
+[opnpc1,monkadventurerpg]
 if(map_members = ^false) { // From RS3
     ~chatplayer("<p,happy>Top of the day to you!");
     ~chatnpc("<p,neutral>Yes, Saradomin has certainly blessed us today!");
     return;
 }
-switch_int (%zanaris_progress) {
+switch_int (%zanaris) {
     case ^zanaris_not_started :
         ~chatplayer("<p,quiz>Why are all of you standing around here?");
         ~chatnpc("<p,angry>None of your business. Get lost.");

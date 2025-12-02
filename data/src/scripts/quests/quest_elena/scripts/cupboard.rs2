@@ -1,5 +1,5 @@
 [label,elena_search_cupboard]
-if (%elena_progress < ^quest_elena_gasmask) {
+if (%elenaquest < ^quest_elena_gasmask) {
     mes("You search the cupboard but you find nothing.");
     return;
 }

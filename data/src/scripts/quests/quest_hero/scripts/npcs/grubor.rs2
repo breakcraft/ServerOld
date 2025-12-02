@@ -6,7 +6,7 @@
 if (npc_find(coord, grubor, 10, 0) = true) {
   facesquare(npc_coord);
   ~chatnpc("<p,quiz>Yes? What do you want?");
-  if (%hero_progress < ^hero_blackarm_gangmember_spoken | %phoenixgang_progress >= ^phoenixgang_joined) { 
+  if (%heroquest < ^hero_blackarm_gangmember_spoken | %phoenixgang >= ^phoenixgang_joined) { 
     switch_int(~p_choice3("Would you like your hedges trimming?", 1, "I want to come in.", 2, "Do you want to trade?", 3)) {
       case 1 :
         // RSC: "Would you like to have your windows refitting?" // "Don't be daft, we don't have any windows"
@@ -24,7 +24,7 @@ if (npc_find(coord, grubor, 10, 0) = true) {
       case 2 :
         ~chatplayer("<p,neutral>Four leaved clover.");
         ~chatnpc("<p,neutral>Oh you're one of the gang are you? Ok, hold up a second, I'll just let you in through here.");
-        %hero_progress = ^hero_blackarm_hq_door_unlocked;
+        %heroquest = ^hero_blackarm_hq_door_unlocked;
         ~mesbox("You hear the door being unbarred from inside.");
         return;
       case 1 : ~chatplayer("<p,neutral>Rabbit's foot.");

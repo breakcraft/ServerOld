@@ -1,5 +1,5 @@
 [opnpc1,city_guard]
-if(%itwatchtower_progress >= ^itwatchtower_solved_riddle) {
+if(%itwatchtower >= ^itwatchtower_solved_riddle) {
     ~chatnpc("<p,bored>What is it?");
     switch_int(~p_choice2("Do you have any other riddles for me?", 1, "I have lost the map you gave me.", 2)) {
         case 1 :
@@ -36,7 +36,7 @@ switch_int(~p_choice2("I am an ogre killer come to destroy you!", 1, "I seek pas
     case 2 :
         ~chatplayer("<p,neutral>I seek passage into the skavid caves.");
         ~chatnpc("<p,quiz>Is that so... You humour me small thing. Answer this riddle and I will help you...");
-        if(%itwatchtower_progress = ^itwatchtower_given_relic) %itwatchtower_progress = ^itwatchtower_given_riddle;
+        if(%itwatchtower = ^itwatchtower_given_relic) %itwatchtower = ^itwatchtower_given_riddle;
         ~chatnpc("<p,neutral>I want you to bring me an item:|I will give you all the letters of this item,|you work out what it is...");
         ~chatnpc("<p,neutral>My first is in days, but not in years,|My second is in evil, and also in tears,|My third is in all, but not in none,|My fourth is in hot, but not in sun.");
         ~chatnpc("<p,neutral>My fifth is in heaven, and also in hate,|My sixth is in fearing, but not in fate,|My seventh is in plush, but not in place.");
@@ -46,10 +46,10 @@ switch_int(~p_choice2("I am an ogre killer come to destroy you!", 1, "I seek pas
 
 [opnpcu,city_guard]
 if(last_useitem = deathrune) {
-    if(%itwatchtower_progress <= ^itwatchtower_given_riddle) {
+    if(%itwatchtower <= ^itwatchtower_given_riddle) {
         inv_del(inv, deathrune, 1);
         inv_add(inv, skavidmap, 1);
-        %itwatchtower_progress = ^itwatchtower_solved_riddle;
+        %itwatchtower = ^itwatchtower_solved_riddle;
         ~chatplayer("<p,happy>I worked it out!");
         ~chatnpc("<p,happy>Well, well. The imp has done it!|Thanks for the rune;|This is what you be needing...");
         mes("The guard gives you a map.");

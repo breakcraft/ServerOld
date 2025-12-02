@@ -1,5 +1,5 @@
 [opnpc1,professor_oddenstein]
-switch_int(%haunted_progress) {
+switch_int(%haunted) {
     case ^haunted_not_started, ^haunted_complete : @oddenstein_nonquest;
     case ^haunted_started : @oddenstein_looking;
     case ^haunted_spoken_to_oddenstein : @oddenstein_items;
@@ -52,7 +52,7 @@ if($option = 1) {
 ~chatnpc("<p,sad>My machine is broken,|and the house gremlins|have run off with some vital bits.");
 ~chatplayer("<p,neutral>Well I can look out for them.");
 ~chatnpc("<p,neutral>That would be a help.|They'll be somewhere in the manor house or its grounds,|the gremlins never go further than the entrance gate.");
-%haunted_progress = ^haunted_spoken_to_oddenstein;
+%haunted = ^haunted_spoken_to_oddenstein;
 ~chatnpc("<p,neutral>I'm missing the pressure gauge and a rubber tube.|They've also taken my oil can,|which I'm going to need to get this thing started again.");
 
 [label,oddenstein_items]
@@ -74,11 +74,11 @@ if(inv_total(inv, pressure_gauge) > 0 & inv_total(inv, oil_can) > 0 & inv_total(
     inv_del(inv, pressure_gauge, 1);
     inv_del(inv, oil_can, 1);
     inv_del(inv, rubber_tube, 1);
-    %haunted_progress = ^haunted_complete;
+    %haunted = ^haunted_complete;
     queue(haunted_quest_complete, 0); // reward is queued as soon as changetype completes in OSRS
-    ~chatnpc_specific("Ernest", ernest_human, "<p,happy>Thank you <text_gender("sir", "m'lady")>.|It was dreadfully irritating being a chicken.|How can I ever thank you?");
+    ~chatnpc_specific("Ernest", ernest, "<p,happy>Thank you <text_gender("sir", "m'lady")>.|It was dreadfully irritating being a chicken.|How can I ever thank you?");
     ~chatplayer("<p,shifty>Well a cash reward is always nice...");
-    ~chatnpc_specific("Ernest", ernest_human, "<p,neutral>Of course, of course.");
+    ~chatnpc_specific("Ernest", ernest, "<p,neutral>Of course, of course.");
     ~mesbox("Ernest hands you 300 coins.");
 } else if(inv_total(inv, pressure_gauge) > 0 | inv_total(inv, oil_can) > 0 | inv_total(inv, rubber_tube) > 0) {
     def_string $player_items = "";

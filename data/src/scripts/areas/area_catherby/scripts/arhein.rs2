@@ -12,7 +12,7 @@ if($option = 1) {
 } else if($option = 3) {
     ~chatplayer("<p,quiz>Is that your ship?");
     ~chatnpc("<p,happy>Yes, I use it to make deliveries to my customers up and down the coast. These crates here are all ready for my next trip.");
-    if(%arthur_progress = ^arthur_spoken_lancelot) {
+    if(%arthur = ^arthur_spoken_lancelot) {
         @multi3("Do you deliver to the fort just down the coast?", arhein_fort, "Where do you deliver to?", arhein_deliver, "Are you rich then?", arhein_rich);
     }
     @multi2("Where do you deliver to?", arhein_deliver, "Are you rich then?", arhein_rich);

@@ -8,32 +8,32 @@
 // bit 2 - set when the sheep is fed the poison
 // bit 3 - set when the sheep has its bones burned
 
-[opnpc1,red_sheep]
+[opnpc1,herder_plaguesheep_1]
 @prod_sheep(npc_type);
 
-[opnpc1,green_sheep]
+[opnpc1,herder_plaguesheep_2]
 @prod_sheep(npc_type);
 
-[opnpc1,blue_sheep]
+[opnpc1,herder_plaguesheep_3]
 @prod_sheep(npc_type);
 
-[opnpc1,yellow_sheep]
+[opnpc1,herder_plaguesheep_4]
 @prod_sheep(npc_type);
 
 [label,prod_sheep](npc $npc)
 p_arrivedelay;
 
-if (%sheepherder_progress = ^sheepherder_not_started) {
+if (%sheepherderquest = ^sheepherder_not_started) {
     mes("The sheep looks extremely ill and you haven't any reason to interfere with it.");
     return;
 }
 
-if (%sheepherder_progress = ^sheepherder_complete) {
+if (%sheepherderquest = ^sheepherder_complete) {
     ~mesbox("There's no need for you to do that.|You've already completed the Sheep Herder quest.");
     return;
 }
 
-if (%sheepherder_progress > ^sheepherder_not_started & %sheepherder_progress < ^sheepherder_complete) {
+if (%sheepherderquest > ^sheepherder_not_started & %sheepherderquest < ^sheepherder_complete) {
     // not wearing a protective suit
     if (inv_total(worn, plague_jacket) < 1 | inv_total(worn, plague_trousers)  < 1) {
         ~chatplayer("<p,neutral>The sheep looks extremely unwell.|I don't want to touch it without a full protective suit.");
@@ -74,7 +74,7 @@ if ((npc_category = diseased_sheep & inv_total(inv, $npc_bones) > 0)) {
 def_coord $npc_coord = db_getfield($data, sheep_table:sheep_in_pen_coord, 0);
 def_int $npc_start_bit = db_getfield($data, sheep_table:sheep_start_bit, 0);
 
-if (getbit_range(%sheepherder_disposal, $npc_start_bit, calc($npc_start_bit + 2)) = 6) {
+if (getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 6) {
     ~mesbox("You have already disposed of this sheep;|there's no need to prod it again.");
     return;
 }
@@ -96,7 +96,7 @@ if (~inzone_coord_pair_table(sheepherder_pen_gate, npc_coord) = true) {
     npc_facesquare(movecoord(npc_coord, 0, 0, -1));
     npc_setmode(none);
     npc_walk(npc_coord);
-    %sheepherder_disposal = setbit(%sheepherder_disposal, $npc_start_bit);
+    %sheepherdervar = setbit(%sheepherdervar, $npc_start_bit);
     mes("The sheep obligingly jumps over the gate and into the enclosure.");
 }
 
@@ -112,25 +112,25 @@ npc_settimer(calc(10 + random(20)));
 npc_say("Baa");
 npc_setmode(null);
 
-[opnpcu,green_sheep]
+[opnpcu,herder_plaguesheep_2]
 switch_obj(last_useitem) {
     case cattleprod : @cattle_prod_use_message;
     case poisoned_feed : @poison_sheep(npc_type);
 }
 
-[opnpcu,red_sheep]
+[opnpcu,herder_plaguesheep_1]
 switch_obj(last_useitem) {
     case cattleprod : @cattle_prod_use_message;
     case poisoned_feed : @poison_sheep(npc_type);
 }
 
-[opnpcu,blue_sheep]
+[opnpcu,herder_plaguesheep_3]
 switch_obj(last_useitem) {
     case cattleprod : @cattle_prod_use_message;
     case poisoned_feed : @poison_sheep(npc_type);
 }
 
-[opnpcu,yellow_sheep]
+[opnpcu,herder_plaguesheep_4]
 switch_obj(last_useitem) {
     case cattleprod : @cattle_prod_use_message;
     case poisoned_feed : @poison_sheep(npc_type);
@@ -151,10 +151,10 @@ if (~inzone_coord_pair_table(sheepherder_in_pen, npc_coord) = true) {
     
     // Attempting to kill the sheep in the pen, and you haven't burned the bones
     // and you're not carrying any bones.
-    if ((getbit_range(%sheepherder_disposal, $npc_start_bit, calc($npc_start_bit + 2)) ! 6
-        | getbit_range(%sheepherder_disposal, $npc_start_bit, calc($npc_start_bit + 2)) = 2)
+    if ((getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) ! 6
+        | getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 2)
         & inv_total(inv, $npc_bones) < 1) {
-         %sheepherder_disposal = setbit_range_toint(%sheepherder_disposal, 2, $npc_start_bit, calc($npc_start_bit + 2));
+         %sheepherdervar = setbit_range_toint(%sheepherdervar, 2, $npc_start_bit, calc($npc_start_bit + 2));
         ~mesbox("You feed the poisoned food to the sheep.|It happily eats it all up.|You watch as the sheep collapses dead onto the floor.");
         if_close;
         p_delay(0);
@@ -164,7 +164,7 @@ if (~inzone_coord_pair_table(sheepherder_in_pen, npc_coord) = true) {
         obj_add(npc_coord, $npc_bones, 1, calc(^lootdrop_duration / 2));
     // Attempting to kill sheep in pen but has already killed that sheep.
     // can't do this on OSRS since your sheep are instanced.
-    } else if (getbit_range(%sheepherder_disposal, $npc_start_bit, calc($npc_start_bit + 2)) = 6
+    } else if (getbit_range(%sheepherdervar, $npc_start_bit, calc($npc_start_bit + 2)) = 6
         | inv_total(inv, $npc_bones) > 0 ) {
          // Fake message based on RSC
         ~chatplayer("<p,neutral>I've already disposed of this sheep like this.| I should find another.");

@@ -1,11 +1,11 @@
 [opnpc1,guidors_wife]
-if(map_members = ^false | %biohazard_progress >= ^biohazard_reported_elena) {
+if(map_members = ^false | %biohazard >= ^biohazard_reported_elena) {
     ~chatplayer("<p,neutral>Hello.");
     ~chatnpc("<p,sad>Oh hello, I can’t chat now.|I have to keep an eye on my husband.|He’s very ill!");
     ~chatplayer("<p,sad>I’m sorry to hear that!");
     return;
 }
-switch_int(%biohazard_progress) {
+switch_int(%biohazard) {
     case ^biohazard_found_secret :
         ~chatplayer("<p,neutral>Hello again.");
         ~chatnpc("<p,sad>Hello there.|I fear Guidor may not be long for this world!");

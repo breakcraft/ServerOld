@@ -1,4 +1,4 @@
-[elena]
+[elena2]
 vislevel=hide
 walkanim=human_walk_f,human_walk_b,human_walk_l,human_walk_r
 readyanim=human_ready
@@ -24,7 +24,7 @@ model6=model_445_obj_wear
 head1=model_113_idk_head
 param=death_sound,female_death
 
-[elena_imprisoned]
+[elenap]
 vislevel=hide
 name=Elena
 desc=She doesn't look too happy.

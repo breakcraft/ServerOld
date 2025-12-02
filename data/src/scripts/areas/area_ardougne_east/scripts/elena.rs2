@@ -1,5 +1,5 @@
-[opnpc1,elena]
-switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has no dialogue!
+[opnpc1,elena2]
+switch_int(%biohazard) { // ^biohazard_used_birdfeed intentionally has no dialogue!
     case ^biohazard_complete :
         ~chatplayer("<p,happy>Hello Elena.");
         ~chatnpc("<p,happy>Hey, how are you?");
@@ -19,7 +19,7 @@ switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has 
         ~chatnpc("<p,neutral>Then I think this thing may be bigger than both of us.");
         ~chatplayer("<p,quiz>What do you mean?");
         ~chatnpc("<p,neutral>I mean you need to go right to the top...|You need to see the King of East Ardougne!");
-        %biohazard_progress = ^biohazard_reported_elena;
+        %biohazard = ^biohazard_reported_elena;
     case ^biohazard_given_distillator, ^biohazard_spoken_chemist :
         ~chatnpc("<p,quiz>What are you doing back here?");
         switch_int(~p_choice3("I just find it hard to say goodbye sometimes.", 1, "I'm afraid I've lost some of the stuff that you gave me...", 2, "I've forgotten what I need to do.", 3)) {
@@ -71,7 +71,7 @@ switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has 
         ~chatnpc("<p,confused>I don't understand... the touch paper hasn't changed colour at all...");
         ~chatnpc("<p,neutral>You'll need to go and see my old mentor Guidor. He lives in Varrock. Take these vials and this sample to him.");
         if_close;
-        %biohazard_progress = ^biohazard_given_distillator;
+        %biohazard = ^biohazard_given_distillator;
         // doesn't drop to the ground? https://youtu.be/_ZNalEQB70o?si=qmcyRDUWvO1M4tA5&t=637
         inv_del(inv, distillator, 1);
         if(inv_freespace(inv) > 1) {
@@ -110,7 +110,7 @@ switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has 
         ~chatplayer("<p,sad>No, I'm afraid not.");
         ~chatnpc("<p,neutral>Speak to Jerico, he will help you to cross the wall.|He lives next to the chapel.");
     case ^biohazard_not_started :
-        ~chatplayer("<p,happy>Good day to you <nc_name(elena)>.");
+        ~chatplayer("<p,happy>Good day to you <nc_name(elena2)>.");
         ~chatnpc("<p,happy>You too, thanks for freeing me.");
         ~chatnpc("<p,sad>It's just a shame the mourners confiscated my equipment.");
         ~chatplayer("<p,quiz>What did they take?");
@@ -123,8 +123,8 @@ switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has 
                 // https://web.archive.org/web/20050515184744im_/http://www.runeweb.net/fireball/Biohazard%20Images/biohazard3.PNG
                 ~chatnpc("<p,neutral>I was hoping you would say that.|Unfortunately they discovered the tunnel and filled it in.|We need another way over the wall.");
                 ~chatplayer("<p,quiz>Any ideas?");
-                %biohazard_progress = ^biohazard_started;
-                ~send_quest_progress(questlist:biohazard, %biohazard_progress, ^biohazard_complete);
+                %biohazard = ^biohazard_started;
+                ~send_quest_progress(questlist:biohazard, %biohazard, ^biohazard_complete);
                 ~chatnpc("<p,neutral>My father's friend Jerico is in communication with West Ardougne. He might be able to help us, he lives next to the chapel.");
             case 2 :
                 ~chatplayer("<p,neutral>Well, good luck.");

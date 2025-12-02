@@ -1,5 +1,5 @@
-[oploc1,loc_1293] // gnome stronghold tree
-if(%grandtree_progress ! ^grandtree_complete) {
+[oploc1,ent] // gnome stronghold tree
+if(%grandtree ! ^grandtree_complete) {
     ~mesbox("The tree doesn't feel like talking.");
     return;
 }
@@ -22,8 +22,8 @@ switch_int(~p_choice3("Tree Gnome Village.", 1, "Forest north of Varrock.", 2, "
 }
 @spirit_tree_tele($end_pos);
  
-[oploc1,loc_1294] // gnome village tree
-if(%tree_progress ! ^tree_complete) {
+[oploc1,stronghold_ent] // gnome village tree
+if(%treequest ! ^tree_complete) {
     ~mesbox("The tree doesn't feel like talking.");
     return;
 }
@@ -47,7 +47,7 @@ switch_int(~p_choice3("Battlefield of Khazard.", 1, "Forest north of Varrock.", 
 @spirit_tree_tele($end_pos);
  
 [oploc1,loc_1317] // young tree
-if(%tree_progress ! ^tree_complete) {
+if(%treequest ! ^tree_complete) {
     ~mesbox("The tree doesn't feel like talking.");
     return;
 }

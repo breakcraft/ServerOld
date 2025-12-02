@@ -44,9 +44,9 @@ def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
 // get style data
 def_dbrow $data = ~combat_get_weapon_style_data($weapon);
 
-%attackstyle = min(%attackstyle, sub(db_getfieldcount($data, combat_style_table:damagestyle), 1));
-def_int $damagetype = ~combat_get_damagetype($data, %attackstyle);
-def_int $damagestyle = ~combat_get_damagestyle($data, %attackstyle);
+%com_mode = min(%com_mode, sub(db_getfieldcount($data, combat_style_table:damagestyle), 1));
+def_int $damagetype = ~combat_get_damagetype($data, %com_mode);
+def_int $damagestyle = ~combat_get_damagestyle($data, %com_mode);
 
 // style bonuses
 def_int $attack_stylebonus;
@@ -88,7 +88,7 @@ $effective_magic_defence = add($effective_magic_defence, 8); // no idea if there
 %com_magicattack = ~combat_stat($effective_magic, $magicattack);
 %com_magicdef = ~combat_stat($effective_magic_defence, $magicdefence);
 %com_rangeattack = ~combat_stat($effective_ranged, $rangeattack);
-%com_rangedef = ~combat_stat($effective_ranged, $rangedefence);
+%com_rangedef = ~combat_stat($effective_defence, $rangedefence);
 
 def_int $melee_strength = ~combat_stat($effective_strength, $strengthbonus);
 def_int $ranged_strength = ~combat_stat($effective_ranged, $rangebonus);
@@ -100,7 +100,7 @@ switch_int(%damagetype) {
 }
 
 // weapon related varps
-%com_attackanim, %com_attacksound = ~combat_swing_anim_and_synth($weapon, $damagetype, %damagestyle, %attackstyle);
+%com_attackanim, %com_attacksound = ~combat_swing_anim_and_synth($weapon, $damagetype, %damagestyle, %com_mode);
 %com_defendanim = ~combat_defend_anim($weapon);
 
 [proc,.player_combat_stat]
@@ -149,8 +149,8 @@ def_obj $weapon = .inv_getobj(worn, ^wearpos_rhand);
 // get style data
 def_dbrow $data = ~combat_get_weapon_style_data($weapon);
 
-def_int $damagetype = ~combat_get_damagetype($data, .%attackstyle);
-def_int $damagestyle = ~combat_get_damagestyle($data, .%attackstyle);
+def_int $damagetype = ~combat_get_damagetype($data, .%com_mode);
+def_int $damagestyle = ~combat_get_damagestyle($data, .%com_mode);
 
 // style bonuses
 def_int $attack_stylebonus;
@@ -192,7 +192,7 @@ $effective_magic_defence = add($effective_magic_defence, 8); // no idea if there
 .%com_magicattack = ~combat_stat($effective_magic, $magicattack);
 .%com_magicdef = ~combat_stat($effective_magic_defence, $magicdefence);
 .%com_rangeattack = ~combat_stat($effective_ranged, $rangeattack);
-.%com_rangedef = ~combat_stat($effective_ranged, $rangedefence);
+.%com_rangedef = ~combat_stat($effective_defence, $rangedefence);
 
 def_int $melee_strength = ~combat_stat($effective_strength, $strengthbonus);
 def_int $ranged_strength = ~combat_stat($effective_ranged, $rangebonus);
@@ -204,59 +204,53 @@ switch_int(.%damagetype) {
 }
 
 // weapon related varps
-.%com_attackanim, .%com_attacksound = ~combat_swing_anim_and_synth($weapon, $damagetype, .%damagestyle, .%attackstyle);
+.%com_attackanim, .%com_attacksound = ~combat_swing_anim_and_synth($weapon, $damagetype, .%damagestyle, .%com_mode);
 .%com_defendanim = ~combat_defend_anim($weapon);
 
 [proc,check_attack_prayer]()(int)
-if (%prayer_clarity = ^true) return (105);
-if (%prayer_improvedreflexes = ^true) return (110);
-if (%prayer_incrediblereflexes = ^true) return (115);
+if (%prayer2 = ^true) return (105);
+if (%prayer5 = ^true) return (110);
+if (%prayer11 = ^true) return (115);
 else return(100);
 
 [proc,check_defence_prayer]()(int)
-if (%prayer_thickskin = ^true) return (105);
-if (%prayer_rockskin = ^true) return (110);
-if (%prayer_steelskin = ^true) return (115);
+if (%prayer0 = ^true) return (105);
+if (%prayer3 = ^true) return (110);
+if (%prayer9 = ^true) return (115);
 else return(100);
 
 [proc,check_strength_prayer]()(int)
-if (%prayer_strengthburst = ^true) return (105);
-if (%prayer_superhumanstrength = ^true) return (110);
-if (%prayer_ultimatestrength = ^true) return (115);
+if (%prayer1 = ^true) return (105);
+if (%prayer4 = ^true) return (110);
+if (%prayer10 = ^true) return (115);
 else return(100);
 
 [proc,check_protect_prayer](int $style)(boolean)
-if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & %prayer_protectfrommelee = ^true) return (true);
-if (($style = ^ranged_style) & %prayer_protectfrommissiles = ^true) return (true);
-if (($style = ^magic_style) & %prayer_protectfrommagic = ^true) return (true);
+if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & %prayer14 = ^true) return (true);
+if (($style = ^ranged_style) & %prayer13 = ^true) return (true);
+if (($style = ^magic_style) & %prayer12 = ^true) return (true);
 else return (false);
 
 [proc,.check_attack_prayer]()(int)
-if (.%prayer_clarity = ^true) return (105);
-if (.%prayer_improvedreflexes = ^true) return (110);
-if (.%prayer_incrediblereflexes = ^true) return (115);
+if (.%prayer2 = ^true) return (105);
+if (.%prayer5 = ^true) return (110);
+if (.%prayer11 = ^true) return (115);
 else return(100);
 
 [proc,.check_defence_prayer]()(int)
-if (.%prayer_thickskin = ^true) return (105);
-if (.%prayer_rockskin = ^true) return (110);
-if (.%prayer_steelskin = ^true) return (115);
+if (.%prayer0 = ^true) return (105);
+if (.%prayer3 = ^true) return (110);
+if (.%prayer9 = ^true) return (115);
 else return(100);
 
 [proc,.check_strength_prayer]()(int)
-if (.%prayer_strengthburst = ^true) return (105);
-if (.%prayer_superhumanstrength = ^true) return (110);
-if (.%prayer_ultimatestrength = ^true) return (115);
+if (.%prayer1 = ^true) return (105);
+if (.%prayer4 = ^true) return (110);
+if (.%prayer10 = ^true) return (115);
 else return(100);
 
 [proc,.check_protect_prayer](int $style)(boolean)
-if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & .%prayer_protectfrommelee = ^true) return (true);
-if (($style = ^ranged_style) & .%prayer_protectfrommissiles = ^true) return (true);
-if (($style = ^magic_style) & .%prayer_protectfrommagic = ^true) return (true);
+if (($style = ^melee_style | $style = ^stab_style | $style = ^slash_style | $style = ^crush_style) & .%prayer14 = ^true) return (true);
+if (($style = ^ranged_style) & .%prayer13 = ^true) return (true);
+if (($style = ^magic_style) & .%prayer12 = ^true) return (true);
 else return (false);
-
-[debugproc,pcs]
-if (p_finduid(uid) = false) {
-    return;
-}
-~player_combat_stat;

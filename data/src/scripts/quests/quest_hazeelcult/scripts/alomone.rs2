@@ -1,5 +1,5 @@
-[opnpc1,alomone]
-switch_int(%hazeelcult_progress) {
+[opnpc1,alomone_hazeel_cultist]
+switch_int(%hazeelcultquest) {
     case ^hazeelcult_clivet_decision :
         if(%hazeelcult_side = ^hazeelcult_goodside) {
             ~chatnpc("<p,angry>How did YOU get in here?");
@@ -20,7 +20,7 @@ switch_int(%hazeelcult_progress) {
         ~chatnpc("<p,neutral>The words to this powerful enchantment are hidden within the Carnillean mansion, right under the nose of his unsuspecting foes. We already have an agent in place there");
         ~chatnpc("<p,neutral>in their Butler Jones, a faithful follower to Hazeel. His loyalty to Hazeel is beyond questioning, yet he has been unsuccessful in locating the scroll containing the spell so far.");
         ~chatnpc("<p,neutral>Go back to the mansion, and assist us in finding this enchantment, so that together we can restore Hazeel to his true power and glory!");
-        %hazeelcult_progress = ^hazeelcult_finished_side_task;
+        %hazeelcultquest = ^hazeelcult_finished_side_task;
     case ^hazeelcult_finished_side_task :
         ~chatplayer("<p,neutral>Hello Alomone.");
         if(%hazeelcult_side = ^hazeelcult_goodside) {
@@ -97,26 +97,26 @@ if(npc_finduid($npc) = true) {
 }
 queue(hazeelcult_quest_complete, 0);
 
-[ai_queue3,alomone]
+[ai_queue3,alomone_hazeel_cultist]
 gosub(npc_death);
 if(npc_findhero = ^true) {
     if_close;
     if(p_finduid(uid) = true) { // get protected access, if not then queue
-        @defeat_alomone;
+        @defeat_alomone_hazeel_cultist;
     }
-    queue(queue_defeat_alomone, 0, npc_uid); //strongqueue probably
+    queue(queue_defeat_alomone_hazeel_cultist, 0, npc_uid); //strongqueue probably
 }
 
-[queue,queue_defeat_alomone](npc_uid $npc)
+[queue,queue_defeat_alomone_hazeel_cultist](npc_uid $npc)
 if (npc_finduid($npc) = true) {
-    @defeat_alomone;
+    @defeat_alomone_hazeel_cultist;
 }
 
-[label,defeat_alomone]
-if(%hazeelcult_side = ^hazeelcult_goodside & (%hazeelcult_progress >= ^hazeelcult_clivet_decision & %hazeelcult_progress < ^hazeelcult_given_armour_or_scroll)) {
+[label,defeat_alomone_hazeel_cultist]
+if(%hazeelcult_side = ^hazeelcult_goodside & (%hazeelcultquest >= ^hazeelcult_clivet_decision & %hazeelcultquest < ^hazeelcult_given_armour_or_scroll)) {
     if(~obj_gettotal(carnillean_armour) = 0) {
-        if(%hazeelcult_progress < ^hazeelcult_finished_side_task) {
-            %hazeelcult_progress = ^hazeelcult_finished_side_task;
+        if(%hazeelcultquest < ^hazeelcult_finished_side_task) {
+            %hazeelcultquest = ^hazeelcult_finished_side_task;
         }
         obj_add(npc_coord, carnillean_armour, 1, ^lootdrop_duration);
     }

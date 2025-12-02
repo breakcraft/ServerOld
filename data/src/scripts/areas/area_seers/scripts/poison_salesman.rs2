@@ -1,5 +1,5 @@
 [opnpc1,poison_salesman]
-switch_int(%murder_progress) {
+switch_int(%murderquest) {
     case ^murder_not_started :
         ~chatnpc("<p,sad>I'm afraid I'm all sold out of poison at the moment. People know a bargain when they see it!");
     case ^murder_started :

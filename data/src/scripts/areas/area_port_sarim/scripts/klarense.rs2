@@ -1,14 +1,14 @@
 // dialogue taken from https://youtu.be/kCMB4I_aJJM
 // and https://gitlab.com/open-runescape-classic/core/-/blob/develop/server/plugins/com/openrsc/server/plugins/authentic/npcs/portsarim/Klarense.java
 [opnpc1,klarense]
-if (%dragon_progress < ^quest_dragon_bought_ship & %dragon_progress >= ^quest_dragon_spoken_to_oziach) {
+if (%dragonquest < ^quest_dragon_bought_ship & %dragonquest >= ^quest_dragon_spoken_to_oziach) {
     ~chatnpc("<p,neutral>You're interested in a trip on the Lady Lumbridge are|you? I admit she looks fine, but she isn't seaworthy|right now.");
     @multi4("Do you know when she will be seaworthy?", klarense_when_sea_worthy, 
         "Would you take me to Crandor Isle when it's ready?", klarense_crandor_when_ready, 
         "I don't suppose I could buy it?", klarense_buy, 
         "Ah well, nevermind.", klarense_nevermind
     );
-} else if (%dragon_progress >= ^quest_dragon_bought_ship & %dragon_progress < ^quest_dragon_sailed_to_crandor) {
+} else if (%dragonquest >= ^quest_dragon_bought_ship & %dragonquest < ^quest_dragon_sailed_to_crandor) {
     // https://youtu.be/juRWRm7hrGM?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=47
     // ~chatnpc("<p,neutral>Hello, captain! Here to inspect your new ship? Just a|little work and she'll be seaworthy again."); // osrs
     @multi4("So would you like to sail this ship to Crandor Isle for me?", klarense_crandor_for_me, // rsc
@@ -16,7 +16,7 @@ if (%dragon_progress < ^quest_dragon_bought_ship & %dragon_progress >= ^quest_dr
         "What are you going to do now you don't have a ship?", klarense_no_ship,
         "Can I board the ship now?", klarense_board_ship
     );
-} else if (%dragon_progress = ^quest_dragon_sailed_to_crandor) {
+} else if (%dragonquest = ^quest_dragon_sailed_to_crandor) {
     // osrs
     ~chatnpc("<p,shock>Wow! You sure are lucky! Seems the Lady Lumbridge just washed right up into the dock by herself!");
     ~chatnpc("<p,neutral>She's pretty badly damaged, though...");
@@ -25,7 +25,7 @@ if (%dragon_progress < ^quest_dragon_bought_ship & %dragon_progress >= ^quest_dr
         "What are you going to do now you don't have a ship?", klarense_no_ship,
         "Can I board the ship now?", klarense_board_ship
     );
-} else if (%dragon_progress >= ^dragon_complete) {
+} else if (%dragonquest >= ^dragon_complete) {
     // no idea if this is supposed to exist. This dialogue is from osrs
     // people are saying you cant sail the ship after the quest is completed.
     // https://www.neoseeker.com/forums/2410/t419625-neds-ship-on-crandor/
@@ -50,7 +50,7 @@ if (%dragon_progress < ^quest_dragon_bought_ship & %dragon_progress >= ^quest_dr
 
 [label,klarense_fixing]
 ~chatplayer("<p,quiz>So; what needs fixing on this ship?");
-if (%dragon_planks < 3) {
+if (%dragonquestvar < 3) {
     // osrs and rsc are similar, so i chose osrs
     ~chatnpc("<p,neutral>Well, the big gaping hole in the hold is the problem. You'll need a few wooden planks hammered in with steel nails to fix it.");
     return;
@@ -93,7 +93,7 @@ if (inv_total(inv, coins) < 2000) {
     return;
 }
 inv_del(inv, coins, 2000);
-%dragon_progress = ^quest_dragon_bought_ship;
+%dragonquest = ^quest_dragon_bought_ship;
 ~chatnpc("<p,quiz>Okey dokey, she's all yours!");
 
 [label,klarense_nevermind]

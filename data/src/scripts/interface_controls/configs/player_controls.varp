@@ -1,9 +1,9 @@
-[auto_retaliate]
+[option_nodef]
 protect=no
 transmit=yes
 scope=perm
 
-[run]
+[option_run]
 protect=no
 clientcode=7
 transmit=yes

@@ -1,7 +1,7 @@
-[opnpc1,mercenary_1]
-if(%desertrescue_progress >= ^desertrescue_entered_camp) {
+[opnpc1,desertminingmercenary1]
+if(%desertrescue >= ^desertrescue_entered_camp) {
         ~chatnpc("<p,angry>Move along now, we've had enough of your sort!");
-} else if(%desertrescue_progress = ^desertrescue_killed_capt) {
+} else if(%desertrescue = ^desertrescue_killed_capt) {
     def_int $bet = getbit_range(%desertrescue_map_mechanisms, 2, 4);
     if($bet >= 5) {
         ~chatnpc("<p,angry>Move along now, we've had enough of your sort!");
@@ -32,13 +32,13 @@ if(%desertrescue_progress >= ^desertrescue_entered_camp) {
     }
 } else {
     ~chatnpc("<p,angry>Yeah, what do you want?");
-    if(%desertrescue_progress >= ^desertrescue_started) {
+    if(%desertrescue >= ^desertrescue_started) {
         @multi3("What is this place?", mercenary_place1, "What are you guarding?", mercenary_guarding1, "I'm looking for a woman called Ana, have you seen her?", mercenary_ana);
     } 
     @multi2("What is this place?", mercenary_place1, "What are you guarding?", mercenary_guarding1);
 }
 
-[opnpc2,mercenary_1]
+[opnpc2,desertminingmercenary1]
 // this is only opnpc2 for the mercenary in OSRS
 if(%npc_attacking_uid = uid) {
     @player_combat_start;
@@ -75,7 +75,7 @@ inv_del(inv, coins, 20);
 %desertrescue_map_mechanisms = setbit_range_toint(%desertrescue_map_mechanisms, 5, 2, 4); // if you cancel early you do just lose the money
 
 [proc,mercenary_attack]
-if(%desertrescue_progress = ^desertrescue_complete) {
+if(%desertrescue = ^desertrescue_complete) {
     return;
 }
 p_stopaction;
@@ -133,7 +133,7 @@ if(inv_total(inv, coins) < 5) {
 ~objbox(coins, "-- The guard takes the five gold coins. --", 250, 0, 0);
 inv_del(inv, coins, 5);
 ~chatnpc("<p,happy>Now then, what did you want to know?");
-if(%desertrescue_progress >= ^desertrescue_started) {
+if(%desertrescue >= ^desertrescue_started) {
     @multi3("What is this place?", mercenary_place2, "What are you guarding?", mercenary_guarding2, "I'm looking for a woman called Ana, have you seen her?", mercenary_ana2);
 }
 @multi2("What is this place?", mercenary_place1, "What are you guarding?", mercenary_guarding1); // yeah idk why but this doesn't even work correctly, but the other branch does (OSRS)

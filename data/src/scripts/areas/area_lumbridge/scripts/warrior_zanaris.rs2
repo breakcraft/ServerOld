@@ -1,10 +1,10 @@
-[opnpc1,warrior_zanaris]
+[opnpc1,warrioradventurerpg]
 if(map_members = ^false) { // from RS3
     ~chatplayer("<p,happy>Greetings! You look like a warrior.");
     ~chatnpc("<p,neutral>Greetings to you to and yes indeed, the warrior's path is the one I travel. Sorry I can't stay to chat, I'm on a mission with my companions and we must break camp to continue our quest.");
     return;
 }
-switch_int (%zanaris_progress) {
+switch_int (%zanaris) {
     case ^zanaris_not_started :
         ~chatnpc("<p,neutral>Hello there traveller.");
         @multi2("What are you camped here for?", warrior_camped_out, "Do you know any good adventures I can go on?", warrior_adventures);
@@ -64,8 +64,8 @@ if($option = 1) {
     ~chatplayer("<p,quiz>Leprechaun?");
     ~chatnpc("<p,angry>GAH! I didn't mean to tell you that! Look, just forget I said anything okay?");
     ~chatplayer("<p,quiz>So a leprechaun knows where Zanaris is eh?");
-    %zanaris_progress = ^zanaris_started;
-    ~send_quest_progress(questlist:zanaris, %zanaris_progress, ^zanaris_complete);
+    %zanaris = ^zanaris_started;
+    ~send_quest_progress(questlist:zanaris, %zanaris, ^zanaris_complete);
     ~chatnpc("<p,confused>Ye.. uh, no. No, not at all. And even if he did - which he doesn't - he DEFINITELY ISN'T hiding in some tree around here. Nope, definitely not. Honestly.");
     ~chatplayer("<p,happy>Thanks for the help!");
     ~chatnpc("<p,confused>Help? What help? I didn't help! Please don't say I did, I'll get in trouble!");

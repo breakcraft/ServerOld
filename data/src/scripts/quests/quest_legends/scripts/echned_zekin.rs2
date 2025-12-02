@@ -1,12 +1,12 @@
 [opnpc1,echned_zekin]
-if(%legends_progress >= ^legends_defeated_nezikchened_water) {
+if(%legendsquest >= ^legends_defeated_nezikchened_water) {
     mes("You have no further business with the spirit.");
     return;
 }
 @echned_dialogue;
 
 [opnpcu,echned_zekin]
-if(%legends_progress >= ^legends_defeated_nezikchened_water) {
+if(%legendsquest >= ^legends_defeated_nezikchened_water) {
     mes("You have no further business with the spirit.");
     return;
 }
@@ -42,7 +42,7 @@ if(inv_total(inv, holyforce) > 0) {
 } else if(inv_total(inv, deathdaggerdone) > 0 | inv_total(worn, deathdaggerdone) > 0) {
     @echned_glowing_dagger;
 }
-if(%legends_progress = ^legends_heart_in_recess) %legends_progress = ^legends_pushed_boulder;
+if(%legendsquest = ^legends_heart_in_recess) %legendsquest = ^legends_pushed_boulder;
 ~mesbox("In a rasping, barely audible voice you hear the entity speak.");
 ~chatnpc("<p,angry>Who disturbs the rocks of Zekin?");
 ~mesbox("There seems to be something slightly familiar about this presence.");
@@ -137,7 +137,7 @@ if(~obj_gettotal(deathdagger) > 0) {
     ~chatnpc("<p,neutral>To complete your task you must use this weapon on Viyeldi.");
     mes("You take the dagger and place it in your backpack.");
     inv_add(inv, deathdagger, 1);
-    if(%legends_progress < ^legends_received_dagger) %legends_progress = ^legends_received_dagger;
+    if(%legendsquest < ^legends_received_dagger) %legendsquest = ^legends_received_dagger;
 }
 @multi2("Ok, I'll do it.", echned_ok, "I've changed my mind, I can't do it.", echned_changedmind);
 

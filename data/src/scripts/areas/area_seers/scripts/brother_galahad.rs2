@@ -1,12 +1,12 @@
 [opnpc1,brother_galahad]
-if(%grail_progress = ^grail_complete) {
+if(%grail = ^grail_complete) {
     ~chatnpc("<p,neutral>Would you like a cup of tea? I'll just put the kettle on.");
     ~mesbox("Brother Galahad hangs a kettle over the fire.");
     ~chatplayer("<p,happy>I returned the Holy Grail to Camelot!");
     ~chatnpc("<p,neutral>I'm impressed! That's something I was never able to do. Half a moment; your cup of tea is ready.");
     @brother_galahad_give_tea;
 }
-if(%grail_progress = ^grail_failed_defeat_titan) {
+if(%grail = ^grail_failed_defeat_titan) {
     ~chatnpc("<p,neutral>How goes thy quest?");
     ~chatplayer("<p,sad>I now need to defeat a black knight titan.|He seems invulnerable!");
     ~chatnpc("<p,confused>A black knight titan hmm?|Haven't seen one of them about in a while...");
@@ -30,9 +30,9 @@ if(%grail_progress = ^grail_failed_defeat_titan) {
 ~chatnpc("<p,neutral>Welcome to my home.|It's rare for me to have guests!|Would you like a cup of tea?|I'll just put the kettle on.");
 ~mesbox("Brother Galahad hangs a kettle over the fire.");
 def_int $choice;
-if(%grail_progress = ^grail_spoken_crone & inv_total(inv, holy_table_napkin) = 0) { // no bank check
+if(%grail = ^grail_spoken_crone & inv_total(inv, holy_table_napkin) = 0) { // no bank check
     $choice = ~p_choice4("Are you any relation to Sir Galahad?", 1, "I'm on a quest to find the Holy Grail!", 3, "Do you get lonely out here on your own?", 2, "I seek an item from the realm of the Fisher King.", 4);
-} else if(%grail_progress >= ^grail_spoken_merlin) {
+} else if(%grail >= ^grail_spoken_merlin) {
     $choice = ~p_choice3("Are you any relation to Sir Galahad?", 1, "I'm on a quest to find the Holy Grail!", 3, "Do you get lonely out here on your own?", 2);
 } else {
     $choice = ~p_choice2("Are you any relation to Sir Galahad?", 1, "Do you get lonely out here on your own?", 2);
@@ -71,7 +71,7 @@ switch_int($choice) {
 ~chatnpc("<p,neutral>Apparently the time is getting close when the world will need Arthur and his knights of the round table again.");
 ~chatnpc("<p,sad>And that includes me.");
 ~chatnpc("<p,neutral>Leaving was tough for me,|so I took this small cloth from the table as a keepsake.");
-if(%grail_progress >= ^grail_spoken_crone & inv_total(inv, holy_table_napkin) = 0) {
+if(%grail >= ^grail_spoken_crone & inv_total(inv, holy_table_napkin) = 0) {
     @brother_galahad_borrow_cloth;
 }
 

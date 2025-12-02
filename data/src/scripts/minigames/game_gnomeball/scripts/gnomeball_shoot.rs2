@@ -1,7 +1,7 @@
 [if_button,gnomeball:com_6]
 if_close;
 if (p_finduid(uid) = true) {
-    if (loc_find(^gnomeball_goal_coord, gnome_goal) = true) {
+    if (loc_find(^gnomeball_goal_coord, goal_gnomeball_game) = true) {
         @gnomeball_shoot;
     }
 }
@@ -44,23 +44,23 @@ inv_delslot(worn, ^wearpos_rhand);
 p_delay(divide($duration, 30));
 if ($land_coord = loc_coord) {
     mes("and score!"); // aug 2004, https://youtu.be/LWfcA_C2bJY?si=1xvGzgrQ53VgBsAx&t=50
-    %gnomeball = min(add(max(%gnomeball, 0), 1), 5);
-    if (%gnomeball = 5) {
+    %score_gnomeball_game = min(add(max(%score_gnomeball_game, 0), 1), 5);
+    if (%score_gnomeball_game = 5) {
         mes("You win!");
         %gnomeball_owedball = ^true;
-        %gnomeball = 0;
+        %score_gnomeball_game = 0;
         stat_advance(ranged, 300);
         stat_advance(agility, 300);
     } else {
-        stat_advance(ranged, multiply(add(%gnomeball, 3), 10));
+        stat_advance(ranged, multiply(add(%score_gnomeball_game, 3), 10));
     }
     cam_moveto(movecoord(loc_coord, -5, 0, 2), 300, 10, 20);
     cam_lookat(movecoord(loc_coord, -7, 0, 5), 250, 10, 20);
     // todo: goal jingle
-    if (npc_find(^gnomeball_cheer_coord1, gnome_cheerleader, 0, 0) = true) {
+    if (npc_find(^gnomeball_cheer_coord1, gnomecheerleader, 0, 0) = true) {
         npc_say("GOAL");
     }
-    if (npc_find(^gnomeball_cheer_coord2, gnome_cheerleader, 0, 0) = true) {
+    if (npc_find(^gnomeball_cheer_coord2, gnomecheerleader, 0, 0) = true) {
         npc_say("GOAL");
     }  
 } else {

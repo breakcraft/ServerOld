@@ -1,7 +1,7 @@
-[upass_progress]
+[upass]
 scope=perm
 
-[upass_map_mechanisms]
+[ibanmulti]
 scope=perm
 
 [iban_staff_charges]

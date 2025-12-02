@@ -4,7 +4,7 @@ if (inv_total(inv, digplainletter) > 0) @curator_stamp_letter;
 if (inv_total(inv, level1certificate) > 0) @curator_level_1;
 if (inv_total(inv, level2certificate) > 0) @curator_level_2;
 if (inv_total(inv, level3certificate) > 0) @curator_level_3;
-if(%phoenixgang_progress = ^phoenixgang_joined | %blackarmgang_progress = ^blackarmgang_joined) {
+if(%phoenixgang = ^phoenixgang_joined | %blackarmgang = ^blackarmgang_joined) {
     if(inv_total(inv, arravshield1) > 0 & inv_total(inv, arravshield2) > 0) { // mostly 1-1 with RSC
         ~chatplayer("<p,quiz>I have retrieved the shield of Arrav|and I would like to claim my reward.");
         ~chatnpc("<p,shock>The shield of Arrav?|Let me see that!");

@@ -118,8 +118,8 @@ if ($west_mapped = ^true & $middle_mapped = ^true & $east_mapped = ^true) {
     inv_add(inv, thkaramjamapcomp, 1);
     // Need to check because it's possible to do this multiple times, and we don't want to reset
     // quest progress if it happens again later
-    if (%legends_progress < ^legends_mapped_jungle) {
-        %legends_progress = ^legends_mapped_jungle;
+    if (%legendsquest < ^legends_mapped_jungle) {
+        %legendsquest = ^legends_mapped_jungle;
     }
     // OSRS behaviour suggests these bits are reset here (if you have other incomplete notes,
     // mapping starts again from scratch)

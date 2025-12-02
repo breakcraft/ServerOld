@@ -1,4 +1,4 @@
-[duelpartner]
+[duel2accept]
 type=player_uid
 protect=no
 
@@ -6,7 +6,7 @@ protect=no
 type=int
 protect=no
 
-[duel_settings]
+[dueloptions]
 transmit=yes
 protect=no
 

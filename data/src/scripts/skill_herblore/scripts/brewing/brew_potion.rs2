@@ -1,6 +1,6 @@
 [opheldu,vial_water]
 if(last_useitem = jangerberries) {
-    if(%itwatchtower_progress < ^itwatchtower_learned_potion) {
+    if(%itwatchtower < ^itwatchtower_learned_potion) {
         ~chatplayer("<p,confused>Hmm, perhaps I shouldn't mix these together. It might have unpredictable results...");
         return;
     }
@@ -13,7 +13,7 @@ if(last_useitem = ground_bat_bones) {
 
 [opheldu,guamvial]
 if(last_useitem = jangerberries) {
-    if(%itwatchtower_progress < ^itwatchtower_learned_potion) {
+    if(%itwatchtower < ^itwatchtower_learned_potion) {
         ~chatplayer("<p,confused>Hmm, perhaps I shouldn't mix these together. It might have unpredictable results...");
         return;
     }
@@ -91,7 +91,7 @@ if (map_members = ^false) {
     return(false);
 }
 
-if($struct = ardrigal_mixture & %legends_progress < ^legends_talk_gujuo_pool) {
+if($struct = ardrigal_mixture & %legendsquest < ^legends_talk_gujuo_pool) {
     mes("You're not really sure what you would make out of this.");
     return(false);
 }

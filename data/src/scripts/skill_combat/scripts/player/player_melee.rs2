@@ -23,7 +23,7 @@ if (~player_npc_hit_roll(%damagetype) = true) {
         $maxhit = add($maxhit, 1);
     }
     if (npc_param(demonbane_vulnerable) = true & inv_total(worn, silverlight) > 0) {
-        $maxhit = divide(multiply($maxhit, 160), 100);
+        $maxhit = scale(160, 100, %com_maxhit);
     }
     $damage = randominc(min($maxhit, npc_param(max_dealt)));
     def_int $damage_capped = min($damage, npc_stat(hitpoints));

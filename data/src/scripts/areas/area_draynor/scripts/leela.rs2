@@ -1,5 +1,5 @@
 [opnpc1,leela]
-switch_int (%prince_progress) {
+switch_int (%princequest) {
     case ^prince_not_started, ^prince_started :
         ~chatplayer("<p,happy>What are you waiting here for?");
         ~chatnpc("<p,neutral>That is no concern of yours, adventurer.");
@@ -28,14 +28,14 @@ if(%prince_keystatus = ^prince_keyclaimed & inv_total(inv, princeskey) = 0 & inv
     inv_del(inv, coins, 15);
     return;
 }
-if(%prince_progress = ^prince_guard_drunk) {
+if(%princequest = ^prince_guard_drunk) {
     ~chatnpc("<p,neutral>Great! The guard is now harmless. Now you just need to use the rope on Keli to remove her. Then you can go in and give everything to the prince.");
-} else if(%prince_progress = ^prince_tied_keli) {
+} else if(%princequest = ^prince_tied_keli) {
     ~chatnpc("<p,neutral>You should carry on, get in and rescue the prince. Keli is sharp, she won't stay tied up long."); // from chisel
-} else if(%prince_progress = ^prince_spoken_osman & inv_total(inv, princeskey) >= 1 & inv_total(inv, blondwig) >= 1 & inv_total(inv, pink_skirt) >= 1 & inv_total(inv, skinpaste) >= 1) {
-    %prince_progress = ^prince_prep_finished;
+} else if(%princequest = ^prince_spoken_osman & inv_total(inv, princeskey) >= 1 & inv_total(inv, blondwig) >= 1 & inv_total(inv, pink_skirt) >= 1 & inv_total(inv, skinpaste) >= 1) {
+    %princequest = ^prince_prep_finished;
     ~chatnpc("<p,shifty>Good, you have all the basic equipment. Next to deal with the guard on the door. He is talkative, try to find a weakness in him.");
-} else if(%prince_progress = ^prince_prep_finished) { // mesanims guessed cause no video + not on osrs, dialogue from chisel
+} else if(%princequest = ^prince_prep_finished) { // mesanims guessed cause no video + not on osrs, dialogue from chisel
     ~chatnpc("<p,neutral>Ok now, you have all the basic equipment.|What are your plans to stop the guard interfering?");
     switch_int(~p_choice4("I haven't spoken to him yet.", 1, "I was going to attack him.", 2, "I hoped to get him drunk.", 3, "Maybe I could bribe him to leave.", 4)) {
         case 1 :

@@ -1,5 +1,5 @@
 [opnpc1,general_khazard]
-switch_int(%arena_progress) {
+switch_int(%arenaquest) {
     case ^arena_defeated_genkhazard, ^arena_complete_defeated_genkhazard :
         ~chatplayer("<p,shock>I thought I was rid of you!");
         // todo: not sure if he attacks you here or not
@@ -32,7 +32,7 @@ switch_int(%arena_progress) {
         ~chatnpc("<p,skull>Get out! Whoever let you in shall be severely punished for this.");
 }
 
-[label,khazard_welldone]
+[label,general_khazard_welldone]
 if(npc_find(coord, general_khazard, 23, 0) = false) {
     return;
 }
@@ -48,12 +48,12 @@ if(npc_find(coord, general_khazard, 23, 0) = false) {
 // https://youtu.be/nptASzjG_Xk?si=e5G8rcOt_AvKLmkI&t=258 (not gendered, wiki mentions this as well but extra confirmation anyways)
 ~chatnpc("<p,skull>Guards! Take him to the cells.");
 if_close;
-%arena_progress = ^arena_sent_jail;
+%arenaquest = ^arena_sent_jail;
 p_teleport(0_40_49_45_5);
 cam_reset;
 cam_moveto(0_40_49_47_3, 600, 0, 100);
 cam_lookat(0_40_49_42_5, 0, 0, 100);
-npc_add(0_40_49_47_5, khazard_guard_cutscene, 30); // 30t in old videos
+npc_add(0_40_49_47_5, arena_guard5_cutscene, 30); // 30t in old videos
 npc_setmode(none);
 npc_walk(0_40_49_41_5);
 ~forcemove(0_40_49_40_5);
@@ -99,7 +99,7 @@ if (npc_find(movecoord(coord, 8, 0, 0), general_khazard, 15, 0) = false | ~npc_r
 
 [label,general_khazard_attack]
 ~chatnpc("<p,skull>You however have caused me much trouble today. You must remain here so that I may at least have the pleasure of killing you myself.");
-%arena_progress = ^arena_freed_servils;
+%arenaquest = ^arena_freed_servils;
 ~npc_retaliate(0);
 
 [ai_queue3,general_khazard]
@@ -110,6 +110,6 @@ if(npc_findhero = ^true) {
 }
 
 [queue,queue_defeat_general_khazard]
-if (inzone(^arena_lower_coord, ^arena_upper_coord, coord) = true & %arena_progress = ^arena_freed_servils) {
-    %arena_progress = ^arena_defeated_genkhazard;
+if (inzone(^arena_lower_coord, ^arena_upper_coord, coord) = true & %arenaquest = ^arena_freed_servils) {
+    %arenaquest = ^arena_defeated_genkhazard;
 }

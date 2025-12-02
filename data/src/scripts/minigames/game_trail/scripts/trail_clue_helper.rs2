@@ -35,10 +35,10 @@ if($clue ! null & oc_param($clue, trail_coord) ! null) {
 return(false);
 
 [proc,trail_clue_progress]
-if(testbit(%trail_clue, 4) = ^true) {
-    %trail_clue = clearbit(%trail_clue, 4);
+if(testbit(%trail_status, 4) = ^true) {
+    %trail_status = clearbit(%trail_status, 4);
 }
-%trail_clue = setbit_range_toint(%trail_clue, calc(~get_trail_progress + 1), 0, 3);
+%trail_status = setbit_range_toint(%trail_status, calc(~get_trail_progress + 1), 0, 3);
 
 // bits 0-3 will store the progress of the clue, bit 4 is used to flag if the clue guardian (just zamorak wizard in version 225)
 // has been killed, bits 5-7 to store the progress of the "miniquest" to get sextant/chart/watch (possible this didnt use a varp in 225, it does in osrs
@@ -46,15 +46,15 @@ if(testbit(%trail_clue, 4) = ^true) {
 // https://web.archive.org/web/20051214060247/http://www.tip.it/runescape/?page=treasure_trails.htm and runehq forums mention you can get the items back directly by talking
 // to the npc once you've claimed the items before meaning it likely used varp
 [proc,get_trail_progress]()(int)
-return (getbit_range(%trail_clue, 0, 3));
+return (getbit_range(%trail_status, 0, 3));
 
 // clears the trail progess, including the bit used for tracking the zamorak wizard
 [proc,clear_trail_progress]
-%trail_clue = clearbit_range(%trail_clue, 0, 4);
+%trail_status = clearbit_range(%trail_status, 0, 4);
 
 // 4 bits
 [proc,get_chart_progress]()(int)
-return (getbit_range(%trail_clue, 5, 8));
+return (getbit_range(%trail_status, 5, 8));
 
 [proc,has_sextant_clue]()(boolean)
 def_int $slot = 0;

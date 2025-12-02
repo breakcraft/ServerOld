@@ -11,7 +11,7 @@ import { HuntVis } from '#/engine/entity/hunt/HuntVis.js';
 import { MapFindSquareType } from '#/engine/entity/MapFindSquareType.js';
 import Npc from '#/engine/entity/Npc.js';
 import Player from '#/engine/entity/Player.js';
-import { isIndoors, isLineOfSight, isLineOfWalk, isMapBlocked, layerForLocShape } from '#/engine/GameMap.js';
+import { isIndoors, isLineOfSight, isLineOfWalk, isMapBlocked } from '#/engine/GameMap.js';
 import { HuntIterator, NpcHuntAllCommandIterator } from '#/engine/script/ScriptIterators.js';
 import { ScriptOpcode } from '#/engine/script/ScriptOpcode.js';
 import { ActiveNpc, ActivePlayer } from '#/engine/script/ScriptPointer.js';
@@ -328,7 +328,7 @@ const ServerOps: CommandHandlers = {
             throw new Error(`attempted to use invalid player uid: ${uid}`);
         }
 
-        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, player.x, player.z, -player.pid - 1, spotanimType.id, srcHeight + 100, dstHeight + 100, delay, duration, peak, arc);
+        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, player.x, player.z, -player.pid - 1, spotanimType.id, srcHeight * 4, dstHeight * 4, delay, duration, peak, arc);
     },
 
     [ScriptOpcode.PROJANIM_NPC]: state => {
@@ -345,7 +345,7 @@ const ServerOps: CommandHandlers = {
             throw new Error(`attempted to use invalid npc uid: ${npcUid}`);
         }
 
-        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, npc.x, npc.z, npc.nid + 1, spotanimType.id, srcHeight + 100, dstHeight + 100, delay, duration, peak, arc);
+        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, npc.x, npc.z, npc.nid + 1, spotanimType.id, srcHeight * 4, dstHeight * 4, delay, duration, peak, arc);
     },
 
     [ScriptOpcode.PROJANIM_MAP]: state => {
@@ -355,7 +355,7 @@ const ServerOps: CommandHandlers = {
         const srcPos: CoordGrid = check(srcCoord, CoordValid);
         const dstPos: CoordGrid = check(dstCoord, CoordValid);
 
-        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, dstPos.x, dstPos.z, 0, spotanimType.id, srcHeight + 100, dstHeight, delay, duration, peak, arc);
+        World.mapProjAnim(srcPos.level, srcPos.x, srcPos.z, dstPos.x, dstPos.z, 0, spotanimType.id, srcHeight * 4, dstHeight * 4, delay, duration, peak, arc);
     },
 
     [ScriptOpcode.MAP_LOCADDUNSAFE]: state => {
@@ -368,7 +368,7 @@ const ServerOps: CommandHandlers = {
                 continue;
             }
 
-            const layer = layerForLocShape(loc.shape);
+            const layer = loc.layer;
 
             if (!loc.isActive && layer === LocLayer.WALL) {
                 continue;

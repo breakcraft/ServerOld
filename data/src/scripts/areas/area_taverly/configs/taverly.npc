@@ -140,7 +140,7 @@ head1=model_113_idk_head
 wanderrange=1
 param=death_sound,female_death
 
-[boy]
+[ballboy]
 vislevel=hide
 name=Boy
 desc=A sad looking child...
@@ -191,5 +191,4 @@ defence=32
 magic=25
 param=damagetype,^crush_style
 // osrs stats and Vislvl match 1:1
-// TODO: recheck attackrange
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3258

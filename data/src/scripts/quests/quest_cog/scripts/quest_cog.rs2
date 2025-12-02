@@ -7,8 +7,8 @@ session_log(^log_adventure, "Quest complete: Clock Tower");
 ~send_quest_complete(questlist:cog, coins_25, 250, ^cog_questpoints, "You have completed the\\nClock Tower Quest!");
 
 [proc,cog_update_main_quest_step](int $step)()
-%cog_progress = setbit_range_toint(%cog_progress, $step, 0, 3);
+%cogquest = setbit_range_toint(%cogquest, $step, 0, 3);
 
 [proc,get_cog_progress]()(int)
-return(getbit_range(%cog_progress, 0, 3));
+return(getbit_range(%cogquest, 0, 3));
 

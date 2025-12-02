@@ -1,6 +1,6 @@
-[opnpc1,ogre_guard_east] @ogre_guard_east_dialogue;
+[opnpc1,ogre_guard1] @ogre_guard1_dialogue;
 
-[label,ogre_guard_east_dialogue]
+[label,ogre_guard1_dialogue]
 switch_int(%gutanoth_gold) {
     case ^gutanoth_found_gold :
         ~chatnpc("<p,neutral>I know you, creature; you may pass.");
@@ -11,7 +11,7 @@ switch_int(%gutanoth_gold) {
             inv_del(inv, gold_bar, 1);
             %gutanoth_gold = ^gutanoth_found_gold;
             ~chatnpc("<p,happy>It's brought it! On your way.");
-            if(loc_find(0_39_47_53_20, loc_2787) = true) @enter_gutanoth(movecoord(loc_coord, 0, 0, -1));
+            if(loc_find(0_39_47_53_20, ogreguardgate1right) = true) @enter_gutanoth(movecoord(loc_coord, 0, 0, -1));
             return;
         }
         ~chatplayer("<p,sad>No, I don't have it.");
@@ -28,20 +28,20 @@ switch_int(%gutanoth_gold) {
         p_teleport(^gutanoth_hill);
 }
 
-[opnpcu,ogre_guard_east]
+[opnpcu,ogre_guard1]
 if(last_useitem = gold_bar) {
     if(%gutanoth_gold >= ^gutanoth_found_gold) {
-        if(loc_find(0_39_47_53_20, loc_2787) = true) @enter_gutanoth(movecoord(loc_coord, 0, 0, -1));
+        if(loc_find(0_39_47_53_20, ogreguardgate1right) = true) @enter_gutanoth(movecoord(loc_coord, 0, 0, -1));
         return;
     }
-    @ogre_guard_east_dialogue;
+    @ogre_guard1_dialogue;
 }
 // no nothing interesting happens
 
-[opnpc1,ogre_guard_west] @ogre_guard_west_dialogue;
+[opnpc1,ogre_guard2] @ogre_guard2_dialogue;
 
-[label,ogre_guard_west_dialogue]
-if(%itwatchtower_progress >= ^itwatchtower_given_relic) {
+[label,ogre_guard2_dialogue]
+if(%itwatchtower >= ^itwatchtower_given_relic) {
     ~chatnpc("<p,neutral>It's the small creature;|you may pass.");
     return;
 }
@@ -61,9 +61,9 @@ p_teleport(^gutanoth_hill);
 ~chatnpc("<p,quiz>Well, what proof of friendship did you bring?");
 if(inv_total(inv, ogrerelic) > 0) {
     ~chatplayer("<p,happy>I have a relic from a chieftan!");
-    %itwatchtower_progress = ^itwatchtower_given_relic;
+    %itwatchtower = ^itwatchtower_given_relic;
     ~chatnpc("<p,happy>It's got the statue of Dalgroth.|Welcome to Gu'Tanoth,|friend of the ogres.");
-    if(loc_find(0_39_47_8_54, loc_2788) = true) @enter_gutanoth(movecoord(loc_coord, -1, 0, 0));
+    if(loc_find(0_39_47_8_54, ogreguardgate2) = true) @enter_gutanoth(movecoord(loc_coord, -1, 0, 0));
     return;
 }
 ~chatplayer("<p,sad>I don't have anything.");
@@ -71,8 +71,8 @@ if(inv_total(inv, ogrerelic) > 0) {
 mes("The guard pushes you back down the hill.");
 p_teleport(^gutanoth_hill);
 
-[opnpcu,ogre_guard_west]
-if(%itwatchtower_progress >= ^itwatchtower_given_relic) {
+[opnpcu,ogre_guard2]
+if(%itwatchtower >= ^itwatchtower_given_relic) {
     ~chatnpc("<p,neutral>Don't need anything from you, creature."); // RS3
     return;
 }
@@ -85,9 +85,9 @@ if(last_useitem = relicpart1 | last_useitem = relicpart2 | last_useitem = relicp
     p_teleport(^gutanoth_hill);
 }
 
-[opnpc1,ogre_guard_battlements] @ogre_guard_battlements_dialogue;
+[opnpc1,ogre_guard3] @ogre_guard3_dialogue;
 
-[opnpcu,ogre_guard_battlements]
+[opnpcu,ogre_guard3]
 if(last_useitem = rockcake) {
     if(getbit_range(%itwatchtower_bits, ^itwatchtower_market_lower, ^itwatchtower_market_upper) = 1) @battlements_rockcake;
     // https://youtu.be/R8E9Rir_kKg?si=Qg1oFtos6w4T8Mhh&t=851
@@ -108,9 +108,9 @@ inv_del(inv, rockcake, 1);
 %itwatchtower_bits = setbit_range_toint(%itwatchtower_bits, 2, ^itwatchtower_market_lower, ^itwatchtower_market_upper);
 ~chatplayer("<p,neutral>How about this?");
 ~chatnpc("<p,happy>Well, well, look at this.|My favourite: rock cake!|Okay, we will let it through.");
-if(loc_find(0_39_47_11_3, loc_2832) = true) p_oploc(1); // might be force walk into interaction instead originally
+if(loc_find(0_39_47_11_3, ganothbattlement) = true) p_oploc(1); // might be force walk into interaction instead originally
 
-[label,ogre_guard_battlements_dialogue]
+[label,ogre_guard3_dialogue]
 switch_int(getbit_range(%itwatchtower_bits, ^itwatchtower_market_lower, ^itwatchtower_market_upper)) {
     case 2 :
         ~chatnpc("<p,neutral>It's that creature again.|This time we will let it go.");
@@ -148,6 +148,6 @@ p_teleport(^gutanoth_hill_lower);
 ~chatnpc("<p,angry>Grrrrr!");
 ~npc_retaliate(0);
 
-[opnpc1,ogre_guard_broken_bridge] ~chatnpc("<p,angry>What do you want, small thing?|Leave us alone!");
+[opnpc1,ogre_guard4] ~chatnpc("<p,angry>What do you want, small thing?|Leave us alone!");
 
 

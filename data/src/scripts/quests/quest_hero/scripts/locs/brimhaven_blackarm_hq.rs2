@@ -1,5 +1,5 @@
-[oploc1,brimhaven_blackarm_door] 
-if (%hero_progress >= ^hero_blackarm_hq_door_unlocked & %blackarmgang_progress = ^blackarmgang_complete) {
+[oploc1,grubordoor] 
+if (%heroquest >= ^hero_blackarm_hq_door_unlocked & %blackarmgang = ^blackarmgang_complete) {
   ~open_and_close_door(loc_type, ~check_axis(coord, loc_coord, loc_angle), false);
   return;
 }

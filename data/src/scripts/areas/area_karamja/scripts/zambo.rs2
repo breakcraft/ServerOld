@@ -2,7 +2,7 @@
 ~chatnpc("<p,quiz>Hey, are you wanting to try some of my fine wines and spirits? All brewed locally on Karamja island.");
 
 def_int $option;
-if(testbit(%barcrawl_progress, ^karamjaspirits_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+if(testbit(%barcrawl, ^karamjaspirits_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
     $option = ~p_choice3("Yes please.", 1, "No, thank you.", 2, "I'm doing Alfred Grimhand's barcrawl.", 3);
 } else {
     $option = ~p_choice2("Yes please.", 1, "No, thank you.", 2);
@@ -14,7 +14,7 @@ switch_int ($option) {
 }
 
 [opnpcu,zambo]
-if(testbit(%barcrawl_progress, ^karamjaspirits_index) = ^false & last_useitem = barcrawl_card) {
+if(testbit(%barcrawl, ^karamjaspirits_index) = ^false & last_useitem = barcrawl_card) {
     @karamjaspirits_barcrawl;
 }
 
@@ -33,5 +33,5 @@ mes("You swirl it around and swallow it.");
 p_delay(2);
 mes("Zambo signs your card.");
 p_delay(2);
-%barcrawl_progress = setbit(%barcrawl_progress, ^karamjaspirits_index);
+%barcrawl = setbit(%barcrawl, ^karamjaspirits_index);
 ~chatplayer("<p,confused>Mmmmm, dat was luverly...");

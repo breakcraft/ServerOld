@@ -1,6 +1,6 @@
 [human_herbing_vial]
-righthand=vial_empty
-lefthand=herbbowl
+replaceheldleft=vial_empty
+replaceheldright=herbbowl
 frame1=anim_1689
 frame2=anim_1987
 frame3=anim_2286

@@ -1,9 +1,9 @@
-[opnpc1,captain_siad]
+[opnpc1,capt_siad]
 mes("The captain looks up from his work as you address him.");
 p_delay(2);
-@captain_siad_dialogue;
+@capt_siad_dialogue;
 
-[label,captain_siad_dialogue]
+[label,capt_siad_dialogue]
 if(~obj_gettotal(thcaptplans) > 0) {
     ~chatnpc("<p,angry>I don't have time to talk to you.|Move along please!");
     return;
@@ -34,7 +34,7 @@ mes("The Captain goes back to his work.");
 [label,siad_dowithyou]
 ~chatplayer("<p,quiz>What's it got to do with you?");
 ~chatnpc("<p,angry>This happens to be my office. Now explain yourself before I run you through!");
-if(%desertrescue_progress >= ^desertrescue_given_bedobin_key) {
+if(%desertrescue >= ^desertrescue_given_bedobin_key) {
     @multi3("I'm here to take your plans, hand them over now or I'll kill you!", siad_takeplans, "The guard downstairs said you were lonely.", siad_lonely, "I need to service your chest.", siad_service);
 } else {
     @multi2("The guard downstairs said you were lonely.", siad_lonely, "I need to service your chest.", siad_service);
@@ -93,7 +93,7 @@ npc_say("GUARDS!");
 [label,siad_slaves]
 ~chatplayer("<p,shock>All the slaves have broken free!");
 ~chatnpc("<p,angry>Don't talk rubbish, the warning siren isn't sounding. Now state your business before I have you thrown out.");
-if(%desertrescue_progress >= ^desertrescue_given_bedobin_key) {
+if(%desertrescue >= ^desertrescue_given_bedobin_key) {
     @multi3("I'm here to take your plans, hand them over now or I'll kill you!", siad_takeplans, "The guard downstairs said you were lonely.", siad_lonely, "I need to service your chest.", siad_service);
 } else {
     @multi2("The guard downstairs said you were lonely.", siad_lonely, "I need to service your chest.", siad_service);
@@ -139,7 +139,7 @@ mes("The Captain goes back to his desk.");
 ~chatnpc("<p,quiz>You need to what?");
 ~chatplayer("<p,shifty>I need to service your chest?");
 ~chatnpc("<p,angry>There's nothing wrong with the chest, it's fine, now get out!");
-if(%desertrescue_progress >= ^desertrescue_given_bedobin_key) {
+if(%desertrescue >= ^desertrescue_given_bedobin_key) {
     @multi2("I'm here to take your plans, hand them over now or I'll kill you!", siad_takeplans, "Fire! Fire!", siad_fire);
 } else {
     @multi2("Fire! Fire!", siad_fire, "Oh my, a dragon just flew straight past your window!", siad_dragon);
@@ -166,7 +166,7 @@ mes("The Captain goes back to his desk and starts studying.");
 mes("The Captain goes back to his desk and starts studying.");
 
 [label,siad_sendguards]
-if(%desertrescue_progress < ^desertrescue_complete) {
+if(%desertrescue < ^desertrescue_complete) {
     return;
 }
 if_close;

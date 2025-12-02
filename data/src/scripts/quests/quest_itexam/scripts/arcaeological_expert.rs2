@@ -86,7 +86,7 @@ if ($item = digtalisman) {
     inv_add(inv, digexpertscroll, 1);
     mes("The expert hands you a letter.");
 } else if ($item = zarosstonetablet) {
-    if(%itexam_progress = ^itexam_complete) {
+    if(%itexamlevel = ^itexam_complete) {
         ~chatnpc("<p,confused>I don't need another tablet!|One is enough, thank you.");
         return;
     }

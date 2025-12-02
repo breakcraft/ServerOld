@@ -1,5 +1,5 @@
-[opnpc1,stanford]
-switch_int(%murder_progress) { 
+[opnpc1,stanford_the_gardener]
+switch_int(%murderquest) { 
     case ^murder_not_started :
         ~chatnpc("<p,angry>Have you no shame? We are all grieving at the moment.");
     case ^murder_started :

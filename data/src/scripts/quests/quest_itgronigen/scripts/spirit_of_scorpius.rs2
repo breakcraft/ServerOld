@@ -1,6 +1,6 @@
 [opnpc1,spirit_of_scorpius]
 ~chatnpc("<p,angry>Who treads upon my grave?");
-if(%itgronigen_progress < ^itgronigen_complete) {
+if(%itgronigen < ^itgronigen_complete) {
     ~chatnpc("<p,angry>How dare you disturb me!");
     return;
 }

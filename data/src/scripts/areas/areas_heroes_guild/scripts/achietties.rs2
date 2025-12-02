@@ -3,20 +3,20 @@
 [label,speak_achietties]
 // dialogue mostly based on this - https://www.youtube.com/watch?v=1MzVD-ZHMiY&t=60s
 ~chatnpc("<p,neutral>Greetings. Welcome to the Heroes' Guild.");
-if (%hero_progress >= ^hero_complete) {
+if (%heroquest >= ^hero_complete) {
   return;
 }
 
 if (~hero_in_progress = true) {
   ~chatnpc("<p,quiz>How goes thy quest adventurer?");
-  if ((inv_total(inv, fire_feather) >= 1) & (inv_total(inv, lava_eel) >= 1) & (inv_total(inv, master_thief_armband) >= 1)) {
+  if ((inv_total(inv, hot_feather) >= 1) & (inv_total(inv, lava_eel) >= 1) & (inv_total(inv, master_thief_armband) >= 1)) {
     ~chatplayer("<p,happy>I have all the required items.");
     ~chatnpc("<p,neutral>I see that you have. Well done; Now, to complete the|quest, and gain entry to the Hero's Guild in your final|task all that you have to do is...");
     ~chatplayer("<p,shock>W-what? What do you mean? There's MORE???");
     ~chatnpc("<p,neutral>I'm sorry, I was just having a little fun with you. Just|a little Hero's Guild humour there. What I really|meant was");
     ~chatnpc("<p,happy>Congratulations! You have completed the Hero's Guild|entry requirements! You will find the door now open|for you! Enter, Hero! And take this reward!");
     queue(hero_quest_complete, 0);
-    inv_del(inv, fire_feather, 1);
+    inv_del(inv, hot_feather, 1);
     inv_del(inv, master_thief_armband, 1);
     inv_del(inv, lava_eel, 1);
   } else {
@@ -39,11 +39,11 @@ if($op = 2) {
 if (~has_hero_quest_requirements = true) {
   ~chatnpc("<p,neutral>Well, you have a lot of quest points, and you have done|all the required quests, so you may now begin the|tasks to meet the entry requirements for membership in|the Hero's Guild. The three items required");
   ~chatnpc("<p,neutral>for entrance are:|An Entranan Firebird feather,|a Master Thieves' armband,|and a cooked Lava Eel."); // imgur.com/8hiv333
-  %hero_progress = ^hero_started;
-  ~send_quest_progress(questlist:hero, %hero_progress, ^hero_complete);
+  %heroquest = ^hero_started;
+  ~send_quest_progress(questlist:hero, %heroquest, ^hero_complete);
   @achietties_help_dialogue;
 } else {
-  if(%questpoints >= ^hero_required_questpoints) {
+  if(%qp >= ^hero_required_questpoints) {
     ~chatnpc("<p,neutral>Well, you have a lot of quest points, but to be deemed worthy, you must have completed the Shield of Arrav, Lost City, Merlin's Crystal and Dragon Slayer quests.");
     return;
   }

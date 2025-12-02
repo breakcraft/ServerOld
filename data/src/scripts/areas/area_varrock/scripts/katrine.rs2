@@ -1,11 +1,11 @@
 [opnpc1,katrine]
-if(%phoenixgang_progress >= ^phoenixgang_joined) {
+if(%phoenixgang >= ^phoenixgang_joined) {
     ~chatnpc("<p,angry>You've got some guts coming here,|Phoenix <text_gender("guy", "gal")>!");
     ~mesbox("Katrine spits.");
     ~chatnpc("<p,angry>Now get lost!");
     return;
 }
-switch_int(%blackarmgang_progress) {
+switch_int(%blackarmgang) {
     case ^blackarmgang_spoken_katrine : @katrine_got_yet;
     case ^blackarmgang_joined, ^blackarmgang_complete : @katrine_blackarmmember;
     case default : @katrine_standard;
@@ -15,7 +15,7 @@ switch_int(%blackarmgang_progress) {
 ~chatplayer("<p,quiz>What is this place?");
 ~chatnpc("<p,neutral>It's a private business.|Can I help you at all?");
 def_int $option;
-if(%blackarmgang_progress = ^blackarmgang_started) {
+if(%blackarmgang = ^blackarmgang_started) {
     $option = ~p_choice3("I've heard you're the Black Arm Gang.", 3, "What sort of business?", 1, "I'm looking for fame and riches.", 2);
 } else {
     $option = ~p_choice2("What sort of business?", 1, "I'm looking for fame and riches.", 2);
@@ -69,7 +69,7 @@ switch_int (~p_choice2("Well, you can give me a try can't you?", 1, "Well, peopl
 switch_int (~p_choice2("Ok, no problem.", 1, "Sounds a little tricky. Got anything easier?", 2)) {
     case 1 :
         ~chatplayer("<p,happy>Ok, no problem.");
-        %blackarmgang_progress = 2;
+        %blackarmgang = 2;
         ~chatnpc("<p,neutral>Great! You'll find the Phoenix gang's weapon stash just next to a temple, due east of here.");
     case 2 :
         ~chatplayer("<p,confused>Sounds a little tricky...");
@@ -93,7 +93,7 @@ if(inv_total(inv,phoenix_crossbow) >= 2) {
     ~chatplayer("<p,happy>Yes, I have.");
     ~mesbox("You give the crossbows to Katrine.");
     inv_del(inv, phoenix_crossbow, 2);
-    %blackarmgang_progress = ^blackarmgang_joined;
+    %blackarmgang = ^blackarmgang_joined;
     ~chatnpc("<p,neutral>Ok. You can join our gang now.|Feel free to enter any of the rooms of the ganghouse.");
     return;
 } else if(inv_total(inv,phoenix_crossbow) = 1) {
@@ -128,8 +128,8 @@ switch_int (~determine_katrine_option) {
         ~chatnpc("<p,neutral>We, of course, have gang members in a town like Brimhaven who may be able to help you."); 
         ~chatnpc("<p,neutral>Visit our hideout in the alleyway on palm street."); 
         ~chatnpc("<p,neutral>To get in you will need to tell them the secret password 'four leafed clover'."); 
-        if (%hero_progress = ^hero_started) {
-            %hero_progress = ^hero_blackarm_gangmember_spoken;
+        if (%heroquest = ^hero_started) {
+            %heroquest = ^hero_blackarm_gangmember_spoken;
         }
     case 4 : // Showing candlestick
         // https://youtu.be/KRhwwgo8YHM?si=L2w_eELFNMxWG88A&t=570
@@ -141,7 +141,7 @@ switch_int (~determine_katrine_option) {
         ~mesbox("Katrine gives you a master thief armband.");
         inv_del(inv, petecandlestick, 1);
         inv_add(inv, master_thief_armband, 1);
-        %hero_progress = ^hero_blackarm_obtained_armband;
+        %heroquest = ^hero_blackarm_obtained_armband;
     case 5 : // Showing candlestick (did not progress quest correctly)
         ~chatplayer("<p,neutral>I have a candlestick now!");
         ~chatnpc("<p,neutral>Good for you. I'll give a master thief's armband to the one who retrieved that. I know it wasn't you.");
@@ -152,22 +152,22 @@ switch_int (~determine_katrine_option) {
 }
 
 [proc,determine_katrine_option]()(int)
-if (%hero_progress >= ^hero_blackarm_obtained_armband & ~obj_gettotal(master_thief_armband) < 1) {
+if (%heroquest >= ^hero_blackarm_obtained_armband & ~obj_gettotal(master_thief_armband) < 1) {
     return(6);
 }
-else if (%hero_progress < ^hero_started | %hero_progress >= ^hero_blackarm_obtained_armband) {
+else if (%heroquest < ^hero_started | %heroquest >= ^hero_blackarm_obtained_armband) {
     return(~p_choice2("Who are all those people in there?", 1, "Teach me to be a top class criminal.", 2));
 }
-else if (%hero_progress >= ^hero_blackarm_gangmember_spoken & inv_total(inv, petecandlestick) >= 1) {
+else if (%heroquest >= ^hero_blackarm_gangmember_spoken & inv_total(inv, petecandlestick) >= 1) {
     def_int $option;
-    if (%hero_progress = ^hero_blackarm_looted_chest) {
+    if (%heroquest = ^hero_blackarm_looted_chest) {
         $option = 4; // success
     } else {
         $option = 5; // invalid candlestick (did not obtain correctly)
     }
     return(~p_choice2("Who are all those people in there?", 1, "I have a candlestick now!", $option));
 }
-else if (%hero_progress = ^hero_started) {
+else if (%heroquest = ^hero_started) {
     return(~p_choice2("Who are all those people in there?", 1, "Is there any way I can get the rank of master thief?", 3));
 }
 // todo? find out if there are dialogue options if you have already asked about becoming a master thief but not yet turned in the candlestick

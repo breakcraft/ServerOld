@@ -1,5 +1,5 @@
 [opnpc1,blurberry]
-if(testbit(%barcrawl_progress, ^blurberry_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
+if(testbit(%barcrawl, ^blurberry_index) = ^false & inv_total(inv, barcrawl_card) > 0) {
     @blurberry_barcrawl;
 }
 switch_int(%gnome_bar_progress) {
@@ -24,7 +24,7 @@ switch_int(%gnome_bar_progress) {
 }
 
 [opnpcu,blurberry]
-if(testbit(%barcrawl_progress, ^blurberry_index) = ^false & last_useitem = barcrawl_card) {
+if(testbit(%barcrawl, ^blurberry_index) = ^false & last_useitem = barcrawl_card) {
     @blurberry_barcrawl;
 }
 def_category $category = oc_category(last_useitem);
@@ -61,7 +61,7 @@ mes("You buy a Fire Toad Blast.");
 p_delay(2);
 mes("Your mouth and throat burn as you gulp it down.");
 p_delay(2);
-%barcrawl_progress = setbit(%barcrawl_progress, ^blurberry_index);
+%barcrawl = setbit(%barcrawl, ^blurberry_index);
 mes("Blurberry signs your card.");
 p_delay(2);
 ~damage_self(calc((stat(hitpoints) * 5) / 100));

@@ -1,12 +1,12 @@
 [opnpc1,sir_lucan]
 ~chatnpc("<p,happy>Hello there adventurer.");
-if(%grail_progress > ^grail_not_started & %grail_progress < ^grail_complete) {
+if(%grail > ^grail_not_started & %grail < ^grail_complete) {
     ~chatplayer("<p,neutral>I seek the Grail of legend!");
     ~chatnpc("<p,happy>I'm afraid I don't have any suggestions...");
     ~chatplayer("<p,happy>Thanks. I'll try and find someone who does.");
     return;
 }
-switch_int (%arthur_progress) {
+switch_int (%arthur) {
     case ^arthur_not_started :
         ~chatplayer("<p,neutral>I'm looking for a quest...");
         ~chatnpc("<p,happy>Talk to the King then adventurer. He is always looking for men of bravery to aid him in his actions.");

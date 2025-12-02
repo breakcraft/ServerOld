@@ -1,5 +1,5 @@
 [opnpc1,king_lathas]
-if(%biohazard_progress = ^biohazard_reported_elena) {
+if(%biohazard = ^biohazard_reported_elena) {
     ~chatplayer("<p,quiz>I assume that you are the King of East Ardougne?");
     ~chatnpc("<p,angry>You assume correctly, but where do you get such impertinence.");
     ~chatplayer("<p,neutral>I get it from finding out that the plague is a hoax.");
@@ -31,8 +31,8 @@ if(%biohazard_progress = ^biohazard_reported_elena) {
             ~chatplayer("<p,angry>I've wasted enough of my time here.");
             ~chatnpc("<p,neutral>No time is ever wasted, thanks for all you've done.");
     }
-} else if(%biohazard_progress = ^biohazard_complete) {
-    switch_int(%upass_progress) {
+} else if(%biohazard = ^biohazard_complete) {
+    switch_int(%upass) {
         case ^upass_complete :
             ~chatplayer("<p,happy>Hello King Lathas.");
             // magi isn't a typo lol
@@ -47,7 +47,7 @@ if(%biohazard_progress = ^biohazard_reported_elena) {
             ~chatnpc("<p,happy>Your loyalty is appreciated, traveller.");
             queue(upass_quest_complete, 0);
         case ^upass_not_started :
-            if(testbit(%upass_map_mechanisms, ^upass_started_bit) = ^true) {
+            if(testbit(%ibanmulti, ^upass_started_bit) = ^true) {
                 @lathas_managing;
             }
             ~chatplayer("<p,happy>Hello King Lathas.");
@@ -62,7 +62,7 @@ if(%biohazard_progress = ^biohazard_reported_elena) {
             ~chatnpc("<p,neutral>However during recent times a cluster of cultists have settled there, run by a madman named Iban.");
             ~chatplayer("<p,quiz>Iban?");
             ~chatnpc("<p,neutral>A crazy loon who claims to be the son of Zamorak.");
-            %upass_map_mechanisms = setbit(%upass_map_mechanisms, ^upass_started_bit);
+            %ibanmulti = setbit(%ibanmulti, ^upass_started_bit);
             ~setupassgrilltrap;
             ~send_quest_progress(questlist:upass, 1, ^upass_complete);
             ~chatnpc("<p,neutral>Go meet my main tracker, Koftik. He will help you. He waits for you at the west side of West Ardougne.");

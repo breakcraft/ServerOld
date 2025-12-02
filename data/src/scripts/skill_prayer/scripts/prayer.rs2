@@ -61,50 +61,50 @@ while ($i <= db_getfieldcount($data, prayers:prayer_deactivate)) {
 def_int $drain = enum(int, int, prayer_drain_effects, $prayer);
 switch_int($prayer) {
     case ^prayer_thickskin :
-        if (%prayer_thickskin = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_thickskin = ^false;
+        if (%prayer0 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer0 = ^false;
     case ^prayer_strengthburst :
-        if (%prayer_strengthburst = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_strengthburst = ^false;
+        if (%prayer1 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer1 = ^false;
     case ^prayer_clarity :
-        if (%prayer_clarity = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_clarity = ^false;
+        if (%prayer2 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer2 = ^false;
     case ^prayer_rockskin :
-        if (%prayer_rockskin = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_rockskin = ^false;
+        if (%prayer3 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer3 = ^false;
     case ^prayer_superhumanstrength :
-        if (%prayer_superhumanstrength = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_superhumanstrength = ^false;
+        if (%prayer4 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer4 = ^false;
     case ^prayer_improvedreflexes :
-        if (%prayer_improvedreflexes = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_improvedreflexes = ^false;
+        if (%prayer5 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer5 = ^false;
     case ^prayer_rapidrestore :
-        if (%prayer_rapidrestore = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_rapidrestore = ^false;
+        if (%prayer6 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer6 = ^false;
     case ^prayer_rapidheal :
-        if (%prayer_rapidheal = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_rapidheal = ^false;
+        if (%prayer7 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer7 = ^false;
     case ^prayer_protectitems :
-        if (%prayer_protectitems = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_protectitems = ^false;
+        if (%prayer8 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer8 = ^false;
     case ^prayer_steelskin :
-        if (%prayer_steelskin = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_steelskin = ^false;
+        if (%prayer9 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer9 = ^false;
     case ^prayer_ultimatestrength :
-        if (%prayer_ultimatestrength = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_ultimatestrength = ^false;
+        if (%prayer10 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer10 = ^false;
     case ^prayer_incrediblereflexes :
-        if (%prayer_incrediblereflexes = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_incrediblereflexes = ^false;
+        if (%prayer11 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer11 = ^false;
     case ^prayer_protectfrommagic :
-        if (%prayer_protectfrommagic = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_protectfrommagic = ^false;
+        if (%prayer12 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer12 = ^false;
     case ^prayer_protectfrommissiles :
-        if (%prayer_protectfrommissiles = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_protectfrommissiles = ^false;
+        if (%prayer13 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer13 = ^false;
     case ^prayer_protectfrommelee :
-        if (%prayer_protectfrommelee = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
-        %prayer_protectfrommelee = ^false;
+        if (%prayer14 = ^true) %prayer_drain_effect = sub(%prayer_drain_effect, $drain);
+        %prayer14 = ^false;
 }
 def_int $headicon = enum(int, int, prayer_headicons, $prayer);
 if ($headicon > 0) {
@@ -115,39 +115,39 @@ if (~prayers_are_active = false) {
 }
 
 [proc,prayers_are_active]()(boolean)
-if (%prayer_thickskin = ^true) return (true);
-if (%prayer_strengthburst = ^true) return (true);
-if (%prayer_clarity = ^true) return (true);
-if (%prayer_rockskin = ^true) return (true);
-if (%prayer_superhumanstrength = ^true) return (true);
-if (%prayer_improvedreflexes = ^true) return (true);
-if (%prayer_rapidrestore = ^true) return (true);
-if (%prayer_rapidheal = ^true) return (true);
-if (%prayer_protectitems = ^true) return (true);
-if (%prayer_steelskin = ^true) return (true);
-if (%prayer_ultimatestrength = ^true) return (true);
-if (%prayer_incrediblereflexes = ^true) return (true);
-if (%prayer_protectfrommagic = ^true) return (true);
-if (%prayer_protectfrommissiles = ^true) return (true);
-if (%prayer_protectfrommelee = ^true) return (true);
+if (%prayer0 = ^true) return (true);
+if (%prayer1 = ^true) return (true);
+if (%prayer2 = ^true) return (true);
+if (%prayer3 = ^true) return (true);
+if (%prayer4 = ^true) return (true);
+if (%prayer5 = ^true) return (true);
+if (%prayer6 = ^true) return (true);
+if (%prayer7 = ^true) return (true);
+if (%prayer8 = ^true) return (true);
+if (%prayer9 = ^true) return (true);
+if (%prayer10 = ^true) return (true);
+if (%prayer11 = ^true) return (true);
+if (%prayer12 = ^true) return (true);
+if (%prayer13 = ^true) return (true);
+if (%prayer14 = ^true) return (true);
 return (false);
 
 [proc,prayer_deactivate_all]
-%prayer_thickskin = ^false;
-%prayer_strengthburst = ^false;
-%prayer_clarity = ^false;
-%prayer_rockskin = ^false;
-%prayer_superhumanstrength = ^false;
-%prayer_improvedreflexes = ^false;
-%prayer_rapidrestore = ^false;
-%prayer_rapidheal = ^false;
-%prayer_protectitems = ^false;
-%prayer_steelskin = ^false;
-%prayer_ultimatestrength = ^false;
-%prayer_incrediblereflexes = ^false;
-%prayer_protectfrommagic = ^false;
-%prayer_protectfrommissiles = ^false;
-%prayer_protectfrommelee = ^false;
+%prayer0 = ^false;
+%prayer1 = ^false;
+%prayer2 = ^false;
+%prayer3 = ^false;
+%prayer4 = ^false;
+%prayer5 = ^false;
+%prayer6 = ^false;
+%prayer7 = ^false;
+%prayer8 = ^false;
+%prayer9 = ^false;
+%prayer10 = ^false;
+%prayer11 = ^false;
+%prayer12 = ^false;
+%prayer13 = ^false;
+%prayer14 = ^false;
 ~headicon_del(^headicon_prayer_protectfrommelee);
 ~headicon_del(^headicon_prayer_protectfromrange);
 ~headicon_del(^headicon_prayer_protectfrommagic);

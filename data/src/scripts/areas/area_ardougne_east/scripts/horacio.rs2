@@ -7,7 +7,7 @@ if($option = 1) {
 } else if ($option = 2) {
     ~chatplayer("<p,quiz>So... who are you?");
     ~chatnpc("<p,neutral>My name is Horacio Dobson. I'm the gardener to Lord Handelmort. Take a look around this beautiful garden, all of this is my handiwork.");
-    if(%totem_progress >= ^totem_started) {
+    if(%totemquest >= ^totem_started) {
         @multi2("So... do you garden round the back too?", horacio_garden_back, "Do you need any help?", horacio_help);
     }
 }

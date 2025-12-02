@@ -1,8 +1,8 @@
 [opnpc1,jerico]
-if(%biohazard_progress >= ^biohazard_poisoned_stew) {
+if(%biohazard >= ^biohazard_poisoned_stew) {
     mes("Jerico is busy looking for his bird feed.");
 }
-switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has no dialogue!
+switch_int(%biohazard) { // ^biohazard_used_birdfeed intentionally has no dialogue!
     case ^biohazard_climbed_ladder :
         ~chatplayer("<p,happy>Hello again Jerico.");
         ~chatnpc("<p,neutral>So you've returned traveller.|Did you get what you wanted?");
@@ -38,7 +38,7 @@ switch_int(%biohazard_progress) { // ^biohazard_used_birdfeed intentionally has 
         ~chatnpc("<p,neutral>Hello, I've been expecting you.|Elena tells me you need to cross the wall.");
         ~chatplayer("<p,neutral>That's right.");
         ~chatnpc("<p,neutral>My messenger pigeons help me communicate with friends over the wall.");
-        %biohazard_progress = ^biohazard_spoken_jerico;
+        %biohazard = ^biohazard_spoken_jerico;
         // https://web.archive.org/web/20050515184744im_/http://www.runeweb.net/fireball/Biohazard%20Images/biohazard5.PNG
         ~chatnpc("<p,neutral>I have arranged for two friends|to aid you with a rope ladder.|Omart is waiting for you at the southend of the wall.");
         ~chatnpc("<p,shifty>But be careful, if the mourners catch you the punishment will be severe.");

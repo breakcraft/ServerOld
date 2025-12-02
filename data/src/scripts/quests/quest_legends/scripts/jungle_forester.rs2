@@ -1,8 +1,8 @@
-[opnpc1,jungle_forester_male] @jungle_forester_start;
-[opnpc1,jungle_forester_female] @jungle_forester_start;
+[opnpc1,jungleforester_m] @jungle_forester_start;
+[opnpc1,jungleforester_f] @jungle_forester_start;
 
-[opnpcu,jungle_forester_male] @jungle_forester_show_item;
-[opnpcu,jungle_forester_female] @jungle_forester_show_item;
+[opnpcu,jungleforester_m] @jungle_forester_show_item;
+[opnpcu,jungleforester_f] @jungle_forester_show_item;
 
 [label,jungle_forester_show_item]
 if (last_useitem = thkaramjamapcomp) {
@@ -27,7 +27,7 @@ else {
 ~chatplayer("<p,neutral>Yes, go ahead make a copy!");
 ~chatnpc("<p,neutral>Many thanks friend.");
 def_string $gender = "He";
-if (npc_type = jungle_forester_female) {
+if (npc_type = jungleforester_f) {
     $gender = "She";
 }
 ~mesbox("The Jungle Forester takes out some parchment and some charcoal. <$gender> studiously renders another copy of your map.");
@@ -36,7 +36,7 @@ if (npc_type = jungle_forester_female) {
 ~objbox(bullroarer, "<$gender> takes out a strange looking object and hands it to you.", 250, 0, 0);
 // Can't find any evidence of an inv space check
 inv_add(inv, bullroarer, 1);
-if(%legends_progress < ^legends_got_bullroarer) %legends_progress = ^legends_got_bullroarer;
+if(%legendsquest < ^legends_got_bullroarer) %legendsquest = ^legends_got_bullroarer;
 ~chatnpc("<p,neutral>Here, I won't be needing this any longer, and it may|help you. Whenever I've used it before, it attracted the|attention of jungle natives.");
 // No inv space check, drops to floor if full
 
@@ -55,7 +55,7 @@ if(%legends_progress < ^legends_got_bullroarer) %legends_progress = ^legends_got
 
 [label,jungle_forester_start]
 ~chatnpc("<p,neutral>Hello friend. You're a long way from civilisation!");
-if (%legends_progress > ^legends_not_started) {
+if (%legendsquest > ^legends_not_started) {
     @multi3("How do I get into the Kharazi Jungle?", jungle_forester_how,
             "What do you do here?", jungle_forester_what,
             "Have you seen any natives in the jungle?", jungle_forester_natives);
@@ -104,7 +104,7 @@ else {
 ~chatplayer("<p,neutral>How do I get into the Kharazi Jungle?");
 ~chatnpc("<p,neutral>Well, I've not managed it yet but I heard that someone managed to find a way in. But they only just managed to escape the jungle with their lives.");
 ~chatnpc("<p,neutral>Apparently he was on a mission to map the area. How foolish is that?");
-if (%legends_progress > ^legends_not_started) {
+if (%legendsquest > ^legends_not_started) {
     @multi5("Well, in fact I plan to map that area myself.", jungle_forester_map,
             "Are you calling me foolish?", jungle_forester_foolish,
             "What do you do here?", jungle_forester_what,

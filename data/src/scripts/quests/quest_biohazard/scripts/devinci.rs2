@@ -9,7 +9,7 @@ if(testbit(%bioerrand, ^devinci_given) = ^true) {
     ~chatnpc("<p,neutral>Oh, it's you again.|Please don't distract me now, I'm contemplating the sublime.");
     return;
 }
-if(%biohazard_progress = ^biohazard_spoken_chemist) {
+if(%biohazard = ^biohazard_spoken_chemist) {
     ~chatplayer("<p,neutral>Hello, I hear you're an errand boy for the chemist.");
     ~chatnpc("<p,quiz>Well that's my job yes.|But I don't necessarily define my identity in such black and white terms.");
     ~chatplayer("<p,neutral>Good for you.|Now can you take a vial to Varrock for me?");

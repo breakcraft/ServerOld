@@ -9,10 +9,10 @@ p_teleport(0_41_46_6_53);
 mes("You walk back out of the darkness of the cave into daylight.");
 p_teleport(0_41_46_6_53);
 
-[oplocu,swamp_bubbles_a]
+[oplocu,swampbubbles]
 @use_bellows_on_swamp_bubbles;
 
-[oplocu,swamp_bubbles_b]
+[oplocu,swampbubbles_swamp]
 @use_bellows_on_swamp_bubbles;
 
 [label,use_bellows_on_swamp_bubbles]
@@ -41,7 +41,7 @@ inv_add(inv, filled_ogre_bellow3, 1);
 
 [queue,quest_chompybird_complete]
 // https://x.com/JagexAsh/status/1820722879937343844, 294 is probably cleared entirely after quest
-%chompybird_progress = ^chompybird_complete;
+%chompybird = ^chompybird_complete;
 %chompybird_kills = 0;
 stat_advance(fletching, 2620);
 stat_advance(cooking, 14700);

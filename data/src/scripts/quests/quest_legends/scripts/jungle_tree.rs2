@@ -5,7 +5,7 @@
 
 // the success rates in here don't feel quite right, probably need tweaking
 [label,start_chop_jungle]
-if (inv_total(inv, thkaramjamap) = 0 & inv_total(inv, thkaramjamapcomp) = 0 & %legends_progress < ^legends_complete) {
+if (inv_total(inv, thkaramjamap) = 0 & inv_total(inv, thkaramjamapcomp) = 0 & %legendsquest < ^legends_complete) {
     ~mesbox("You'll get lost in this jungle without a map. You decide not to go any further.");
     return;
 }
@@ -167,9 +167,9 @@ if (%action_delay = map_clock) {
 p_oploc(3);
 
 [proc,jungle_at_dest](coord $dest)(boolean)
-if (.loc_find($dest, jungle_bush_1) = true | .loc_find($dest, jungle_bush_2) = true | 
-    .loc_find($dest, jungle_tree_1) = true | .loc_find($dest, jungle_tree_2) = true | 
-    .loc_find($dest, jungle_tree_3) = true) {
+if (.loc_find($dest, kharazi_jungle_plant1) = true | .loc_find($dest, kharazi_jungle_plant2) = true | 
+    .loc_find($dest, kharazi_jungle_tree_logs) = true | .loc_find($dest, kharazi_jungle_tree1) = true | 
+    .loc_find($dest, kharazi_jungle_tree2) = true) {
         return (true);
 }
 return (false);

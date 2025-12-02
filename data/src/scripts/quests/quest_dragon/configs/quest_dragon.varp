@@ -1,7 +1,7 @@
-[dragon_progress]
+[dragonquest]
 scope=perm
 
-[dragon_planks]
+[dragonquestvar]
 type=int
 scope=perm
 

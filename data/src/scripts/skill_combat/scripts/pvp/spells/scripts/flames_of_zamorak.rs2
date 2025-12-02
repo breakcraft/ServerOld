@@ -7,7 +7,7 @@ def_dbrow $spell_data = ~get_spell_data(^flames_of_zamorak);
 if (~pvp_combat_spell_checks($spell_data) = false) {
     return;
 }
-if (%flames_of_zamorak_casts < ^mage_arena_spell_finished & ~inzone_coord_pair_table(mage_arena, coord) = false) {
+if (%zamomage < ^mage_arena_spell_finished & ~inzone_coord_pair_table(mage_arena, coord) = false) {
     // https://youtu.be/TrxuRyogdEo?list=PLn23LiLYLb1Y4vxMPWXM-CVEvOUfuAP_o&t=60
     mes("You are not yet experienced enough to use this spell outside the");
     mes("Mage Arena.");
@@ -24,7 +24,7 @@ if (~pvp_hit_roll(^magic_style) = true) {
             .stat_drain(magic, 1, 5);
             .mes("You feel your magical powers weaken.");
         }
-        if (%charge_god_spell > 0) {
+        if (%magearena_charge > 0) {
             $maxhit = scale(3, 2, $maxhit);
         }
     }

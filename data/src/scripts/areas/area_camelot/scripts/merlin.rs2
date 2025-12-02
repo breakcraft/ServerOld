@@ -4,7 +4,7 @@
 npc_del;
 
 [opnpc1,merlin2]
-switch_int (%grail_progress) {
+switch_int (%grail) {
     case ^grail_complete :
         ~chatnpc("<p,happy>Congratulations, brave knight, on aiding Camelot in so many ways! If we ever require help again, I will make sure to call upon you!");
         ~chatplayer("<p,happy>Thanks!");
@@ -16,8 +16,8 @@ switch_int (%grail_progress) {
         ~chatnpc("<p,happy>Due to its nature the Holy Grail is likely to reside in a holy place.");
         ~chatplayer("<p,quiz>Any suggestions?");
         ~chatnpc("<p,quiz>I believe there is a holy island somewhere not far away... I'm not entirely sure... I spent too long inside that crystal! Anyway, go and talk to someone over there.");
-        if(%grail_progress = ^grail_started) {
-            %grail_progress = ^grail_spoken_merlin;
+        if(%grail = ^grail_started) {
+            %grail = ^grail_spoken_merlin;
         }
         ~chatnpc("<p,happy>I suppose you could also try speaking to Sir Galahad?");
         ~chatnpc("<p,happy>He returned from the quest many years after everyone else. He seems to know something about it, but he can only speak about those experiences cryptically.");

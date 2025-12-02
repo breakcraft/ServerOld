@@ -1,17 +1,17 @@
 [queue,duel_arena_prepare_start]
-if (.finduid(%duelpartner) = true) {
+if (.finduid(%duel2accept) = true) {
     def_coord $random_coord1 = ~duel_arena_coord;
     def_coord $random_coord2 = $random_coord1;
 
     if ($random_coord1 = null) {
         %duelstatus = ^duelstatus_reset;
-        %duelpartner = null;
+        %duel2accept = null;
         ~mesbox("All arenas of this type are full! Select another type of arena, try|again in a few minutes or try a different server."); // https://youtu.be/TcrIr9O92sw?t=89
         return;
     }
     p_telejump($random_coord1);
     def_int $i = 0;
-    if (testbit(%duel_settings, ^no_movement) = ^true & .p_finduid(.uid) = true) {
+    if (testbit(%dueloptions, ^no_movement) = ^true & .p_finduid(.uid) = true) {
         while (map_blocked($random_coord2) = true | $random_coord2 = $random_coord1 | lineofwalk($random_coord1, $random_coord2) = false & $i < 50){
             switch_int (random(4)) {
                 case 0 : $random_coord2 = movecoord($random_coord1, 1, 0, 0);
@@ -26,7 +26,7 @@ if (.finduid(%duelpartner) = true) {
 
     p_stopaction;
     // only deactive prayers if no prayers is selected. based off: https://imgur.com/ETH1z4L
-    if (testbit(%duel_settings, ^no_prayer) = ^true) {
+    if (testbit(%dueloptions, ^no_prayer) = ^true) {
         ~prayer_deactivate_all;
     }
     // Doesnt rest stats.
@@ -35,17 +35,17 @@ if (.finduid(%duelpartner) = true) {
     // - https://web.archive.org/web/20050930213502/http://runevillage.com:80/rs2specialDuelingarena.php
     //      - "No Potions: This means you can’t use Potions, if you used a Potion before the Duel its effects will be returned to normal."
     // - In 2006, if you had the "No drinks" option selected, the 2nd menu would show  "Boosted stats will be restored." https://imgur.com/ETH1z4L
-    if (testbit(%duel_settings, ^no_potions) = ^true) {
+    if (testbit(%dueloptions, ^no_potions) = ^true) {
         ~stat_reset_boosts;
     }
 
-    if (testbit(%duel_settings, ^no_weapons) = ^true) {
+    if (testbit(%dueloptions, ^no_weapons) = ^true) {
         ~unequip_duel(duel_arena_weapon_slots);
     }
-    if (testbit(%duel_settings, ^no_armour) = ^true) {
+    if (testbit(%dueloptions, ^no_armour) = ^true) {
         ~unequip_duel(duel_arena_armour_slots);
     }
-    if (testbit(%duel_settings, ^no_jewelry) = ^true) {
+    if (testbit(%dueloptions, ^no_jewelry) = ^true) {
         ~unequip_duel(duel_arena_jewelry_slots);
     }
 
@@ -76,7 +76,7 @@ world_delay(1);
 if (~in_duel_arena(coord) = false) {
     return;
 }
-if (.finduid(%duelpartner) = false) {
+if (.finduid(%duel2accept) = false) {
     queue(duel_arena_disconnect, 0);
     return;
 }
@@ -122,7 +122,7 @@ if (~in_duel_arena(coord) = false) {
     return;
 }
 %duelstatus = ^duelstatus_reset;
-%duelpartner = null;
+%duel2accept = null;
 ~moveallinv(dueloffer, inv);
 ~duel_reset_all;
 ~mesbox("Your duel ended in an honourable draw."); // RS3 message: https://archive.org/details/runelibris

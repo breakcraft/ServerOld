@@ -1,19 +1,19 @@
-[apnpc1,kelvin] 
+[apnpc1,fightslave_kelvin] 
 if (npc_range(coord) > 2) {
     p_aprange(2);
     return;
 }
-@joe_kelvin_dialogue(joe_fightslave);
+@joe_kelvin_dialogue(fightslave_joe);
 
-[apnpc1,joe_fightslave] 
+[apnpc1,fightslave_joe] 
 if (npc_range(coord) > 2) {
     p_aprange(2);
     return;
 }
-@joe_kelvin_dialogue(kelvin); 
+@joe_kelvin_dialogue(fightslave_kelvin); 
 
 [label,joe_kelvin_dialogue](npc $partner)
-switch_int(%arena_progress) {
+switch_int(%arenaquest) {
     case default :
         ~chatplayer("<p,quiz>Are you ok?");
         if(~wearing_khazard_armour = true) {
@@ -52,7 +52,7 @@ if (npc_range(coord) > 2) {
     p_aprange(2);
     return;
 }
-switch_int(%arena_progress) {
+switch_int(%arenaquest) {
     case default :
         if(~wearing_khazard_armour = true) {
             ~chatnpc("<p,sad>Please leave me alone.");

@@ -1,5 +1,5 @@
 [opnpc1,kent]
-if(%seaslug_progress ! ^seaslug_sailed_kent) {
+if(%seaslugquest ! ^seaslug_sailed_kent) {
     ~chatplayer("<p,happy>Hello.");
     ~chatnpc("<p,shock>Oh my, I must get back to shore.");
     return;
@@ -14,7 +14,7 @@ if(%seaslug_progress ! ^seaslug_sailed_kent) {
 ~chatnpc("<p,neutral>I told Kennith to hide until I returned but I was washed up here.");
 ~chatnpc("<p,neutral>Please go back and get my boy, you can send help for me later.");
 if_close;
-%seaslug_progress = ^seaslug_spoken_kent;
+%seaslugquest = ^seaslug_spoken_kent;
 p_delay(2);
 ~chatnpc("<p,shock>Traveller wait!");
 if_close;
